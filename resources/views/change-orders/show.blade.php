@@ -426,7 +426,7 @@
         <ul style="list-style: none; padding: 0;">
             @foreach($changeOrder->attachments as $attachment)
             <li style="margin-bottom: 10px;">
-                <a href="{{ Storage::url($attachment['path']) }}" target="_blank" style="color: #0071e3; text-decoration: none;">
+                <a href="{{ asset('storage/' . $attachment['path']) }}" target="_blank" style="color: #0071e3; text-decoration: none;">
                     <i data-lucide="file" style="width: 16px; height: 16px; vertical-align: middle;"></i>
                     {{ $attachment['name'] }}
                 </a>
