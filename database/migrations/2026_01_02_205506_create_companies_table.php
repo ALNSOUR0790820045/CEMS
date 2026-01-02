@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('companies', function (Blueprint $table) {
@@ -13,24 +16,23 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_en')->nullable();
             $table->string('slug')->unique();
-            $table->string('commercial_registration')->nullable();
-            $table->string('tax_number')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->string('city')->nullable();
-            $table->string('country')->default('JO');
+            $table->string('country', 2)->default('SA');
+            $table->string('commercial_registration')->nullable();
+            $table->string('tax_number')->nullable();
             $table->string('logo')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->date('established_date')->nullable();
-            $table->string('license_number')->nullable();
-            $table->date('license_expiry')->nullable();
-            $table->json('settings')->nullable();
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('companies');
