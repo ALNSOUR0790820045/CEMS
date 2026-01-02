@@ -21,5 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Units Management
+    Route::resource('units', \App\Http\Controllers\UnitController::class);
 });

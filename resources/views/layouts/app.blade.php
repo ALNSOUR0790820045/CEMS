@@ -270,7 +270,6 @@
                         <div class="menu-col">
                             <h4>الهيكل التنظيمي</h4>
                             <a href="/" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة التحكم</a>
-                            <a href="#" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
                             <a href="#" class="sub-link"><i data-lucide="map"></i> الفروع</a>
                         </div>
                         <div class="menu-col">
@@ -280,7 +279,9 @@
                             <a href="#" class="sub-link"><i data-lucide="shield-check"></i> الصلاحيات</a>
                         </div>
                         <div class="menu-col">
-                            <h4>البيانات</h4>
+                            <h4>البيانات الأساسية</h4>
+                            <a href="{{ route('units.index') }}" class="sub-link"><i data-lucide="ruler"></i> وحدات القياس</a>
+                            <a href="{{ route('companies.index') }}" class="sub-link"><i data-lucide="building-2"></i> الشركات</a>
                             <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
