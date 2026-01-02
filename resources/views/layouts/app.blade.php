@@ -324,9 +324,10 @@
                             <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
                         <div class="menu-col">
-                            <h4>الضمانات</h4>
+                            <h4>الإعدادات المالية</h4>
                             <a href="#" class="sub-link"><i data-lucide="landmark"></i> الكفالات</a>
                             <a href="#" class="sub-link"><i data-lucide="piggy-bank"></i> المحبوسات</a>
+                            <a href="{{ route('payment-terms.index') }}" class="sub-link"><i data-lucide="calendar-clock"></i> شروط الدفع</a>
                         </div>
                     </div>
                 </div>
