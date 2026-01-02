@@ -359,6 +359,7 @@
                             <h4>إدارة العطاءات</h4>
                             <a href="#" class="sub-link"><i data-lucide="megaphone"></i> العطاءات المتاحة</a>
                             <a href="#" class="sub-link"><i data-lucide="file-check"></i> عروض الأسعار</a>
+                            <a href="#" class="sub-link"><i data-lucide="folder-tree"></i> هيكل تقسيم العمل (WBS)</a>
                         </div>
                         <div class="menu-col">
                             <h4>التقييم</h4>
