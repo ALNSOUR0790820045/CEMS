@@ -61,7 +61,7 @@ return new class extends Migration
             $table->text('storekeeper_notes')->nullable();
             
             // 3. السائق/المورد
-            $table->string('driver_signature_name');
+            $table->string('driver_signature_name')->nullable();
             $table->text('driver_signature')->nullable();
             $table->timestamp('driver_signed_at')->nullable();
             

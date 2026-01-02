@@ -120,6 +120,8 @@ class SiteReceipt extends Model
         return !empty($this->invoice_document) 
             && !empty($this->delivery_note) 
             && !empty($this->packing_list) 
-            && !empty($this->quality_certificates);
+            && !empty($this->quality_certificates)
+            && is_array($this->quality_certificates)
+            && count($this->quality_certificates) > 0;
     }
 }
