@@ -93,7 +93,7 @@
     <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">{{ $tender->tender_name }}</h2>
     <p style="color: #86868b; margin-bottom: 30px;">{{ $tender->tender_number }}</p>
 
-    <form method="POST" action="#" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('tenders.site-visit.store', $tender) }}" enctype="multipart/form-data">
         @csrf
 
         <div class="form-grid">

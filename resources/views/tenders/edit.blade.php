@@ -190,7 +190,7 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">الرقم المرجعي (الحكومي)</label>
-                    <input type="text" name="reference_number" class="form-control" value="{{ old('reference_number') }}">
+                    <input type="text" name="reference_number" class="form-control" value="{{ old('reference_number', $tender->reference_number) }}">
                 </div>
 
                 <div class="form-group full-width">
@@ -221,7 +221,7 @@
 
                 <div class="form-group">
                     <label class="form-label required">الجهة المالكة</label>
-                    <input type="text" name="owner_name" class="form-control" value="{{ old('owner_name') }}" required>
+                    <input type="text" name="owner_name" class="form-control" value="{{ old('owner_name', $tender->owner_name) }}" required>
                     @error('owner_name')
                         <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
                     @enderror

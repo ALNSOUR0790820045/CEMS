@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/tenders/{tender}/decision', [\App\Http\Controllers\TenderController::class, 'decision'])->name('tenders.decision');
     Route::post('/tenders/{tender}/decision', [\App\Http\Controllers\TenderController::class, 'storeDecision'])->name('tenders.decision.store');
     Route::get('/tenders/{tender}/site-visit', [\App\Http\Controllers\TenderController::class, 'siteVisit'])->name('tenders.site-visit');
+    Route::post('/tenders/{tender}/site-visit', [\App\Http\Controllers\TenderController::class, 'storeSiteVisit'])->name('tenders.site-visit.store');
     Route::get('/tenders/{tender}/competitors', [\App\Http\Controllers\TenderController::class, 'competitors'])->name('tenders.competitors');
+    Route::post('/tenders/{tender}/competitors', [\App\Http\Controllers\TenderController::class, 'storeCompetitor'])->name('tenders.competitors.store');
     Route::resource('tenders', \App\Http\Controllers\TenderController::class);
 });

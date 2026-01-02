@@ -191,9 +191,53 @@ class TenderController extends Controller
         return view('tenders.site-visit', compact('tender'));
     }
 
+    public function storeSiteVisit(Request $request, Tender $tender)
+    {
+        $validated = $request->validate([
+            'visit_date' => 'required|date',
+            'visit_time' => 'nullable',
+            'attendees' => 'nullable|string',
+            'observations' => 'nullable|string',
+        ]);
+
+        // Convert attendees string to array
+        $attendees = [];
+        if ($request->filled('attendees')) {
+            $attendees = array_filter(array_map('trim', explode("\n", $request->attendees)));
+        }
+
+        $tender->siteVisits()->create([
+            'visit_date' => $validated['visit_date'],
+            'visit_time' => $validated['visit_time'],
+            'attendees' => $attendees,
+            'observations' => $validated['observations'],
+            'reported_by' => Auth::id(),
+        ]);
+
+        return redirect()->route('tenders.show', $tender)
+            ->with('success', 'تم تسجيل زيارة الموقع بنجاح');
+    }
+
     public function competitors(Tender $tender)
     {
         $tender->load('competitors');
         return view('tenders.competitors', compact('tender'));
+    }
+
+    public function storeCompetitor(Request $request, Tender $tender)
+    {
+        $validated = $request->validate([
+            'company_name' => 'required|string|max:255',
+            'classification' => 'required|in:strong,medium,weak',
+            'estimated_price' => 'nullable|numeric',
+            'strengths' => 'nullable|string',
+            'weaknesses' => 'nullable|string',
+            'notes' => 'nullable|string',
+        ]);
+
+        $tender->competitors()->create($validated);
+
+        return redirect()->route('tenders.competitors', $tender)
+            ->with('success', 'تم إضافة المنافس بنجاح');
     }
 }

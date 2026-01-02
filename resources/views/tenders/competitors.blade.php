@@ -176,7 +176,7 @@
         إضافة منافس جديد
     </h3>
 
-    <form method="POST" action="#">
+    <form method="POST" action="{{ route('tenders.competitors.store', $tender) }}">
         @csrf
 
         <div class="form-grid">
