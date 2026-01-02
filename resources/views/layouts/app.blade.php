@@ -315,6 +315,7 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>المحاسبة</h4>
+                            <a href="{{ route('accounts.index') }}" class="sub-link"><i data-lucide="book-open"></i> دليل الحسابات</a>
                             <a href="#" class="sub-link"><i data-lucide="calculator"></i> المحاسبة</a>
                             <a href="#" class="sub-link"><i data-lucide="receipt"></i> المستخلصات</a>
                         </div>
