@@ -21,5 +21,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Seed countries, cities, and currencies
+        $this->call([
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            TenderSeeder::class,
+        ]);
     }
 }
