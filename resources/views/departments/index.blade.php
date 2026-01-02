@@ -99,7 +99,7 @@
         </table>
         @else
         <div style="padding: 60px; text-align: center;">
-            <i data-lucide="building-2" style="width: 64px; height: 64px; color: #d2d2d7; margin-bottom: 20px;"></i>
+            <i data-lucide="git-branch" style="width: 64px; height: 64px; color: #d2d2d7; margin-bottom: 20px;"></i>
             <h3 style="color: #86868b; margin-bottom: 10px;">لا توجد أقسام</h3>
             <p style="color: #d2d2d7;">ابدأ بإضافة قسم جديد</p>
         </div>

@@ -61,4 +61,10 @@ class User extends Authenticatable
     {
         $this->update(['last_login_at' => now()]);
     }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

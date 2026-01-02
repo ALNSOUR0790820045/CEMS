@@ -37,7 +37,7 @@ class DepartmentController extends Controller
     public function create()
     {
         $branches = Branch::active()->get();
-        $users = User::where('is_active', true)->get();
+        $users = User::active()->get();
         return view('departments.create', compact('branches', 'users'));
     }
 
@@ -63,7 +63,7 @@ class DepartmentController extends Controller
     public function edit(Department $department)
     {
         $branches = Branch::active()->get();
-        $users = User::where('is_active', true)->get();
+        $users = User::active()->get();
         return view('departments.edit', compact('department', 'branches', 'users'));
     }
 
