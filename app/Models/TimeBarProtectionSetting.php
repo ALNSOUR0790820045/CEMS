@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -55,7 +56,7 @@ class TimeBarProtectionSetting extends Model
     /**
      * Scope to filter by entity type.
      */
-    public function scopeForEntity($query, string $entityType)
+    public function scopeForEntity(Builder $query, string $entityType): Builder
     {
         return $query->where('entity_type', $entityType)
                     ->where('is_active', true);
@@ -64,7 +65,7 @@ class TimeBarProtectionSetting extends Model
     /**
      * Scope to filter by company.
      */
-    public function scopeForCompany($query, int $companyId)
+    public function scopeForCompany(Builder $query, int $companyId): Builder
     {
         return $query->where('company_id', $companyId);
     }
