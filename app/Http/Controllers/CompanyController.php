@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
     public function index()
     {
         $companies = Company::latest()->get();
+
         return view('companies.index', compact('companies'));
     }
 
@@ -79,7 +80,7 @@ class CompanyController extends Controller
             if ($company->logo && Storage::disk('public')->exists($company->logo)) {
                 Storage::disk('public')->delete($company->logo);
             }
-            
+
             // Store new logo
             $logoPath = $request->file('logo')->store('companies', 'public');
             $validated['logo'] = $logoPath;
@@ -97,8 +98,9 @@ class CompanyController extends Controller
         if ($company->logo && Storage::disk('public')->exists($company->logo)) {
             Storage::disk('public')->delete($company->logo);
         }
-        
+
         $company->delete();
+
         return redirect()->route('companies.index')
             ->with('success', 'تم حذف الشركة بنجاح');
     }
