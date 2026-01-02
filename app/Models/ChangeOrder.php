@@ -101,14 +101,16 @@ class ChangeOrder extends Model
 
     /**
      * Calculate stamp duty based on total amount
-     * This is a simplified calculation - adjust based on actual legal requirements
+     * Uses configurable rates, minimum and maximum values
      */
     protected function calculateStampDuty(float $amount): float
     {
-        // Example calculation: 0.1% of total amount with minimum and maximum
-        $duty = abs($amount) * 0.001;
-        $min = 50; // Minimum duty
-        $max = 10000; // Maximum duty
+        $config = config('change_orders.stamp_duty');
+        $rate = $config['rate'] ?? 0.001;
+        $min = $config['minimum'] ?? 50;
+        $max = $config['maximum'] ?? 10000;
+        
+        $duty = abs($amount) * $rate;
         
         return min(max($duty, $min), $max);
     }

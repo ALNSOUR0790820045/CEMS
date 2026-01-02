@@ -326,9 +326,14 @@ class ChangeOrderController extends Controller
             return back()->with('error', 'تم إرسال أمر التغيير بالفعل');
         }
 
-        // Set PM user if not set (you might want to determine this differently)
+        // TODO: Assign PM user based on project configuration or user roles
+        // This is a placeholder implementation - replace with actual logic
+        // Examples:
+        // - Get PM from project: $changeOrder->pm_user_id = $changeOrder->project->pm_user_id;
+        // - Get PM from role: $changeOrder->pm_user_id = User::role('project-manager')->first()->id;
+        // - Get PM from assignment: $changeOrder->pm_user_id = ProjectAssignment::where('project_id', ...)->first()->user_id;
         if (!$changeOrder->pm_user_id) {
-            // This is a placeholder - you should assign the actual PM user
+            // Temporary fallback: use current user (should be replaced)
             $changeOrder->pm_user_id = Auth::id();
         }
 
@@ -355,15 +360,16 @@ class ChangeOrderController extends Controller
             ->groupBy('status')
             ->get();
 
-        // Monthly trend
-        $monthlyTrend = ChangeOrder::select(
-                DB::raw('DATE_FORMAT(issue_date, "%Y-%m") as month'),
-                DB::raw('count(*) as count'),
-                DB::raw('sum(total_amount) as total')
-            )
-            ->groupBy('month')
+        // Monthly trend - Database agnostic using Laravel's date functions
+        $monthlyTrend = ChangeOrder::selectRaw('extract(year from issue_date) as year, extract(month from issue_date) as month, count(*) as count, sum(total_amount) as total')
+            ->groupBy('year', 'month')
+            ->orderBy('year')
             ->orderBy('month')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                $item->month = sprintf('%04d-%02d', $item->year, $item->month);
+                return $item;
+            });
 
         return view('change-orders.report', compact('changeOrders', 'byType', 'byStatus', 'monthlyTrend'));
     }
