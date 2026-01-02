@@ -22,4 +22,7 @@ Route::middleware('auth')->group(function () {
     
     // Companies Management
     Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Countries Management
+    Route::resource('countries', \App\Http\Controllers\CountryController::class);
 });
