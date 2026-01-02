@@ -20,10 +20,11 @@ class Country extends Model
     ];
 
     // Relationships
-    public function cities()
-    {
-        return $this->hasMany(City::class);
-    }
+    // Note: City model will be implemented in future
+    // public function cities()
+    // {
+    //     return $this->hasMany(City::class);
+    // }
 
     // Scopes
     public function scopeActive($query)
