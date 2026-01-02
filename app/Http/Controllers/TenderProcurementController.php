@@ -47,7 +47,11 @@ class TenderProcurementController extends Controller
     public function create($tenderId)
     {
         $tender = Tender::findOrFail($tenderId);
-        $users = User::where('is_active', true)->get();
+        $users = User::where('is_active', true)
+            ->select('id', 'name', 'email')
+            ->orderBy('name')
+            ->limit(100)
+            ->get();
 
         return view('tender-procurement.create', compact('tender', 'users'));
     }
@@ -106,7 +110,11 @@ class TenderProcurementController extends Controller
     {
         $tender = Tender::findOrFail($tenderId);
         $package = TenderProcurementPackage::findOrFail($id);
-        $users = User::where('is_active', true)->get();
+        $users = User::where('is_active', true)
+            ->select('id', 'name', 'email')
+            ->orderBy('name')
+            ->limit(100)
+            ->get();
 
         return view('tender-procurement.edit', compact('tender', 'package', 'users'));
     }

@@ -258,7 +258,6 @@
                     <th>الالتزام الفني</th>
                     <th>النقاط</th>
                     <th>التوصية</th>
-                    <th>الإجراءات</th>
                 </tr>
             </thead>
             <tbody>
@@ -312,11 +311,6 @@
                             <span style="color: #86868b;">-</span>
                         @endif
                     </td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" onclick="editSupplier({{ $procSupplier->id }})">
-                            تعديل
-                        </button>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -368,10 +362,5 @@
 
 <script>
     lucide.createIcons();
-
-    function editSupplier(supplierId) {
-        // This would open a modal or redirect to edit page
-        alert('تعديل المورد رقم: ' + supplierId);
-    }
 </script>
 @endsection
