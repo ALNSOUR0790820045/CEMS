@@ -21,5 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Sales Quotations
+    Route::resource('sales-quotations', \App\Http\Controllers\SalesQuotationController::class);
+    Route::get('sales-quotations/{salesQuotation}/pdf', [\App\Http\Controllers\SalesQuotationController::class, 'pdf'])->name('sales-quotations.pdf');
 });
