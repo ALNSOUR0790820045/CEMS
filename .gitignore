@@ -12,3 +12,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+.env.backup
+database/*.sqlite
+storage/framework/views/*.php
