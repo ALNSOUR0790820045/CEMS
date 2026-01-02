@@ -6,6 +6,7 @@ use App\Models\Tender;
 use App\Models\TenderWbs;
 use App\Models\TenderBoqItem;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TenderWbsController extends Controller
 {
@@ -39,7 +40,7 @@ class TenderWbsController extends Controller
             'wbs_code' => [
                 'required',
                 'string',
-                \Illuminate\Validation\Rule::unique('tender_wbs', 'wbs_code')->where(function ($query) use ($tenderId) {
+                Rule::unique('tender_wbs', 'wbs_code')->where(function ($query) use ($tenderId) {
                     return $query->where('tender_id', $tenderId);
                 }),
             ],
@@ -96,7 +97,7 @@ class TenderWbsController extends Controller
             'wbs_code' => [
                 'required',
                 'string',
-                \Illuminate\Validation\Rule::unique('tender_wbs', 'wbs_code')->where(function ($query) use ($tenderId) {
+                Rule::unique('tender_wbs', 'wbs_code')->where(function ($query) use ($tenderId) {
                     return $query->where('tender_id', $tenderId);
                 })->ignore($id),
             ],

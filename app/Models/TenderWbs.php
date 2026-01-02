@@ -90,7 +90,10 @@ class TenderWbs extends Model
 
     public function calculateCostRollup()
     {
-        if ($this->is_summary && $this->children()->count() > 0) {
+        // Load children relationship to avoid multiple queries
+        $this->load('children');
+        
+        if ($this->is_summary && $this->children->count() > 0) {
             $totalCost = $this->children->sum(function ($child) {
                 return $child->calculateCostRollup();
             });
