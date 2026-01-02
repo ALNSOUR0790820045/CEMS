@@ -11,7 +11,10 @@ return new class extends Migration
         Schema::create('tender_risks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tender_id')->constrained()->cascadeOnDelete();
-            $table->string('risk_code')->unique(); // RISK-001
+            $table->string('risk_code'); // RISK-001
+            
+            // Make risk_code unique within the tender scope
+            $table->unique(['tender_id', 'risk_code']);
             
             // تصنيف المخاطر
             $table->enum('risk_category', [

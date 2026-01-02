@@ -420,7 +420,7 @@
 
                 <div class="form-group">
                     <label class="form-label">تكلفة الاستجابة (د.أ)</label>
-                    <input type="number" step="0.01" name="response_cost" class="form-input" value="0">
+                    <input type="number" step="0.01" name="response_cost" class="form-input" value="0" placeholder="اختياري - أدخل تكلفة الاستجابة إن وجدت">
                 </div>
 
                 <div class="form-group">

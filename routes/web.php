@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TenderRiskController;
 use App\Http\Controllers\TenderController;
+use App\Http\Controllers\CompanyController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -23,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', CompanyController::class);
     
     // Tender Management
     Route::resource('tenders', TenderController::class);

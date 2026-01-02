@@ -459,7 +459,7 @@
                 levelElement.textContent = '🟡 متوسط';
                 levelElement.className = 'score-level level-medium';
             } else {
-                levelElement.textContent = '�� منخفض';
+                levelElement.textContent = '🟢 منخفض';
                 levelElement.className = 'score-level level-low';
             }
         }

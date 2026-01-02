@@ -8,6 +8,7 @@ use App\Models\TenderContingencyReserve;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class TenderRiskController extends Controller
 {
@@ -67,20 +68,42 @@ class TenderRiskController extends Controller
         $users = User::all();
         
         // Generate next risk code
+        $riskCode = $this->generateNextRiskCode($tenderId);
+
+        return view('tender-risks.create', compact('tender', 'users', 'riskCode'));
+    }
+
+    /**
+     * Generate the next risk code for a tender
+     */
+    private function generateNextRiskCode($tenderId): string
+    {
         $lastRisk = TenderRisk::where('tender_id', $tenderId)
             ->orderBy('id', 'desc')
             ->first();
         
-        $nextNumber = $lastRisk ? (int)substr($lastRisk->risk_code, -3) + 1 : 1;
-        $riskCode = 'RISK-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-
-        return view('tender-risks.create', compact('tender', 'users', 'riskCode'));
+        if (!$lastRisk) {
+            return 'RISK-001';
+        }
+        
+        // Extract number from last risk code (e.g., RISK-001 -> 001)
+        preg_match('/(\d+)$/', $lastRisk->risk_code, $matches);
+        $lastNumber = isset($matches[1]) ? (int)$matches[1] : 0;
+        $nextNumber = $lastNumber + 1;
+        
+        return 'RISK-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 
     public function store($tenderId, Request $request)
     {
         $validated = $request->validate([
-            'risk_code' => 'required|unique:tender_risks,risk_code',
+            'risk_code' => [
+                'required',
+                'string',
+                Rule::unique('tender_risks')->where(function ($query) use ($tenderId) {
+                    return $query->where('tender_id', $tenderId);
+                }),
+            ],
             'risk_category' => 'required|in:technical,financial,contractual,schedule,resources,external,safety,quality,political,environmental,other',
             'risk_title' => 'required|string|max:255',
             'risk_description' => 'required|string',
@@ -120,7 +143,13 @@ class TenderRiskController extends Controller
         $risk = TenderRisk::where('tender_id', $tenderId)->findOrFail($id);
 
         $validated = $request->validate([
-            'risk_code' => 'required|unique:tender_risks,risk_code,' . $id,
+            'risk_code' => [
+                'required',
+                'string',
+                Rule::unique('tender_risks')->where(function ($query) use ($tenderId, $id) {
+                    return $query->where('tender_id', $tenderId)->where('id', '!=', $id);
+                }),
+            ],
             'risk_category' => 'required|in:technical,financial,contractual,schedule,resources,external,safety,quality,political,environmental,other',
             'risk_title' => 'required|string|max:255',
             'risk_description' => 'required|string',
