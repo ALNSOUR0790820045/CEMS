@@ -298,12 +298,14 @@
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
                         </div>
                         <div class="menu-col">
+                            <h4>متابعة التقدم (EVM)</h4>
+                            <a href="{{ route('progress.dashboard') }}" class="sub-link"><i data-lucide="trending-up"></i> لوحة EVM</a>
+                            <a href="{{ route('progress.timesheets.pending') }}" class="sub-link"><i data-lucide="clock"></i> أوراق العمل</a>
+                        </div>
+                        <div class="menu-col">
                             <h4>الجودة</h4>
                             <a href="#" class="sub-link"><i data-lucide="clipboard-check"></i> الاستلامات</a>
                             <a href="#" class="sub-link"><i data-lucide="shield-alert"></i> السلامة</a>
-                        </div>
-                        <div class="menu-col">
-                            <h4>المعدات</h4>
                             <a href="#" class="sub-link"><i data-lucide="truck"></i> الآليات</a>
                             <a href="#" class="sub-link"><i data-lucide="wrench"></i> الصيانة</a>
                         </div>
