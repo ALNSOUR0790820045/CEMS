@@ -22,4 +22,7 @@ Route::middleware('auth')->group(function () {
     
     // Companies Management
     Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Branches Management
+    Route::resource('branches', \App\Http\Controllers\BranchController::class);
 });
