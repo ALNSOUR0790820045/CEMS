@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\CircularDependencyException;
 
 class ActivityDependency extends Model
 {
@@ -36,12 +37,12 @@ class ActivityDependency extends Model
         static::creating(function ($dependency) {
             // Prevent self-dependency
             if ($dependency->predecessor_id === $dependency->successor_id) {
-                throw new \Exception('Activity cannot depend on itself');
+                throw new CircularDependencyException('Activity cannot depend on itself');
             }
 
             // Check for circular dependencies
             if (self::hasCircularDependency($dependency->predecessor_id, $dependency->successor_id)) {
-                throw new \Exception('Circular dependency detected');
+                throw new CircularDependencyException('Circular dependency detected between activities');
             }
         });
     }

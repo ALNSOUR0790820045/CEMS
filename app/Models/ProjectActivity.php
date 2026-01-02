@@ -114,8 +114,19 @@ class ProjectActivity extends Model
     {
         switch ($this->progress_method) {
             case 'duration':
-                if ($this->planned_duration_days > 0 && $this->actual_duration_days) {
-                    $this->progress_percent = min(100, ($this->actual_duration_days / $this->planned_duration_days) * 100);
+                // Calculate progress based on elapsed time vs planned duration
+                if ($this->planned_duration_days > 0 && $this->actual_start_date) {
+                    $today = Carbon::now();
+                    $endDate = $this->actual_end_date ?? $today;
+                    
+                    // If activity hasn't started yet
+                    if ($today->lt($this->planned_start_date)) {
+                        $this->progress_percent = 0;
+                        break;
+                    }
+                    
+                    $elapsedDays = Carbon::parse($this->actual_start_date)->diffInDays($endDate) + 1;
+                    $this->progress_percent = min(100, ($elapsedDays / $this->planned_duration_days) * 100);
                 }
                 break;
             case 'effort':

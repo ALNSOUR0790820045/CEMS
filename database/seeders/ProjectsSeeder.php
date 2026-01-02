@@ -38,7 +38,7 @@ class ProjectsSeeder extends Seeder
             $user = User::create([
                 'name' => 'أحمد محمد',
                 'email' => 'admin@gcc.com',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('password'), // WARNING: For development only! Change in production.
                 'company_id' => $company->id,
                 'is_active' => true,
             ]);
