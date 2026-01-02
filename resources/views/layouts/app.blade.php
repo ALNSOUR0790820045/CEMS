@@ -294,7 +294,9 @@
                         <div class="menu-col">
                             <h4>إدارة المشاريع</h4>
                             <a href="#" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع النشطة</a>
-                            <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المواقع</a>
+                            <a href="{{ route('activities.index') }}" class="sub-link"><i data-lucide="list-checks"></i> الأنشطة</a>
+                            <a href="{{ route('dependencies.index') }}" class="sub-link"><i data-lucide="git-branch"></i> التبعيات</a>
+                            <a href="{{ route('milestones.index') }}" class="sub-link"><i data-lucide="flag"></i> المعالم</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
                         </div>
                         <div class="menu-col">
