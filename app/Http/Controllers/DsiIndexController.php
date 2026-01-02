@@ -75,7 +75,7 @@ class DsiIndexController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:csv,xlsx,xls',
+            'file' => 'required|file|mimes:csv',
         ]);
         
         try {
@@ -135,29 +135,23 @@ class DsiIndexController extends Controller
         $extension = $file->getClientOriginalExtension();
         $data = [];
         
-        if ($extension === 'csv') {
-            $handle = fopen($file->getRealPath(), 'r');
-            $header = fgetcsv($handle); // Skip header
-            
-            while (($row = fgetcsv($handle)) !== false) {
-                if (count($row) >= 4) {
-                    $data[] = [
-                        'year' => (int) $row[0],
-                        'month' => (int) $row[1],
-                        'materials' => (float) $row[2],
-                        'labor' => (float) $row[3],
-                        'general' => isset($row[4]) ? (float) $row[4] : null,
-                        'source' => isset($row[5]) ? $row[5] : 'DOS Jordan',
-                    ];
-                }
+        $handle = fopen($file->getRealPath(), 'r');
+        $header = fgetcsv($handle); // Skip header
+        
+        while (($row = fgetcsv($handle)) !== false) {
+            if (count($row) >= 4) {
+                $data[] = [
+                    'year' => (int) $row[0],
+                    'month' => (int) $row[1],
+                    'materials' => (float) $row[2],
+                    'labor' => (float) $row[3],
+                    'general' => isset($row[4]) ? (float) $row[4] : null,
+                    'source' => isset($row[5]) ? $row[5] : 'DOS Jordan',
+                ];
             }
-            
-            fclose($handle);
-        } else {
-            // For Excel files, you would use a library like PhpSpreadsheet
-            // For simplicity, throwing an exception here
-            throw new \Exception('Excel import not yet implemented. Please use CSV format.');
         }
+        
+        fclose($handle);
         
         return $data;
     }

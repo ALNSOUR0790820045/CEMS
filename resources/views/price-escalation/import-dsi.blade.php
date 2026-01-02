@@ -172,7 +172,7 @@
 <div class="pe-container">
     <div class="page-header">
         <h1 class="page-title">استيراد مؤشرات DSI</h1>
-        <p class="page-subtitle">استيراد مؤشرات دائرة الإحصاءات العامة من ملف Excel أو CSV</p>
+        <p class="page-subtitle">استيراد مؤشرات دائرة الإحصاءات العامة من ملف CSV</p>
     </div>
     
     @if($errors->any())
@@ -194,8 +194,8 @@
             <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
                 <i data-lucide="upload-cloud" class="upload-icon"></i>
                 <h3 class="upload-title">اسحب الملف هنا أو انقر للاختيار</h3>
-                <p class="upload-subtitle">CSV, XLSX, XLS - حجم أقصى 10MB</p>
-                <input type="file" name="file" id="fileInput" class="file-input" accept=".csv,.xlsx,.xls" required>
+                <p class="upload-subtitle">CSV - حجم أقصى 10MB</p>
+                <input type="file" name="file" id="fileInput" class="file-input" accept=".csv" required>
                 <button type="button" class="btn-primary" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
                     اختيار ملف
                 </button>

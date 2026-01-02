@@ -21,12 +21,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', App\Http\Controllers\CompanyController::class);
     
     // Price Escalation Module
     Route::prefix('price-escalation')->name('price-escalation.')->group(function () {
         // Dashboard
-        Route::get('/dashboard', [\App\Http\Controllers\PriceEscalationController::class, 'dashboard'])
+        Route::get('/dashboard', [App\Http\Controllers\PriceEscalationController::class, 'dashboard'])
             ->name('dashboard');
         
         // Contracts
