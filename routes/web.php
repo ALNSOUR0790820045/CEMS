@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TenderRiskController;
+use App\Http\Controllers\TenderController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -23,6 +24,9 @@ Route::middleware('auth')->group(function () {
     
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Tender Management
+    Route::resource('tenders', TenderController::class);
     
     // Tender Risk Management
     Route::prefix('tenders/{tender}/risks')->name('tender-risks.')->group(function () {
