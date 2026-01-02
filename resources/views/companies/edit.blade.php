@@ -102,7 +102,7 @@
         <div style="margin-bottom: 20px;">
             <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">الشعار</label>
             @if($company->logo)
-                <img src="{{ $company->logo_url }}" alt="Company Logo" style="max-width: 150px; margin-bottom: 10px; border-radius: 8px; display: block;">
+                <img src="{{ $company->logo_url }}" alt="{{ $company->name }} logo" style="max-width: 150px; margin-bottom: 10px; border-radius: 8px; display: block;">
             @endif
             <input type="file" name="logo" accept="image/*" 
                 style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
