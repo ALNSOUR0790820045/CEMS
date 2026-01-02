@@ -1,0 +1,83 @@
+@extends('layouts.app')
+
+@section('content')
+<div style="padding: 40px;">
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <div>
+            <h1 style="font-size: 2rem; color: #1d1d1f; margin-bottom: 5px;">إدارة الشركات</h1>
+            <p style="color: #86868b;">عرض وإدارة جميع الشركات في النظام</p>
+        </div>
+        <a href="{{ route('companies.create') }}" style="background: linear-gradient(135deg, #0071e3 0%, #00c4cc 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+            إضافة شركة جديدة
+        </a>
+    </div>
+
+    <!-- Success Message -->
+    @if(session('success'))
+    <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    <!-- Companies Table -->
+    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        @if($companies->count() > 0)
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead style="background: #f5f5f7;">
+                <tr>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color:  #1d1d1f;">#</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">اسم الشركة</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color:  #1d1d1f;">البريد الإلكتروني</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الهاتف</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">المدينة</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الحالة</th>
+                    <th style="padding: 15px; text-align: center; font-weight: 600; color: #1d1d1f;">الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($companies as $company)
+                <tr style="border-bottom: 1px solid #f0f0f0;">
+                    <td style="padding: 15px;">{{ $loop->iteration }}</td>
+                    <td style="padding: 15px; font-weight: 600;">{{ $company->name }}</td>
+                    <td style="padding: 15px; color: #86868b;">{{ $company->email ??  '-' }}</td>
+                    <td style="padding: 15px; color: #86868b;">{{ $company->phone ?? '-' }}</td>
+                    <td style="padding: 15px; color: #86868b;">{{ $company->city ?? '-' }}</td>
+                    <td style="padding: 15px;">
+                        @if($company->is_active)
+                        <span style="background: #d4edda; color: #155724; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 500;">نشط</span>
+                        @else
+                        <span style="background: #f8d7da; color: #721c24; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 500;">غير نشط</span>
+                        @endif
+                    </td>
+                    <td style="padding: 15px; text-align: center;">
+                        <div style="display: inline-flex; gap: 8px;">
+                            <a href="{{ route('companies.edit', $company) }}" style="background: #0071e3; color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem;">تعديل</a>
+                            <form method="POST" action="{{ route('companies.destroy', $company) }}" style="display: inline;" onsubmit="return confirm('هل أنت متأكد من حذف هذه الشركة؟');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: #ff3b30; color: white; padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.85rem; font-family: 'Cairo', sans-serif;">حذف</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        <div style="padding: 60px; text-align: center;">
+            <i data-lucide="building-2" style="width: 64px; height: 64px; color: #d2d2d7; margin-bottom: 20px;"></i>
+            <h3 style="color: #86868b; margin-bottom: 10px;">لا توجد شركات</h3>
+            <p style="color: #d2d2d7;">ابدأ بإضافة شركة جديدة</p>
+        </div>
+        @endif
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    lucide.createIcons();
+</script>
+@endpush
+@endsection
