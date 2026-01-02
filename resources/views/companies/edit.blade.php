@@ -25,7 +25,7 @@
         
         <div style="margin-bottom: 20px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600; font-family: 'Cairo', sans-serif;">اسم الشركة (English)</label>
-            <input type="text" name="name_en" value="{{ old('name_en', $company->name_en) }}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+            <input type="text" name="name_en" value="{{ old('name_en', $company->name_en) }}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Cairo', sans-serif; font-size: 16px;">
         </div>
         
         <div style="margin-bottom: 20px;">
