@@ -357,17 +357,20 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>إدارة العطاءات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="megaphone"></i> العطاءات المتاحة</a>
-                            <a href="#" class="sub-link"><i data-lucide="file-check"></i> عروض الأسعار</a>
+                            <a href="{{ route('tenders.dashboard') }}" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة العطاءات</a>
+                            <a href="{{ route('tenders.index') }}" class="sub-link"><i data-lucide="megaphone"></i> جميع العطاءات</a>
+                            <a href="{{ route('tenders.create') }}" class="sub-link"><i data-lucide="plus-circle"></i> إضافة عطاء جديد</a>
                         </div>
                         <div class="menu-col">
-                            <h4>التقييم</h4>
-                            <a href="#" class="sub-link"><i data-lucide="list-checks"></i> التقييم</a>
-                            <a href="#" class="sub-link"><i data-lucide="trophy"></i> الترسية</a>
+                            <h4>التقييم والمتابعة</h4>
+                            <a href="{{ route('tenders.index', ['status' => 'announced']) }}" class="sub-link"><i data-lucide="bell"></i> العطاءات المعلنة</a>
+                            <a href="{{ route('tenders.index', ['status' => 'preparing']) }}" class="sub-link"><i data-lucide="file-edit"></i> قيد التحضير</a>
+                            <a href="{{ route('tenders.index', ['status' => 'submitted']) }}" class="sub-link"><i data-lucide="send"></i> المقدمة</a>
                         </div>
                         <div class="menu-col">
-                            <h4>المتابعة</h4>
-                            <a href="#" class="sub-link"><i data-lucide="eye"></i> المتابعة</a>
+                            <h4>النتائج</h4>
+                            <a href="{{ route('tenders.index', ['status' => 'awarded']) }}" class="sub-link"><i data-lucide="trophy"></i> الفائزة</a>
+                            <a href="{{ route('tenders.index', ['status' => 'lost']) }}" class="sub-link"><i data-lucide="x-circle"></i> الخاسرة</a>
                         </div>
                     </div>
                 </div>
