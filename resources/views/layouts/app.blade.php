@@ -336,7 +336,7 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>المشتريات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="shopping-cart"></i> المشتريات</a>
+                            <a href="{{ route('purchase-orders.index') }}" class="sub-link"><i data-lucide="shopping-cart"></i> أوامر الشراء</a>
                             <a href="#" class="sub-link"><i data-lucide="package"></i> المستودعات</a>
                         </div>
                         <div class="menu-col">
