@@ -18,7 +18,7 @@
                     <select name="project_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر المشروع</option>
                         @foreach($projects as $project)
-                        <option value="{{ $project->id }}" {{ old('activity.project_id', $activity->project_id) == $project->id ? 'selected' : '' }}>{{ $project->project_code }} - {{ $project->name }}</option>
+                        <option value="{{ $project->id }}" {{ old('project_id', $activity->project_id) == $project->id ? 'selected' : '' }}>{{ $project->project_code }} - {{ $project->name }}</option>
                         @endforeach
                     </select>
                     @error('project_id')
@@ -110,19 +110,19 @@
                 <div>
                     <label style="display: block; margin-bottom: 5px; font-weight: 600;">طريقة حساب التقدم *</label>
                     <select name="progress_method" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
-                        <option value="manual" {{ old('activity.progress_method') == 'manual' ? 'selected' : '' }}>يدوي</option>
-                        <option value="duration" {{ old('activity.progress_method') == 'duration' ? 'selected' : '' }}>بناء على المدة</option>
-                        <option value="effort" {{ old('activity.progress_method') == 'effort' ? 'selected' : '' }}>بناء على الجهد</option>
-                        <option value="units" {{ old('activity.progress_method') == 'units' ? 'selected' : '' }}>بناء على الوحدات</option>
+                        <option value="manual" {{ old('progress_method', $activity->progress_method) == 'manual' ? 'selected' : '' }}>يدوي</option>
+                        <option value="duration" {{ old('progress_method', $activity->progress_method) == 'duration' ? 'selected' : '' }}>بناء على المدة</option>
+                        <option value="effort" {{ old('progress_method', $activity->progress_method) == 'effort' ? 'selected' : '' }}>بناء على الجهد</option>
+                        <option value="units" {{ old('progress_method', $activity->progress_method) == 'units' ? 'selected' : '' }}>بناء على الوحدات</option>
                     </select>
                 </div>
 
                 <div>
                     <label style="display: block; margin-bottom: 5px; font-weight: 600;">نوع النشاط *</label>
                     <select name="type" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
-                        <option value="task" {{ old('activity.type') == 'task' ? 'selected' : '' }}>مهمة</option>
-                        <option value="milestone" {{ old('activity.type') == 'milestone' ? 'selected' : '' }}>معلم</option>
-                        <option value="summary" {{ old('activity.type') == 'summary' ? 'selected' : '' }}>ملخص</option>
+                        <option value="task" {{ old('type', $activity->type) == 'task' ? 'selected' : '' }}>مهمة</option>
+                        <option value="milestone" {{ old('type', $activity->type) == 'milestone' ? 'selected' : '' }}>معلم</option>
+                        <option value="summary" {{ old('type', $activity->type) == 'summary' ? 'selected' : '' }}>ملخص</option>
                     </select>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                     <select name="responsible_id" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر المسؤول</option>
                         @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ old('activity.responsible_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                        <option value="{{ $user->id }}" {{ old('responsible_id', $activity->responsible_id) == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -146,21 +146,21 @@
                 <div>
                     <label style="display: block; margin-bottom: 5px; font-weight: 600;">الحالة *</label>
                     <select name="status" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
-                        <option value="not_started" {{ old('activity.status') == 'not_started' ? 'selected' : '' }}>لم يبدأ</option>
-                        <option value="in_progress" {{ old('activity.status') == 'in_progress' ? 'selected' : '' }}>قيد التنفيذ</option>
-                        <option value="completed" {{ old('activity.status') == 'completed' ? 'selected' : '' }}>مكتمل</option>
-                        <option value="on_hold" {{ old('activity.status') == 'on_hold' ? 'selected' : '' }}>معلق</option>
-                        <option value="cancelled" {{ old('activity.status') == 'cancelled' ? 'selected' : '' }}>ملغي</option>
+                        <option value="not_started" {{ old('status', $activity->status) == 'not_started' ? 'selected' : '' }}>لم يبدأ</option>
+                        <option value="in_progress" {{ old('status', $activity->status) == 'in_progress' ? 'selected' : '' }}>قيد التنفيذ</option>
+                        <option value="completed" {{ old('status', $activity->status) == 'completed' ? 'selected' : '' }}>مكتمل</option>
+                        <option value="on_hold" {{ old('status', $activity->status) == 'on_hold' ? 'selected' : '' }}>معلق</option>
+                        <option value="cancelled" {{ old('status', $activity->status) == 'cancelled' ? 'selected' : '' }}>ملغي</option>
                     </select>
                 </div>
 
                 <div>
                     <label style="display: block; margin-bottom: 5px; font-weight: 600;">الأولوية *</label>
                     <select name="priority" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
-                        <option value="low" {{ old('activity.priority') == 'low' ? 'selected' : '' }}>منخفضة</option>
-                        <option value="medium" {{ old('activity.priority', 'medium') == 'medium' ? 'selected' : '' }}>متوسطة</option>
-                        <option value="high" {{ old('activity.priority') == 'high' ? 'selected' : '' }}>عالية</option>
-                        <option value="critical" {{ old('activity.priority') == 'critical' ? 'selected' : '' }}>حرجة</option>
+                        <option value="low" {{ old('priority', $activity->priority) == 'low' ? 'selected' : '' }}>منخفضة</option>
+                        <option value="medium" {{ old('priority', $activity->priority) == 'medium' ? 'selected' : '' }}>متوسطة</option>
+                        <option value="high" {{ old('priority', $activity->priority) == 'high' ? 'selected' : '' }}>عالية</option>
+                        <option value="critical" {{ old('priority', $activity->priority) == 'critical' ? 'selected' : '' }}>حرجة</option>
                     </select>
                 </div>
             </div>
