@@ -296,16 +296,19 @@
                             <a href="#" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع النشطة</a>
                             <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المواقع</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
+                            <a href="{{ route('daily-reports.index') }}" class="sub-link"><i data-lucide="file-text"></i> التقارير اليومية</a>
                         </div>
                         <div class="menu-col">
                             <h4>الجودة</h4>
                             <a href="#" class="sub-link"><i data-lucide="clipboard-check"></i> الاستلامات</a>
                             <a href="#" class="sub-link"><i data-lucide="shield-alert"></i> السلامة</a>
+                            <a href="{{ route('daily-reports.weather') }}" class="sub-link"><i data-lucide="cloud-rain"></i> سجل الطقس</a>
                         </div>
                         <div class="menu-col">
                             <h4>المعدات</h4>
                             <a href="#" class="sub-link"><i data-lucide="truck"></i> الآليات</a>
                             <a href="#" class="sub-link"><i data-lucide="wrench"></i> الصيانة</a>
+                            <a href="{{ route('daily-reports.photos') }}" class="sub-link"><i data-lucide="camera"></i> معرض الصور</a>
                         </div>
                     </div>
                 </div>
