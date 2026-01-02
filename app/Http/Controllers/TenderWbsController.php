@@ -36,7 +36,13 @@ class TenderWbsController extends Controller
             'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:tender_wbs,id',
-            'wbs_code' => 'required|string|unique:tender_wbs,wbs_code',
+            'wbs_code' => [
+                'required',
+                'string',
+                \Illuminate\Validation\Rule::unique('tender_wbs', 'wbs_code')->where(function ($query) use ($tenderId) {
+                    return $query->where('tender_id', $tenderId);
+                }),
+            ],
             'level' => 'required|integer|min:1|max:5',
             'estimated_cost' => 'nullable|numeric|min:0',
             'materials_cost' => 'nullable|numeric|min:0',
@@ -87,7 +93,13 @@ class TenderWbsController extends Controller
             'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:tender_wbs,id',
-            'wbs_code' => 'required|string|unique:tender_wbs,wbs_code,' . $id,
+            'wbs_code' => [
+                'required',
+                'string',
+                \Illuminate\Validation\Rule::unique('tender_wbs', 'wbs_code')->where(function ($query) use ($tenderId) {
+                    return $query->where('tender_id', $tenderId);
+                })->ignore($id),
+            ],
             'level' => 'required|integer|min:1|max:5',
             'estimated_cost' => 'nullable|numeric|min:0',
             'materials_cost' => 'nullable|numeric|min:0',

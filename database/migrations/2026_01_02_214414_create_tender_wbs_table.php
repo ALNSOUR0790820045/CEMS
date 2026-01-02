@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tender_wbs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tender_id')->constrained()->cascadeOnDelete();
-            $table->string('wbs_code')->unique(); // 1.1.1.1.1
+            $table->string('wbs_code'); // 1.1.1.1.1
             $table->string('name');
             $table->string('name_en')->nullable();
             $table->text('description')->nullable();
@@ -42,6 +42,9 @@ return new class extends Migration
             $table->boolean('is_summary')->default(false); // عنصر تجميعي
             
             $table->timestamps();
+            
+            // Composite unique constraint for wbs_code per tender
+            $table->unique(['tender_id', 'wbs_code']);
         });
     }
 
