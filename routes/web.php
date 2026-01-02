@@ -14,12 +14,15 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-});
-// Authenticated Routes
-Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Tenders Management
+    Route::get('/tenders/dashboard', [\App\Http\Controllers\TenderController::class, 'dashboard'])->name('tenders.dashboard');
+    Route::get('/tenders/{tender}/decision', [\App\Http\Controllers\TenderController::class, 'decision'])->name('tenders.decision');
+    Route::post('/tenders/{tender}/decision', [\App\Http\Controllers\TenderController::class, 'storeDecision'])->name('tenders.decision.store');
+    Route::get('/tenders/{tender}/site-visit', [\App\Http\Controllers\TenderController::class, 'siteVisit'])->name('tenders.site-visit');
+    Route::get('/tenders/{tender}/competitors', [\App\Http\Controllers\TenderController::class, 'competitors'])->name('tenders.competitors');
+    Route::resource('tenders', \App\Http\Controllers\TenderController::class);
 });
