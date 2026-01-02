@@ -28,6 +28,12 @@ class Company extends Model
         'is_active' => 'boolean',
     ];
 
+    // Accessors
+    public function getLogoUrlAttribute()
+    {
+        return $this->logo ? asset('storage/' . $this->logo) : asset('images/default-company.png');
+    }
+
     // Relationships
     public function users()
     {

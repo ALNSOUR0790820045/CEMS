@@ -29,6 +29,7 @@
                 <tr>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color:  #1d1d1f;">#</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">اسم الشركة</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الشعار</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color:  #1d1d1f;">البريد الإلكتروني</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الهاتف</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">المدينة</th>
@@ -41,6 +42,7 @@
                 <tr style="border-bottom: 1px solid #f0f0f0;">
                     <td style="padding: 15px;">{{ $loop->iteration }}</td>
                     <td style="padding: 15px; font-weight: 600;">{{ $company->name }}</td>
+                    <td style="padding: 15px;"><img src="{{ $company->logo_url }}" alt="Logo" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;"></td>
                     <td style="padding: 15px; color: #86868b;">{{ $company->email ??  '-' }}</td>
                     <td style="padding: 15px; color: #86868b;">{{ $company->phone ?? '-' }}</td>
                     <td style="padding: 15px; color: #86868b;">{{ $company->city ?? '-' }}</td>
