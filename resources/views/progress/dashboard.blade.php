@@ -180,7 +180,9 @@
 </div>
 
 @if($selectedProject && $dashboardData && $dashboardData['snapshot'])
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" 
+        integrity="sha384-FhvOKqP1KVBd2/+KvKJrNZFXrR+QQyBfJwP7wTp+0H3bKhIJQzCr7HHRqJwGN5tU" 
+        crossorigin="anonymous"></script>
 <script>
 const trendData = @json($dashboardData['trend_data']);
 

@@ -123,9 +123,20 @@ class EVMCalculationService
     }
 
     /**
+     * Color thresholds for performance indicators
+     */
+    const GOOD_PERFORMANCE_THRESHOLD = 0.95;
+    const WARNING_PERFORMANCE_THRESHOLD = 0.85;
+    
+    /**
+     * Default number of months for trend analysis
+     */
+    const DEFAULT_TREND_MONTHS = 6;
+
+    /**
      * Get trend data for charts (last N snapshots)
      */
-    public function getTrendData(Project $project, int $months = 6): array
+    public function getTrendData(Project $project, int $months = self::DEFAULT_TREND_MONTHS): array
     {
         $snapshots = $project->progressSnapshots()
             ->where('snapshot_date', '>=', now()->subMonths($months))
@@ -163,9 +174,9 @@ class EVMCalculationService
 
     private function getHealthColor(float $spi, float $cpi): string
     {
-        if ($spi >= 0.95 && $cpi >= 0.95) {
+        if ($spi >= self::GOOD_PERFORMANCE_THRESHOLD && $cpi >= self::GOOD_PERFORMANCE_THRESHOLD) {
             return 'green';
-        } elseif ($spi >= 0.85 && $cpi >= 0.85) {
+        } elseif ($spi >= self::WARNING_PERFORMANCE_THRESHOLD && $cpi >= self::WARNING_PERFORMANCE_THRESHOLD) {
             return 'yellow';
         }
         return 'red';
@@ -173,15 +184,15 @@ class EVMCalculationService
 
     private function getPerformanceColor(float $index): string
     {
-        if ($index >= 0.95) return 'green';
-        if ($index >= 0.85) return 'yellow';
+        if ($index >= self::GOOD_PERFORMANCE_THRESHOLD) return 'green';
+        if ($index >= self::WARNING_PERFORMANCE_THRESHOLD) return 'yellow';
         return 'red';
     }
 
     private function getStatusText(float $index): string
     {
-        if ($index >= 0.95) return 'Good';
-        if ($index >= 0.85) return 'Warning';
+        if ($index >= self::GOOD_PERFORMANCE_THRESHOLD) return 'Good';
+        if ($index >= self::WARNING_PERFORMANCE_THRESHOLD) return 'Warning';
         return 'Critical';
     }
 
