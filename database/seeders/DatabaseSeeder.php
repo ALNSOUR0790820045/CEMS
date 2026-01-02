@@ -15,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed countries first
+        $this->call([
+            CountrySeeder::class,
+            CitySeeder::class,
+        ]);
+        
         // User::factory(10)->create();
 
         User::factory()->create([

@@ -281,6 +281,7 @@
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>
+                            <a href="{{ route('cities.index') }}" class="sub-link"><i data-lucide="map-pin"></i> المدن</a>
                             <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
