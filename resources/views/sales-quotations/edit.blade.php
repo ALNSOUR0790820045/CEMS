@@ -236,7 +236,7 @@
                         <select name="customer_id" required>
                             <option value="">اختر العميل</option>
                             @foreach($customers as $customer)
-                                <option value="{{ $customer->id }}" {{ (isset($salesQuotation) && $salesQuotation->customer_id == $customer->id) ? 'selected' : '' }}>
+                                <option value="{{ $customer->id }}" {{ (old('customer_id', isset($salesQuotation) ? $salesQuotation->customer_id : '') == $customer->id) ? 'selected' : '' }}>
                                     {{ $customer->name }}
                                 </option>
                             @endforeach
@@ -247,22 +247,22 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>تاريخ العرض *</label>
-                        <input type="date" name="quotation_date" value="{{ isset($salesQuotation) ? $salesQuotation->quotation_date->format('Y-m-d') : date('Y-m-d') }}" required>
+                        <input type="date" name="quotation_date" value="{{ old('quotation_date', isset($salesQuotation) ? $salesQuotation->quotation_date->format('Y-m-d') : date('Y-m-d')) }}" required>
                     </div>
 
                     <div class="form-group">
                         <label>صالح حتى *</label>
-                        <input type="date" name="valid_until" value="{{ isset($salesQuotation) ? $salesQuotation->valid_until->format('Y-m-d') : date('Y-m-d', strtotime('+30 days')) }}" required>
+                        <input type="date" name="valid_until" value="{{ old('valid_until', isset($salesQuotation) ? $salesQuotation->valid_until->format('Y-m-d') : date('Y-m-d', strtotime('+30 days'))) }}" required>
                     </div>
 
                     <div class="form-group">
                         <label>الحالة *</label>
                         <select name="status" required>
-                            <option value="draft" {{ (isset($salesQuotation) && $salesQuotation->status == 'draft') ? 'selected' : '' }}>مسودة</option>
-                            <option value="sent" {{ (isset($salesQuotation) && $salesQuotation->status == 'sent') ? 'selected' : '' }}>مرسل</option>
-                            <option value="accepted" {{ (isset($salesQuotation) && $salesQuotation->status == 'accepted') ? 'selected' : '' }}>مقبول</option>
-                            <option value="rejected" {{ (isset($salesQuotation) && $salesQuotation->status == 'rejected') ? 'selected' : '' }}>مرفوض</option>
-                            <option value="expired" {{ (isset($salesQuotation) && $salesQuotation->status == 'expired') ? 'selected' : '' }}>منتهي</option>
+                            <option value="draft" {{ old('status', isset($salesQuotation) ? $salesQuotation->status : 'draft') == 'draft' ? 'selected' : '' }}>مسودة</option>
+                            <option value="sent" {{ old('status', isset($salesQuotation) ? $salesQuotation->status : '') == 'sent' ? 'selected' : '' }}>مرسل</option>
+                            <option value="accepted" {{ old('status', isset($salesQuotation) ? $salesQuotation->status : '') == 'accepted' ? 'selected' : '' }}>مقبول</option>
+                            <option value="rejected" {{ old('status', isset($salesQuotation) ? $salesQuotation->status : '') == 'rejected' ? 'selected' : '' }}>مرفوض</option>
+                            <option value="expired" {{ old('status', isset($salesQuotation) ? $salesQuotation->status : '') == 'expired' ? 'selected' : '' }}>منتهي</option>
                         </select>
                     </div>
                 </div>
@@ -270,12 +270,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>الشروط والأحكام</label>
-                        <textarea name="terms_conditions">{{ $salesQuotation->terms_conditions ?? '' }}</textarea>
+                        <textarea name="terms_conditions">{{ old('terms_conditions', isset($salesQuotation) ? $salesQuotation->terms_conditions : '') }}</textarea>
                     </div>
 
                     <div class="form-group">
                         <label>ملاحظات</label>
-                        <textarea name="notes">{{ $salesQuotation->notes ?? '' }}</textarea>
+                        <textarea name="notes">{{ old('notes', isset($salesQuotation) ? $salesQuotation->notes : '') }}</textarea>
                     </div>
                 </div>
             </div>
