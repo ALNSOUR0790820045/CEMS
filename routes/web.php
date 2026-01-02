@@ -22,4 +22,7 @@ Route::middleware('auth')->group(function () {
     
     // Companies Management
     Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Currencies Management
+    Route::resource('currencies', \App\Http\Controllers\CurrencyController::class);
 });
