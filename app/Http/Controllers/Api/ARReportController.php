@@ -75,13 +75,17 @@ class ARReportController extends Controller
             $query->where('client_id', $clientId);
         }
 
-        $balances = $query->with('client')->get();
+        $balances = $query->get();
+        
+        // Load clients separately
+        $clientIds = $balances->pluck('client_id')->toArray();
+        $clients = \App\Models\Client::whereIn('id', $clientIds)->get()->keyBy('id');
 
         return response()->json([
-            'data' => $balances->map(function ($balance) {
+            'data' => $balances->map(function ($balance) use ($clients) {
                 return [
                     'client_id' => $balance->client_id,
-                    'client_name' => $balance->client->name,
+                    'client_name' => $clients[$balance->client_id]->name ?? 'Unknown',
                     'total_invoiced' => $balance->total_invoiced,
                     'total_received' => $balance->total_received,
                     'total_balance' => $balance->total_balance,

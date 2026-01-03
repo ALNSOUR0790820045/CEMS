@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('check_number')->nullable();
             $table->string('reference_number')->nullable();
             $table->enum('status', ['pending', 'cleared', 'bounced', 'cancelled'])->default('pending');
-            $table->foreignId('gl_journal_entry_id')->nullable()->constrained('g_l_accounts')->nullOnDelete();
+            $table->unsignedBigInteger('gl_journal_entry_id')->nullable();
             $table->text('notes')->nullable();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
             $table->foreignId('created_by_id')->constrained('users')->cascadeOnDelete();

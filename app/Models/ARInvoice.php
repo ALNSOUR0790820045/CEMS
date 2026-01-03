@@ -73,13 +73,15 @@ class ARInvoice extends Model
             // Recalculate balance
             $invoice->balance = $invoice->total_amount - $invoice->received_amount;
             
-            // Update status based on payment
-            if ($invoice->received_amount >= $invoice->total_amount) {
-                $invoice->status = 'paid';
-            } elseif ($invoice->received_amount > 0) {
-                $invoice->status = 'partially_paid';
-            } elseif ($invoice->due_date < now() && $invoice->status !== 'paid') {
-                $invoice->status = 'overdue';
+            // Update status based on payment (but don't change cancelled invoices)
+            if ($invoice->status !== 'cancelled') {
+                if ($invoice->received_amount >= $invoice->total_amount) {
+                    $invoice->status = 'paid';
+                } elseif ($invoice->received_amount > 0) {
+                    $invoice->status = 'partially_paid';
+                } elseif ($invoice->due_date < now() && $invoice->status !== 'paid') {
+                    $invoice->status = 'overdue';
+                }
             }
         });
     }
