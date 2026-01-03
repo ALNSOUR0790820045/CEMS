@@ -19,7 +19,6 @@ use App\Http\Controllers\Api\SubcontractorEvaluationController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    
     // Subcontractors
     Route::apiResource('subcontractors', SubcontractorController::class);
     Route::post('subcontractors/{id}/approve', [SubcontractorController::class, 'approve']);
