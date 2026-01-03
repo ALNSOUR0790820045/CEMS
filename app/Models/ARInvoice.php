@@ -79,7 +79,7 @@ class ARInvoice extends Model
                     $invoice->status = 'paid';
                 } elseif ($invoice->received_amount > 0) {
                     $invoice->status = 'partially_paid';
-                } elseif ($invoice->due_date < now() && $invoice->status !== 'paid') {
+                } elseif ($invoice->due_date < now()) {
                     $invoice->status = 'overdue';
                 }
             }

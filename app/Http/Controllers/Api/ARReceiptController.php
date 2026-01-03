@@ -7,6 +7,7 @@ use App\Http\Requests\AllocateARReceiptRequest;
 use App\Http\Requests\StoreARReceiptRequest;
 use App\Http\Requests\UpdateARReceiptRequest;
 use App\Http\Resources\ARReceiptResource;
+use App\Models\ARInvoice;
 use App\Models\ARReceipt;
 use App\Models\ARReceiptAllocation;
 use Illuminate\Http\Request;
@@ -122,7 +123,7 @@ class ARReceiptController extends Controller
                 ]);
                 
                 // Update invoice received_amount
-                $invoice = \App\Models\ARInvoice::findOrFail($allocation['a_r_invoice_id']);
+                $invoice = ARInvoice::findOrFail($allocation['a_r_invoice_id']);
                 $invoice->received_amount += $allocation['allocated_amount'];
                 $invoice->save();
             }

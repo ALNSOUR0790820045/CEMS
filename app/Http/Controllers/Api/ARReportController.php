@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ARInvoice;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -79,7 +80,7 @@ class ARReportController extends Controller
         
         // Load clients separately
         $clientIds = $balances->pluck('client_id')->toArray();
-        $clients = \App\Models\Client::whereIn('id', $clientIds)->get()->keyBy('id');
+        $clients = Client::whereIn('id', $clientIds)->get()->keyBy('id');
 
         return response()->json([
             'data' => $balances->map(function ($balance) use ($clients) {
