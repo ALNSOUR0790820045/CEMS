@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Employee;
 use App\Models\EmployeeDependent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeDependentController extends Controller
+class EmployeeDependentController extends BaseApiController
 {
     public function index(Employee $employee)
     {
@@ -26,7 +26,7 @@ class EmployeeDependentController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        $validated['company_id'] = Auth::user()->company_id;
+        $validated['company_id'] = $this->getCompanyId();
 
         $dependent = $employee->dependents()->create($validated);
 

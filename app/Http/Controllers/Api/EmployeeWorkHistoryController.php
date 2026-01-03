@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Employee;
 use App\Models\EmployeeWorkHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeWorkHistoryController extends Controller
+class EmployeeWorkHistoryController extends BaseApiController
 {
     public function index(Employee $employee)
     {
@@ -26,7 +26,7 @@ class EmployeeWorkHistoryController extends Controller
             'leaving_reason' => 'nullable|string',
         ]);
 
-        $validated['company_id'] = Auth::user()->company_id;
+        $validated['company_id'] = $this->getCompanyId();
 
         $workHistory = $employee->workHistory()->create($validated);
 

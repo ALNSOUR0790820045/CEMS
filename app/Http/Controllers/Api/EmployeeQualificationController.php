@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Employee;
 use App\Models\EmployeeQualification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeQualificationController extends Controller
+class EmployeeQualificationController extends BaseApiController
 {
     public function index(Employee $employee)
     {
@@ -28,7 +28,7 @@ class EmployeeQualificationController extends Controller
             'attachment' => 'nullable|file|max:5120',
         ]);
 
-        $validated['company_id'] = Auth::user()->company_id;
+        $validated['company_id'] = $this->getCompanyId();
 
         if ($request->hasFile('attachment')) {
             $validated['attachment_path'] = $request->file('attachment')

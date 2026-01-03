@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Employee;
 use App\Models\EmployeeDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class EmployeeDocumentController extends Controller
+class EmployeeDocumentController extends BaseApiController
 {
     public function index(Employee $employee)
     {
@@ -40,7 +40,7 @@ class EmployeeDocumentController extends Controller
             'expiry_date' => $validated['expiry_date'] ?? null,
             'notes' => $validated['notes'] ?? null,
             'uploaded_by_id' => Auth::id(),
-            'company_id' => Auth::user()->company_id,
+            'company_id' => $this->getCompanyId(),
         ]);
 
         return response()->json($document, 201);

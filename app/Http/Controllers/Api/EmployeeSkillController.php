@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Employee;
 use App\Models\EmployeeSkill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeSkillController extends Controller
+class EmployeeSkillController extends BaseApiController
 {
     public function index(Employee $employee)
     {
@@ -23,7 +23,7 @@ class EmployeeSkillController extends Controller
             'years_of_experience' => 'nullable|integer|min:0',
         ]);
 
-        $validated['company_id'] = Auth::user()->company_id;
+        $validated['company_id'] = $this->getCompanyId();
 
         $skill = $employee->skills()->create($validated);
 

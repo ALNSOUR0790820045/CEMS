@@ -16,12 +16,20 @@ use Illuminate\Support\Facades\Storage;
 class EmployeeController extends Controller
 {
     /**
+     * Get the current user's company ID.
+     */
+    private function getCompanyId()
+    {
+        return Auth::user()?->company_id ?? abort(403, 'User must be associated with a company');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $query = Employee::with(['department', 'position', 'country', 'city'])
-            ->where('company_id', Auth::user()->company_id);
+            ->where('company_id', $this->getCompanyId());
 
         // Apply filters
         if ($request->filled('department_id')) {
@@ -63,9 +71,9 @@ class EmployeeController extends Controller
 
         $employees = $query->latest()->paginate(15);
 
-        $departments = Department::where('company_id', Auth::user()->company_id)
+        $departments = Department::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
-        $positions = Position::where('company_id', Auth::user()->company_id)
+        $positions = Position::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
         $countries = Country::where('is_active', true)->get();
 
@@ -79,13 +87,13 @@ class EmployeeController extends Controller
     {
         $countries = Country::where('is_active', true)->get();
         $cities = City::where('is_active', true)->get();
-        $departments = Department::where('company_id', Auth::user()->company_id)
+        $departments = Department::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
-        $positions = Position::where('company_id', Auth::user()->company_id)
+        $positions = Position::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
         $currencies = Currency::where('is_active', true)->get();
         $banks = Bank::where('is_active', true)->get();
-        $supervisors = Employee::where('company_id', Auth::user()->company_id)
+        $supervisors = Employee::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
 
         $employeeCode = Employee::generateEmployeeCode();
@@ -156,7 +164,7 @@ class EmployeeController extends Controller
             'photo' => 'nullable|image|max:2048',
         ]);
 
-        $validated['company_id'] = Auth::user()->company_id;
+        $validated['company_id'] = $this->getCompanyId();
         $validated['is_active'] = $request->has('is_active') ? true : false;
 
         // Handle photo upload
@@ -201,13 +209,13 @@ class EmployeeController extends Controller
     {
         $countries = Country::where('is_active', true)->get();
         $cities = City::where('is_active', true)->get();
-        $departments = Department::where('company_id', Auth::user()->company_id)
+        $departments = Department::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
-        $positions = Position::where('company_id', Auth::user()->company_id)
+        $positions = Position::where('company_id', $this->getCompanyId())
             ->where('is_active', true)->get();
         $currencies = Currency::where('is_active', true)->get();
         $banks = Bank::where('is_active', true)->get();
-        $supervisors = Employee::where('company_id', Auth::user()->company_id)
+        $supervisors = Employee::where('company_id', $this->getCompanyId())
             ->where('id', '!=', $employee->id)
             ->where('is_active', true)->get();
 
