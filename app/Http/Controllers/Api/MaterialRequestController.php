@@ -198,7 +198,7 @@ class MaterialRequestController extends Controller
 
             if ($totalIssued >= $totalRequested) {
                 $materialRequest->update(['status' => 'fulfilled']);
-            } else if ($totalIssued > 0) {
+            } elseif ($totalIssued > 0) {
                 $materialRequest->update(['status' => 'partially_fulfilled']);
             }
 

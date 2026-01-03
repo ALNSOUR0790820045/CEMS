@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
             'name' => $name,
             'name_en' => $name,
             'slug' => \Illuminate\Support\Str::slug($name),
-            'email' => fake()->companyEmail(),
+            'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'city' => fake()->city(),
