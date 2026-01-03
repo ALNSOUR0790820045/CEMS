@@ -141,6 +141,7 @@ class ApSampleDataSeeder extends Seeder
         );
 
         // Create sample invoices
+        $statuses = ['draft', 'pending', 'approved'];
         for ($i = 1; $i <= 5; $i++) {
             $invoice = ApInvoice::create([
                 'invoice_date' => now()->subDays(rand(10, 60)),
@@ -154,7 +155,7 @@ class ApSampleDataSeeder extends Seeder
                 'discount_amount' => 0,
                 'payment_terms' => 'net_30',
                 'gl_account_id' => $glAccountModels[0]->id,
-                'status' => ['draft', 'pending', 'approved'][ array_rand(['draft', 'pending', 'approved'])],
+                'status' => $statuses[array_rand($statuses)],
                 'company_id' => $company->id,
                 'created_by_id' => $user->id,
             ]);
