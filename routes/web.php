@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\GL\GLAccountController;
 use App\Http\Controllers\GL\GLJournalEntryController;
 use App\Http\Controllers\GL\GLFiscalYearController;
@@ -19,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', CompanyController::class);
     
     // General Ledger Module
     Route::prefix('gl')->name('gl.')->group(function () {

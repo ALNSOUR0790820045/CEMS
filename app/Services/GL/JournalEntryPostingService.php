@@ -77,7 +77,7 @@ class JournalEntryPostingService
             $balanceChange = $line->base_currency_debit - $line->base_currency_credit;
         }
         // For liabilities, equity, and revenue: credit increases, debit decreases
-        else if (in_array($account->account_type, ['liability', 'equity', 'revenue'])) {
+        elseif (in_array($account->account_type, ['liability', 'equity', 'revenue'])) {
             $balanceChange = $line->base_currency_credit - $line->base_currency_debit;
         }
         

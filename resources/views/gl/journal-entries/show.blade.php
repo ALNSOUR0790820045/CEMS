@@ -108,8 +108,8 @@
             <thead style="background: #f5f5f7;">
                 <tr>
                     <th style="padding: 12px; text-align: right; border-bottom: 1px solid #ddd;">#</th>
-                    <th style="padding: 12px; text-align: right; border-bottom: 1px solid #ddd;">GL Account</th>
-                    <th style="padding: 12px; text-align: right; border-bottom: 1px solid #ddd;">Description</th>
+                    <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">GL Account</th>
+                    <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Description</th>
                     <th style="padding: 12px; text-align: right; border-bottom: 1px solid #ddd;">Debit</th>
                     <th style="padding: 12px; text-align: right; border-bottom: 1px solid #ddd;">Credit</th>
                 </tr>
@@ -118,10 +118,10 @@
                 @foreach($journalEntry->lines as $line)
                 <tr style="border-bottom: 1px solid #f0f0f0;">
                     <td style="padding: 12px; text-align: right;">{{ $line->line_number }}</td>
-                    <td style="padding: 12px; text-align: right;">
+                    <td style="padding: 12px; text-align: left;">
                         {{ $line->glAccount->account_code }} - {{ $line->glAccount->account_name }}
                     </td>
-                    <td style="padding: 12px; text-align: right;">{{ $line->description }}</td>
+                    <td style="padding: 12px; text-align: left;">{{ $line->description }}</td>
                     <td style="padding: 12px; text-align: right; font-family: monospace; {{ $line->debit_amount > 0 ? 'font-weight: 600;' : 'color: #ccc;' }}">
                         {{ number_format($line->debit_amount, 2) }}
                     </td>

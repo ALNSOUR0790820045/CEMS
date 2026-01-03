@@ -37,7 +37,7 @@ class StoreGLAccountRequest extends FormRequest
             'allow_posting' => ['nullable', 'boolean'],
             'currency_id' => ['nullable', 'exists:currencies,id'],
             'is_multi_currency' => ['nullable', 'boolean'],
-            'opening_balance' => ['nullable', 'numeric', 'min:0'],
+            'opening_balance' => ['nullable', 'numeric'],
             'description' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],
