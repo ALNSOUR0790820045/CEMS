@@ -12,6 +12,14 @@ class BaseApiController extends Controller
      */
     protected function getCompanyId()
     {
-        return Auth::user()?->company_id ?? abort(403, 'User must be associated with a company');
+        $companyId = Auth::user()?->company_id;
+        
+        if (!$companyId) {
+            return response()->json([
+                'message' => 'عذراً، يجب أن تكون مرتبطاً بشركة للوصول إلى هذه الخدمة.'
+            ], 403)->throwResponse();
+        }
+        
+        return $companyId;
     }
 }

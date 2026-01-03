@@ -20,7 +20,13 @@ class EmployeeController extends Controller
      */
     private function getCompanyId()
     {
-        return Auth::user()?->company_id ?? abort(403, 'User must be associated with a company');
+        $companyId = Auth::user()?->company_id;
+        
+        if (!$companyId) {
+            abort(403, 'عذراً، يجب أن تكون مرتبطاً بشركة للوصول إلى هذه الصفحة. يرجى التواصل مع المسؤول.');
+        }
+        
+        return $companyId;
     }
 
     /**
