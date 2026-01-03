@@ -14,6 +14,15 @@ use App\Services\Reports\IncomeStatementReportService;
 use App\Services\Reports\GeneralLedgerReportService;
 use App\Services\Reports\AccountsPayableAgingReportService;
 use App\Services\Reports\AccountsReceivableAgingReportService;
+use App\Services\Reports\CashFlowReportService;
+use App\Services\Reports\AccountTransactionsReportService;
+use App\Services\Reports\VendorStatementReportService;
+use App\Services\Reports\CustomerStatementReportService;
+use App\Services\Reports\ProjectProfitabilityReportService;
+use App\Services\Reports\CostCenterReportService;
+use App\Services\Reports\BudgetVsActualReportService;
+use App\Services\Reports\PaymentAnalysisReportService;
+use App\Services\Reports\TaxReportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -92,6 +101,15 @@ class ReportExportController extends Controller
             'general_ledger' => new GeneralLedgerReportService($company, $parameters),
             'ap_aging' => new AccountsPayableAgingReportService($company, $parameters),
             'ar_aging' => new AccountsReceivableAgingReportService($company, $parameters),
+            'cash_flow' => new CashFlowReportService($company, $parameters),
+            'account_transactions' => new AccountTransactionsReportService($company, $parameters),
+            'vendor_statement' => new VendorStatementReportService($company, $parameters),
+            'customer_statement' => new CustomerStatementReportService($company, $parameters),
+            'project_profitability' => new ProjectProfitabilityReportService($company, $parameters),
+            'cost_center' => new CostCenterReportService($company, $parameters),
+            'budget_vs_actual' => new BudgetVsActualReportService($company, $parameters),
+            'payment_analysis' => new PaymentAnalysisReportService($company, $parameters),
+            'tax_report' => new TaxReportService($company, $parameters),
             default => throw new \InvalidArgumentException("Unknown report type: {$reportType}"),
         };
     }
