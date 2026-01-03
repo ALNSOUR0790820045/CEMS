@@ -9,6 +9,22 @@ class Material extends Model
 {
     use SoftDeletes;
 
+    // Material type constants
+    const TYPE_RAW_MATERIAL = 'raw_material';
+    const TYPE_FINISHED_GOODS = 'finished_goods';
+    const TYPE_CONSUMABLES = 'consumables';
+    const TYPE_TOOLS = 'tools';
+    const TYPE_EQUIPMENT = 'equipment';
+
+    // Available material types
+    public static $materialTypes = [
+        self::TYPE_RAW_MATERIAL,
+        self::TYPE_FINISHED_GOODS,
+        self::TYPE_CONSUMABLES,
+        self::TYPE_TOOLS,
+        self::TYPE_EQUIPMENT,
+    ];
+
     protected $fillable = [
         'material_code',
         'name',

@@ -51,11 +51,13 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
+        $materialTypes = implode(',', Material::$materialTypes);
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'material_type' => 'required|in:raw_material,finished_goods,consumables,tools,equipment',
+            'material_type' => 'required|in:' . $materialTypes,
             'category_id' => 'nullable|exists:material_categories,id',
             'unit_id' => 'required|exists:units,id',
             'reorder_level' => 'nullable|numeric|min:0',
@@ -95,12 +97,13 @@ class MaterialController extends Controller
     public function update(Request $request, $id)
     {
         $material = Material::findOrFail($id);
+        $materialTypes = implode(',', Material::$materialTypes);
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'material_type' => 'sometimes|required|in:raw_material,finished_goods,consumables,tools,equipment',
+            'material_type' => 'sometimes|required|in:' . $materialTypes,
             'category_id' => 'nullable|exists:material_categories,id',
             'unit_id' => 'sometimes|required|exists:units,id',
             'reorder_level' => 'nullable|numeric|min:0',
