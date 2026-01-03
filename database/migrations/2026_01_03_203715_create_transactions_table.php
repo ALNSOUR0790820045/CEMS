@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('project_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('department_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
-            
+
             $table->index(['journal_entry_id']);
             $table->index(['account_id']);
             $table->index(['project_id']);

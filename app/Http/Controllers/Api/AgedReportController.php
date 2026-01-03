@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AgedReportController extends Controller
 {
@@ -125,7 +125,7 @@ class AgedReportController extends Controller
         // Placeholder implementation
         // In a real implementation, this would query invoices/bills
         // and categorize them by age
-        
+
         return [
             // Example structure
             // [

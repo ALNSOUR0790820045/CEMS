@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Models\Transaction;
 use App\Models\Account;
+use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CustomReportController extends Controller
 {
@@ -49,27 +49,27 @@ class CustomReportController extends Controller
         $exportFormat = $request->input('export_format', 'json');
 
         // Build query based on report type
-        $data = match($reportType) {
+        $data = match ($reportType) {
             'transaction' => $this->generateTransactionReport(
-                $dateFrom, 
-                $dateTo, 
-                $companyId, 
-                $projectId, 
-                $departmentId, 
+                $dateFrom,
+                $dateTo,
+                $companyId,
+                $projectId,
+                $departmentId,
                 $accountRange,
                 $groupBy
             ),
             'account' => $this->generateAccountReport(
-                $dateFrom, 
-                $dateTo, 
-                $companyId, 
-                $accountType, 
+                $dateFrom,
+                $dateTo,
+                $companyId,
+                $accountType,
                 $accountRange
             ),
             'summary' => $this->generateSummaryReport(
-                $dateFrom, 
-                $dateTo, 
-                $companyId, 
+                $dateFrom,
+                $dateTo,
+                $companyId,
                 $period
             ),
             default => []
@@ -100,10 +100,10 @@ class CustomReportController extends Controller
      * Generate Transaction Report
      */
     private function generateTransactionReport(
-        $dateFrom, 
-        $dateTo, 
-        $companyId = null, 
-        $projectId = null, 
+        $dateFrom,
+        $dateTo,
+        $companyId = null,
+        $projectId = null,
         $departmentId = null,
         $accountRange = null,
         $groupBy = []
@@ -132,11 +132,11 @@ class CustomReportController extends Controller
         $transactions = $query->get();
 
         // Group by if specified
-        if (!empty($groupBy)) {
+        if (! empty($groupBy)) {
             $grouped = [];
             foreach ($transactions as $transaction) {
                 $key = $this->buildGroupKey($transaction, $groupBy);
-                if (!isset($grouped[$key])) {
+                if (! isset($grouped[$key])) {
                     $grouped[$key] = [
                         'group_key' => $key,
                         'total_debit' => 0,
@@ -148,6 +148,7 @@ class CustomReportController extends Controller
                 $grouped[$key]['total_credit'] += $transaction->credit;
                 $grouped[$key]['count']++;
             }
+
             return array_values($grouped);
         }
 
@@ -169,9 +170,9 @@ class CustomReportController extends Controller
      * Generate Account Report
      */
     private function generateAccountReport(
-        $dateFrom, 
-        $dateTo, 
-        $companyId = null, 
+        $dateFrom,
+        $dateTo,
+        $companyId = null,
         $accountType = null,
         $accountRange = null
     ): array {
@@ -217,8 +218,8 @@ class CustomReportController extends Controller
      * Generate Summary Report
      */
     private function generateSummaryReport(
-        $dateFrom, 
-        $dateTo, 
+        $dateFrom,
+        $dateTo,
         $companyId = null,
         $period = 'monthly'
     ): array {
@@ -237,9 +238,9 @@ class CustomReportController extends Controller
     private function buildGroupKey($transaction, array $groupBy): string
     {
         $parts = [];
-        
+
         foreach ($groupBy as $field) {
-            $parts[] = match($field) {
+            $parts[] = match ($field) {
                 'account' => $transaction->account->code,
                 'project' => $transaction->project->code ?? 'no-project',
                 'department' => $transaction->department->code ?? 'no-department',

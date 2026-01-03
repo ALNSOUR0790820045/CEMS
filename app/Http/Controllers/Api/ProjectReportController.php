@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Models\Project;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ProjectReportController extends Controller
 {
@@ -36,15 +36,15 @@ class ProjectReportController extends Controller
 
         $projects = $query->get()->map(function ($project) use ($dateFrom, $dateTo) {
             $revenue = Transaction::where('project_id', $project->id)
-                ->whereHas('account', fn($q) => $q->where('type', 'revenue'))
-                ->whereHas('journalEntry', fn($q) => $q->where('status', 'posted')
+                ->whereHas('account', fn ($q) => $q->where('type', 'revenue'))
+                ->whereHas('journalEntry', fn ($q) => $q->where('status', 'posted')
                     ->whereBetween('entry_date', [$dateFrom, $dateTo]))
                 ->selectRaw('SUM(credit) - SUM(debit) as total')
                 ->value('total') ?? 0;
 
             $costs = Transaction::where('project_id', $project->id)
-                ->whereHas('account', fn($q) => $q->where('type', 'expense'))
-                ->whereHas('journalEntry', fn($q) => $q->where('status', 'posted')
+                ->whereHas('account', fn ($q) => $q->where('type', 'expense'))
+                ->whereHas('journalEntry', fn ($q) => $q->where('status', 'posted')
                     ->whereBetween('entry_date', [$dateFrom, $dateTo]))
                 ->selectRaw('SUM(debit) - SUM(credit) as total')
                 ->value('total') ?? 0;
@@ -58,7 +58,7 @@ class ProjectReportController extends Controller
                 'revenue' => number_format($revenue, 2),
                 'costs' => number_format($costs, 2),
                 'profit' => number_format($profit, 2),
-                'margin' => number_format($margin, 2) . '%',
+                'margin' => number_format($margin, 2).'%',
             ];
         });
 
@@ -97,13 +97,13 @@ class ProjectReportController extends Controller
 
         $projects = $query->get()->map(function ($project) use ($dateFrom, $dateTo) {
             $costs = Transaction::where('project_id', $project->id)
-                ->whereHas('account', fn($q) => $q->where('type', 'expense'))
-                ->whereHas('journalEntry', fn($q) => $q->where('status', 'posted')
+                ->whereHas('account', fn ($q) => $q->where('type', 'expense'))
+                ->whereHas('journalEntry', fn ($q) => $q->where('status', 'posted')
                     ->whereBetween('entry_date', [$dateFrom, $dateTo]))
                 ->with('account')
                 ->get()
                 ->groupBy('account.category')
-                ->map(fn($group) => $group->sum(fn($t) => $t->debit - $t->credit));
+                ->map(fn ($group) => $group->sum(fn ($t) => $t->debit - $t->credit));
 
             return [
                 'project_code' => $project->code,
@@ -148,15 +148,15 @@ class ProjectReportController extends Controller
 
         $projects = $query->get()->map(function ($project) use ($dateFrom, $dateTo) {
             $actualCost = Transaction::where('project_id', $project->id)
-                ->whereHas('account', fn($q) => $q->where('type', 'expense'))
-                ->whereHas('journalEntry', fn($q) => $q->where('status', 'posted')
+                ->whereHas('account', fn ($q) => $q->where('type', 'expense'))
+                ->whereHas('journalEntry', fn ($q) => $q->where('status', 'posted')
                     ->whereBetween('entry_date', [$dateFrom, $dateTo]))
                 ->selectRaw('SUM(debit) - SUM(credit) as total')
                 ->value('total') ?? 0;
 
             $variance = $project->budget - $actualCost;
-            $variancePercent = $project->budget > 0 
-                ? ($variance / $project->budget) * 100 
+            $variancePercent = $project->budget > 0
+                ? ($variance / $project->budget) * 100
                 : 0;
 
             return [
@@ -165,7 +165,7 @@ class ProjectReportController extends Controller
                 'budget' => number_format($project->budget, 2),
                 'actual' => number_format($actualCost, 2),
                 'variance' => number_format($variance, 2),
-                'variance_percent' => number_format($variancePercent, 2) . '%',
+                'variance_percent' => number_format($variancePercent, 2).'%',
                 'status' => $variance >= 0 ? 'under_budget' : 'over_budget',
             ];
         });

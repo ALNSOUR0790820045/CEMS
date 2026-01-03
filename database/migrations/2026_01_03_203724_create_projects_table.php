@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('is_billable')->default(true);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->unique(['company_id', 'code']);
             $table->index(['company_id', 'status']);
         });

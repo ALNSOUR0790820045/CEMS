@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    
+
     // Companies Management
-    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
 });

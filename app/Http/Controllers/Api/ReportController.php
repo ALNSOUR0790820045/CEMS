@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Models\Account;
-use App\Models\Transaction;
 use App\Models\JournalEntry;
+use App\Models\Transaction;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
@@ -66,8 +65,8 @@ class ReportController extends Controller
             return $item['debit'] != 0 || $item['credit'] != 0;
         })->values();
 
-        $totalDebit = $accounts->sum(fn($item) => (float)str_replace(',', '', $item['debit']));
-        $totalCredit = $accounts->sum(fn($item) => (float)str_replace(',', '', $item['credit']));
+        $totalDebit = $accounts->sum(fn ($item) => (float) str_replace(',', '', $item['debit']));
+        $totalCredit = $accounts->sum(fn ($item) => (float) str_replace(',', '', $item['credit']));
 
         return response()->json([
             'status' => 'success',
@@ -314,6 +313,7 @@ class ReportController extends Controller
         $balance = 0;
         $statement = $transactions->map(function ($transaction) use (&$balance) {
             $balance += $transaction->debit - $transaction->credit;
+
             return [
                 'date' => $transaction->journalEntry->entry_date,
                 'entry_number' => $transaction->journalEntry->entry_number,

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index(['company_id', 'type']);
             $table->index(['company_id', 'is_active']);
         });

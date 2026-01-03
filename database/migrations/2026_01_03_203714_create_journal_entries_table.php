@@ -27,7 +27,7 @@ return new class extends Migration
             $table->enum('status', ['draft', 'posted', 'approved', 'cancelled'])->default('draft');
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index(['company_id', 'entry_date']);
             $table->index(['company_id', 'status']);
         });

@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     protected $fillable = [
         'name',
@@ -51,8 +51,9 @@ class User extends Authenticatable
     {
         $words = explode(' ', $this->name);
         if (count($words) >= 2) {
-            return mb_substr($words[0], 0, 1) . mb_substr($words[1], 0, 1);
+            return mb_substr($words[0], 0, 1).mb_substr($words[1], 0, 1);
         }
+
         return mb_substr($this->name, 0, 1);
     }
 
