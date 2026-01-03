@@ -40,7 +40,7 @@ class MaterialRequestController extends Controller
     {
         $validated = $request->validate([
             'request_date' => 'required|date',
-            'required_date' => 'required|date|after_or_equal:request_date',
+            'required_date' => 'required|date',
             'requested_by_id' => 'required|exists:employees,id',
             'department_id' => 'nullable|exists:departments,id',
             'project_id' => 'nullable|exists:projects,id',
@@ -95,7 +95,7 @@ class MaterialRequestController extends Controller
 
         $validated = $request->validate([
             'request_date' => 'required|date',
-            'required_date' => 'required|date|after_or_equal:request_date',
+            'required_date' => 'required|date',
             'requested_by_id' => 'required|exists:employees,id',
             'department_id' => 'nullable|exists:departments,id',
             'project_id' => 'nullable|exists:projects,id',
