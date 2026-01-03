@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
     // Employees Management
-    Route::resource('employees', EmployeeController::class);
-    Route::post('employees/{id}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
     Route::get('employees/generate-code', [EmployeeController::class, 'generateCode'])->name('employees.generate-code');
+    Route::post('employees/{id}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
+    Route::resource('employees', EmployeeController::class);
 });
