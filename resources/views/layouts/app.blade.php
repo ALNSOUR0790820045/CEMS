@@ -320,7 +320,7 @@
                         </div>
                         <div class="menu-col">
                             <h4>العقود</h4>
-                            <a href="#" class="sub-link"><i data-lucide="file-text"></i> العقود</a>
+                            <a href="{{ route('contracts.index') }}" class="sub-link"><i data-lucide="file-text"></i> العقود</a>
                             <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
                         <div class="menu-col">
