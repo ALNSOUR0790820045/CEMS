@@ -10,6 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Materials API Routes
+// Note: Add ->middleware('auth:sanctum') to protect these routes in production
 Route::prefix('materials')->group(function () {
     Route::get('/', [MaterialController::class, 'index']);
     Route::post('/', [MaterialController::class, 'store']);
@@ -23,6 +24,7 @@ Route::prefix('materials')->group(function () {
 });
 
 // Material Categories API Routes
+// Note: Add ->middleware('auth:sanctum') to protect these routes in production
 Route::prefix('material-categories')->group(function () {
     Route::get('/', [MaterialCategoryController::class, 'index']);
     Route::post('/', [MaterialCategoryController::class, 'store']);

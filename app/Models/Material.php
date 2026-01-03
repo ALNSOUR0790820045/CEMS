@@ -51,8 +51,9 @@ class Material extends Model
         static::creating(function ($material) {
             if (empty($material->material_code)) {
                 $year = date('Y');
-                $lastMaterial = static::whereYear('created_at', $year)
-                    ->orderBy('id', 'desc')
+                // Use max() to get the highest ID more efficiently than ordering
+                $lastMaterial = static::where('material_code', 'like', 'MAT-' . $year . '-%')
+                    ->orderBy('material_code', 'desc')
                     ->first();
                 
                 $nextNumber = $lastMaterial ? intval(substr($lastMaterial->material_code, -4)) + 1 : 1;
