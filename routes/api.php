@@ -42,4 +42,3 @@ Route::get('/report-history/{id}/download', [ReportExportController::class, 'dow
 
 // Report Schedules Routes
 Route::apiResource('report-schedules', ReportScheduleController::class);
-

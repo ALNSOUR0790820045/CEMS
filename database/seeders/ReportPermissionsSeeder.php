@@ -25,4 +25,3 @@ class ReportPermissionsSeeder extends Seeder
         $this->command->info('Report permissions created successfully!');
     }
 }
-

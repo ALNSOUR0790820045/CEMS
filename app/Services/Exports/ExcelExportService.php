@@ -103,7 +103,9 @@ class ExcelExportService
             ]
         ];
 
-        $sheet->getStyle('A3:Z3')->applyFromArray($headerStyle);
+        // Apply header style to row 3, dynamically determining the column range
+        $highestColumn = $sheet->getHighestColumn(3);
+        $sheet->getStyle('A3:' . $highestColumn . '3')->applyFromArray($headerStyle);
         $sheet->getColumnDimension('A')->setAutoSize(true);
     }
 

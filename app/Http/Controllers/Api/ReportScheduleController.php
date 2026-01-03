@@ -33,8 +33,15 @@ class ReportScheduleController extends Controller
             'is_active' => 'nullable|boolean',
         ]);
 
-        $validated['created_by_id'] = auth()->id() ?? 1;
-        $validated['company_id'] = 1; // Replace with actual company from auth
+        if (!auth()->check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Authentication required',
+            ], 401);
+        }
+
+        $validated['created_by_id'] = auth()->id();
+        $validated['company_id'] = auth()->user()->company_id ?? 1;
 
         $schedule = ReportSchedule::create($validated);
 

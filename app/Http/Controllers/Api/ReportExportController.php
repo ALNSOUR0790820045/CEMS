@@ -147,8 +147,17 @@ class ReportExportController extends Controller
 
     private function getCompany(Request $request): Company
     {
-        // Get company from authenticated user or request
-        return Company::firstOrFail();
+        // Get company from authenticated user
+        if (auth()->check() && auth()->user()->company_id) {
+            return Company::findOrFail(auth()->user()->company_id);
+        }
+        
+        // Fallback for development/testing - in production, this should throw an exception
+        if (app()->environment('local', 'testing')) {
+            return Company::firstOrFail();
+        }
+        
+        throw new \Exception('Unable to determine company context. User must be authenticated with a company.');
     }
 }
 
