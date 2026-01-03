@@ -11,6 +11,26 @@ class Account extends Model
 {
     use SoftDeletes;
 
+    // Account Type Constants
+    const TYPE_ASSET = 'asset';
+
+    const TYPE_LIABILITY = 'liability';
+
+    const TYPE_EQUITY = 'equity';
+
+    const TYPE_REVENUE = 'revenue';
+
+    const TYPE_EXPENSE = 'expense';
+
+    // Account Category Constants
+    const CATEGORY_CURRENT = 'current';
+
+    const CATEGORY_NON_CURRENT = 'non_current';
+
+    const CATEGORY_OPERATING = 'operating';
+
+    const CATEGORY_NON_OPERATING = 'non_operating';
+
     protected $fillable = [
         'company_id',
         'code',

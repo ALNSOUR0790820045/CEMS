@@ -197,6 +197,13 @@ class ReportController extends Controller
 
     /**
      * Get Cash Flow Statement
+     *
+     * TODO: This is a placeholder implementation that returns zero values.
+     * A complete implementation requires:
+     * 1. Classification of accounts into cash flow categories
+     * 2. Calculation of operating cash flows (net income + adjustments)
+     * 3. Tracking of investing activities (asset purchases/sales)
+     * 4. Tracking of financing activities (loans, equity, dividends)
      */
     public function cashFlow(Request $request): JsonResponse
     {
@@ -209,6 +216,7 @@ class ReportController extends Controller
         $dateFrom = $request->input('date_from', Carbon::now()->startOfMonth());
         $dateTo = $request->input('date_to', Carbon::now()->endOfMonth());
 
+        // TODO: Implement actual cash flow calculations
         return response()->json([
             'status' => 'success',
             'data' => [

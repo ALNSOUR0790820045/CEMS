@@ -11,6 +11,24 @@ class JournalEntry extends Model
 {
     use SoftDeletes;
 
+    // Entry Type Constants
+    const TYPE_MANUAL = 'manual';
+
+    const TYPE_SYSTEM = 'system';
+
+    const TYPE_ADJUSTMENT = 'adjustment';
+
+    const TYPE_CLOSING = 'closing';
+
+    // Entry Status Constants
+    const STATUS_DRAFT = 'draft';
+
+    const STATUS_POSTED = 'posted';
+
+    const STATUS_APPROVED = 'approved';
+
+    const STATUS_CANCELLED = 'cancelled';
+
     protected $fillable = [
         'company_id',
         'entry_number',

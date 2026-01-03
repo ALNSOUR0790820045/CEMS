@@ -119,22 +119,29 @@ class AgedReportController extends Controller
 
     /**
      * Helper: Calculate aging buckets
+     *
+     * TODO: This is a placeholder implementation that returns an empty array.
+     * A complete implementation requires:
+     * 1. Invoice/Bill models and tables
+     * 2. Query unpaid invoices/bills based on type (payable/receivable)
+     * 3. Calculate days outstanding: (as_of_date - invoice_date)
+     * 4. Categorize into aging buckets: current (0-30), 30-60, 60-90, 90-120, 120+
+     * 5. Group and sum by vendor/customer
      */
     private function calculateAging(string $type, $asOfDate): array
     {
-        // Placeholder implementation
-        // In a real implementation, this would query invoices/bills
-        // and categorize them by age
+        // TODO: Implement actual aging calculations
+        // This requires invoice/bill tracking which is not yet implemented
 
         return [
-            // Example structure
+            // Example structure for reference:
             // [
             //     'entity_name' => 'Vendor/Customer Name',
-            //     'current' => 0,
-            //     '30_days' => 0,
-            //     '60_days' => 0,
-            //     '90_days' => 0,
-            //     'over_120' => 0,
+            //     'current' => 0,      // 0-30 days
+            //     '30_days' => 0,      // 31-60 days
+            //     '60_days' => 0,      // 61-90 days
+            //     '90_days' => 0,      // 91-120 days
+            //     'over_120' => 0,     // 120+ days
             //     'total' => 0,
             // ]
         ];

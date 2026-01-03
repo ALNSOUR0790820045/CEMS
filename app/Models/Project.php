@@ -11,6 +11,17 @@ class Project extends Model
 {
     use SoftDeletes;
 
+    // Project Status Constants
+    const STATUS_PLANNING = 'planning';
+
+    const STATUS_ACTIVE = 'active';
+
+    const STATUS_ON_HOLD = 'on_hold';
+
+    const STATUS_COMPLETED = 'completed';
+
+    const STATUS_CANCELLED = 'cancelled';
+
     protected $fillable = [
         'company_id',
         'code',
