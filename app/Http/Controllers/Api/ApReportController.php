@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class ApReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:ap_reports.view');
+    }
+
     /**
      * Generate aging report (30/60/90 days).
      */

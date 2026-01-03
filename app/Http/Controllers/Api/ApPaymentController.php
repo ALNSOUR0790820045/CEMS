@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ApPaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:ap_payments.view', ['only' => ['index', 'show']]);
+        $this->middleware('permission:ap_payments.create', ['only' => ['store', 'allocate']]);
+        $this->middleware('permission:ap_payments.edit', ['only' => ['update']]);
+        $this->middleware('permission:ap_payments.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */
