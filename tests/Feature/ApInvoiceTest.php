@@ -75,8 +75,8 @@ class ApInvoiceTest extends TestCase
         ]);
 
         $invoiceData = [
-            'invoice_date' => now()->toDateString(),
-            'due_date' => now()->addDays(30)->toDateString(),
+            'invoice_date' => now()->format('Y-m-d'),
+            'due_date' => now()->addDays(30)->format('Y-m-d'),
             'vendor_id' => $vendor->id,
             'currency_id' => $currency->id,
             'exchange_rate' => 1.0000,

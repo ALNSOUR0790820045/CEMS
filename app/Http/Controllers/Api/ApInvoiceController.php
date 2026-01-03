@@ -11,15 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ApInvoiceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:ap_invoices.view', ['only' => ['index', 'show']]);
-        $this->middleware('permission:ap_invoices.create', ['only' => ['store']]);
-        $this->middleware('permission:ap_invoices.edit', ['only' => ['update']]);
-        $this->middleware('permission:ap_invoices.delete', ['only' => ['destroy']]);
-        $this->middleware('permission:ap_invoices.approve', ['only' => ['approve']]);
-    }
-
     /**
      * Display a listing of the resource.
      */
