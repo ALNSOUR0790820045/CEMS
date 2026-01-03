@@ -11,6 +11,7 @@ use App\Models\GRNItem;
 use App\Models\InventoryTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class GRNController extends Controller
 {
@@ -87,9 +88,12 @@ class GRNController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Error creating GRN', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return response()->json([
-                'message' => 'Error creating GRN',
-                'error' => $e->getMessage()
+                'message' => 'Error creating GRN'
             ], 500);
         }
     }
@@ -108,7 +112,9 @@ class GRNController extends Controller
             'inspectedBy',
             'items.material',
             'items.purchaseOrderItem'
-        ])->findOrFail($id);
+        ])
+        ->where('company_id', auth()->user()->company_id)
+        ->findOrFail($id);
 
         return response()->json($grn);
     }
@@ -118,7 +124,8 @@ class GRNController extends Controller
      */
     public function update(UpdateGRNRequest $request, string $id)
     {
-        $grn = GRN::findOrFail($id);
+        $grn = GRN::where('company_id', auth()->user()->company_id)
+            ->findOrFail($id);
 
         if (!in_array($grn->status, ['draft', 'received'])) {
             return response()->json([
@@ -139,7 +146,8 @@ class GRNController extends Controller
      */
     public function destroy(string $id)
     {
-        $grn = GRN::findOrFail($id);
+        $grn = GRN::where('company_id', auth()->user()->company_id)
+            ->findOrFail($id);
 
         if (!in_array($grn->status, ['draft'])) {
             return response()->json([
@@ -162,7 +170,9 @@ class GRNController extends Controller
         try {
             DB::beginTransaction();
 
-            $grn = GRN::with('items')->findOrFail($id);
+            $grn = GRN::with('items')
+                ->where('company_id', auth()->user()->company_id)
+                ->findOrFail($id);
 
             if ($grn->status !== 'received') {
                 return response()->json([
@@ -177,7 +187,11 @@ class GRNController extends Controller
             ]);
 
             foreach ($request->items as $itemData) {
-                $grnItem = GRNItem::findOrFail($itemData['grn_item_id']);
+                $grnItem = GRNItem::whereHas('grn', function($query) {
+                    $query->where('company_id', auth()->user()->company_id);
+                })
+                ->where('grn_id', $grn->id)
+                ->findOrFail($itemData['grn_item_id']);
                 
                 $grnItem->update([
                     'accepted_quantity' => $itemData['accepted_quantity'],
@@ -196,9 +210,13 @@ class GRNController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Error inspecting GRN', [
+                'grn_id' => $id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return response()->json([
-                'message' => 'Error inspecting GRN',
-                'error' => $e->getMessage()
+                'message' => 'Error inspecting GRN'
             ], 500);
         }
     }
@@ -211,7 +229,9 @@ class GRNController extends Controller
         try {
             DB::beginTransaction();
 
-            $grn = GRN::with('items.material')->findOrFail($id);
+            $grn = GRN::with('items.material')
+                ->where('company_id', auth()->user()->company_id)
+                ->findOrFail($id);
 
             if ($grn->status !== 'inspected') {
                 return response()->json([
@@ -262,9 +282,13 @@ class GRNController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Error accepting GRN', [
+                'grn_id' => $id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return response()->json([
-                'message' => 'Error accepting GRN',
-                'error' => $e->getMessage()
+                'message' => 'Error accepting GRN'
             ], 500);
         }
     }
