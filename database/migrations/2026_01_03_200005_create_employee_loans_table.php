@@ -16,7 +16,6 @@ return new class extends Migration
             $table->decimal('installment_amount', 10, 2);
             $table->integer('total_installments');
             $table->integer('paid_installments')->default(0);
-            $table->decimal('remaining_balance', 10, 2)->storedAs('loan_amount - (installment_amount * paid_installments)');
             $table->enum('status', ['active', 'completed', 'cancelled'])->default('active');
             $table->text('notes')->nullable();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();

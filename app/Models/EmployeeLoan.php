@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EmployeeLoan extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'employee_id',
         'loan_date',
@@ -23,6 +25,11 @@ class EmployeeLoan extends Model
         'loan_date' => 'date',
         'loan_amount' => 'decimal:2',
         'installment_amount' => 'decimal:2',
+    ];
+
+    protected $appends = [
+        'remaining_balance',
+        'remaining_installments',
     ];
 
     // Relationships

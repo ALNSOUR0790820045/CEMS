@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PayrollEntry extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'payroll_period_id',
         'employee_id',
@@ -33,6 +36,11 @@ class PayrollEntry extends Model
         'overtime_hours' => 'decimal:2',
         'overtime_amount' => 'decimal:2',
         'payment_date' => 'date',
+    ];
+
+    protected $appends = [
+        'gross_salary',
+        'net_salary',
     ];
 
     // Relationships
@@ -86,7 +94,7 @@ class PayrollEntry extends Model
     {
         $activeLoans = EmployeeLoan::where('employee_id', $this->employee_id)
             ->where('status', 'active')
-            ->where('paid_installments', '<', \DB::raw('total_installments'))
+            ->where('paid_installments', '<', DB::raw('total_installments'))
             ->get();
 
         foreach ($activeLoans as $loan) {
@@ -97,18 +105,20 @@ class PayrollEntry extends Model
                 ->exists();
 
             if (!$exists) {
-                $this->deductions()->create([
-                    'deduction_type' => 'loan',
-                    'deduction_name' => 'Loan Installment #' . $loan->id,
-                    'amount' => $loan->installment_amount,
-                ]);
+                DB::transaction(function () use ($loan) {
+                    $this->deductions()->create([
+                        'deduction_type' => 'loan',
+                        'deduction_name' => 'Loan Installment #' . $loan->id,
+                        'amount' => $loan->installment_amount,
+                    ]);
 
-                // Update loan paid installments
-                $loan->increment('paid_installments');
+                    // Update loan paid installments
+                    $loan->increment('paid_installments');
 
-                if ($loan->paid_installments >= $loan->total_installments) {
-                    $loan->update(['status' => 'completed']);
-                }
+                    if ($loan->paid_installments >= $loan->total_installments) {
+                        $loan->update(['status' => 'completed']);
+                    }
+                });
             }
         }
     }

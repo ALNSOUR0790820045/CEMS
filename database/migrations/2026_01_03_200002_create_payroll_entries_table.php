@@ -15,8 +15,6 @@ return new class extends Migration
             $table->decimal('basic_salary', 10, 2);
             $table->decimal('total_allowances', 10, 2)->default(0);
             $table->decimal('total_deductions', 10, 2)->default(0);
-            $table->decimal('gross_salary', 10, 2)->storedAs('basic_salary + total_allowances');
-            $table->decimal('net_salary', 10, 2)->storedAs('basic_salary + total_allowances - total_deductions');
             $table->integer('days_worked');
             $table->integer('days_absent')->default(0);
             $table->decimal('overtime_hours', 5, 2)->default(0);

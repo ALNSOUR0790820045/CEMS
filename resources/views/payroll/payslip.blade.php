@@ -98,7 +98,7 @@
         </div>
         <div class="info-row">
             <span class="label">تاريخ الدفع / Payment Date:</span>
-            <span class="value">{{ $entry->payrollPeriod->payment_date->format('Y-m-d') }}</span>
+            <span class="value">{{ $entry->payrollPeriod->payment_date?->format('Y-m-d') ?? 'N/A' }}</span>
         </div>
         <div class="info-row">
             <span class="label">أيام العمل / Days Worked:</span>

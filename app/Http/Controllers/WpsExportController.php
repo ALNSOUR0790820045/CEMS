@@ -38,7 +38,8 @@ class WpsExportController extends Controller
         $wpsContent = $this->generateWpsFile($payrollPeriod);
 
         // Store file temporarily
-        $filename = 'wps-' . $payrollPeriod->period_name . '-' . now()->format('Y-m-d') . '.txt';
+        $sanitizedPeriodName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $payrollPeriod->period_name);
+        $filename = 'wps-' . $sanitizedPeriodName . '-' . now()->format('Y-m-d') . '.txt';
         Storage::disk('local')->put('temp/' . $filename, $wpsContent);
 
         return response()->download(
