@@ -228,7 +228,10 @@ class ProjectReportController extends Controller
         }
 
         $projects = $query->get()->map(function ($project) {
-            $earnedValue = $project->budget * 0.5; // Placeholder: should calculate based on % complete
+            // TODO: Replace with actual project completion percentage logic
+            // Earned Value = Budget * (% Complete)
+            // This temporary implementation assumes 50% completion
+            $earnedValue = $project->budget * 0.5;
             $actualCost = $project->actual_cost;
 
             $cpi = $actualCost > 0 ? $earnedValue / $actualCost : 0;

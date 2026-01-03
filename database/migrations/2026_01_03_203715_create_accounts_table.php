@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->string('code', 50)->unique();
+            $table->string('code', 50);
             $table->string('name');
             $table->string('name_en')->nullable();
             $table->enum('type', ['asset', 'liability', 'equity', 'revenue', 'expense']);
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->unique(['company_id', 'code']);
             $table->index(['company_id', 'type']);
             $table->index(['company_id', 'is_active']);
         });

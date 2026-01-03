@@ -50,23 +50,27 @@ class ReportController extends Controller
                 ->selectRaw('SUM(debit) as total_debit, SUM(credit) as total_credit')
                 ->first();
 
-            $debit = $transactions->total_debit ?? 0;
-            $credit = $transactions->total_credit ?? 0;
+            $debit = (float) ($transactions->total_debit ?? 0);
+            $credit = (float) ($transactions->total_credit ?? 0);
+            $balance = $debit - $credit;
 
             return [
                 'account_code' => $account->code,
                 'account_name' => $account->name,
                 'account_type' => $account->type,
-                'debit' => number_format($debit, 2),
-                'credit' => number_format($credit, 2),
-                'balance' => number_format($debit - $credit, 2),
+                'debit' => $debit,
+                'credit' => $credit,
+                'balance' => $balance,
+                'debit_formatted' => number_format($debit, 2),
+                'credit_formatted' => number_format($credit, 2),
+                'balance_formatted' => number_format($balance, 2),
             ];
         })->filter(function ($item) {
             return $item['debit'] != 0 || $item['credit'] != 0;
         })->values();
 
-        $totalDebit = $accounts->sum(fn ($item) => (float) str_replace(',', '', $item['debit']));
-        $totalCredit = $accounts->sum(fn ($item) => (float) str_replace(',', '', $item['credit']));
+        $totalDebit = $accounts->sum('debit');
+        $totalCredit = $accounts->sum('credit');
 
         return response()->json([
             'status' => 'success',
