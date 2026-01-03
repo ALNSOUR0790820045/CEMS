@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ClientController;
 
@@ -18,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', CompanyController::class);
     
     // Clients Management
     Route::resource('clients', ClientController::class);

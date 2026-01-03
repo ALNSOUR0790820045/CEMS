@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('status', ['draft', 'active', 'completed', 'cancelled'])->default('draft');
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes();
         });

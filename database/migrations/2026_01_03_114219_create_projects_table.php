@@ -43,7 +43,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('restrict');
             
             $table->timestamps();
             $table->softDeletes();

@@ -92,6 +92,11 @@ class ProjectController extends Controller
         $validated['contract_duration_days'] = $startDate->diffInDays($endDate);
         
         // Add company_id from authenticated user
+        if (!auth()->user()->company_id) {
+            return redirect()->back()
+                ->withErrors(['error' => 'لم يتم تعيين شركة للمستخدم. يرجى الاتصال بالمسؤول.'])
+                ->withInput();
+        }
         $validated['company_id'] = auth()->user()->company_id;
         
         // Handle checkbox

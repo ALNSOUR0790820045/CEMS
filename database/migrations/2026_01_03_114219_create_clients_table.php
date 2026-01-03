@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('client_type', ['government', 'semi_government', 'private', 'individual'])->default('private');
             $table->text('notes')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes();
         });
