@@ -319,7 +319,8 @@
                             <a href="#" class="sub-link"><i data-lucide="receipt"></i> المستخلصات</a>
                         </div>
                         <div class="menu-col">
-                            <h4>العقود</h4>
+                            <h4>العملاء والعقود</h4>
+                            <a href="{{ route('clients.index') }}" class="sub-link"><i data-lucide="briefcase"></i> العملاء</a>
                             <a href="#" class="sub-link"><i data-lucide="file-text"></i> العقود</a>
                             <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
