@@ -33,4 +33,24 @@ class Company extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function payrollPeriods()
+    {
+        return $this->hasMany(PayrollPeriod::class);
+    }
+
+    public function payrollEntries()
+    {
+        return $this->hasMany(PayrollEntry::class);
+    }
+
+    public function employeeLoans()
+    {
+        return $this->hasMany(EmployeeLoan::class);
+    }
+
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
 }

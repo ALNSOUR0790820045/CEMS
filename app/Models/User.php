@@ -46,6 +46,26 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class);
     }
 
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
+    public function primaryBankAccount()
+    {
+        return $this->hasOne(BankAccount::class)->where('is_primary', true);
+    }
+
+    public function payrollEntries()
+    {
+        return $this->hasMany(PayrollEntry::class, 'employee_id');
+    }
+
+    public function loans()
+    {
+        return $this->hasMany(EmployeeLoan::class, 'employee_id');
+    }
+
     // Accessors
     public function getInitialsAttribute()
     {
