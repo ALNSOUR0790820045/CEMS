@@ -18,25 +18,6 @@ class ARReceiptAllocation extends Model
         'allocated_amount' => 'decimal:2',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($allocation) {
-            // Update invoice received_amount
-            $invoice = $allocation->arInvoice;
-            $invoice->received_amount += $allocation->allocated_amount;
-            $invoice->save();
-        });
-
-        static::deleted(function ($allocation) {
-            // Update invoice received_amount
-            $invoice = $allocation->arInvoice;
-            $invoice->received_amount -= $allocation->allocated_amount;
-            $invoice->save();
-        });
-    }
-
     public function arReceipt()
     {
         return $this->belongsTo(ARReceipt::class);

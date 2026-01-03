@@ -45,7 +45,7 @@ class ARReceiptResource extends JsonResource
                 return $this->allocations->map(function ($allocation) {
                     return [
                         'id' => $allocation->id,
-                        'invoice_number' => $allocation->arInvoice->invoice_number,
+                        'invoice_number' => optional($allocation->arInvoice)->invoice_number,
                         'allocated_amount' => $allocation->allocated_amount,
                     ];
                 });

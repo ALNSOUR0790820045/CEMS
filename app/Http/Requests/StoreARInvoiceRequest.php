@@ -18,7 +18,7 @@ class StoreARInvoiceRequest extends FormRequest
     {
         return [
             'invoice_date' => 'required|date',
-            'due_date' => 'required|date|after_or_equal:invoice_date',
+            'due_date' => 'required|date',
             'client_id' => 'required|exists:clients,id',
             'project_id' => 'nullable|exists:projects,id',
             'contract_id' => 'nullable|exists:contracts,id',

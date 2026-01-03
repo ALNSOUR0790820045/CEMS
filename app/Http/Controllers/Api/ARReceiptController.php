@@ -52,7 +52,9 @@ class ARReceiptController extends Controller
 
             $receipt = ARReceipt::create($receiptData);
 
-            return new ARReceiptResource($receipt->load(['client', 'currency', 'createdBy']));
+            return (new ARReceiptResource($receipt->load(['client', 'currency', 'createdBy'])))
+                ->response()
+                ->setStatusCode(201);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to create receipt', 'message' => $e->getMessage()], 500);
         }
@@ -111,13 +113,18 @@ class ARReceiptController extends Controller
                 return response()->json(['error' => 'Total allocation exceeds receipt amount'], 400);
             }
 
-            // Create allocations
+            // Create allocations and update invoices
             foreach ($request->allocations as $allocation) {
                 ARReceiptAllocation::create([
                     'a_r_receipt_id' => $receipt->id,
                     'a_r_invoice_id' => $allocation['a_r_invoice_id'],
                     'allocated_amount' => $allocation['allocated_amount'],
                 ]);
+                
+                // Update invoice received_amount
+                $invoice = \App\Models\ARInvoice::findOrFail($allocation['a_r_invoice_id']);
+                $invoice->received_amount += $allocation['allocated_amount'];
+                $invoice->save();
             }
 
             DB::commit();

@@ -64,7 +64,9 @@ class ARInvoiceController extends Controller
 
             DB::commit();
 
-            return new ARInvoiceResource($invoice->load(['client', 'currency', 'items', 'createdBy']));
+            return (new ARInvoiceResource($invoice->load(['client', 'currency', 'items', 'createdBy'])))
+                ->response()
+                ->setStatusCode(201);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => 'Failed to create invoice', 'message' => $e->getMessage()], 500);

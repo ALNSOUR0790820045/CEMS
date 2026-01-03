@@ -18,7 +18,7 @@ class UpdateARInvoiceRequest extends FormRequest
     {
         return [
             'invoice_date' => 'sometimes|required|date',
-            'due_date' => 'sometimes|required|date|after_or_equal:invoice_date',
+            'due_date' => 'sometimes|required|date',
             'client_id' => 'sometimes|required|exists:clients,id',
             'project_id' => 'nullable|exists:projects,id',
             'contract_id' => 'nullable|exists:contracts,id',
