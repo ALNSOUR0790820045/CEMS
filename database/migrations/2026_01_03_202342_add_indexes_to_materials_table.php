@@ -28,10 +28,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('materials', function (Blueprint $table) {
-            $table->dropIndex(['material_code']);
-            $table->dropIndex(['barcode']);
-            $table->dropIndex(['sku']);
-            $table->dropIndex(['material_type', 'is_active']);
+            // Drop indexes using Laravel's automatic index naming convention
+            $table->dropIndex('materials_material_code_index');
+            $table->dropIndex('materials_barcode_index');
+            $table->dropIndex('materials_sku_index');
+            $table->dropIndex('materials_material_type_is_active_index');
         });
     }
 };
