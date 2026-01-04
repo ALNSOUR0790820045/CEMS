@@ -111,11 +111,8 @@ class AttendanceModuleSeeder extends Seeder
                 );
 
                 // Assign shift (rotate between shifts)
-                $shiftId = match ($posIndex % 3) {
-                    0 => $morningShift->id,
-                    1 => $afternoonShift->id,
-                    2 => $nightShift->id,
-                };
+                $shifts = [$morningShift->id, $afternoonShift->id, $nightShift->id];
+                $shiftId = $shifts[$posIndex % 3];
 
                 Employee::firstOrCreate(
                     ['user_id' => $user->id],

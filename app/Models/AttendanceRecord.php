@@ -80,7 +80,7 @@ class AttendanceRecord extends Model
         if ($this->check_in_time && $this->check_out_time) {
             $checkIn = Carbon::parse($this->check_in_time);
             $checkOut = Carbon::parse($this->check_out_time);
-            $hours = $checkOut->diffInMinutes($checkIn) / 60;
+            $hours = $checkIn->diffInMinutes($checkOut) / 60;
             $this->work_hours = round($hours, 2);
             $this->save();
         }
