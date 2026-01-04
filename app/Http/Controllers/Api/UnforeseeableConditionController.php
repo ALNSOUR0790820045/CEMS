@@ -8,6 +8,7 @@ use App\Models\UnforeseeableConditionEvidence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UnforeseeableConditionController extends Controller
 {
@@ -90,9 +91,9 @@ class UnforeseeableConditionController extends Controller
 
         // Generate condition number
         $year = date('Y');
-        $lastCondition = UnforeseeableCondition::whereYear('created_at', $year)
-            ->where('condition_number', 'like', 'UFC-' . $year . '-%')
-            ->orderBy('id', 'desc')
+        $prefix = 'UFC-' . $year . '-';
+        $lastCondition = UnforeseeableCondition::where('condition_number', 'like', $prefix . '%')
+            ->orderBy('condition_number', 'desc')
             ->first();
         
         $nextNumber = 1;
@@ -246,8 +247,8 @@ class UnforeseeableConditionController extends Controller
         $originalName = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
         
-        // Sanitize filename and use generated name with original extension
-        $fileName = time() . '_' . uniqid() . '.' . $extension;
+        // Generate secure random filename
+        $fileName = Str::random(40) . '.' . $extension;
         $filePath = $file->storeAs('unforeseeable_conditions/' . $condition->id, $fileName, 'public');
 
         $evidence = UnforeseeableConditionEvidence::create([
