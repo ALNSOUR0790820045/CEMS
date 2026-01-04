@@ -240,6 +240,8 @@ class VariationOrderController extends Controller
 
         DB::beginTransaction();
         try {
+            $oldStatus = $variationOrder->status;
+            
             $variationOrder->update([
                 'status' => 'approved',
                 'approved_value' => $validated['approved_value'],
@@ -251,7 +253,7 @@ class VariationOrderController extends Controller
 
             $variationOrder->addTimelineEntry(
                 'Approved',
-                $variationOrder->status,
+                $oldStatus,
                 'approved',
                 $validated['notes'] ?? 'Variation order approved'
             );

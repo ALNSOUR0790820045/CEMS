@@ -6,6 +6,11 @@ use App\Http\Controllers\VariationOrderController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Variation Orders API
+    
+    // Static routes first to avoid conflicts
+    Route::get('/variation-orders/statistics', [VariationOrderController::class, 'statistics']);
+    
+    // Resource routes
     Route::get('/variation-orders', [VariationOrderController::class, 'index']);
     Route::post('/variation-orders', [VariationOrderController::class, 'store']);
     Route::get('/variation-orders/{variationOrder}', [VariationOrderController::class, 'show']);
@@ -16,9 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/variation-orders/{variationOrder}/submit', [VariationOrderController::class, 'submit']);
     Route::post('/variation-orders/{variationOrder}/approve', [VariationOrderController::class, 'approve']);
     Route::post('/variation-orders/{variationOrder}/reject', [VariationOrderController::class, 'reject']);
-    
-    // Additional endpoints
-    Route::get('/variation-orders/statistics', [VariationOrderController::class, 'statistics']);
     Route::get('/variation-orders/{variationOrder}/export', [VariationOrderController::class, 'export']);
+    
+    // Project-specific routes
     Route::get('/projects/{project}/variation-orders', [VariationOrderController::class, 'byProject']);
 });
