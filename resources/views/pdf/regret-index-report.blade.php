@@ -263,7 +263,9 @@
     @endif
 
     <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #666;">
+        @if($analysis->preparedBy)
         <p>تم إعداده بواسطة: {{ $analysis->preparedBy->name }}</p>
+        @endif
         @if($analysis->reviewedBy)
         <p>تمت المراجعة بواسطة: {{ $analysis->reviewedBy->name }}</p>
         @endif

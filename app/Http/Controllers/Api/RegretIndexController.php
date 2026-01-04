@@ -92,8 +92,10 @@ class RegretIndexController extends Controller
             ], 422);
         }
 
-        // Get contract details
-        $contract = Contract::findOrFail($request->contract_id);
+        // Get contract details and verify it belongs to the project
+        $contract = Contract::where('id', $request->contract_id)
+            ->where('project_id', $request->project_id)
+            ->firstOrFail();
         
         // Create analysis
         $analysis = new FinancialRegretAnalysis();
@@ -225,9 +227,16 @@ class RegretIndexController extends Controller
             'scenarios'
         ])->findOrFail($id);
 
-        $pdf = Pdf::loadView('pdf.regret-index-report', compact('analysis'));
-        
-        return $pdf->download('regret-index-' . $analysis->analysis_number . '.pdf');
+        try {
+            $pdf = Pdf::loadView('pdf.regret-index-report', compact('analysis'));
+            
+            return $pdf->download('regret-index-' . $analysis->analysis_number . '.pdf');
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'فشل في إنشاء ملف PDF',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
