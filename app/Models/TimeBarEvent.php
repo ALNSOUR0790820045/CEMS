@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class TimeBarEvent extends Model
 {
@@ -60,13 +60,13 @@ class TimeBarEvent extends Model
             if (empty($event->event_number)) {
                 $event->event_number = static::generateEventNumber();
             }
-            
+
             // Calculate notice deadline if not set
-            if (empty($event->notice_deadline) && !empty($event->discovery_date)) {
+            if (empty($event->notice_deadline) && ! empty($event->discovery_date)) {
                 $event->notice_deadline = Carbon::parse($event->discovery_date)
                     ->addDays($event->notice_period_days ?? 28);
             }
-            
+
             // Calculate days remaining
             $event->updateDaysRemaining();
         });
@@ -82,9 +82,9 @@ class TimeBarEvent extends Model
         $lastEvent = static::whereYear('created_at', $year)
             ->orderBy('id', 'desc')
             ->first();
-        
+
         $number = $lastEvent ? intval(substr($lastEvent->event_number, -4)) + 1 : 1;
-        
+
         return sprintf('TBE-%s-%04d', $year, $number);
     }
 
@@ -92,9 +92,9 @@ class TimeBarEvent extends Model
     {
         if ($this->notice_deadline) {
             $this->days_remaining = max(0, Carbon::now()->diffInDays($this->notice_deadline, false));
-            
+
             // Update status if time barred
-            if ($this->days_remaining <= 0 && !$this->notice_sent && $this->status !== 'time_barred') {
+            if ($this->days_remaining <= 0 && ! $this->notice_sent && $this->status !== 'time_barred') {
                 $this->status = 'time_barred';
             }
         }
@@ -102,12 +102,12 @@ class TimeBarEvent extends Model
 
     public function isExpired(): bool
     {
-        return $this->days_remaining <= 0 && !$this->notice_sent;
+        return $this->days_remaining <= 0 && ! $this->notice_sent;
     }
 
     public function isExpiringSoon(int $days = 7): bool
     {
-        return $this->days_remaining > 0 && $this->days_remaining <= $days && !$this->notice_sent;
+        return $this->days_remaining > 0 && $this->days_remaining <= $days && ! $this->notice_sent;
     }
 
     // Relationships

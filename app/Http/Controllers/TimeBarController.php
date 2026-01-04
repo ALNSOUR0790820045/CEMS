@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TimeBarEvent;
-use App\Models\TimeBarAlert;
-use App\Models\TimeBarSetting;
-use App\Models\TimeBarContractualClause;
-use App\Models\Project;
 use App\Models\Contract;
-use App\Models\Correspondence;
+use App\Models\Project;
+use App\Models\TimeBarAlert;
+use App\Models\TimeBarContractualClause;
+use App\Models\TimeBarEvent;
+use App\Models\TimeBarSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class TimeBarController extends Controller
 {
@@ -53,7 +51,7 @@ class TimeBarController extends Controller
         ]);
 
         // Get notice period from contract or use default
-        if (!isset($validated['notice_period_days']) && $request->contract_id) {
+        if (! isset($validated['notice_period_days']) && $request->contract_id) {
             $contract = Contract::find($request->contract_id);
             $validated['notice_period_days'] = $contract->default_notice_period ?? 28;
         } else {
@@ -218,10 +216,10 @@ class TimeBarController extends Controller
                 ->groupBy('priority')
                 ->get(),
             'monthly_events' => TimeBarEvent::select(
-                    DB::raw('YEAR(created_at) as year'),
-                    DB::raw('MONTH(created_at) as month'),
-                    DB::raw('count(*) as count')
-                )
+                DB::raw('YEAR(created_at) as year'),
+                DB::raw('MONTH(created_at) as month'),
+                DB::raw('count(*) as count')
+            )
                 ->groupBy('year', 'month')
                 ->orderBy('year', 'desc')
                 ->orderBy('month', 'desc')
@@ -279,13 +277,13 @@ class TimeBarController extends Controller
     public function clauses(Request $request)
     {
         $contractId = $request->get('contract_id');
-        
+
         $query = TimeBarContractualClause::with('contract');
-        
+
         if ($contractId) {
             $query->where('contract_id', $contractId);
         }
-        
+
         $clauses = $query->active()->paginate(20);
 
         return view('time-bar.clauses', compact('clauses'));
@@ -330,7 +328,7 @@ class TimeBarController extends Controller
         } elseif ($event->days_remaining <= 14) {
             return 'event-warning';
         }
-        
+
         return 'event-normal';
     }
 }

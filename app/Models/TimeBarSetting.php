@@ -73,7 +73,7 @@ class TimeBarSetting extends Model
 
     public static function getDefaultSettings(): self
     {
-        $setting = new static();
+        $setting = new static;
         $setting->default_notice_period = 28;
         $setting->first_warning_days = 21;
         $setting->second_warning_days = 14;
@@ -83,7 +83,7 @@ class TimeBarSetting extends Model
         $setting->email_notifications = true;
         $setting->sms_notifications = true;
         $setting->escalation_enabled = true;
-        
+
         return $setting;
     }
 }
