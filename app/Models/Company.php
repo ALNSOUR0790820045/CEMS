@@ -33,4 +33,14 @@ class Company extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function alertRules()
+    {
+        return $this->hasMany(AlertRule::class);
+    }
 }
