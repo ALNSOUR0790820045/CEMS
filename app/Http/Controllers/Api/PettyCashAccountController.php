@@ -33,6 +33,8 @@ class PettyCashAccountController extends Controller
 
     /**
      * Store a newly created petty cash account.
+     * Note: current_balance is set equal to fund_limit on creation (initial funding).
+     * After creation, balance is only modified through transactions.
      */
     public function store(Request $request)
     {
@@ -40,7 +42,6 @@ class PettyCashAccountController extends Controller
             'account_name' => 'required|string|max:255',
             'custodian_id' => 'required|exists:users,id',
             'fund_limit' => 'required|numeric|min:0',
-            'current_balance' => 'nullable|numeric|min:0',
             'gl_account_id' => 'nullable|integer',
             'is_active' => 'boolean',
             'company_id' => 'required|exists:companies,id',
@@ -51,6 +52,11 @@ class PettyCashAccountController extends Controller
         }
 
         $account = PettyCashAccount::create($request->all());
+        
+        // Set initial balance equal to fund limit
+        $account->current_balance = $account->fund_limit;
+        $account->save();
+        
         $account->load(['custodian', 'company']);
 
         return response()->json($account, 201);
