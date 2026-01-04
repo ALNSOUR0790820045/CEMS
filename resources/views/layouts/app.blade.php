@@ -378,15 +378,18 @@
                         <div class="menu-col">
                             <h4>التوثيق</h4>
                             <a href="#" class="sub-link"><i data-lucide="folder-open"></i> الأرشيف الرقمي</a>
-                            <a href="#" class="sub-link"><i data-lucide="mail"></i> الصادر والوارد</a>
+                            <a href="{{ route('correspondence.dashboard') }}" class="sub-link"><i data-lucide="mail"></i> الصادر والوارد</a>
                         </div>
                         <div class="menu-col">
                             <h4>المراسلات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="send"></i> قوالب الخطابات</a>
+                            <a href="{{ route('correspondence.incoming') }}" class="sub-link"><i data-lucide="inbox"></i> الوارد</a>
+                            <a href="{{ route('correspondence.outgoing') }}" class="sub-link"><i data-lucide="send"></i> الصادر</a>
+                            <a href="{{ route('correspondence.templates') }}" class="sub-link"><i data-lucide="file-text"></i> القوالب</a>
                         </div>
                         <div class="menu-col">
-                            <h4>البحث</h4>
-                            <a href="#" class="sub-link"><i data-lucide="search"></i> البحث</a>
+                            <h4>البحث والتقارير</h4>
+                            <a href="{{ route('correspondence.search') }}" class="sub-link"><i data-lucide="search"></i> البحث</a>
+                            <a href="{{ route('correspondence.statistics') }}" class="sub-link"><i data-lucide="bar-chart"></i> الإحصائيات</a>
                         </div>
                     </div>
                 </div>
