@@ -21,5 +21,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Variation Orders Management
+    Route::resource('variation-orders', \App\Http\Controllers\VariationOrderController::class);
+    Route::post('variation-orders/{variationOrder}/submit', [\App\Http\Controllers\VariationOrderController::class, 'submit'])->name('variation-orders.submit');
+    Route::post('variation-orders/{variationOrder}/approve', [\App\Http\Controllers\VariationOrderController::class, 'approve'])->name('variation-orders.approve');
+    Route::post('variation-orders/{variationOrder}/reject', [\App\Http\Controllers\VariationOrderController::class, 'reject'])->name('variation-orders.reject');
+    Route::get('variation-orders/{variationOrder}/export', [\App\Http\Controllers\VariationOrderController::class, 'export'])->name('variation-orders.export');
 });
