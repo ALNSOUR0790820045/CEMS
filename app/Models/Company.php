@@ -33,4 +33,19 @@ class Company extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function certifications()
+    {
+        return $this->hasMany(Certification::class);
+    }
+
+    public function complianceRequirements()
+    {
+        return $this->hasMany(ComplianceRequirement::class);
+    }
+
+    public function complianceTrackings()
+    {
+        return $this->hasMany(ComplianceTracking::class);
+    }
 }
