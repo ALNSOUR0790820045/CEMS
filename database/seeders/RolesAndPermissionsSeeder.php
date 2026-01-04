@@ -118,6 +118,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 Permission::create([
                     'name' => $permission,
                     'guard_name' => 'web',
+                    'module' => $module,
                 ]);
             }
         }
