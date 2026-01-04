@@ -267,9 +267,9 @@ class BankStatementController extends Controller
             $header = fgetcsv($handle); // Skip header row
             
             while (($row = fgetcsv($handle)) !== false) {
-                if (count($row) >= 5) {
+                if (count($row) >= 5 && !empty($row[0])) {
                     $data[] = [
-                        'transaction_date' => $row[0] ?? now(),
+                        'transaction_date' => $row[0],
                         'value_date' => $row[1] ?? null,
                         'description' => $row[2] ?? '',
                         'reference_number' => $row[3] ?? null,
