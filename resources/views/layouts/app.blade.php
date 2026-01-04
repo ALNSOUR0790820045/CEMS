@@ -304,8 +304,9 @@
                         </div>
                         <div class="menu-col">
                             <h4>المعدات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="truck"></i> الآليات</a>
-                            <a href="#" class="sub-link"><i data-lucide="wrench"></i> الصيانة</a>
+                            <a href="{{ route('equipment.index') }}" class="sub-link"><i data-lucide="truck"></i> الآليات</a>
+                            <a href="{{ route('equipment.create') }}" class="sub-link"><i data-lucide="plus"></i> إضافة معدة</a>
+                            <a href="{{ route('equipment.available') }}" class="sub-link"><i data-lucide="check-circle"></i> المعدات المتاحة</a>
                         </div>
                     </div>
                 </div>
