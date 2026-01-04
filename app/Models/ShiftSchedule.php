@@ -19,8 +19,8 @@ class ShiftSchedule extends Model
     ];
 
     protected $casts = [
-        'start_time' => 'datetime:H:i',
-        'end_time' => 'datetime:H:i',
+        'start_time' => 'datetime:H:i:s',
+        'end_time' => 'datetime:H:i:s',
         'working_hours' => 'decimal:2',
         'is_active' => 'boolean',
         'grace_period_minutes' => 'integer',
