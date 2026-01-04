@@ -74,7 +74,6 @@ class PettyCashAccountController extends Controller
             'account_name' => 'sometimes|required|string|max:255',
             'custodian_id' => 'sometimes|required|exists:users,id',
             'fund_limit' => 'sometimes|required|numeric|min:0',
-            'current_balance' => 'sometimes|nullable|numeric|min:0',
             'gl_account_id' => 'nullable|integer',
             'is_active' => 'boolean',
             'company_id' => 'sometimes|required|exists:companies,id',

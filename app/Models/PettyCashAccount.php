@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class PettyCashAccount extends Model
 {
     protected $fillable = [
-        'account_code',
         'account_name',
         'custodian_id',
         'fund_limit',
-        'current_balance',
         'gl_account_id',
         'is_active',
         'company_id',

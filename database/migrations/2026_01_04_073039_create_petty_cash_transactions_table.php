@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_number')->unique();
             $table->date('transaction_date');
-            $table->foreignId('petty_cash_account_id')->constrained('petty_cash_accounts');
+            $table->foreignId('petty_cash_account_id')->constrained('petty_cash_accounts')->onDelete('restrict');
             $table->enum('transaction_type', ['expense', 'reimbursement', 'adjustment']);
             $table->decimal('amount', 10, 2);
             $table->string('expense_category')->nullable();

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class PettyCashTransaction extends Model
 {
     protected $fillable = [
-        'transaction_number',
         'transaction_date',
         'petty_cash_account_id',
         'transaction_type',
