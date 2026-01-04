@@ -257,7 +257,7 @@ class PurchaseRequisitionController extends Controller
         }
 
         $validated = $request->validate([
-            'vendor_id' => 'required|integer',
+            'vendor_id' => 'required|integer', // TODO: Add 'exists:vendors,id' when vendors table is implemented
             'items' => 'required|array|min:1',
             'items.*.purchase_requisition_item_id' => 'required|exists:purchase_requisition_items,id',
             'items.*.quantity' => 'required|numeric|min:0.01',
@@ -272,12 +272,12 @@ class PurchaseRequisitionController extends Controller
                 $prItem->save();
             }
 
-            // Check if all items are fully converted
-            $allConverted = $pr->items->every(function ($item) {
-                return $item->converted_quantity >= $item->quantity;
-            });
+            // Check if all items are fully converted using database query
+            $hasUnconvertedItems = $pr->items()
+                ->whereColumn('converted_quantity', '<', 'quantity')
+                ->exists();
 
-            if ($allConverted) {
+            if (!$hasUnconvertedItems) {
                 $pr->status = 'converted_to_po';
                 $pr->save();
             }
