@@ -54,7 +54,7 @@ class PurchaseRequisitionController extends Controller
     {
         $validated = $request->validate([
             'pr_date' => 'required|date',
-            'required_date' => 'required|date|after_or_equal:pr_date',
+            'required_date' => 'required|date',
             'requested_by_id' => 'required|exists:employees,id',
             'department_id' => 'nullable|exists:departments,id',
             'project_id' => 'nullable|exists:projects,id',
@@ -70,6 +70,14 @@ class PurchaseRequisitionController extends Controller
             'items.*.estimated_unit_price' => 'nullable|numeric|min:0',
             'items.*.specifications' => 'nullable|string',
         ]);
+
+        // Additional validation for date comparison
+        if (strtotime($validated['required_date']) < strtotime($validated['pr_date'])) {
+            return response()->json([
+                'message' => 'Required date must be equal to or after PR date',
+                'errors' => ['required_date' => ['Required date must be equal to or after PR date']]
+            ], 422);
+        }
 
         DB::beginTransaction();
         try {
@@ -137,13 +145,23 @@ class PurchaseRequisitionController extends Controller
 
         $validated = $request->validate([
             'pr_date' => 'sometimes|date',
-            'required_date' => 'sometimes|date|after_or_equal:pr_date',
+            'required_date' => 'sometimes|date',
             'requested_by_id' => 'sometimes|exists:employees,id',
             'department_id' => 'nullable|exists:departments,id',
             'project_id' => 'nullable|exists:projects,id',
             'priority' => 'sometimes|in:normal,urgent,critical',
             'notes' => 'nullable|string',
         ]);
+
+        // Additional validation for date comparison if both dates are present
+        if (isset($validated['pr_date']) && isset($validated['required_date'])) {
+            if (strtotime($validated['required_date']) < strtotime($validated['pr_date'])) {
+                return response()->json([
+                    'message' => 'Required date must be equal to or after PR date',
+                    'errors' => ['required_date' => ['Required date must be equal to or after PR date']]
+                ], 422);
+            }
+        }
 
         $pr->update($validated);
 
