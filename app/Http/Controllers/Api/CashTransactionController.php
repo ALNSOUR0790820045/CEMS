@@ -263,7 +263,7 @@ class CashTransactionController extends Controller
             }
 
             $transaction = CashTransaction::create($validated);
-            $this->updateCashAccountBalance($transaction);
+            $this->updateCashAccountBalance($transaction, $cashAccount);
 
             DB::commit();
 
@@ -303,6 +303,8 @@ class CashTransactionController extends Controller
         try {
             // Check if from account has sufficient balance
             $fromAccount = CashAccount::findOrFail($validated['from_account_id']);
+            $toAccount = CashAccount::findOrFail($validated['to_account_id']);
+
             if ($fromAccount->current_balance < $validated['amount']) {
                 return response()->json([
                     'success' => false,
@@ -346,9 +348,9 @@ class CashTransactionController extends Controller
             // Link the transactions
             $paymentTransaction->update(['related_document_id' => $receiptTransaction->id]);
 
-            // Update balances
-            $this->updateCashAccountBalance($paymentTransaction);
-            $this->updateCashAccountBalance($receiptTransaction);
+            // Update balances with already-fetched accounts
+            $this->updateCashAccountBalance($paymentTransaction, $fromAccount);
+            $this->updateCashAccountBalance($receiptTransaction, $toAccount);
 
             DB::commit();
 
@@ -374,9 +376,11 @@ class CashTransactionController extends Controller
     /**
      * Update cash account balance based on transaction
      */
-    private function updateCashAccountBalance(CashTransaction $transaction)
+    private function updateCashAccountBalance(CashTransaction $transaction, ?CashAccount $cashAccount = null)
     {
-        $cashAccount = CashAccount::findOrFail($transaction->cash_account_id);
+        if (! $cashAccount) {
+            $cashAccount = CashAccount::findOrFail($transaction->cash_account_id);
+        }
 
         if ($transaction->transaction_type === 'receipt') {
             $cashAccount->current_balance += $transaction->amount;

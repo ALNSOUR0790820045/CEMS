@@ -53,7 +53,7 @@ class CashTransaction extends Model
     // Generate transaction number
     public static function generateTransactionNumber()
     {
-        $year = date('Y');
+        $year = now()->year;
         $lastTransaction = self::where('transaction_number', 'like', "CT-{$year}-%")
             ->orderBy('transaction_number', 'desc')
             ->first();
