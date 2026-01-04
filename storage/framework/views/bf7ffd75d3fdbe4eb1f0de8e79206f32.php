@@ -321,7 +321,7 @@
                         <div class="menu-col">
                             <h4>العقود</h4>
                             <a href="#" class="sub-link"><i data-lucide="file-text"></i> العقود</a>
-                            <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
+                            <a href="<?php echo e(route('claims.index')); ?>" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
                         <div class="menu-col">
                             <h4>الضمانات</h4>
@@ -432,4 +432,4 @@
 
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
-</html><?php /**PATH C:\cems-erp\resources\views/layouts/app.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/runner/work/CEMS/CEMS/resources/views/layouts/app.blade.php ENDPATH**/ ?>

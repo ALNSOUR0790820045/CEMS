@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Claim;
-use App\Models\Project;
-use App\Models\Contract;
 use App\Models\ClaimTimeline;
+use App\Models\Contract;
+use App\Models\Project;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClaimController extends Controller
 {
@@ -18,7 +18,7 @@ class ClaimController extends Controller
         $claims = Claim::with(['project', 'contract', 'preparedBy'])
             ->latest()
             ->paginate(20);
-        
+
         return view('claims.index', compact('claims'));
     }
 
@@ -26,7 +26,7 @@ class ClaimController extends Controller
     {
         $projects = Project::where('status', 'active')->get();
         $contracts = Contract::where('status', 'active')->get();
-        
+
         return view('claims.create', compact('projects', 'contracts'));
     }
 
@@ -54,7 +54,7 @@ class ClaimController extends Controller
         $project = Project::findOrFail($validated['project_id']);
         $sequenceNumber = Claim::where('project_id', $project->id)->max('sequence_number') + 1;
         $validated['sequence_number'] = $sequenceNumber;
-        $validated['claim_number'] = 'CLM-' . $project->code . '-' . str_pad($sequenceNumber, 3, '0', STR_PAD_LEFT);
+        $validated['claim_number'] = 'CLM-'.$project->code.'-'.str_pad($sequenceNumber, 3, '0', STR_PAD_LEFT);
         $validated['prepared_by'] = Auth::id();
         $validated['status'] = 'identified';
 
@@ -76,6 +76,7 @@ class ClaimController extends Controller
                 ->with('success', 'تم إنشاء المطالبة بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->withInput()->with('error', 'حدث خطأ أثناء إنشاء المطالبة');
         }
     }
@@ -90,7 +91,7 @@ class ClaimController extends Controller
             'events',
             'documents.uploadedBy',
             'timeline.performedBy',
-            'correspondence'
+            'correspondence',
         ]);
 
         return view('claims.show', compact('claim'));
@@ -100,7 +101,7 @@ class ClaimController extends Controller
     {
         $projects = Project::all();
         $contracts = Contract::all();
-        
+
         return view('claims.edit', compact('claim', 'projects', 'contracts'));
     }
 
@@ -156,6 +157,7 @@ class ClaimController extends Controller
                 ->with('success', 'تم تحديث المطالبة بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->withInput()->with('error', 'حدث خطأ أثناء تحديث المطالبة');
         }
     }
@@ -163,7 +165,7 @@ class ClaimController extends Controller
     public function destroy(Claim $claim)
     {
         $claim->delete();
-        
+
         return redirect()->route('claims.index')
             ->with('success', 'تم حذف المطالبة بنجاح');
     }
@@ -194,13 +196,14 @@ class ClaimController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'تم إرسال الإشعار بنجاح'
+                'message' => 'تم إرسال الإشعار بنجاح',
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
-                'message' => 'حدث خطأ أثناء إرسال الإشعار'
+                'message' => 'حدث خطأ أثناء إرسال الإشعار',
             ], 500);
         }
     }
@@ -231,13 +234,14 @@ class ClaimController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'تم تقديم المطالبة بنجاح'
+                'message' => 'تم تقديم المطالبة بنجاح',
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
-                'message' => 'حدث خطأ أثناء تقديم المطالبة'
+                'message' => 'حدث خطأ أثناء تقديم المطالبة',
             ], 500);
         }
     }
@@ -269,13 +273,14 @@ class ClaimController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'تمت تسوية المطالبة بنجاح'
+                'message' => 'تمت تسوية المطالبة بنجاح',
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
-                'message' => 'حدث خطأ أثناء تسوية المطالبة'
+                'message' => 'حدث خطأ أثناء تسوية المطالبة',
             ], 500);
         }
     }
@@ -322,10 +327,11 @@ class ClaimController extends Controller
             'events',
             'documents',
             'timeline.performedBy',
-            'correspondence'
+            'correspondence',
         ]);
 
         $pdf = Pdf::loadView('claims.report', compact('claim'));
-        return $pdf->download('claim-' . $claim->claim_number . '.pdf');
+
+        return $pdf->download('claim-'.$claim->claim_number.'.pdf');
     }
 }
