@@ -105,14 +105,14 @@ class VariationOrder extends Model
         return sprintf('VO-%s-%03d', $project->code, $sequence);
     }
 
-    public function addTimelineEntry($action, $fromStatus = null, $toStatus = null, $notes = null)
+    public function addTimelineEntry($action, $fromStatus = null, $toStatus = null, $notes = null, $performedBy = null)
     {
         return $this->timeline()->create([
             'action' => $action,
             'from_status' => $fromStatus,
             'to_status' => $toStatus,
             'notes' => $notes,
-            'performed_by' => auth()->id(),
+            'performed_by' => $performedBy ?? auth()->id() ?? $this->requested_by,
         ]);
     }
 }
