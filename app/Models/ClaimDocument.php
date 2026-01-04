@@ -21,6 +21,7 @@ class ClaimDocument extends Model
 
     protected $casts = [
         'file_size' => 'integer',
+        'document_date' => 'date',
     ];
 
     // Relationships

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('claim_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('type'); // notice, submission, correspondence, evidence, photo, calculation
-            $table->string('document_date')->nullable();
+            $table->date('document_date')->nullable();
             $table->string('reference_number')->nullable();
             $table->string('file_path');
             $table->string('file_name');
