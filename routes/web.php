@@ -14,11 +14,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-});
-// Authenticated Routes
-Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
@@ -48,8 +43,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/contract-templates/{id}/clauses', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'clauses']);
         Route::get('/contract-templates/{id}/variables', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'variables']);
         Route::post('/contract-templates/{id}/generate', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'generate']);
-        Route::get('/contract-templates/jea-01', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'jea01']);
-        Route::get('/contract-templates/jea-02', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'jea02']);
         Route::post('/contracts/generate-from-template', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'generateFromTemplate']);
         Route::get('/contracts/{id}/export-word', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'exportWord']);
         Route::get('/contracts/{id}/export-pdf', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'exportPdf']);
