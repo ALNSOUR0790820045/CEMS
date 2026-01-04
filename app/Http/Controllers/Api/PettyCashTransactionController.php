@@ -18,7 +18,8 @@ class PettyCashTransactionController extends Controller
     private function validateAmountForTransactionType(Request $request)
     {
         if ($request->has('amount') && $request->has('transaction_type')) {
-            if (in_array($request->transaction_type, ['expense', 'reimbursement']) && $request->amount < 0) {
+            $expenseTypes = [PettyCashTransaction::TYPE_EXPENSE, PettyCashTransaction::TYPE_REIMBURSEMENT];
+            if (in_array($request->transaction_type, $expenseTypes) && $request->amount < 0) {
                 return ['amount' => ['Amount must be positive for expenses and reimbursements']];
             }
         }
@@ -27,6 +28,11 @@ class PettyCashTransactionController extends Controller
 
     /**
      * Update account balance based on transaction type and amount.
+     * 
+     * Balance update rules:
+     * - Expenses: Always decrease balance (use abs to ensure positive amount is subtracted)
+     * - Reimbursements: Always increase balance (use abs to ensure positive amount is added)
+     * - Adjustments: Can increase or decrease based on sign (preserve original sign)
      * 
      * @param PettyCashAccount $account
      * @param string $transactionType
@@ -37,11 +43,14 @@ class PettyCashTransactionController extends Controller
     {
         $multiplier = $reverse ? -1 : 1;
         
-        if ($transactionType === 'expense') {
+        if ($transactionType === PettyCashTransaction::TYPE_EXPENSE) {
+            // Expenses always decrease balance (amount should be positive per validation)
             $account->current_balance -= abs($amount) * $multiplier;
-        } elseif ($transactionType === 'reimbursement') {
+        } elseif ($transactionType === PettyCashTransaction::TYPE_REIMBURSEMENT) {
+            // Reimbursements always increase balance (amount should be positive per validation)
             $account->current_balance += abs($amount) * $multiplier;
-        } elseif ($transactionType === 'adjustment') {
+        } elseif ($transactionType === PettyCashTransaction::TYPE_ADJUSTMENT) {
+            // Adjustments can be positive (increase) or negative (decrease) - preserve sign
             $account->current_balance += $amount * $multiplier;
         }
     }

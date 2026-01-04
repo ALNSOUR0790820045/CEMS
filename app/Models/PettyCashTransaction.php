@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class PettyCashTransaction extends Model
 {
+    // Transaction types
+    const TYPE_EXPENSE = 'expense';
+    const TYPE_REIMBURSEMENT = 'reimbursement';
+    const TYPE_ADJUSTMENT = 'adjustment';
+
     protected $fillable = [
         'transaction_date',
         'petty_cash_account_id',

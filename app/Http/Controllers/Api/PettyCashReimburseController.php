@@ -39,7 +39,7 @@ class PettyCashReimburseController extends Controller
             $transaction = PettyCashTransaction::create([
                 'transaction_date' => now(),
                 'petty_cash_account_id' => $request->petty_cash_account_id,
-                'transaction_type' => 'reimbursement',
+                'transaction_type' => PettyCashTransaction::TYPE_REIMBURSEMENT,
                 'amount' => $request->amount,
                 'description' => $request->description,
                 'receipt_number' => $request->receipt_number,
