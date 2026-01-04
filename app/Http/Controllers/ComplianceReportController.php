@@ -122,7 +122,7 @@ class ComplianceReportController extends Controller
                 'total_count' => $certifications->count(),
                 'active_count' => $certifications->where('status', 'active')->count(),
                 'expired_count' => $certifications->where('status', 'expired')->count(),
-            ]
+            ],
         ]);
     }
 
@@ -155,7 +155,7 @@ class ComplianceReportController extends Controller
                 'completed_count' => $trackings->where('status', 'completed')->count(),
                 'overdue_count' => $trackings->where('status', 'overdue')->count(),
                 'pending_count' => $trackings->where('status', 'pending')->count(),
-            ]
+            ],
         ]);
     }
 }

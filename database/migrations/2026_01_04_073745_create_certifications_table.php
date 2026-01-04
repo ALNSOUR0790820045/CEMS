@@ -28,7 +28,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
-            
+
             // Index for polymorphic relationship
             $table->index(['entity_type', 'entity_id']);
         });

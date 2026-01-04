@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\ComplianceReportController;
 use App\Http\Controllers\ComplianceRequirementController;
 use App\Http\Controllers\ComplianceTrackingController;
-use App\Http\Controllers\ComplianceReportController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

@@ -54,7 +54,7 @@ class ComplianceRequirementController extends Controller
 
         return response()->json([
             'message' => 'Compliance requirement created successfully',
-            'data' => $requirement->load('company')
+            'data' => $requirement->load('company'),
         ], 201);
     }
 
@@ -72,7 +72,7 @@ class ComplianceRequirementController extends Controller
     public function update(Request $request, ComplianceRequirement $complianceRequirement)
     {
         $validated = $request->validate([
-            'requirement_code' => 'sometimes|required|string|max:255|unique:compliance_requirements,requirement_code,' . $complianceRequirement->id,
+            'requirement_code' => 'sometimes|required|string|max:255|unique:compliance_requirements,requirement_code,'.$complianceRequirement->id,
             'requirement_name' => 'sometimes|required|string|max:255',
             'regulatory_body' => 'sometimes|required|string|max:255',
             'requirement_type' => 'sometimes|required|in:license,permit,certification,audit,reporting',
@@ -87,7 +87,7 @@ class ComplianceRequirementController extends Controller
 
         return response()->json([
             'message' => 'Compliance requirement updated successfully',
-            'data' => $complianceRequirement->fresh()->load('company')
+            'data' => $complianceRequirement->fresh()->load('company'),
         ]);
     }
 
@@ -99,7 +99,7 @@ class ComplianceRequirementController extends Controller
         $complianceRequirement->delete();
 
         return response()->json([
-            'message' => 'Compliance requirement deleted successfully'
+            'message' => 'Compliance requirement deleted successfully',
         ]);
     }
 }

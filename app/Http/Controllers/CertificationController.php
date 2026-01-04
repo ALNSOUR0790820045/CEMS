@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certification;
-use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -64,7 +63,7 @@ class CertificationController extends Controller
 
         return response()->json([
             'message' => 'Certification created successfully',
-            'data' => $certification->load('company')
+            'data' => $certification->load('company'),
         ], 201);
     }
 
@@ -112,7 +111,7 @@ class CertificationController extends Controller
 
         return response()->json([
             'message' => 'Certification updated successfully',
-            'data' => $certification->fresh()->load('company')
+            'data' => $certification->fresh()->load('company'),
         ]);
     }
 
@@ -129,7 +128,7 @@ class CertificationController extends Controller
         $certification->delete();
 
         return response()->json([
-            'message' => 'Certification deleted successfully'
+            'message' => 'Certification deleted successfully',
         ]);
     }
 
@@ -170,7 +169,7 @@ class CertificationController extends Controller
         // Create new certification with renewed data
         $newCertificationData = $certification->toArray();
         unset($newCertificationData['id'], $newCertificationData['created_at'], $newCertificationData['updated_at'], $newCertificationData['certification_code']);
-        
+
         $newCertificationData['issue_date'] = $validated['new_issue_date'];
         $newCertificationData['expiry_date'] = $validated['new_expiry_date'];
         $newCertificationData['status'] = 'active';
@@ -196,7 +195,7 @@ class CertificationController extends Controller
 
         return response()->json([
             'message' => 'Certification renewed successfully',
-            'data' => $newCertification->load('company')
+            'data' => $newCertification->load('company'),
         ], 201);
     }
 }

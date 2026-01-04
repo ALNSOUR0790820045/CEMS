@@ -61,7 +61,7 @@ class ComplianceTrackingController extends Controller
 
         return response()->json([
             'message' => 'Compliance tracking created successfully',
-            'data' => $tracking->load(['company', 'complianceRequirement', 'responsiblePerson'])
+            'data' => $tracking->load(['company', 'complianceRequirement', 'responsiblePerson']),
         ], 201);
     }
 
@@ -104,7 +104,7 @@ class ComplianceTrackingController extends Controller
 
         return response()->json([
             'message' => 'Compliance tracking updated successfully',
-            'data' => $complianceTracking->fresh()->load(['company', 'complianceRequirement', 'responsiblePerson'])
+            'data' => $complianceTracking->fresh()->load(['company', 'complianceRequirement', 'responsiblePerson']),
         ]);
     }
 
@@ -121,7 +121,7 @@ class ComplianceTrackingController extends Controller
         $complianceTracking->delete();
 
         return response()->json([
-            'message' => 'Compliance tracking deleted successfully'
+            'message' => 'Compliance tracking deleted successfully',
         ]);
     }
 

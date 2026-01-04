@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Certification extends Model
 {
@@ -110,6 +109,7 @@ class Certification extends Model
     public function getIsExpiringSoonAttribute(): bool
     {
         $alertDate = now()->addDays($this->alert_before_days);
+
         return $this->expiry_date <= $alertDate && $this->expiry_date >= now();
     }
 
