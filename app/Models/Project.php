@@ -1,0 +1,187 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Project extends Model
+{
+    use SoftDeletes;
+
+    protected $fillable = [
+        'project_number',
+        'name',
+        'name_en',
+        'description',
+        'tender_id',
+        'contract_id',
+        'client_id',
+        'client_contract_number',
+        'type',
+        'category',
+        'location',
+        'city',
+        'region',
+        'country',
+        'latitude',
+        'longitude',
+        'award_date',
+        'contract_date',
+        'commencement_date',
+        'original_completion_date',
+        'revised_completion_date',
+        'actual_completion_date',
+        'handover_date',
+        'final_handover_date',
+        'original_duration_days',
+        'approved_extension_days',
+        'original_contract_value',
+        'approved_variations',
+        'revised_contract_value',
+        'currency',
+        'advance_payment_percentage',
+        'advance_payment_amount',
+        'retention_percentage',
+        'performance_bond_percentage',
+        'physical_progress',
+        'financial_progress',
+        'time_progress',
+        'status',
+        'health',
+        'priority',
+        'project_manager_id',
+        'site_engineer_id',
+        'quantity_surveyor_id',
+        'created_by',
+        'performance_bond_id',
+        'advance_bond_id',
+        'notes',
+    ];
+
+    protected $casts = [
+        'award_date' => 'date',
+        'contract_date' => 'date',
+        'commencement_date' => 'date',
+        'original_completion_date' => 'date',
+        'revised_completion_date' => 'date',
+        'actual_completion_date' => 'date',
+        'handover_date' => 'date',
+        'final_handover_date' => 'date',
+        'original_duration_days' => 'integer',
+        'approved_extension_days' => 'integer',
+        'original_contract_value' => 'decimal:2',
+        'approved_variations' => 'decimal:2',
+        'revised_contract_value' => 'decimal:2',
+        'advance_payment_percentage' => 'decimal:2',
+        'advance_payment_amount' => 'decimal:2',
+        'retention_percentage' => 'decimal:2',
+        'performance_bond_percentage' => 'decimal:2',
+        'physical_progress' => 'decimal:2',
+        'financial_progress' => 'decimal:2',
+        'time_progress' => 'decimal:2',
+        'latitude' => 'decimal:8',
+        'longitude' => 'decimal:8',
+    ];
+
+    // Relationships
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function tender()
+    {
+        return $this->belongsTo(Tender::class);
+    }
+
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class);
+    }
+
+    public function projectManager()
+    {
+        return $this->belongsTo(User::class, 'project_manager_id');
+    }
+
+    public function siteEngineer()
+    {
+        return $this->belongsTo(User::class, 'site_engineer_id');
+    }
+
+    public function quantitySurveyor()
+    {
+        return $this->belongsTo(User::class, 'quantity_surveyor_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function performanceBond()
+    {
+        return $this->belongsTo(Guarantee::class, 'performance_bond_id');
+    }
+
+    public function advanceBond()
+    {
+        return $this->belongsTo(Guarantee::class, 'advance_bond_id');
+    }
+
+    public function team()
+    {
+        return $this->hasMany(ProjectTeam::class);
+    }
+
+    public function phases()
+    {
+        return $this->hasMany(ProjectPhase::class);
+    }
+
+    public function milestones()
+    {
+        return $this->hasMany(ProjectMilestone::class);
+    }
+
+    public function progressReports()
+    {
+        return $this->hasMany(ProjectProgressReport::class);
+    }
+
+    public function issues()
+    {
+        return $this->hasMany(ProjectIssue::class);
+    }
+
+    // Accessor for project status badge color
+    public function getStatusBadgeAttribute()
+    {
+        return match($this->status) {
+            'not_started' => 'gray',
+            'mobilization' => 'blue',
+            'in_progress' => 'green',
+            'on_hold' => 'yellow',
+            'suspended' => 'orange',
+            'completed' => 'purple',
+            'handed_over' => 'indigo',
+            'final_handover' => 'teal',
+            'closed' => 'gray',
+            'terminated' => 'red',
+            default => 'gray',
+        };
+    }
+
+    // Accessor for health badge color
+    public function getHealthBadgeAttribute()
+    {
+        return match($this->health) {
+            'on_track' => 'green',
+            'at_risk' => 'yellow',
+            'delayed' => 'orange',
+            'critical' => 'red',
+            default => 'gray',
+        };
+    }
+}
