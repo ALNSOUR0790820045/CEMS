@@ -171,14 +171,17 @@ class Guarantee extends Model
     // Methods
     public static function generateGuaranteeNumber()
     {
-        $year = Carbon::now()->year;
-        $lastGuarantee = self::whereYear('created_at', $year)
-            ->latest('id')
-            ->first();
-        
-        $number = $lastGuarantee ? ((int) substr($lastGuarantee->guarantee_number, -4)) + 1 : 1;
-        
-        return sprintf('LG-%d-%04d', $year, $number);
+        return \DB::transaction(function () {
+            $year = Carbon::now()->year;
+            $lastGuarantee = self::whereYear('created_at', $year)
+                ->latest('id')
+                ->lockForUpdate()
+                ->first();
+            
+            $number = $lastGuarantee ? ((int) substr($lastGuarantee->guarantee_number, -4)) + 1 : 1;
+            
+            return sprintf('LG-%d-%04d', $year, $number);
+        });
     }
 
     public function calculateCommission()

@@ -36,11 +36,11 @@ class GuaranteeController extends Controller
         }
         
         if ($request->filled('search')) {
-            $search = str_replace(['%', '_'], ['\\%', '\\_'], $request->search);
+            $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('guarantee_number', 'like', '%' . $search . '%')
-                  ->orWhere('beneficiary', 'like', '%' . $search . '%')
-                  ->orWhere('bank_reference_number', 'like', '%' . $search . '%');
+                $q->where('guarantee_number', 'like', '%' . addcslashes($search, '%_\\') . '%')
+                  ->orWhere('beneficiary', 'like', '%' . addcslashes($search, '%_\\') . '%')
+                  ->orWhere('bank_reference_number', 'like', '%' . addcslashes($search, '%_\\') . '%');
             });
         }
         

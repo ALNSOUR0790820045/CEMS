@@ -22,7 +22,7 @@
 
         <div style="margin-bottom: 20px;" id="amount-field">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">المبلغ المحرر *</label>
-            <input type="number" name="released_amount" step="0.01" min="0" max="{{ $guarantee->amount }}" value="{{ $guarantee->amount }}" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Cairo', sans-serif;">
+            <input type="number" name="released_amount" step="0.01" min="0" max="{{ $guarantee->amount }}" value="{{ $guarantee->amount }}" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Cairo', sans-serif;" data-full-amount="{{ $guarantee->amount }}">
         </div>
 
         <div style="margin-bottom: 20px;">
@@ -45,8 +45,9 @@
 <script>
 function toggleReleaseAmount(type) {
     const amountField = document.querySelector('[name="released_amount"]');
+    const fullAmount = amountField.dataset.fullAmount;
     if (type === 'full') {
-        amountField.value = @json($guarantee->amount);
+        amountField.value = fullAmount;
         amountField.readOnly = true;
     } else {
         amountField.readOnly = false;
