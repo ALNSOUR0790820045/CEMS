@@ -280,9 +280,11 @@
                             <a href="#" class="sub-link"><i data-lucide="shield-check"></i> الصلاحيات</a>
                         </div>
                         <div class="menu-col">
-                            <h4>البيانات</h4>
+                            <h4>البيانات والتقارير</h4>
+                            <a href="{{ route('dashboards.executive') }}" class="sub-link"><i data-lucide="bar-chart-3"></i> لوحة التحكم التنفيذية</a>
+                            <a href="{{ route('dashboards.financial') }}" class="sub-link"><i data-lucide="line-chart"></i> لوحة التحكم المالية</a>
+                            <a href="{{ route('dashboards.project') }}" class="sub-link"><i data-lucide="folder-kanban"></i> لوحة تحكم المشاريع</a>
                             <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
-                            <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
                         </div>
                     </div>

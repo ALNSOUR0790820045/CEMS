@@ -22,4 +22,17 @@ Route::middleware('auth')->group(function () {
     
     // Companies Management
     Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Dashboard Views
+    Route::get('/dashboards/executive', function () {
+        return view('dashboards.executive');
+    })->name('dashboards.executive');
+    
+    Route::get('/dashboards/project', function () {
+        return view('dashboards.project');
+    })->name('dashboards.project');
+    
+    Route::get('/dashboards/financial', function () {
+        return view('dashboards.financial');
+    })->name('dashboards.financial');
 });
