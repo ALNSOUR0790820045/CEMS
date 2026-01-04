@@ -49,7 +49,7 @@ class CostPlusTransactionController extends Controller
             'gross_amount' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0',
             'net_amount' => 'required|numeric|min:0',
-            'currency' => 'string|size:3',
+            'currency' => 'sometimes|string|size:3',
             'is_reimbursable' => 'boolean',
         ]);
 

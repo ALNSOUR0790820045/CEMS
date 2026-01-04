@@ -17,11 +17,14 @@ class CostPlusOverheadController extends Controller
             'allocator'
         ])->latest()->get();
 
+        $contracts = CostPlusContract::with('contract')->get();
+        $projects = Project::where('status', 'active')->get();
+
         if (request()->wantsJson()) {
             return response()->json($allocations);
         }
 
-        return view('cost-plus.overhead.index', compact('allocations'));
+        return view('cost-plus.overhead.index', compact('allocations', 'contracts', 'projects'));
     }
 
     public function allocate(Request $request)

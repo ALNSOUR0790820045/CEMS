@@ -38,8 +38,8 @@ return new class extends Migration
             $table->enum('overhead_method', ['percentage', 'actual', 'allocated'])->default('percentage');
             
             // قواعد التكاليف
-            $table->json('reimbursable_costs'); // التكاليف القابلة للاسترداد
-            $table->json('non_reimbursable_costs'); // التكاليف غير القابلة للاسترداد
+            $table->json('reimbursable_costs')->default(json_encode([])); // التكاليف القابلة للاسترداد
+            $table->json('non_reimbursable_costs')->default(json_encode([])); // التكاليف غير القابلة للاسترداد
             
             $table->string('currency', 3)->default('JOD');
             $table->text('notes')->nullable();

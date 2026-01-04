@@ -94,6 +94,9 @@
                 <label style="display: block; margin-bottom: 8px; font-weight: 600;">عقد Cost Plus</label>
                 <select name="cost_plus_contract_id" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                     <option value="">اختر العقد</option>
+                    @foreach($contracts as $contract)
+                        <option value="{{ $contract->id }}">{{ $contract->contract->contract_number }} - {{ $contract->project->name }}</option>
+                    @endforeach
                 </select>
             </div>
             
@@ -101,6 +104,9 @@
                 <label style="display: block; margin-bottom: 8px; font-weight: 600;">المشروع</label>
                 <select name="project_id" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                     <option value="">اختر المشروع</option>
+                    @foreach($projects as $project)
+                        <option value="{{ $project->id }}">{{ $project->name }}</option>
+                    @endforeach
                 </select>
             </div>
             

@@ -14,7 +14,11 @@
             <div style="display: flex; gap: 12px;">
                 <select name="contract_id" required style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                     <option value="">اختر عقد Cost Plus</option>
-                    <!-- Would be populated from controller -->
+                    @foreach($contracts as $contract)
+                        <option value="{{ $contract->id }}" {{ request('contract_id') == $contract->id ? 'selected' : '' }}>
+                            {{ $contract->contract->contract_number }} - {{ $contract->project->name }}
+                        </option>
+                    @endforeach
                 </select>
                 <button type="submit" style="background: var(--accent); color: white; padding: 12px 32px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Cairo', sans-serif;">
                     عرض التقرير

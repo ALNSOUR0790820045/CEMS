@@ -57,7 +57,15 @@ class CostPlusReportController extends Controller
 
     public function openBookReport(Request $request)
     {
+        $contracts = CostPlusContract::with('project')->get();
         $contractId = $request->input('contract_id');
+        
+        if (!$contractId) {
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Please select a contract']);
+            }
+            return view('cost-plus.open-book', compact('contracts'));
+        }
         
         $contract = CostPlusContract::with([
             'project',
@@ -83,15 +91,16 @@ class CostPlusReportController extends Controller
             'transactions_by_type' => $transactionsByCostType,
             'total_costs' => $contract->transactions->sum('net_amount'),
             'total_invoiced' => $contract->invoices->sum('total_amount'),
-            'documentation_rate' => $contract->transactions->where('documentation_complete', true)->count() / 
-                                   max($contract->transactions->count(), 1) * 100,
+            'documentation_rate' => $contract->transactions->count() > 0 
+                ? ($contract->transactions->where('documentation_complete', true)->count() / $contract->transactions->count() * 100)
+                : 0,
         ];
 
         if ($request->wantsJson()) {
             return response()->json($data);
         }
 
-        return view('cost-plus.open-book', compact('data'));
+        return view('cost-plus.open-book', compact('data', 'contracts'));
     }
 
     public function reports()

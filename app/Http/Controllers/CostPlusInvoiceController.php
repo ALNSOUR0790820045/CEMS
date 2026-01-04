@@ -19,11 +19,14 @@ class CostPlusInvoiceController extends Controller
             'preparer'
         ])->latest()->get();
 
+        $contracts = CostPlusContract::with('contract')->get();
+        $projects = Project::where('status', 'active')->get();
+
         if (request()->wantsJson()) {
             return response()->json($invoices);
         }
 
-        return view('cost-plus.invoices.index', compact('invoices'));
+        return view('cost-plus.invoices.index', compact('invoices', 'contracts', 'projects'));
     }
 
     public function show($id)
@@ -138,9 +141,14 @@ class CostPlusInvoiceController extends Controller
 
             return redirect()->route('cost-plus.invoices.show', $invoice)
                 ->with('success', 'Invoice generated successfully');
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            \Log::error('Invoice generation failed: ' . $e->getMessage());
+            return back()->with('error', 'Failed to generate invoice: Database error');
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            \Log::error('Invoice generation failed: ' . $e->getMessage());
+            return back()->with('error', 'Failed to generate invoice: ' . $e->getMessage());
         }
     }
 
