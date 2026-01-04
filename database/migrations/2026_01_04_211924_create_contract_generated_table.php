@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('contract_generated', function (Blueprint $table) {
             $table->id();
             $table->foreignId('template_id')->constrained('contract_templates');
-            $table->foreignId('project_id')->nullable()->constrained();
-            $table->foreignId('tender_id')->nullable()->constrained();
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->unsignedBigInteger('tender_id')->nullable();
             
             $table->string('contract_title');
             $table->json('parties'); // أطراف العقد
