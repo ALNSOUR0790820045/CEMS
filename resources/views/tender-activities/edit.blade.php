@@ -314,16 +314,5 @@
             element.remove();
         }
     }
-    
-    // Initialize predecessor count based on existing items in DOM
-    function updatePredecessorCount() {
-        const items = document.querySelectorAll('#predecessors-container .predecessor-item');
-        const maxId = Array.from(items).reduce((max, item) => {
-            const match = item.id.match(/predecessor-(?:existing-)?(\d+)/);
-            return match ? Math.max(max, parseInt(match[1])) : max;
-        }, predecessorCount);
-        predecessorCount = maxId;
-    }
-    updatePredecessorCount();
 </script>
 @endsection

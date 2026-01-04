@@ -221,10 +221,10 @@
     <div id="gantt_here"></div>
 </div>
 
-<link href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css" rel="stylesheet">
-<script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
-<script src="https://cdn.dhtmlx.com/gantt/edge/ext/dhtmlxgantt_marker.js"></script>
-<script src="https://cdn.dhtmlx.com/gantt/edge/ext/dhtmlxgantt_tooltip.js"></script>
+<link href="https://cdn.dhtmlx.com/gantt/8.0.6/dhtmlxgantt.css" rel="stylesheet">
+<script src="https://cdn.dhtmlx.com/gantt/8.0.6/dhtmlxgantt.js"></script>
+<script src="https://cdn.dhtmlx.com/gantt/8.0.6/ext/dhtmlxgantt_marker.js"></script>
+<script src="https://cdn.dhtmlx.com/gantt/8.0.6/ext/dhtmlxgantt_tooltip.js"></script>
 
 <script>
     lucide.createIcons();
@@ -340,7 +340,7 @@
                 'duration' => $activity->duration_days,
                 'progress' => 0,
                 'type' => $activity->type == 'milestone' ? 'milestone' : 'task',
-                'is_critical' => $activity->is_critical ? true : false,
+                'is_critical' => $activity->is_critical,
                 'early_start' => $activity->early_start ?? 0,
                 'early_finish' => $activity->early_finish ?? 0,
                 'total_float' => $activity->total_float ?? 0,
@@ -373,21 +373,38 @@
     });
     
     // Toggle critical path filter
+    var allTasks = [];
+    
     function toggleCriticalPath() {
         var showCriticalOnly = document.getElementById('showCriticalOnly').checked;
         
-        gantt.eachTask(function(task) {
-            if (showCriticalOnly) {
-                task.$custom_data = task.$custom_data || {};
-                task.$custom_data.hidden = !task.is_critical;
-            } else {
-                if (task.$custom_data) {
-                    task.$custom_data.hidden = false;
-                }
-            }
-        });
+        // Store all tasks on first filter
+        if (allTasks.length === 0) {
+            gantt.eachTask(function(task) {
+                allTasks.push({
+                    id: task.id,
+                    data: Object.assign({}, task)
+                });
+            });
+        }
         
-        gantt.render();
+        if (showCriticalOnly) {
+            // Filter to show only critical tasks
+            var criticalTasks = allTasks.filter(t => t.data.is_critical);
+            var filteredData = {
+                data: criticalTasks.map(t => t.data),
+                links: tasks.links.filter(link => 
+                    criticalTasks.some(t => t.id === link.source) && 
+                    criticalTasks.some(t => t.id === link.target)
+                )
+            };
+            gantt.clearAll();
+            gantt.parse(filteredData);
+        } else {
+            // Show all tasks
+            gantt.clearAll();
+            gantt.parse(tasks);
+        }
     }
     
     // Export to PNG
