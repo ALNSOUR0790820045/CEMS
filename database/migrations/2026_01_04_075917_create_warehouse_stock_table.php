@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('material_id')->constrained()->cascadeOnDelete();
             $table->decimal('quantity', 10, 2)->default(0);
             $table->decimal('reserved_quantity', 10, 2)->default(0);
-            $table->decimal('available_quantity', 10, 2)->storedAs('quantity - reserved_quantity');
+            $table->decimal('available_quantity', 10, 2)->virtualAs('quantity - reserved_quantity');
             $table->string('batch_number')->nullable();
             $table->date('expiry_date')->nullable();
             $table->timestamp('last_updated')->nullable();

@@ -93,7 +93,13 @@ class WarehouseStockController extends Controller
             // Find source stock
             $sourceStock = WarehouseStock::where('warehouse_id', $validated['from_warehouse_id'])
                 ->where('material_id', $validated['material_id'])
-                ->where('location_id', $validated['from_location_id'])
+                ->where(function($q) use ($validated) {
+                    if (isset($validated['from_location_id'])) {
+                        $q->where('location_id', $validated['from_location_id']);
+                    } else {
+                        $q->whereNull('location_id');
+                    }
+                })
                 ->where(function($q) use ($validated) {
                     if (isset($validated['batch_number'])) {
                         $q->where('batch_number', $validated['batch_number']);
@@ -103,7 +109,7 @@ class WarehouseStockController extends Controller
                 })
                 ->first();
 
-            if (!$sourceStock || $sourceStock->available_quantity < $validated['quantity']) {
+            if (!$sourceStock || ($sourceStock->quantity - $sourceStock->reserved_quantity) < $validated['quantity']) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Insufficient stock available for transfer',
@@ -119,7 +125,7 @@ class WarehouseStockController extends Controller
             $destinationStock = WarehouseStock::firstOrCreate(
                 [
                     'warehouse_id' => $validated['to_warehouse_id'],
-                    'location_id' => $validated['to_location_id'],
+                    'location_id' => $validated['to_location_id'] ?? null,
                     'material_id' => $validated['material_id'],
                     'batch_number' => $validated['batch_number'] ?? null,
                 ],
