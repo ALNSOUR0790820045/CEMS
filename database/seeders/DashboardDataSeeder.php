@@ -18,13 +18,33 @@ class DashboardDataSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get first company and user
+        // Get or create first company and user
         $company = Company::first();
         $user = User::first();
 
-        if (!$company || !$user) {
-            $this->command->warn('Please create at least one company and user first.');
-            return;
+        if (!$company) {
+            $this->command->warn('No company found. Creating a sample company...');
+            $company = Company::create([
+                'name' => 'شركة المقاولات النموذجية',
+                'name_en' => 'Sample Construction Company',
+                'slug' => 'sample-construction-company',
+                'email' => 'info@sampleco.com',
+                'phone' => '+966123456789',
+                'country' => 'SA',
+                'is_active' => true,
+            ]);
+            $this->command->info('Sample company created successfully.');
+        }
+
+        if (!$user) {
+            $this->command->warn('No user found. Creating a sample user...');
+            $user = User::create([
+                'name' => 'مستخدم تجريبي',
+                'email' => 'demo@example.com',
+                'password' => bcrypt('password'),
+                'company_id' => $company->id,
+            ]);
+            $this->command->info('Sample user created successfully.');
         }
 
         // Seed Projects

@@ -113,35 +113,47 @@
     // Fetch projects list
     async function loadProjects() {
         try {
-            const response = await fetch('/api/kpis', {
+            const response = await fetch('/api/projects', {
                 headers: {
                     'Accept': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 }
             });
+            
+            if (!response.ok) {
+                throw new Error('Failed to fetch projects');
+            }
+
             const result = await response.json();
             
-            if (result.success) {
-                // For now, we'll fetch project data separately
-                // In a real app, you'd have a projects endpoint
-                populateProjectSelector();
+            if (result.success && result.data.length > 0) {
+                populateProjectSelector(result.data);
+            } else {
+                // Show message if no projects
+                const selector = document.getElementById('projectSelector');
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'لا توجد مشاريع';
+                option.disabled = true;
+                selector.appendChild(option);
             }
         } catch (error) {
             console.error('Error loading projects:', error);
+            // Fallback to empty state
+            const selector = document.getElementById('projectSelector');
+            selector.innerHTML = '<option value="">خطأ في تحميل المشاريع</option>';
         }
     }
 
-    function populateProjectSelector() {
-        // Mock projects - in real app, fetch from API
+    function populateProjectSelector(projects) {
         const selector = document.getElementById('projectSelector');
         
-        // Add mock options (you'd fetch real projects from API)
-        for (let i = 1; i <= 4; i++) {
+        projects.forEach(project => {
             const option = document.createElement('option');
-            option.value = i;
-            option.textContent = `Project ${i}`;
+            option.value = project.id;
+            option.textContent = project.name;
             selector.appendChild(option);
-        }
+        });
     }
 
     // Load project details

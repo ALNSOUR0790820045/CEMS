@@ -28,4 +28,14 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Chart Endpoints
     Route::get('/charts/{chart_type}', [ChartController::class, 'show']);
+    
+    // Projects List Endpoint
+    Route::get('/projects', function () {
+        return response()->json([
+            'success' => true,
+            'data' => \App\Models\Project::select('id', 'name', 'code', 'status', 'progress')
+                ->orderBy('name')
+                ->get(),
+        ]);
+    });
 });

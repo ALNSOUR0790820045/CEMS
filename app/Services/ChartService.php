@@ -186,7 +186,8 @@ class ChartService
         $data = [];
 
         foreach ($projectRevenues as $revenue) {
-            if ($revenue->project) {
+            // Check if project exists and is not soft deleted
+            if ($revenue->project && $revenue->project->name) {
                 $labels[] = $revenue->project->name;
                 $data[] = round($revenue->total_revenue, 2);
             }
