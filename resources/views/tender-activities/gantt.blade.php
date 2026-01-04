@@ -330,38 +330,35 @@
     };
     
     // Load data
-    var tasks = {
-        data: [
-            @foreach($activities as $activity)
-            {
-                id: {{ $activity->id }},
-                text: "{{ $activity->name }}",
-                activity_code: "{{ $activity->activity_code }}",
-                start_date: "{{ $activity->planned_start_date ? $activity->planned_start_date->format('Y-m-d') : now()->format('Y-m-d') }}",
-                duration: {{ $activity->duration_days }},
-                progress: 0,
-                type: "{{ $activity->type == 'milestone' ? 'milestone' : 'task' }}",
-                is_critical: {{ $activity->is_critical ? 'true' : 'false' }},
-                early_start: {{ $activity->early_start ?? 0 }},
-                early_finish: {{ $activity->early_finish ?? 0 }},
-                total_float: {{ $activity->total_float ?? 0 }},
-                estimated_cost: {{ $activity->estimated_cost ?? 0 }},
-                wbs_code: "{{ $activity->wbs ? $activity->wbs->wbs_code : '' }}"
-            }{{ !$loop->last ? ',' : '' }}
-            @endforeach
-        ],
-        links: [
-            @foreach($dependencies as $dependency)
-            {
-                id: {{ $dependency->id }},
-                source: {{ $dependency->predecessor_id }},
-                target: {{ $dependency->successor_id }},
-                type: "{{ $dependency->type == 'FS' ? '0' : ($dependency->type == 'SS' ? '1' : ($dependency->type == 'FF' ? '2' : '3')) }}",
-                lag: {{ $dependency->lag_days ?? 0 }}
-            }{{ !$loop->last ? ',' : '' }}
-            @endforeach
-        ]
-    };
+    var tasks = @json([
+        'data' => $activities->map(function($activity) {
+            return [
+                'id' => $activity->id,
+                'text' => $activity->name,
+                'activity_code' => $activity->activity_code,
+                'start_date' => $activity->planned_start_date ? $activity->planned_start_date->format('Y-m-d') : now()->format('Y-m-d'),
+                'duration' => $activity->duration_days,
+                'progress' => 0,
+                'type' => $activity->type == 'milestone' ? 'milestone' : 'task',
+                'is_critical' => $activity->is_critical ? true : false,
+                'early_start' => $activity->early_start ?? 0,
+                'early_finish' => $activity->early_finish ?? 0,
+                'total_float' => $activity->total_float ?? 0,
+                'estimated_cost' => $activity->estimated_cost ?? 0,
+                'wbs_code' => $activity->wbs ? $activity->wbs->wbs_code : ''
+            ];
+        })->values(),
+        'links' => $dependencies->map(function($dependency) {
+            $typeMap = ['FS' => '0', 'SS' => '1', 'FF' => '2', 'SF' => '3'];
+            return [
+                'id' => $dependency->id,
+                'source' => $dependency->predecessor_id,
+                'target' => $dependency->successor_id,
+                'type' => $typeMap[$dependency->type] ?? '0',
+                'lag' => $dependency->lag_days ?? 0
+            ];
+        })->values()
+    ]);
     
     // Initialize Gantt
     gantt.init("gantt_here");
@@ -395,18 +392,22 @@
     
     // Export to PNG
     function exportToPNG() {
+        var tenderCode = @json($tender->tender_code);
+        var tenderName = @json($tender->name);
         gantt.exportToPNG({
-            name: "gantt_{{ $tender->tender_code }}.png",
-            header: '<div style="text-align:center;font-size:18px;font-weight:bold;padding:10px;">مخطط جانت - {{ $tender->name }}</div>',
+            name: "gantt_" + tenderCode + ".png",
+            header: '<div style="text-align:center;font-size:18px;font-weight:bold;padding:10px;">مخطط جانت - ' + tenderName + '</div>',
             footer: '<div style="text-align:center;font-size:12px;padding:10px;">تم الإنشاء في: ' + new Date().toLocaleDateString('ar-SA') + '</div>'
         });
     }
     
     // Export to PDF
     function exportToPDF() {
+        var tenderCode = @json($tender->tender_code);
+        var tenderName = @json($tender->name);
         gantt.exportToPDF({
-            name: "gantt_{{ $tender->tender_code }}.pdf",
-            header: '<div style="text-align:center;font-size:18px;font-weight:bold;padding:10px;">مخطط جانت - {{ $tender->name }}</div>',
+            name: "gantt_" + tenderCode + ".pdf",
+            header: '<div style="text-align:center;font-size:18px;font-weight:bold;padding:10px;">مخطط جانت - ' + tenderName + '</div>',
             footer: '<div style="text-align:center;font-size:12px;padding:10px;">تم الإنشاء في: ' + new Date().toLocaleDateString('ar-SA') + '</div>',
             orientation: "landscape",
             zoom: 1

@@ -393,8 +393,8 @@
 </div>
 
 <!-- Include vis.js for network diagram -->
-<link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet">
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<link href="https://unpkg.com/vis-network@9.1.6/styles/vis-network.min.css" rel="stylesheet">
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script>
 
 <script>
     lucide.createIcons();
@@ -405,12 +405,15 @@
     // Create nodes for vis.js
     var nodes = new vis.DataSet(
         networkData.nodes.map(function(node) {
+            var tooltipText = node.name + 
+                '\nES: ' + node.early_start + ' | EF: ' + node.early_finish + 
+                '\nLS: ' + node.late_start + ' | LF: ' + node.late_finish + 
+                '\nTF: ' + node.total_float;
+            
             return {
                 id: node.id,
                 label: node.label + '\n' + node.duration + ' أيام',
-                title: node.name + '\nES: ' + node.early_start + ' | EF: ' + node.early_finish + 
-                       '\nLS: ' + node.late_start + ' | LF: ' + node.late_finish + 
-                       '\nTF: ' + node.total_float,
+                title: tooltipText,
                 color: {
                     background: node.is_critical ? '#dc3545' : '#0071e3',
                     border: node.is_critical ? '#bd2130' : '#005bb5',
@@ -522,15 +525,19 @@
             var nodeId = params.nodes[0];
             var node = networkData.nodes.find(n => n.id === nodeId);
             if (node) {
-                alert('النشاط: ' + node.name + '\n' +
-                      'الكود: ' + node.label + '\n' +
-                      'المدة: ' + node.duration + ' أيام\n' +
-                      'Early Start: ' + node.early_start + '\n' +
-                      'Early Finish: ' + node.early_finish + '\n' +
-                      'Late Start: ' + node.late_start + '\n' +
-                      'Late Finish: ' + node.late_finish + '\n' +
-                      'Total Float: ' + node.total_float + '\n' +
-                      'حرج: ' + (node.is_critical ? 'نعم' : 'لا'));
+                // Create safe text for alert by concatenating safely
+                var details = [
+                    'النشاط: ' + String(node.name),
+                    'الكود: ' + String(node.label),
+                    'المدة: ' + String(node.duration) + ' أيام',
+                    'Early Start: ' + String(node.early_start),
+                    'Early Finish: ' + String(node.early_finish),
+                    'Late Start: ' + String(node.late_start),
+                    'Late Finish: ' + String(node.late_finish),
+                    'Total Float: ' + String(node.total_float),
+                    'حرج: ' + (node.is_critical ? 'نعم' : 'لا')
+                ];
+                alert(details.join('\n'));
             }
         }
     });
