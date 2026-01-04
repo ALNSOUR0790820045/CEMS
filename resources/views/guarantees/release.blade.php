@@ -46,7 +46,7 @@
 function toggleReleaseAmount(type) {
     const amountField = document.querySelector('[name="released_amount"]');
     if (type === 'full') {
-        amountField.value = {{ $guarantee->amount }};
+        amountField.value = @json($guarantee->amount);
         amountField.readOnly = true;
     } else {
         amountField.readOnly = false;

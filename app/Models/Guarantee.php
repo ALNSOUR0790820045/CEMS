@@ -173,7 +173,7 @@ class Guarantee extends Model
     {
         $year = Carbon::now()->year;
         $lastGuarantee = self::whereYear('created_at', $year)
-            ->orderBy('id', 'desc')
+            ->latest('id')
             ->first();
         
         $number = $lastGuarantee ? ((int) substr($lastGuarantee->guarantee_number, -4)) + 1 : 1;

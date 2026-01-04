@@ -36,17 +36,23 @@ class GuaranteeController extends Controller
         }
         
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request) {
-                $q->where('guarantee_number', 'like', '%' . $request->search . '%')
-                  ->orWhere('beneficiary', 'like', '%' . $request->search . '%')
-                  ->orWhere('bank_reference_number', 'like', '%' . $request->search . '%');
+            $search = str_replace(['%', '_'], ['\\%', '\\_'], $request->search);
+            $query->where(function($q) use ($search) {
+                $q->where('guarantee_number', 'like', '%' . $search . '%')
+                  ->orWhere('beneficiary', 'like', '%' . $search . '%')
+                  ->orWhere('bank_reference_number', 'like', '%' . $search . '%');
             });
         }
         
         $guarantees = $query->latest()->paginate(20);
         $banks = Bank::where('is_active', true)->get();
         
-        return view('guarantees.index', compact('guarantees', 'banks'));
+        // Statistics for dashboard cards
+        $expiringCount = Guarantee::expiring(30)->count();
+        $activeCount = Guarantee::where('status', 'active')->count();
+        $totalAmount = Guarantee::where('status', 'active')->sum('amount');
+        
+        return view('guarantees.index', compact('guarantees', 'banks', 'expiringCount', 'activeCount', 'totalAmount'));
     }
 
     /**

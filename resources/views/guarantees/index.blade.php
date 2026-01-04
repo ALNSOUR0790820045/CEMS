@@ -27,7 +27,7 @@
                     <i data-lucide="alert-triangle" style="width: 24px; height: 24px; color: #856404;"></i>
                 </div>
                 <div>
-                    <div style="font-size: 24px; font-weight: 700; color: #1d1d1f;">{{ App\Models\Guarantee::expiring(30)->count() }}</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #1d1d1f;">{{ $expiringCount }}</div>
                     <div style="color: #666; font-size: 14px;">قريبة من الانتهاء</div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <i data-lucide="bar-chart-3" style="width: 24px; height: 24px; color: #0c5460;"></i>
                 </div>
                 <div>
-                    <div style="font-size: 24px; font-weight: 700; color: #1d1d1f;">{{ App\Models\Guarantee::where('status', 'active')->count() }}</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #1d1d1f;">{{ $activeCount }}</div>
                     <div style="color: #666; font-size: 14px;">خطابات نشطة</div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     <i data-lucide="file-text" style="width: 24px; height: 24px; color: #155724;"></i>
                 </div>
                 <div>
-                    <div style="font-size: 24px; font-weight: 700; color: #1d1d1f;">{{ number_format(App\Models\Guarantee::where('status', 'active')->sum('amount'), 0) }}</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #1d1d1f;">{{ number_format($totalAmount, 0) }}</div>
                     <div style="color: #666; font-size: 14px;">إجمالي المبالغ (ر.س)</div>
                 </div>
             </div>

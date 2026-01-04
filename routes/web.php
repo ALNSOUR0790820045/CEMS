@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuaranteeController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\CompanyController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -18,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', CompanyController::class);
     
     // Banks Management
     Route::resource('banks', BankController::class);
