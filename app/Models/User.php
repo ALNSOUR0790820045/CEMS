@@ -23,6 +23,7 @@ class User extends Authenticatable
         'last_login_at',
         'language',
         'company_id',
+        'branch_id',
     ];
 
     protected $hidden = [
@@ -44,6 +45,11 @@ class User extends Authenticatable
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     // Accessors
