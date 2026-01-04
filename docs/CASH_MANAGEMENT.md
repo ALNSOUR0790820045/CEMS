@@ -47,17 +47,19 @@ DELETE /api/cash-accounts/{id}      - Delete cash account
 ### Cash Transactions
 ```
 GET    /api/cash-transactions       - List all transactions
-POST   /api/cash-transactions       - Create new transaction
+POST   /api/cash-transactions       - Create new transaction (receipt or payment only)
 GET    /api/cash-transactions/{id}  - Get specific transaction
-PUT    /api/cash-transactions/{id}  - Update transaction
-DELETE /api/cash-transactions/{id}  - Delete transaction
+PUT    /api/cash-transactions/{id}  - Update transaction (draft transactions only)
+DELETE /api/cash-transactions/{id}  - Delete transaction (draft transactions only)
 ```
+
+**Note:** The generic POST endpoint only supports 'receipt' and 'payment' transaction types. For transfers between accounts, use the specialized transfer endpoint below.
 
 ### Specialized Transaction Endpoints
 ```
-POST   /api/cash-transactions/receipt   - Create receipt transaction
-POST   /api/cash-transactions/payment   - Create payment transaction
-POST   /api/cash-transactions/transfer  - Create transfer transaction
+POST   /api/cash-transactions/receipt   - Create receipt transaction (auto-posted)
+POST   /api/cash-transactions/payment   - Create payment transaction (auto-posted)
+POST   /api/cash-transactions/transfer  - Create transfer transaction (requires from/to accounts)
 ```
 
 ### Cash Flow

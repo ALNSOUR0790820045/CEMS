@@ -54,7 +54,7 @@ class CashTransactionController extends Controller
     {
         $validated = $request->validate([
             'transaction_date' => 'required|date',
-            'transaction_type' => 'required|in:receipt,payment,transfer',
+            'transaction_type' => 'required|in:receipt,payment',
             'cash_account_id' => 'required|exists:cash_accounts,id',
             'amount' => 'required|numeric|min:0.01',
             'payment_method' => 'required|in:cash,check,bank_transfer,credit_card',
@@ -127,7 +127,7 @@ class CashTransactionController extends Controller
 
         $validated = $request->validate([
             'transaction_date' => 'required|date',
-            'transaction_type' => 'required|in:receipt,payment,transfer',
+            'transaction_type' => 'required|in:receipt,payment',
             'cash_account_id' => 'required|exists:cash_accounts,id',
             'amount' => 'required|numeric|min:0.01',
             'payment_method' => 'required|in:cash,check,bank_transfer,credit_card',
