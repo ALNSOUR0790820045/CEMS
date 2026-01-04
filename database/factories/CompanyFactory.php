@@ -25,7 +25,7 @@ class CompanyFactory extends Factory
             'slug' => Str::slug($name).'-'.fake()->unique()->randomNumber(5),
             'commercial_registration' => fake()->numerify('CR########'),
             'tax_number' => fake()->numerify('TN########'),
-            'email' => fake()->unique()->companyEmail(),
+            'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'city' => fake()->city(),
