@@ -91,10 +91,14 @@ class UnforeseeableConditionController extends Controller
         // Generate condition number
         $year = date('Y');
         $lastCondition = UnforeseeableCondition::whereYear('created_at', $year)
+            ->where('condition_number', 'like', 'UFC-' . $year . '-%')
             ->orderBy('id', 'desc')
             ->first();
         
-        $nextNumber = $lastCondition ? (int)substr($lastCondition->condition_number, -4) + 1 : 1;
+        $nextNumber = 1;
+        if ($lastCondition && preg_match('/UFC-\d{4}-(\d{4})$/', $lastCondition->condition_number, $matches)) {
+            $nextNumber = (int)$matches[1] + 1;
+        }
         $conditionNumber = sprintf('UFC-%s-%04d', $year, $nextNumber);
 
         $data = $validator->validated();
@@ -239,7 +243,11 @@ class UnforeseeableConditionController extends Controller
         }
 
         $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
+        $originalName = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        
+        // Sanitize filename and use generated name with original extension
+        $fileName = time() . '_' . uniqid() . '.' . $extension;
         $filePath = $file->storeAs('unforeseeable_conditions/' . $condition->id, $fileName, 'public');
 
         $evidence = UnforeseeableConditionEvidence::create([
@@ -248,7 +256,8 @@ class UnforeseeableConditionController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'file_path' => $filePath,
-            'file_name' => $fileName,
+            'file_name' => $originalName, // Store original name for display
+
             'evidence_date' => $request->evidence_date,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
