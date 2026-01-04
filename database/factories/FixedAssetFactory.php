@@ -17,7 +17,7 @@ class FixedAssetFactory extends Factory
     public function definition(): array
     {
         return [
-            'asset_code' => \App\Models\FixedAsset::generateAssetCode(),
+            'asset_code' => 'FA-' . date('Y') . '-' . fake()->unique()->numberBetween(1000, 9999),
             'asset_name' => fake()->words(3, true),
             'asset_category' => fake()->randomElement(['building', 'equipment', 'vehicle', 'furniture', 'computer', 'other']),
             'asset_type' => fake()->words(2, true),

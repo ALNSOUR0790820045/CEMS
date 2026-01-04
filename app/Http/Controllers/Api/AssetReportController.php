@@ -97,7 +97,7 @@ class AssetReportController extends Controller
 
         $summary = [
             'total_depreciation' => $depreciations->sum('depreciation_amount'),
-            'total_accumulated_depreciation' => $depreciations->last()->accumulated_depreciation ?? 0,
+            'total_accumulated_depreciation' => $depreciations->first()->accumulated_depreciation ?? 0,
         ];
 
         return response()->json([

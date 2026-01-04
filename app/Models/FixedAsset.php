@@ -91,7 +91,9 @@ class FixedAsset extends Model
     // Calculate depreciation for a period
     public function calculateDepreciation($periodDate)
     {
-        $monthsElapsed = now()->parse($this->purchase_date)->diffInMonths($periodDate);
+        $purchaseDate = \Carbon\Carbon::parse($this->purchase_date);
+        $periodDateCarbon = \Carbon\Carbon::parse($periodDate);
+        $monthsElapsed = $purchaseDate->diffInMonths($periodDateCarbon);
         
         if ($monthsElapsed <= 0) {
             return 0;
