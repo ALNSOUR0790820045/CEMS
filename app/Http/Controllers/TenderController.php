@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tender;
 use App\Models\Client;
-use App\Models\User;
-use App\Models\TenderTimeline;
 use App\Models\Project;
+use App\Models\Tender;
+use App\Models\TenderTimeline;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,13 +35,13 @@ class TenderController extends Controller
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('tender_number', 'like', "%{$search}%")
-                  ->orWhere('reference_number', 'like', "%{$search}%");
+                    ->orWhere('tender_number', 'like', "%{$search}%")
+                    ->orWhere('reference_number', 'like', "%{$search}%");
             });
         }
 
         $tenders = $query->latest()->paginate(20);
-        
+
         return view('tenders.index', compact('tenders'));
     }
 
@@ -52,7 +52,7 @@ class TenderController extends Controller
     {
         $clients = Client::where('is_active', true)->get();
         $users = User::where('is_active', true)->get();
-        
+
         return view('tenders.create', compact('clients', 'users'));
     }
 
@@ -96,7 +96,7 @@ class TenderController extends Controller
         $year = date('Y');
         $lastTender = Tender::whereYear('created_at', $year)->latest('id')->first();
         $nextNumber = $lastTender ? intval(substr($lastTender->tender_number, -4)) + 1 : 1;
-        $validated['tender_number'] = 'TND-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        $validated['tender_number'] = 'TND-'.$year.'-'.str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
         $validated['created_by'] = Auth::id();
         $validated['status'] = 'identified';
@@ -128,7 +128,7 @@ class TenderController extends Controller
             'documents.uploadedBy',
             'competitors',
             'timeline.performedBy',
-            'questions'
+            'questions',
         ]);
 
         return view('tenders.show', compact('tender'));
@@ -141,7 +141,7 @@ class TenderController extends Controller
     {
         $clients = Client::where('is_active', true)->get();
         $users = User::where('is_active', true)->get();
-        
+
         return view('tenders.edit', compact('tender', 'clients', 'users'));
     }
 
@@ -207,7 +207,7 @@ class TenderController extends Controller
     public function destroy(Tender $tender)
     {
         $tender->delete();
-        
+
         return redirect()->route('tenders.index')
             ->with('success', 'تم حذف المناقصة بنجاح');
     }
@@ -258,7 +258,7 @@ class TenderController extends Controller
         TenderTimeline::create([
             'tender_id' => $tender->id,
             'action' => 'submitted',
-            'description' => 'تم تقديم العرض بقيمة ' . number_format($validated['our_offer_value'], 2) . ' ' . $tender->currency,
+            'description' => 'تم تقديم العرض بقيمة '.number_format($validated['our_offer_value'], 2).' '.$tender->currency,
             'performed_by' => Auth::id(),
         ]);
 
@@ -281,7 +281,7 @@ class TenderController extends Controller
         $tender->update($validated);
 
         $description = $validated['status'] === 'won' ? 'فوز في المناقصة' : 'خسارة في المناقصة';
-        
+
         TenderTimeline::create([
             'tender_id' => $tender->id,
             'action' => 'result',
@@ -298,7 +298,7 @@ class TenderController extends Controller
      */
     public function convert(Request $request, Tender $tender)
     {
-        if (!$tender->canConvertToProject()) {
+        if (! $tender->canConvertToProject()) {
             return redirect()->back()
                 ->with('error', 'لا يمكن تحويل هذه المناقصة إلى مشروع');
         }
@@ -314,7 +314,7 @@ class TenderController extends Controller
             $year = date('Y');
             $lastProject = Project::whereYear('created_at', $year)->latest('id')->first();
             $nextNumber = $lastProject ? intval(substr($lastProject->project_number, -4)) + 1 : 1;
-            $projectNumber = 'PRJ-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+            $projectNumber = 'PRJ-'.$year.'-'.str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
             $project = Project::create([
                 'project_number' => $projectNumber,
@@ -334,7 +334,7 @@ class TenderController extends Controller
             TenderTimeline::create([
                 'tender_id' => $tender->id,
                 'action' => 'converted',
-                'description' => 'تم تحويل المناقصة إلى مشروع رقم ' . $projectNumber,
+                'description' => 'تم تحويل المناقصة إلى مشروع رقم '.$projectNumber,
                 'performed_by' => Auth::id(),
             ]);
 
@@ -344,6 +344,7 @@ class TenderController extends Controller
                 ->with('success', 'تم تحويل المناقصة إلى مشروع بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return redirect()->back()
                 ->with('error', 'حدث خطأ أثناء تحويل المناقصة');
         }

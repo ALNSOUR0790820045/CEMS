@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tender extends Model
 {
@@ -136,11 +136,11 @@ class Tender extends Model
     // Helper methods
     public function isExpiringSoon(int $days = 7): bool
     {
-        if (!$this->submission_deadline) {
+        if (! $this->submission_deadline) {
             return false;
         }
 
-        return $this->submission_deadline->diffInDays(now()) <= $days && 
+        return $this->submission_deadline->diffInDays(now()) <= $days &&
                $this->submission_deadline >= now();
     }
 
@@ -151,11 +151,12 @@ class Tender extends Model
 
     public function getDaysUntilDeadline(): ?int
     {
-        if (!$this->submission_deadline) {
+        if (! $this->submission_deadline) {
             return null;
         }
 
         $diff = $this->submission_deadline->diffInDays(now(), false);
+
         return (int) $diff;
     }
 }
