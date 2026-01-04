@@ -93,7 +93,7 @@ class AttendanceRecord extends Model
             $shiftStart = Carbon::parse($this->attendance_date->format('Y-m-d') . ' ' . $shiftStartTime);
             
             if ($checkIn->gt($shiftStart)) {
-                $this->late_minutes = $checkIn->diffInMinutes($shiftStart);
+                $this->late_minutes = $shiftStart->diffInMinutes($checkIn);
             } else {
                 $this->late_minutes = 0;
             }
@@ -105,7 +105,9 @@ class AttendanceRecord extends Model
     {
         if ($this->work_hours > $standardHours) {
             $this->overtime_hours = $this->work_hours - $standardHours;
-            $this->save();
+        } else {
+            $this->overtime_hours = 0;
         }
+        $this->save();
     }
 }

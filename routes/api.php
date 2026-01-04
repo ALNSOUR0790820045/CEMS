@@ -11,6 +11,11 @@ use App\Http\Controllers\Api\EmployeeController;
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
+| 
+| Note: These routes should be protected with authentication middleware
+| in production. Add 'auth:sanctum' or appropriate middleware as needed:
+| Route::middleware(['auth:sanctum'])->group(function () { ... });
+|
 */
 
 Route::prefix('api')->middleware('api')->group(function () {

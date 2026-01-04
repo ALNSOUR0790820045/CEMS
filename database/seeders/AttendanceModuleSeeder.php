@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\ShiftSchedule;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as FakerFactory;
 
 class AttendanceModuleSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class AttendanceModuleSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = FakerFactory::create();
         // Get or create a test company
         $company = Company::firstOrCreate(
             ['email' => 'demo@company.com'],
@@ -99,10 +101,10 @@ class AttendanceModuleSeeder extends Seeder
                 $user = User::firstOrCreate(
                     ['email' => "emp{$empNumber}@company.com"],
                     [
-                        'name' => fake()->name(),
+                        'name' => $faker->name(),
                         'email' => "emp{$empNumber}@company.com",
                         'password' => Hash::make('password'),
-                        'phone' => fake()->phoneNumber(),
+                        'phone' => $faker->phoneNumber(),
                         'job_title' => $position,
                         'employee_id' => "EMP{$empNumber}",
                         'is_active' => true,
