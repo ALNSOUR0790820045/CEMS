@@ -1,1 +1,0 @@
-{"version":2,"defects":[],"times":{"Tests\\Feature\\DocumentTest::test_can_create_document":0.06,"Tests\\Feature\\DocumentTest::test_can_list_documents":0.022,"Tests\\Feature\\DocumentTest::test_can_search_documents":0.017}}

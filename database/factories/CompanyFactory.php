@@ -24,7 +24,7 @@ class CompanyFactory extends Factory
             'slug' => \Illuminate\Support\Str::slug($name),
             'commercial_registration' => fake()->numerify('CR-########'),
             'tax_number' => fake()->numerify('TAX-########'),
-            'email' => fake()->companyEmail(),
+            'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'city' => fake()->city(),
