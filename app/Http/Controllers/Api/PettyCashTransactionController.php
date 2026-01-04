@@ -56,7 +56,7 @@ class PettyCashTransactionController extends Controller
             'transaction_date' => 'required|date',
             'petty_cash_account_id' => 'required|exists:petty_cash_accounts,id',
             'transaction_type' => 'required|in:expense,reimbursement,adjustment',
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|numeric',
             'expense_category' => 'nullable|string|max:255',
             'description' => 'required|string',
             'payee' => 'nullable|string|max:255',
@@ -71,6 +71,13 @@ class PettyCashTransactionController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        // Validate amount constraints per transaction type
+        if (in_array($request->transaction_type, ['expense', 'reimbursement']) && $request->amount < 0) {
+            return response()->json([
+                'errors' => ['amount' => ['Amount must be positive for expenses and reimbursements']]
+            ], 422);
+        }
+
         DB::beginTransaction();
         try {
             $data = $request->all();
@@ -82,11 +89,13 @@ class PettyCashTransactionController extends Controller
             $account = PettyCashAccount::findOrFail($request->petty_cash_account_id);
             
             if ($request->transaction_type === 'expense') {
-                $account->current_balance -= $request->amount;
+                // Expenses always decrease balance (amount should be positive)
+                $account->current_balance -= abs($request->amount);
             } elseif ($request->transaction_type === 'reimbursement') {
-                $account->current_balance += $request->amount;
+                // Reimbursements always increase balance (amount should be positive)
+                $account->current_balance += abs($request->amount);
             } elseif ($request->transaction_type === 'adjustment') {
-                // For adjustments, the amount can be positive or negative
+                // For adjustments, positive amounts increase balance, negative decrease it
                 $account->current_balance += $request->amount;
             }
 
@@ -119,7 +128,7 @@ class PettyCashTransactionController extends Controller
         $validator = Validator::make($request->all(), [
             'transaction_date' => 'sometimes|required|date',
             'transaction_type' => 'sometimes|required|in:expense,reimbursement,adjustment',
-            'amount' => 'sometimes|required|numeric|min:0',
+            'amount' => 'sometimes|required|numeric',
             'expense_category' => 'nullable|string|max:255',
             'description' => 'sometimes|required|string',
             'payee' => 'nullable|string|max:255',
@@ -133,15 +142,24 @@ class PettyCashTransactionController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        // Validate amount constraints per transaction type if being updated
+        if ($request->has('amount') && $request->has('transaction_type')) {
+            if (in_array($request->transaction_type, ['expense', 'reimbursement']) && $request->amount < 0) {
+                return response()->json([
+                    'errors' => ['amount' => ['Amount must be positive for expenses and reimbursements']]
+                ], 422);
+            }
+        }
+
         DB::beginTransaction();
         try {
             // Reverse the old transaction's effect on balance
             $account = $pettyCashTransaction->pettyCashAccount;
             
             if ($pettyCashTransaction->transaction_type === 'expense') {
-                $account->current_balance += $pettyCashTransaction->amount;
+                $account->current_balance += abs($pettyCashTransaction->amount);
             } elseif ($pettyCashTransaction->transaction_type === 'reimbursement') {
-                $account->current_balance -= $pettyCashTransaction->amount;
+                $account->current_balance -= abs($pettyCashTransaction->amount);
             } elseif ($pettyCashTransaction->transaction_type === 'adjustment') {
                 $account->current_balance -= $pettyCashTransaction->amount;
             }
@@ -151,9 +169,9 @@ class PettyCashTransactionController extends Controller
 
             // Apply the new transaction's effect on balance
             if ($pettyCashTransaction->transaction_type === 'expense') {
-                $account->current_balance -= $pettyCashTransaction->amount;
+                $account->current_balance -= abs($pettyCashTransaction->amount);
             } elseif ($pettyCashTransaction->transaction_type === 'reimbursement') {
-                $account->current_balance += $pettyCashTransaction->amount;
+                $account->current_balance += abs($pettyCashTransaction->amount);
             } elseif ($pettyCashTransaction->transaction_type === 'adjustment') {
                 $account->current_balance += $pettyCashTransaction->amount;
             }
@@ -181,9 +199,9 @@ class PettyCashTransactionController extends Controller
             $account = $pettyCashTransaction->pettyCashAccount;
             
             if ($pettyCashTransaction->transaction_type === 'expense') {
-                $account->current_balance += $pettyCashTransaction->amount;
+                $account->current_balance += abs($pettyCashTransaction->amount);
             } elseif ($pettyCashTransaction->transaction_type === 'reimbursement') {
-                $account->current_balance -= $pettyCashTransaction->amount;
+                $account->current_balance -= abs($pettyCashTransaction->amount);
             } elseif ($pettyCashTransaction->transaction_type === 'adjustment') {
                 $account->current_balance -= $pettyCashTransaction->amount;
             }

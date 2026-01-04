@@ -95,6 +95,13 @@ class PettyCashAccountController extends Controller
      */
     public function destroy(PettyCashAccount $pettyCashAccount)
     {
+        // Check if account has transactions
+        if ($pettyCashAccount->transactions()->count() > 0) {
+            return response()->json([
+                'error' => 'Cannot delete account with existing transactions'
+            ], 422);
+        }
+
         $pettyCashAccount->delete();
         return response()->json(['message' => 'Petty cash account deleted successfully'], 200);
     }
