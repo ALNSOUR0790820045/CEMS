@@ -21,13 +21,13 @@ Route::middleware('auth')->group(function () {
     // Contract Templates
     Route::prefix('contract-templates')->name('contract-templates.')->group(function () {
         Route::get('/', [\App\Http\Controllers\ContractTemplateController::class, 'index'])->name('index');
+        Route::post('/generate-contract', [\App\Http\Controllers\ContractTemplateController::class, 'storeGenerated'])->name('store-generated');
+        Route::get('/preview/{id}', [\App\Http\Controllers\ContractTemplateController::class, 'preview'])->name('preview');
         Route::get('/jea-01', [\App\Http\Controllers\ContractTemplateController::class, 'jea01'])->name('jea-01');
         Route::get('/jea-02', [\App\Http\Controllers\ContractTemplateController::class, 'jea02'])->name('jea-02');
         Route::get('/{contractTemplate}', [\App\Http\Controllers\ContractTemplateController::class, 'show'])->name('show');
         Route::get('/{contractTemplate}/clauses', [\App\Http\Controllers\ContractTemplateController::class, 'clauses'])->name('clauses');
         Route::get('/{contractTemplate}/generate', [\App\Http\Controllers\ContractTemplateController::class, 'generate'])->name('generate');
-        Route::post('/generate-contract', [\App\Http\Controllers\ContractTemplateController::class, 'storeGenerated'])->name('store-generated');
-        Route::get('/preview/{id}', [\App\Http\Controllers\ContractTemplateController::class, 'preview'])->name('preview');
     });
     
     // Contracts Export
