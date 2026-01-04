@@ -103,6 +103,9 @@ class TenderActivityMigrationTest extends TestCase
             'activity_name' => 'Test Activity',
         ]);
 
+        // Refresh to get computed column value from database
+        $activity->refresh();
+
         $this->assertEquals(1000.00, $activity->total_amount);
         $this->assertEquals($tender->id, $activity->tender->id);
         $this->assertEquals($unit->id, $activity->unit->id);

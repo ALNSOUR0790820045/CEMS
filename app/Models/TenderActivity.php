@@ -34,13 +34,6 @@ class TenderActivity extends Model
         'sequence_order' => 'integer',
     ];
 
-    protected $appends = ['total_amount'];
-
-    public function getTotalAmountAttribute()
-    {
-        return $this->quantity * $this->unit_price;
-    }
-
     public function tender()
     {
         return $this->belongsTo(Tender::class);
