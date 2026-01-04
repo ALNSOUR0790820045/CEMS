@@ -2,14 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Company;
-use App\Models\User;
-use App\Models\Currency;
-use App\Models\GLAccount;
 use App\Models\CashAccount;
 use App\Models\CashTransaction;
+use App\Models\Company;
+use App\Models\Currency;
+use App\Models\GLAccount;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class TestDataSeeder extends Seeder

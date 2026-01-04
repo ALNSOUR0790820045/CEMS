@@ -96,7 +96,7 @@ class CashAccountController extends Controller
         }
 
         $validated = $request->validate([
-            'account_code' => 'required|string|unique:cash_accounts,account_code,' . $cashAccount->id,
+            'account_code' => 'required|string|unique:cash_accounts,account_code,'.$cashAccount->id,
             'account_name' => 'required|string|max:255',
             'account_type' => 'required|in:cash,bank,petty_cash',
             'currency_id' => 'required|exists:currencies,id',

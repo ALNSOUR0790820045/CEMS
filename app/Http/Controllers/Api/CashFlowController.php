@@ -7,7 +7,6 @@ use App\Models\CashAccount;
 use App\Models\CashTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CashFlowController extends Controller
 {
@@ -58,7 +57,7 @@ class CashFlowController extends Controller
         $dailyBreakdown = [];
         $runningBalance = $currentBalance - $netCashFlow; // Start with balance at beginning of period
 
-        foreach ($transactions->groupBy(function($transaction) {
+        foreach ($transactions->groupBy(function ($transaction) {
             return $transaction->transaction_date->format('Y-m-d');
         }) as $date => $dayTransactions) {
             $dayReceipts = $dayTransactions->where('transaction_type', 'receipt')->sum('amount');
@@ -76,11 +75,11 @@ class CashFlowController extends Controller
         }
 
         // Group by payment method
-        $receiptsByMethod = $receipts->groupBy('payment_method')->map(function($group) {
+        $receiptsByMethod = $receipts->groupBy('payment_method')->map(function ($group) {
             return $group->sum('amount');
         });
 
-        $paymentsByMethod = $payments->groupBy('payment_method')->map(function($group) {
+        $paymentsByMethod = $payments->groupBy('payment_method')->map(function ($group) {
             return $group->sum('amount');
         });
 
@@ -124,7 +123,7 @@ class CashFlowController extends Controller
         foreach ($cashAccounts as $account) {
             $summary['total_balance'] += $account->current_balance;
 
-            if (!isset($summary['accounts_by_type'][$account->account_type])) {
+            if (! isset($summary['accounts_by_type'][$account->account_type])) {
                 $summary['accounts_by_type'][$account->account_type] = [
                     'count' => 0,
                     'balance' => 0,
