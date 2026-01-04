@@ -172,6 +172,17 @@ class GuaranteeController extends Controller
      */
     public function destroy(Guarantee $guarantee)
     {
+        // Prevent deletion of active guarantees or those with history
+        if ($guarantee->status == 'active') {
+            return redirect()->route('guarantees.index')
+                ->with('error', 'لا يمكن حذف خطاب ضمان نشط');
+        }
+        
+        if ($guarantee->renewals()->count() > 0 || $guarantee->releases()->count() > 0) {
+            return redirect()->route('guarantees.index')
+                ->with('error', 'لا يمكن حذف خطاب له سجل تجديدات أو تحرير');
+        }
+        
         $guarantee->delete();
         
         return redirect()->route('guarantees.index')
@@ -183,6 +194,12 @@ class GuaranteeController extends Controller
      */
     public function approve(Guarantee $guarantee)
     {
+        // Only draft guarantees can be approved
+        if ($guarantee->status !== 'draft') {
+            return redirect()->route('guarantees.show', $guarantee)
+                ->with('error', 'يمكن اعتماد الخطابات في حالة المسودة فقط');
+        }
+        
         $guarantee->update([
             'status' => 'active',
             'approved_by' => Auth::id(),
@@ -249,6 +266,12 @@ class GuaranteeController extends Controller
      */
     public function release(Request $request, Guarantee $guarantee)
     {
+        // Only active or renewed guarantees can be released
+        if (!in_array($guarantee->status, ['active', 'renewed'])) {
+            return redirect()->route('guarantees.show', $guarantee)
+                ->with('error', 'يمكن تحرير الخطابات النشطة أو المجددة فقط');
+        }
+        
         $validated = $request->validate([
             'release_type' => 'required|in:full,partial',
             'released_amount' => 'required|numeric|min:0|max:' . $guarantee->amount,

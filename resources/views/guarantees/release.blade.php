@@ -42,6 +42,7 @@
     </form>
 </div>
 
+@push('scripts')
 <script>
 function toggleReleaseAmount(type) {
     const amountField = document.querySelector('[name="released_amount"]');
@@ -54,4 +55,5 @@ function toggleReleaseAmount(type) {
     }
 }
 </script>
+@endpush
 @endsection

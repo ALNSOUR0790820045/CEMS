@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('bank_id')->constrained();
             $table->string('beneficiary'); // الجهة المستفيدة
             $table->string('beneficiary_address')->nullable();
-            $table->decimal('amount', 15, 2)->unsigned();
+            $table->decimal('amount', 15, 2);
             $table->string('currency', 3)->default('SAR');
             $table->decimal('amount_in_base_currency', 15, 2)->nullable();
             $table->date('issue_date');
