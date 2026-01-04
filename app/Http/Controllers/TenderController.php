@@ -93,7 +93,7 @@ class TenderController extends Controller
         ]);
 
         // Generate tender number
-        $year = date('Y');
+        $year = now()->year;
         $lastTender = Tender::whereYear('created_at', $year)->latest('id')->first();
         $nextNumber = $lastTender ? intval(substr($lastTender->tender_number, -4)) + 1 : 1;
         $validated['tender_number'] = 'TND-'.$year.'-'.str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
@@ -311,7 +311,7 @@ class TenderController extends Controller
         DB::beginTransaction();
         try {
             // Generate project number
-            $year = date('Y');
+            $year = now()->year;
             $lastProject = Project::whereYear('created_at', $year)->latest('id')->first();
             $nextNumber = $lastProject ? intval(substr($lastProject->project_number, -4)) + 1 : 1;
             $projectNumber = 'PRJ-'.$year.'-'.str_pad($nextNumber, 4, '0', STR_PAD_LEFT);

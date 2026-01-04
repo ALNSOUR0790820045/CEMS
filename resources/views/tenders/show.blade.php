@@ -379,36 +379,26 @@
     }
     
     function showSubmitModal() {
-        const value = prompt('أدخل قيمة عرضنا:');
-        if (value) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '{{ route("tenders.submit", $tender) }}';
-            form.innerHTML = '@csrf<input type="hidden" name="our_offer_value" value="' + value + '">';
-            document.body.appendChild(form);
-            form.submit();
-        }
+        // Create a safer modal instead of prompt
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+        modal.innerHTML = '<div style="background:white;padding:30px;border-radius:12px;max-width:500px;width:90%;"><h3 style="margin:0 0 20px 0;">تسجيل قيمة العرض</h3><form method="POST" action="{{ route("tenders.submit", $tender) }}">@csrf<div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">قيمة عرضنا</label><input type="number" step="0.01" name="our_offer_value" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="display:flex;gap:10px;justify-content:flex-end;"><button type="button" onclick="this.closest(\'div\').parentElement.remove()" class="btn btn-secondary">إلغاء</button><button type="submit" class="btn btn-primary">حفظ</button></div></form></div>';
+        document.body.appendChild(modal);
     }
     
     function showResultModal() {
-        const status = confirm('هل فازت الشركة في المناقصة؟') ? 'won' : 'lost';
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '{{ route("tenders.result", $tender) }}';
-        form.innerHTML = '@csrf<input type="hidden" name="status" value="' + status + '">';
-        document.body.appendChild(form);
-        form.submit();
+        // Create a safer modal instead of confirm
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+        modal.innerHTML = '<div style="background:white;padding:30px;border-radius:12px;max-width:500px;width:90%;"><h3 style="margin:0 0 20px 0;">تسجيل نتيجة المناقصة</h3><form method="POST" action="{{ route("tenders.result", $tender) }}">@csrf<div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">النتيجة</label><select name="status" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"><option value="won">فوز</option><option value="lost">خسارة</option></select></div><div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">اسم الفائز (إذا خسرنا)</label><input type="text" name="winner_name" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="display:flex;gap:10px;justify-content:flex-end;"><button type="button" onclick="this.closest(\'div\').parentElement.remove()" class="btn btn-secondary">إلغاء</button><button type="submit" class="btn btn-primary">حفظ</button></div></form></div>';
+        document.body.appendChild(modal);
     }
     
     function showConvertModal() {
-        if (confirm('هل تريد تحويل هذه المناقصة إلى مشروع؟')) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '{{ route("tenders.convert", $tender) }}';
-            form.innerHTML = '@csrf';
-            document.body.appendChild(form);
-            form.submit();
-        }
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+        modal.innerHTML = '<div style="background:white;padding:30px;border-radius:12px;max-width:500px;width:90%;"><h3 style="margin:0 0 20px 0;">تحويل إلى مشروع</h3><form method="POST" action="{{ route("tenders.convert", $tender) }}">@csrf<div style="margin-bottom:20px;"><p>هل تريد تحويل هذه المناقصة إلى مشروع؟</p></div><div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">اسم المشروع (اختياري)</label><input type="text" name="project_name" value="{{ $tender->name }}" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">تاريخ البدء</label><input type="date" name="start_date" value="{{ date(\'Y-m-d\') }}" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="display:flex;gap:10px;justify-content:flex-end;"><button type="button" onclick="this.closest(\'div\').parentElement.remove()" class="btn btn-secondary">إلغاء</button><button type="submit" class="btn btn-primary">تحويل</button></div></form></div>';
+        document.body.appendChild(modal);
     }
 </script>
 @endpush
