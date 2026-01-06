@@ -277,7 +277,8 @@
                             <h4>العمليات</h4>
                             <a href="#" class="sub-link"><i data-lucide="workflow"></i> سير العمل</a>
                             <a href="#" class="sub-link"><i data-lucide="settings"></i> الإعدادات</a>
-                            <a href="#" class="sub-link"><i data-lucide="shield-check"></i> الصلاحيات</a>
+                            <a href="{{ route('users.index') }}" class="sub-link"><i data-lucide="users"></i> إدارة المستخدمين</a>
+                            <a href="{{ route('roles.index') }}" class="sub-link"><i data-lucide="shield-check"></i> الأدوار والصلاحيات</a>
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>
