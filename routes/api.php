@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\LeaveRequestController;
 use App\Http\Controllers\Api\ShiftScheduleController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\BranchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,11 @@ use App\Http\Controllers\Api\EmployeeController;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group.  Make something great!
+| be assigned to the "api" middleware group.   Make something great!
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -47,8 +48,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('warehouse-locations', WarehouseLocationController::class);
     
     Route::get('warehouse-stock', [WarehouseStockController:: class, 'index']);
-    Route::get('warehouse-stock/availability', [WarehouseStockController:: class, 'availability']);
+    Route::get('warehouse-stock/availability', [WarehouseStockController::class, 'availability']);
     Route::post('warehouse-stock/transfer', [WarehouseStockController::class, 'transfer']);
+    
+    // Branch Management API
+    Route::apiResource('branches', BranchController::class);
+    Route::get('branches/{branch}/users', [BranchController::class, 'users']);
     
     // Employee Management API
     Route::prefix('employees')->group(function () {
@@ -74,7 +79,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('leave-requests')->group(function () {
         Route::get('/', [LeaveRequestController::class, 'index']);
         Route::post('/', [LeaveRequestController::class, 'store']);
-        Route::get('/{id}', [LeaveRequestController::class, 'show']);
+        Route::get('/{id}', [LeaveRequestController:: class, 'show']);
         Route::put('/{id}', [LeaveRequestController::class, 'update']);
         Route::delete('/{id}', [LeaveRequestController::class, 'destroy']);
         Route::post('/{id}/approve', [LeaveRequestController::class, 'approve']);
@@ -84,7 +89,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Shift Schedule Management API
     Route::prefix('shift-schedules')->group(function () {
-        Route::get('/', [ShiftScheduleController::class, 'index']);
+        Route::get('/', [ShiftScheduleController:: class, 'index']);
         Route::post('/', [ShiftScheduleController::class, 'store']);
         Route::get('/{id}', [ShiftScheduleController::class, 'show']);
         Route::put('/{id}', [ShiftScheduleController::class, 'update']);

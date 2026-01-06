@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CompanyFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the model's default state. 
      *
      * @return array<string, mixed>
      */
@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
         return [
             'name' => $name,
             'name_en' => $name,
-            'slug' => \Illuminate\Support\Str::slug($name),
+            'slug' => \Illuminate\Support\Str::slug($name) . '-' . fake()->unique()->numerify('###'),
             'commercial_registration' => fake()->numerify('CR-########'),
             'tax_number' => fake()->numerify('TAX-########'),
             'email' => fake()->unique()->safeEmail(),
@@ -29,6 +29,7 @@ class CompanyFactory extends Factory
             'address' => fake()->address(),
             'city' => fake()->city(),
             'country' => 'JO',
+            'logo' => null,
             'is_active' => true,
             'established_date' => fake()->date(),
             'license_number' => fake()->numerify('LIC-########'),

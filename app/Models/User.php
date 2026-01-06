@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $fillable = [
         'name',
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'last_login_at',
         'language',
         'company_id',
+        'branch_id',
     ];
 
     protected $hidden = [
@@ -46,6 +48,11 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class);
     }
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function employee()
     {
         return $this->hasOne(Employee::class);
@@ -53,7 +60,7 @@ class User extends Authenticatable
 
     public function attendanceRecords()
     {
-        return $this->hasManyThrough(AttendanceRecord::class, Employee::class);
+        return $this->hasManyThrough(AttendanceRecord::class, Employee:: class);
     }
 
     public function leaveRequests()

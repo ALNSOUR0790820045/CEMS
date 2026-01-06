@@ -20,5 +20,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
         ]);
+
+        $this->call([
+            BranchSeeder::class,
+        ]);
     }
 }
