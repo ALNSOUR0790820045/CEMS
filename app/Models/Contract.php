@@ -21,11 +21,15 @@ class Contract extends Model
         'client_id',
         'tender_id',
         'title',
+        'type',
         'contract_date',
         'contract_value',
         'value',
+        'amount',
+        'currency',
         'start_date',
         'end_date',
+        'signed_date',
         'status',
     ];
 
@@ -33,8 +37,10 @@ class Contract extends Model
         'contract_date' => 'date',
         'contract_value' => 'decimal: 2',
         'value' => 'decimal: 2',
+        'amount' => 'decimal: 2',
         'start_date' => 'date',
         'end_date' => 'date',
+        'signed_date' => 'date',
     ];
 
     // Relationships
@@ -55,11 +61,16 @@ class Contract extends Model
 
     public function guarantees(): HasMany
     {
-        return $this->hasMany(Guarantee:: class);
+        return $this->hasMany(Guarantee::class);
     }
 
     public function variationOrders(): HasMany
     {
         return $this->hasMany(VariationOrder::class);
+    }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
     }
 }

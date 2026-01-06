@@ -162,7 +162,7 @@ class Project extends Model
 
     public function phases(): HasMany
     {
-        return $this->hasMany(ProjectPhase::  class);
+        return $this->hasMany(ProjectPhase::   class);
     }
 
     public function milestones(): HasMany
@@ -182,12 +182,17 @@ class Project extends Model
 
     public function variationOrders(): HasMany
     {
-        return $this->hasMany(VariationOrder::class);
+        return $this->hasMany(VariationOrder:: class);
     }
 
     public function boqItems(): HasMany
     {
-        return $this->hasMany(BoqItem:: class);
+        return $this->hasMany(BoqItem::  class);
+    }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
     }
 
     // Accessor for project status badge color
