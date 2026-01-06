@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function employee()
     {
-        return $this->hasOne(Employee:: class);
+        return $this->hasOne(Employee::  class);
     }
 
     public function attendanceRecords()
@@ -66,6 +66,26 @@ class User extends Authenticatable
     public function leaveRequests()
     {
         return $this->hasManyThrough(LeaveRequest::class, Employee::class);
+    }
+
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
+    public function primaryBankAccount()
+    {
+        return $this->hasOne(BankAccount::class)->where('is_primary', true);
+    }
+
+    public function payrollEntries()
+    {
+        return $this->hasMany(PayrollEntry::class, 'employee_id');
+    }
+
+    public function loans()
+    {
+        return $this->hasMany(EmployeeLoan::class, 'employee_id');
     }
 
     // Accessors

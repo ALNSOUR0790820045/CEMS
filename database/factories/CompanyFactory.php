@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CompanyFactory extends Factory
 {
+    protected $model = Company::class;
+
     /**
      * Define the model's default state. 
      *
@@ -22,13 +25,13 @@ class CompanyFactory extends Factory
             'name' => $name,
             'name_en' => $name,
             'slug' => \Illuminate\Support\Str::slug($name) . '-' . fake()->unique()->numerify('###'),
-            'commercial_registration' => fake()->numerify('CR-########'),
-            'tax_number' => fake()->numerify('TAX-########'),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'city' => fake()->city(),
             'country' => 'JO',
+            'commercial_registration' => fake()->numerify('CR-########'),
+            'tax_number' => fake()->numerify('TAX-########'),
             'logo' => null,
             'is_active' => true,
             'established_date' => fake()->date(),
