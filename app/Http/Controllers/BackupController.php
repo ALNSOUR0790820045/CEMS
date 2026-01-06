@@ -47,6 +47,9 @@ class BackupController extends Controller
 
         $type = $request->input('type');
         $name = $request->input('name') ?: $type . '_' . now()->format('Y-m-d_H-i-s');
+        
+        // Sanitize name for consistency with console commands
+        $name = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 
         try {
             // Run backup command in background

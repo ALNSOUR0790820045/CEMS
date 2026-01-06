@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Backup;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseBackupCommand extends Command
 {

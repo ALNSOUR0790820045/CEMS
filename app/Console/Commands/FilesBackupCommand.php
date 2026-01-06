@@ -115,7 +115,13 @@ class FilesBackupCommand extends Command
 
         foreach ($iterator as $file) {
             $filePath = $file->getRealPath();
-            $relativePath = $localPrefix . substr($filePath, strlen($directory) + 1);
+            
+            // Safely calculate relative path
+            if (strlen($filePath) > strlen($directory)) {
+                $relativePath = $localPrefix . substr($filePath, strlen($directory) + 1);
+            } else {
+                $relativePath = $localPrefix . basename($filePath);
+            }
 
             if ($file->isDir()) {
                 $zip->addEmptyDir($relativePath);
