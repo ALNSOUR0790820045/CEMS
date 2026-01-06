@@ -270,14 +270,15 @@
                         <div class="menu-col">
                             <h4>الهيكل التنظيمي</h4>
                             <a href="/" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة التحكم</a>
-                            <a href="#" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
-                            <a href="#" class="sub-link"><i data-lucide="map"></i> الفروع</a>
+                            <a href="{{ route('companies.index') }}" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
+                            <a href="{{ route('branches.index') }}" class="sub-link"><i data-lucide="map"></i> الفروع</a>
                         </div>
                         <div class="menu-col">
                             <h4>العمليات</h4>
                             <a href="#" class="sub-link"><i data-lucide="workflow"></i> سير العمل</a>
                             <a href="#" class="sub-link"><i data-lucide="settings"></i> الإعدادات</a>
-                            <a href="#" class="sub-link"><i data-lucide="shield-check"></i> الصلاحيات</a>
+                            <a href="{{ route('users.index') }}" class="sub-link"><i data-lucide="users"></i> إدارة المستخدمين</a>
+                            <a href="{{ route('roles.index') }}" class="sub-link"><i data-lucide="shield-check"></i> الأدوار والصلاحيات</a>
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>

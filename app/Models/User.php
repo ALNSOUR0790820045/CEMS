@@ -53,6 +53,21 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
+    public function attendanceRecords()
+    {
+        return $this->hasManyThrough(AttendanceRecord::class, Employee:: class);
+    }
+
+    public function leaveRequests()
+    {
+        return $this->hasManyThrough(LeaveRequest::class, Employee::class);
+    }
+
     // Accessors
     public function getInitialsAttribute()
     {
