@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TenderController;
+use App\Http\Controllers\TenderActivityController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -17,10 +19,10 @@ Route::middleware('auth')->group(function () {
     
     // Companies Management - with permission middleware
     Route::middleware('permission:companies.view')->group(function () {
-        Route::get('/companies', [\App\Http\Controllers\CompanyController::class, 'index'])->name('companies.index');
+        Route::get('/companies', [\App\Http\Controllers\CompanyController:: class, 'index'])->name('companies.index');
         Route::get('/companies/{company}', [\App\Http\Controllers\CompanyController::class, 'show'])->name('companies.show');
     });
-    Route::get('/companies/create', [\App\Http\Controllers\CompanyController:: class, 'create'])
+    Route::get('/companies/create', [\App\Http\Controllers\CompanyController::class, 'create'])
         ->name('companies.create')->middleware('permission:companies.create');
     Route::post('/companies', [\App\Http\Controllers\CompanyController::class, 'store'])
         ->name('companies. store')->middleware('permission:companies. create');
@@ -44,21 +46,21 @@ Route::middleware('auth')->group(function () {
         ->name('branches.edit')->middleware('permission:branches.edit');
     Route::put('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'update'])
         ->name('branches.update')->middleware('permission:branches.edit');
-    Route::delete('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'destroy')
+    Route::delete('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'destroy'])
         ->name('branches.destroy')->middleware('permission:branches.delete');
     
     // Users Management - with permission middleware
-    Route:: middleware('permission:users.view')->group(function () {
-        Route::get('/users', [\App\Http\Controllers\UserController:: class, 'index'])->name('users.index');
+    Route::middleware('permission:users.view')->group(function () {
+        Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('users.show');
     });
-    Route::get('/users/create', [\App\Http\Controllers\UserController:: class, 'create'])
-        ->name('users.create')->middleware('permission:users.create');
+    Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])
+        ->name('users. create')->middleware('permission:users. create');
     Route::post('/users', [\App\Http\Controllers\UserController::class, 'store'])
         ->name('users.store')->middleware('permission:users.create');
-    Route::get('/users/{user}/edit', [\App\Http\Controllers\UserController:: class, 'edit'])
-        ->name('users.edit')->middleware('permission:users.edit');
-    Route::put('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])
+    Route::get('/users/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])
+        ->name('users. edit')->middleware('permission:users. edit');
+    Route::put('/users/{user}', [\App\Http\Controllers\UserController:: class, 'update'])
         ->name('users.update')->middleware('permission:users.edit');
     Route::delete('/users/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])
         ->name('users.destroy')->middleware('permission:users.delete');
@@ -78,4 +80,20 @@ Route::middleware('auth')->group(function () {
         ->name('roles.update')->middleware('permission:roles.edit');
     Route::delete('/roles/{role}', [\App\Http\Controllers\RoleController::class, 'destroy'])
         ->name('roles.destroy')->middleware('permission:roles.delete');
+    
+    // Tender Activities Management
+    Route::prefix('tenders/{tender}')->group(function () {
+        Route::get('activities', [TenderActivityController::class, 'index'])->name('tender-activities.index');
+        Route::get('activities/create', [TenderActivityController::class, 'create'])->name('tender-activities.create');
+        Route::post('activities', [TenderActivityController::class, 'store'])->name('tender-activities.store');
+        Route::get('activities/gantt', [TenderActivityController::class, 'gantt'])->name('tender-activities.gantt');
+        Route::get('activities/cpm-analysis', [TenderActivityController::class, 'cpmAnalysis'])->name('tender-activities.cpm-analysis');
+        Route::post('activities/recalculate-cpm', [TenderActivityController::class, 'recalculateCPM'])->name('tender-activities. recalculate-cpm');
+    });
+    
+    // Tender Activities - Edit & Update (without tender prefix)
+    Route::get('tender-activities/{id}/edit', [TenderActivityController::class, 'edit'])->name('tender-activities.edit');
+    Route::put('tender-activities/{id}', [TenderActivityController::class, 'update'])->name('tender-activities.update');
+    Route::get('tender-activities/{tender}/{id}', [TenderActivityController:: class, 'show'])->name('tender-activities.show');
+    Route::delete('tenders/{tender}/activities/{id}', [TenderActivityController::class, 'destroy'])->name('tender-activities. destroy');
 });
