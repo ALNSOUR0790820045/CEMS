@@ -297,6 +297,7 @@
                             <a href="#" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع النشطة</a>
                             <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المواقع</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
+                            <a href="{{ route('boq.index') }}" class="sub-link"><i data-lucide="file-spreadsheet"></i> جداول الكميات</a>
                         </div>
                         <div class="menu-col">
                             <h4>الجودة</h4>
