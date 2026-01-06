@@ -1,235 +1,546 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2><i class="fas fa-project-diagram me-2"></i>تحليل المسار الحرج (CPM)</h2>
-            <small class="text-muted">{{ $tender->name }}</small>
-        </div>
-        <div class="btn-group">
-            <button onclick="window.print()" class="btn btn-outline-secondary">
-                <i class="fas fa-print me-2"></i>طباعة
+<style>
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 20px;
+    }
+    
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+        font-weight:  700;
+        color: var(--text);
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        border-radius:  8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+    
+    .btn-primary {
+        background: var(--accent);
+        color: white;
+    }
+    
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+    
+    .btn-success {
+        background: #28a745;
+        color: white;
+    }
+    
+    . btn-small {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .breadcrumb {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+    
+    . breadcrumb a {
+        color: var(--accent);
+        text-decoration: none;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns:  repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom:  24px;
+    }
+    
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .stat-card: nth-child(2) {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    .stat-card: nth-child(3) {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .stat-card: nth-child(4) {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+    
+    . stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom:  8px;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.95;
+    }
+    
+    .critical-path-section {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        color: white;
+        padding: 20px;
+        border-radius:  12px;
+        margin-bottom: 24px;
+    }
+    
+    .critical-path-title {
+        font-size: 1.25rem;
+        font-weight:  700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .critical-activities {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .activity-badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+    }
+    
+    #network-diagram {
+        height: 500px;
+        background: white;
+        border:  1px solid #ddd;
+        border-radius:  8px;
+        margin-bottom: 24px;
+    }
+    
+    .filters {
+        display: flex;
+        gap: 12px;
+        margin-bottom:  20px;
+        flex-wrap: wrap;
+    }
+    
+    .filter-input {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        min-width: 200px;
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+    
+    .table thead {
+        background: #f8f9fa;
+        position: sticky;
+        top: 0;
+        z-index:  10;
+    }
+    
+    .table th {
+        padding: 12px 8px;
+        text-align:  center;
+        font-weight: 600;
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+        white-space: nowrap;
+    }
+    
+    .table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #dee2e6;
+        text-align: center;
+    }
+    
+    .table tbody tr:hover {
+        background:  #f8f9fa;
+    }
+    
+    .table tbody tr. critical-row {
+        background: #fff5f5;
+    }
+    
+    .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius:  12px;
+        font-size:  0.75rem;
+        font-weight: 600;
+    }
+    
+    .badge-critical {
+        background: #dc3545;
+        color: white;
+    }
+    
+    . badge-success {
+        background:  #28a745;
+        color: white;
+    }
+    
+    .badge-warning {
+        background: #ffc107;
+        color: #000;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+        max-height: 600px;
+        overflow-y: auto;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+</style>
+
+<div class="breadcrumb">
+    <a href="{{ route('dashboard') }}">الرئيسية</a> / 
+    <a href="{{ route('tenders.index') }}">العطاءات</a> / 
+    <a href="{{ route('tenders.show', $tender) }}">{{ $tender->name }}</a> / 
+    <a href="{{ route('tender-activities.index', $tender) }}">الأنشطة</a> / 
+    <span>تحليل CPM</span>
+</div>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">تحليل المسار الحرج (CPM): {{ $tender->name }}</h1>
+        <p style="color: #6c757d; margin-top: 8px;">رمز العطاء: {{ $tender->tender_code }}</p>
+    </div>
+    <div style="display: flex; gap: 12px;">
+        <form method="POST" action="{{ route('tender-activities.recalculate-cpm', $tender) }}" style="display: inline;">
+            @csrf
+            <button type="submit" class="btn btn-success">
+                <i data-lucide="refresh-cw"></i>
+                إعادة الحساب
             </button>
-            <a href="{{ route('tender-activities. gantt', $tender->id) }}" class="btn btn-outline-info">
-                <i class="fas fa-chart-gantt me-2"></i>مخطط جانت
-            </a>
-            <a href="{{ route('tender-activities.index', $tender->id) }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-right me-2"></i>رجوع
-            </a>
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center bg-primary bg-opacity-10">
-                    <i class="fas fa-tasks fa-2x text-primary mb-2"></i>
-                    <h3 class="mb-0">{{ $activities->count() }}</h3>
-                    <small class="text-muted">إجمالي الأنشطة</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center bg-danger bg-opacity-10">
-                    <i class="fas fa-exclamation-triangle fa-2x text-danger mb-2"></i>
-                    <h3 class="mb-0">{{ $criticalActivities->count() }}</h3>
-                    <small class="text-muted">الأنشطة الحرجة</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center bg-success bg-opacity-10">
-                    <i class="fas fa-calendar-alt fa-2x text-success mb-2"></i>
-                    <h3 class="mb-0">{{ $projectDuration }}</h3>
-                    <small class="text-muted">مدة المشروع (يوم)</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center bg-info bg-opacity-10">
-                    <i class="fas fa-link fa-2x text-info mb-2"></i>
-                    <h3 class="mb-0">{{ $dependencies->count() }}</h3>
-                    <small class="text-muted">إجمالي العلاقات</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-danger text-white">
-            <h5 class="mb-0"><i class="fas fa-route me-2"></i>المسار الحرج (Critical Path)</h5>
-        </div>
-        <div class="card-body">
-            @if($criticalActivities->count() > 0)
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="table-light">
-                            <tr>
-                                <th>الكود</th>
-                                <th>النشاط</th>
-                                <th>المدة</th>
-                                <th>ES</th>
-                                <th>EF</th>
-                                <th>LS</th>
-                                <th>LF</th>
-                                <th>Float</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($criticalActivities as $activity)
-                            <tr class="table-danger">
-                                <td><strong>{{ $activity->activity_code }}</strong></td>
-                                <td>{{ $activity->name }}</td>
-                                <td><span class="badge bg-secondary">{{ $activity->duration_days }} يوم</span></td>
-                                <td>{{ $activity->early_start ??  0 }}</td>
-                                <td>{{ $activity->early_finish ?? 0 }}</td>
-                                <td>{{ $activity->late_start ?? 0 }}</td>
-                                <td>{{ $activity->late_finish ?? 0 }}</td>
-                                <td><span class="badge bg-danger">{{ $activity->total_float ??  0 }}</span></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <div class="alert alert-warning">
-                    <i class="fas fa-info-circle me-2"></i>لم يتم حساب المسار الحرج بعد.  يرجى تشغيل حساب CPM. 
-                </div>
-            @endif
-        </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-white">
-            <h5 class="mb-0"><i class="fas fa-list me-2"></i>الأنشطة غير الحرجة</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-sm">
-                    <thead class="table-light">
-                        <tr>
-                            <th>الكود</th>
-                            <th>النشاط</th>
-                            <th>المدة</th>
-                            <th>ES</th>
-                            <th>EF</th>
-                            <th>LS</th>
-                            <th>LF</th>
-                            <th>Total Float</th>
-                            <th>Free Float</th>
-                            <th>الحالة</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($nonCriticalActivities as $activity)
-                        <tr>
-                            <td>{{ $activity->activity_code }}</td>
-                            <td>{{ $activity->name }}</td>
-                            <td>{{ $activity->duration_days }}</td>
-                            <td>{{ $activity->early_start ??  0 }}</td>
-                            <td>{{ $activity->early_finish ?? 0 }}</td>
-                            <td>{{ $activity->late_start ??  0 }}</td>
-                            <td>{{ $activity->late_finish ?? 0 }}</td>
-                            <td>
-                                @php
-                                    $float = $activity->total_float ??  0;
-                                    $badgeClass = $float > 10 ? 'success' : ($float > 5 ? 'warning' : 'danger');
-                                @endphp
-                                <span class="badge bg-{{ $badgeClass }}">{{ $float }} يوم</span>
-                            </td>
-                            <td>{{ $activity->free_float ?? 0 }}</td>
-                            <td>
-                                @if($float > 10)
-                                    <span class="badge bg-success">مرن</span>
-                                @elseif($float > 5)
-                                    <span class="badge bg-warning">متوسط</span>
-                                @else
-                                    <span class="badge bg-danger">محدود</span>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow-sm">
-        <div class="card-header bg-white">
-            <h5 class="mb-0"><i class="fas fa-sitemap me-2"></i>مخطط الشبكة (Network Diagram)</h5>
-        </div>
-        <div class="card-body">
-            <div id="network-diagram" style="height: 550px; border: 1px solid #dee2e6; border-radius:8px;"></div>
-        </div>
+        </form>
+        <a href="{{ route('tender-activities.gantt', $tender) }}" class="btn btn-primary">
+            <i data-lucide="gantt-chart"></i>
+            مخطط جانت
+        </a>
+        <a href="{{ route('tender-activities.index', $tender) }}" class="btn btn-secondary">
+            <i data-lucide="list"></i>
+            قائمة الأنشطة
+        </a>
     </div>
 </div>
 
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-<link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet">
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ $cpmResult['project_duration'] ??  0 }}</div>
+        <div class="stat-label">إجمالي مدة المشروع (أيام)</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ $activities->count() }}</div>
+        <div class="stat-label">إجمالي الأنشطة</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ $activities->where('is_critical', true)->count() }}</div>
+        <div class="stat-label">الأنشطة الحرجة</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ $activities->where('is_critical', false)->count() }}</div>
+        <div class="stat-label">الأنشطة غير الحرجة</div>
+    </div>
+</div>
+
+<div class="critical-path-section">
+    <div class="critical-path-title">
+        <i data-lucide="alert-circle" style="width: 24px; height: 24px;"></i>
+        المسار الحرج (Critical Path)
+    </div>
+    @if($criticalActivities->isNotEmpty())
+        <div class="critical-activities">
+            @foreach($criticalActivities as $activity)
+                <div class="activity-badge" title="{{ $activity->name }}">
+                    {{ $activity->activity_code }}
+                </div>
+            @endforeach
+        </div>
+    @else
+        <p style="opacity: 0.9;">لا توجد أنشطة حرجة في الوقت الحالي. </p>
+    @endif
+</div>
+
+<div class="card">
+    <div class="section-title">
+        <i data-lucide="git-branch"></i>
+        مخطط الشبكة (Network Diagram)
+    </div>
+    <div id="network-diagram"></div>
+</div>
+
+<div class="card">
+    <div class="section-title">
+        <i data-lucide="table"></i>
+        جدول تحليل الأنشطة
+    </div>
+    
+    <form method="GET" action="{{ route('tender-activities.cpm-analysis', $tender) }}" id="filterForm">
+        <div class="filters">
+            <input type="text" name="search" class="filter-input" placeholder="بحث في الأنشطة..." value="{{ request('search') }}">
+            
+            <select name="is_critical" class="filter-input" onchange="document.getElementById('filterForm').submit()">
+                <option value="">كل الأنشطة</option>
+                <option value="1" {{ request('is_critical') == '1' ? 'selected' :  '' }}>حرجة فقط</option>
+                <option value="0" {{ request('is_critical') == '0' ? 'selected' : '' }}>غير حرجة فقط</option>
+            </select>
+            
+            <button type="submit" class="btn btn-primary btn-small">بحث</button>
+        </div>
+    </form>
+    
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>الكود</th>
+                    <th>اسم النشاط</th>
+                    <th>المدة<br>(أيام)</th>
+                    <th>البداية<br>المبكرة (ES)</th>
+                    <th>النهاية<br>المبكرة (EF)</th>
+                    <th>البداية<br>المتأخرة (LS)</th>
+                    <th>النهاية<br>المتأخرة (LF)</th>
+                    <th>Total<br>Float</th>
+                    <th>Free<br>Float</th>
+                    <th>حرج؟</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($activities as $activity)
+                <tr class="{{ $activity->is_critical ? 'critical-row' : '' }}">
+                    <td><strong>{{ $activity->activity_code }}</strong></td>
+                    <td style="text-align: right; max-width: 250px;">{{ $activity->name }}</td>
+                    <td>{{ $activity->duration_days }}</td>
+                    <td>{{ $activity->early_start ??  0 }}</td>
+                    <td>{{ $activity->early_finish ?? 0 }}</td>
+                    <td>{{ $activity->late_start ?? 0 }}</td>
+                    <td>{{ $activity->late_finish ?? 0 }}</td>
+                    <td>
+                        @if(($activity->total_float ?? 0) == 0)
+                            <span style="color: #dc3545; font-weight: bold;">0</span>
+                        @elseif(($activity->total_float ?? 0) < 5)
+                            <span style="color: #ffc107; font-weight: bold;">{{ $activity->total_float }}</span>
+                        @else
+                            <span style="color:  #28a745;">{{ $activity->total_float }}</span>
+                        @endif
+                    </td>
+                    <td>{{ $activity->free_float ?? 0 }}</td>
+                    <td>
+                        @if($activity->is_critical)
+                            <span class="badge badge-critical">نعم</span>
+                        @else
+                            <span class="badge badge-success">لا</span>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="10" style="text-align: center; padding: 40px; color: #6c757d;">
+                        لا توجد أنشطة للعرض.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Include vis.js for network diagram -->
+<link href="https://unpkg.com/vis-network@9.1.6/styles/vis-network.min.css" rel="stylesheet">
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network. min.js"></script>
 
 <script>
-var nodes = new vis.DataSet([
-    @foreach($activities as $activity)
-    {
-        id: {{ $activity->id }},
-        label: '{{ $activity->activity_code }}\n{{ $activity->name }}\n{{ $activity->duration_days }}د',
-        color: {
-            background: '{{ $activity->is_critical ? "#dc3545" : "#198754" }}',
-            border:  '{{ $activity->is_critical ? "#bd2130" : "#146c43" }}',
-            highlight: {
-                background: '{{ $activity->is_critical ? "#c82333" : "#157347" }}',
-                border: '{{ $activity->is_critical ?  "#a71d2a" : "#0f5132" }}'
+    lucide. createIcons();
+    
+    // Network diagram data
+    var networkData = @json($networkData);
+    
+    // Create nodes for vis.js
+    var nodes = new vis.DataSet(
+        networkData.nodes.map(function(node) {
+            var tooltipText = node.name + 
+                '\nES: ' + node.early_start + ' | EF: ' + node.early_finish + 
+                '\nLS: ' + node.late_start + ' | LF: ' + node.late_finish + 
+                '\nTF: ' + node.total_float;
+            
+            return {
+                id: node.id,
+                label: node.label + '\n' + node.duration + ' أيام',
+                title: tooltipText,
+                color: {
+                    background: node.is_critical ? '#dc3545' : '#0071e3',
+                    border: node.is_critical ? '#bd2130' : '#005bb5',
+                    highlight: {
+                        background: node.is_critical ? '#c82333' : '#0056b3',
+                        border: node.is_critical ? '#a71d2a' : '#004085'
+                    }
+                },
+                font: {
+                    color: 'white',
+                    size:  12,
+                    bold: node.is_critical
+                },
+                borderWidth: node.is_critical ? 3 : 2,
+                shadow: true
+            };
+        })
+    );
+    
+    // Create edges for vis.js
+    var edges = new vis.DataSet(
+        networkData.edges.map(function(edge) {
+            var edgeTypeLabel = '';
+            switch(edge.type) {
+                case 'FS':  edgeTypeLabel = 'FS'; break;
+                case 'SS': edgeTypeLabel = 'SS'; break;
+                case 'FF': edgeTypeLabel = 'FF'; break;
+                case 'SF': edgeTypeLabel = 'SF'; break;
+            }
+            
+            return {
+                from: edge.from,
+                to: edge.to,
+                arrows: 'to',
+                label: edgeTypeLabel + (edge.lag ? '\n(' + edge.lag + ')' : ''),
+                color: {
+                    color: '#999',
+                    highlight: '#333',
+                    hover: '#333'
+                },
+                font:  {
+                    size: 10,
+                    align: 'middle'
+                },
+                smooth: {
+                    type: 'cubicBezier',
+                    forceDirection: 'horizontal',
+                    roundness: 0.4
+                }
+            };
+        })
+    );
+    
+    // Container
+    var container = document.getElementById('network-diagram');
+    
+    // Options
+    var options = {
+        layout: {
+            hierarchical: {
+                direction: 'LR',
+                sortMethod: 'directed',
+                levelSeparation: 200,
+                nodeSpacing: 150,
+                treeSpacing: 200
             }
         },
-        font: {color: 'white', size: 14, face: 'Arial'},
-        shape: 'box',
-        margin: 10
-    }{{ !$loop->last ? ',' : '' }}
-    @endforeach
-]);
-
-var edges = new vis.DataSet([
-    @foreach($dependencies as $dep)
-    {
-        from: {{ $dep->predecessor_id }},
-        to: {{ $dep->successor_id }},
-        arrows: 'to',
-        color: {color: '#6c757d', highlight: '#495057'},
-        width: 2,
-        smooth: {type: 'cubicBezier', roundness: 0.5}
-    }{{ !$loop->last ? ',' : '' }}
-    @endforeach
-]);
-
-var container = document.getElementById('network-diagram');
-var data = {nodes: nodes, edges: edges};
-var options = {
-    layout: {
-        hierarchical: {
-            direction: 'LR',
-            sortMethod: 'directed',
-            levelSeparation: 200,
-            nodeSpacing: 150
+        physics: {
+            enabled: false
+        },
+        interaction: {
+            hover: true,
+            zoomView: true,
+            dragView: true
+        },
+        nodes: {
+            shape: 'box',
+            margin: 10,
+            widthConstraint: {
+                minimum: 100,
+                maximum: 150
+            }
+        },
+        edges: {
+            width: 2,
+            smooth: {
+                enabled: true,
+                type: 'cubicBezier'
+            }
         }
-    },
-    physics: {enabled: false},
-    interaction: {dragNodes: true, dragView: true, zoomView: true}
-};
-
-var network = new vis.Network(container, data, options);
-network.fit();
+    };
+    
+    // Initialize network
+    var network = new vis. Network(container, {nodes: nodes, edges: edges}, options);
+    
+    // Fit network to screen
+    network.once('stabilizationIterationsDone', function() {
+        network.fit({
+            animation: {
+                duration: 1000,
+                easingFunction:  'easeInOutQuad'
+            }
+        });
+    });
+    
+    // Click event to show activity details
+    network.on('click', function(params) {
+        if (params.nodes. length > 0) {
+            var nodeId = params.nodes[0];
+            var node = networkData.nodes.find(n => n.id === nodeId);
+            if (node) {
+                // Create safe text for alert by concatenating safely
+                var details = [
+                    'النشاط: ' + String(node.name),
+                    'الكود: ' + String(node. label),
+                    'المدة: ' + String(node.duration) + ' أيام',
+                    'Early Start: ' + String(node. early_start),
+                    'Early Finish:  ' + String(node.early_finish),
+                    'Late Start: ' + String(node.late_start),
+                    'Late Finish: ' + String(node.late_finish),
+                    'Total Float: ' + String(node.total_float),
+                    'حرج:  ' + (node.is_critical ? 'نعم' :  'لا')
+                ];
+                alert(details.join('\n'));
+            }
+        }
+    });
 </script>
 
-<style>
-@media print {
-    .btn, .card-header {
-        display: none !important;
-    }
-}
-</style>
 @endsection
