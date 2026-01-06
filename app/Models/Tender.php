@@ -3,19 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tender extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
+        'company_id',
         'tender_number',
+        'tender_code',
         'reference_number',
         'name',
         'name_en',
+        'code',
+        'title',
         'description',
         'client_id',
         'client_name',
@@ -32,10 +36,14 @@ class Tender extends Model
         'documents_deadline',
         'questions_deadline',
         'submission_deadline',
+        'submission_date',
         'submission_time',
         'opening_date',
         'expected_award_date',
+        'project_start_date',
+        'project_duration_days',
         'estimated_value',
+        'budget',
         'our_offer_value',
         'winning_value',
         'currency',
@@ -57,17 +65,22 @@ class Tender extends Model
         'estimator_id',
         'created_by',
         'notes',
+        'is_active',
     ];
 
     protected $casts = [
+        'is_active' => 'boolean',
         'announcement_date' => 'date',
         'documents_deadline' => 'date',
         'questions_deadline' => 'date',
         'submission_deadline' => 'date',
+        'submission_date' => 'date',
         'opening_date' => 'date',
         'expected_award_date' => 'date',
-        'estimated_value' => 'decimal:2',
-        'our_offer_value' => 'decimal:2',
+        'project_start_date' => 'date',
+        'estimated_value' => 'decimal: 2',
+        'budget' => 'decimal: 2',
+        'our_offer_value' => 'decimal: 2',
         'winning_value' => 'decimal:2',
         'winner_value' => 'decimal:2',
         'documents_cost' => 'decimal:2',
@@ -78,6 +91,11 @@ class Tender extends Model
     ];
 
     // Relationships
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company:: class);
+    }
+
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
@@ -90,7 +108,7 @@ class Tender extends Model
 
     public function bidBond(): BelongsTo
     {
-        return $this->belongsTo(Guarantee::class, 'bid_bond_id');
+        return $this->belongsTo(Guarantee:: class, 'bid_bond_id');
     }
 
     public function assignedTo(): BelongsTo
@@ -110,7 +128,32 @@ class Tender extends Model
 
     public function goDecidedBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'go_decided_by');
+        return $this->belongsTo(User:: class, 'go_decided_by');
+    }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(TenderActivity::class);
+    }
+
+    public function wbsItems(): HasMany
+    {
+        return $this->hasMany(TenderWbs::class, 'tender_id');
+    }
+
+    public function milestones(): HasMany
+    {
+        return $this->hasMany(TenderMilestone::class);
+    }
+
+    public function guarantees(): HasMany
+    {
+        return $this->hasMany(Guarantee:: class);
+    }
+
+    public function warehouses(): HasMany
+    {
+        return $this->hasMany(Warehouse::class);
     }
 
     public function documents(): HasMany
@@ -125,7 +168,7 @@ class Tender extends Model
 
     public function timeline(): HasMany
     {
-        return $this->hasMany(TenderTimeline::class);
+        return $this->hasMany(TenderTimeline:: class);
     }
 
     public function questions(): HasMany
