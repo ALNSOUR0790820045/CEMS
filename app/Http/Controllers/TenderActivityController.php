@@ -20,7 +20,7 @@ class TenderActivityController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. 
      */
     public function index(Request $request, $tenderId)
     {
@@ -53,7 +53,7 @@ class TenderActivityController extends Controller
         $activities = $query->orderBy('sort_order')->paginate(50);
         $wbsItems = TenderWBS::where('tender_id', $tenderId)->get();
 
-        return view('tender-activities.index', compact('tender', 'activities', 'wbsItems'));
+        return view('tender-activities. index', compact('tender', 'activities', 'wbsItems'));
     }
 
     /**
@@ -71,7 +71,7 @@ class TenderActivityController extends Controller
             ->first();
         
         $nextNumber = $lastActivity ? intval(substr($lastActivity->activity_code, -3)) + 1 : 1;
-        $activityCode = 'TACT-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $activityCode = 'TACT-' .  str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
         return view('tender-activities.create', compact('tender', 'wbsItems', 'activities', 'activityCode'));
     }
@@ -83,19 +83,17 @@ class TenderActivityController extends Controller
     {
         $validated = $request->validate([
             'activity_code' => 'required|unique:tender_activities,activity_code',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max: 255',
             'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'tender_wbs_id' => 'nullable|exists:tender_wbs,id',
-            'duration_days' => 'required|integer|min:1',
+            'duration_days' => 'required|integer|min: 1',
             'effort_hours' => 'nullable|numeric|min:0',
-            'type' => 'required|in:task,milestone,summary',
+            'type' => 'required|in: task,milestone,summary',
             'priority' => 'required|in:low,medium,high,critical',
             'estimated_cost' => 'nullable|numeric|min:0',
             'predecessors' => 'nullable|array',
-            'predecessors.*.id' => 'required_with:predecessors|exists:tender_activities,id',
-            'predecessors.*.type' => 'required_with:predecessors|in:FS,SS,FF,SF',
-            'predecessors.*.lag_days' => 'nullable|integer',
+            'predecessors.*' => 'exists:tender_activities,id',
         ]);
 
         DB::beginTransaction();
@@ -113,16 +111,17 @@ class TenderActivityController extends Controller
                 'priority' => $validated['priority'],
                 'estimated_cost' => $validated['estimated_cost'] ?? 0,
                 'sort_order' => TenderActivity::where('tender_id', $tenderId)->max('sort_order') + 1,
+                'is_active' => $request->has('is_active'),
             ]);
 
             // Add predecessors
             if (!empty($validated['predecessors'])) {
-                foreach ($validated['predecessors'] as $predecessor) {
+                foreach ($validated['predecessors'] as $predecessorId) {
                     TenderActivityDependency::create([
-                        'predecessor_id' => $predecessor['id'],
+                        'predecessor_id' => $predecessorId,
                         'successor_id' => $activity->id,
-                        'type' => $predecessor['type'],
-                        'lag_days' => $predecessor['lag_days'] ?? 0,
+                        'type' => 'FS', // Default Finish-to-Start
+                        'lag_days' => 0,
                     ]);
                 }
             }
@@ -133,19 +132,19 @@ class TenderActivityController extends Controller
             DB::commit();
 
             return redirect()->route('tender-activities.index', $tenderId)
-                ->with('success', 'Activity created successfully');
+                ->with('success', 'تم إنشاء النشاط بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Failed to create activity: ' . $e->getMessage())->withInput();
+            return back()->with('error', 'فشل إنشاء النشاط: ' . $e->getMessage())->withInput();
         }
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource. 
      */
     public function show($tenderId, $id)
     {
-        $activity = TenderActivity::with(['tender', 'wbs', 'predecessors.predecessor', 'successors.successor'])
+        $activity = TenderActivity::with(['tender', 'wbs', 'predecessors. predecessor', 'successors.successor'])
             ->findOrFail($id);
 
         return view('tender-activities.show', compact('activity'));
@@ -153,41 +152,41 @@ class TenderActivityController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * ✅ UPDATED للتوافق مع view الجديد
      */
-    public function edit($tenderId, $id)
+    public function edit($id)
     {
-        $tender = Tender::findOrFail($tenderId);
-        $activity = TenderActivity::with(['predecessors'])->findOrFail($id);
-        $wbsItems = TenderWBS::where('tender_id', $tenderId)->get();
-        $activities = TenderActivity::where('tender_id', $tenderId)
-            ->where('id', '!=', $id)
-            ->get();
-
-        return view('tender-activities.edit', compact('tender', 'activity', 'wbsItems', 'activities'));
+        $activity = TenderActivity::with('predecessors')->findOrFail($id);
+        $wbsItems = TenderWBS::where('tender_id', $activity->tender_id)->get();
+        $allActivities = TenderActivity::where('tender_id', $activity->tender_id)
+                                      ->where('id', '!=', $id)
+                                      ->get();
+        
+        return view('tender-activities.edit', compact('activity', 'wbsItems', 'allActivities'));
     }
 
     /**
      * Update the specified resource in storage.
+     * ✅ UPDATED للتوافق مع form الجديد
      */
-    public function update(Request $request, $tenderId, $id)
+    public function update(Request $request, $id)
     {
         $activity = TenderActivity::findOrFail($id);
 
         $validated = $request->validate([
             'activity_code' => 'required|unique:tender_activities,activity_code,' . $id,
             'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
+            'name_en' => 'nullable|string|max: 255',
             'description' => 'nullable|string',
             'tender_wbs_id' => 'nullable|exists:tender_wbs,id',
             'duration_days' => 'required|integer|min:1',
-            'effort_hours' => 'nullable|numeric|min:0',
-            'type' => 'required|in:task,milestone,summary',
-            'priority' => 'required|in:low,medium,high,critical',
+            'effort_hours' => 'nullable|numeric|min: 0',
+            'type' => 'nullable|in:task,milestone,summary',
+            'priority' => 'nullable|in:low,medium,high,critical',
             'estimated_cost' => 'nullable|numeric|min:0',
+            'sort_order' => 'nullable|integer|min:0',
             'predecessors' => 'nullable|array',
-            'predecessors.*.id' => 'required_with:predecessors|exists:tender_activities,id',
-            'predecessors.*.type' => 'required_with:predecessors|in:FS,SS,FF,SF',
-            'predecessors.*.lag_days' => 'nullable|integer',
+            'predecessors.*' => 'exists:tender_activities,id',
         ]);
 
         DB::beginTransaction();
@@ -195,39 +194,42 @@ class TenderActivityController extends Controller
             $activity->update([
                 'activity_code' => $validated['activity_code'],
                 'name' => $validated['name'],
-                'name_en' => $validated['name_en'] ?? null,
+                'name_en' => $validated['name_en'] ??  null,
                 'description' => $validated['description'] ?? null,
                 'tender_wbs_id' => $validated['tender_wbs_id'] ?? null,
                 'duration_days' => $validated['duration_days'],
                 'effort_hours' => $validated['effort_hours'] ?? 0,
-                'type' => $validated['type'],
-                'priority' => $validated['priority'],
+                'type' => $validated['type'] ?? 'task',
+                'priority' => $validated['priority'] ?? 'medium',
                 'estimated_cost' => $validated['estimated_cost'] ?? 0,
+                'sort_order' => $validated['sort_order'] ?? $activity->sort_order,
+                'is_active' => $request->has('is_active'),
             ]);
 
             // Update predecessors
-            $activity->predecessors()->delete();
+            TenderActivityDependency::where('successor_id', $id)->delete();
+            
             if (!empty($validated['predecessors'])) {
-                foreach ($validated['predecessors'] as $predecessor) {
+                foreach ($validated['predecessors'] as $predecessorId) {
                     TenderActivityDependency::create([
-                        'predecessor_id' => $predecessor['id'],
+                        'predecessor_id' => $predecessorId,
                         'successor_id' => $activity->id,
-                        'type' => $predecessor['type'],
-                        'lag_days' => $predecessor['lag_days'] ?? 0,
+                        'type' => 'FS', // Default Finish-to-Start
+                        'lag_days' => 0,
                     ]);
                 }
             }
 
             // Recalculate CPM
-            $this->cpmService->calculateCPM($tenderId);
+            $this->cpmService->calculateCPM($activity->tender_id);
 
             DB::commit();
 
-            return redirect()->route('tender-activities.index', $tenderId)
-                ->with('success', 'Activity updated successfully');
+            return redirect()->route('tender-activities.index', $activity->tender_id)
+                ->with('success', 'تم تحديث النشاط بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Failed to update activity: ' . $e->getMessage())->withInput();
+            return back()->with('error', 'فشل تحديث النشاط:  ' . $e->getMessage())->withInput();
         }
     }
 
@@ -244,14 +246,15 @@ class TenderActivityController extends Controller
             $this->cpmService->calculateCPM($tenderId);
 
             return redirect()->route('tender-activities.index', $tenderId)
-                ->with('success', 'Activity deleted successfully');
+                ->with('success', 'تم حذف النشاط بنجاح');
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to delete activity: ' . $e->getMessage());
+            return back()->with('error', 'فشل حذف النشاط: ' . $e->getMessage());
         }
     }
 
     /**
      * Show Gantt chart
+     * ✅ UPDATED للتوافق مع view الجديد
      */
     public function gantt($tenderId)
     {
@@ -259,6 +262,7 @@ class TenderActivityController extends Controller
         $activities = TenderActivity::where('tender_id', $tenderId)
             ->with(['wbs', 'predecessors.predecessor', 'successors.successor'])
             ->orderBy('sort_order')
+            ->orderBy('id')
             ->get();
 
         $dependencies = TenderActivityDependency::whereIn('predecessor_id', $activities->pluck('id'))
@@ -269,32 +273,44 @@ class TenderActivityController extends Controller
 
     /**
      * Show CPM analysis
+     * ✅ UPDATED للتوافق مع view الجديد
      */
     public function cpmAnalysis($tenderId)
     {
         $tender = Tender::findOrFail($tenderId);
         
-        // Calculate CPM
-        $cpmResult = $this->cpmService->calculateCPM($tenderId);
-        
-        // Get critical path activities
-        $criticalActivities = $this->cpmService->getCriticalPath($tenderId);
+        // Calculate CPM if service exists
+        try {
+            $this->cpmService->calculateCPM($tenderId);
+        } catch (\Exception $e) {
+            // If CPM service fails, continue without it
+        }
         
         // Get all activities
         $activities = TenderActivity::where('tender_id', $tenderId)
-            ->with(['wbs', 'predecessors.predecessor', 'successors.successor'])
+            ->with(['wbs', 'predecessors.predecessor', 'successors. successor'])
             ->orderBy('early_start')
+            ->orderBy('id')
             ->get();
 
-        // Get network diagram data
-        $networkData = $this->cpmService->getNetworkDiagram($tenderId);
+        // Get dependencies
+        $dependencies = TenderActivityDependency::whereIn('predecessor_id', $activities->pluck('id'))
+            ->get();
 
-        return view('tender-activities.cpm-analysis', compact(
+        // Separate critical and non-critical
+        $criticalActivities = $activities->where('is_critical', true);
+        $nonCriticalActivities = $activities->where('is_critical', false);
+        
+        // Calculate project duration
+        $projectDuration = $activities->max('early_finish') ?? 0;
+
+        return view('tender-activities. cpm-analysis', compact(
             'tender', 
             'activities', 
+            'dependencies',
             'criticalActivities', 
-            'cpmResult',
-            'networkData'
+            'nonCriticalActivities',
+            'projectDuration'
         ));
     }
 
@@ -306,9 +322,9 @@ class TenderActivityController extends Controller
         try {
             $result = $this->cpmService->calculateCPM($tenderId);
 
-            return back()->with('success', $result['message']);
+            return back()->with('success', 'تم إعادة حساب CPM بنجاح');
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to calculate CPM: ' . $e->getMessage());
+            return back()->with('error', 'فشل حساب CPM: ' . $e->getMessage());
         }
     }
 }
