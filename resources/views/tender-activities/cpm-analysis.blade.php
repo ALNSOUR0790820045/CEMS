@@ -19,13 +19,13 @@
     
     .page-title {
         font-size: 1.75rem;
-        font-weight: 700;
+        font-weight:  700;
         color: var(--text);
     }
     
     .btn {
         padding: 10px 20px;
-        border-radius: 8px;
+        border-radius:  8px;
         border: none;
         cursor: pointer;
         font-weight: 600;
@@ -52,7 +52,7 @@
         color: white;
     }
     
-    .btn-small {
+    . btn-small {
         padding: 8px 16px;
         font-size: 0.85rem;
     }
@@ -65,16 +65,16 @@
         color: #6c757d;
     }
     
-    .breadcrumb a {
+    . breadcrumb a {
         color: var(--accent);
         text-decoration: none;
     }
     
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns:  repeat(auto-fit, minmax(220px, 1fr));
         gap: 16px;
-        margin-bottom: 24px;
+        margin-bottom:  24px;
     }
     
     .stat-card {
@@ -85,22 +85,22 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
-    .stat-card:nth-child(2) {
+    .stat-card: nth-child(2) {
         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     }
     
-    .stat-card:nth-child(3) {
+    .stat-card: nth-child(3) {
         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     }
     
-    .stat-card:nth-child(4) {
+    .stat-card: nth-child(4) {
         background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     }
     
-    .stat-value {
+    . stat-value {
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 8px;
+        margin-bottom:  8px;
     }
     
     .stat-label {
@@ -112,13 +112,13 @@
         background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
         color: white;
         padding: 20px;
-        border-radius: 12px;
+        border-radius:  12px;
         margin-bottom: 24px;
     }
     
     .critical-path-title {
         font-size: 1.25rem;
-        font-weight: 700;
+        font-weight:  700;
         margin-bottom: 16px;
         display: flex;
         align-items: center;
@@ -143,15 +143,15 @@
     #network-diagram {
         height: 500px;
         background: white;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+        border:  1px solid #ddd;
+        border-radius:  8px;
         margin-bottom: 24px;
     }
     
     .filters {
         display: flex;
         gap: 12px;
-        margin-bottom: 20px;
+        margin-bottom:  20px;
         flex-wrap: wrap;
     }
     
@@ -173,12 +173,12 @@
         background: #f8f9fa;
         position: sticky;
         top: 0;
-        z-index: 10;
+        z-index:  10;
     }
     
     .table th {
         padding: 12px 8px;
-        text-align: center;
+        text-align:  center;
         font-weight: 600;
         color: #495057;
         border-bottom: 2px solid #dee2e6;
@@ -192,18 +192,18 @@
     }
     
     .table tbody tr:hover {
-        background: #f8f9fa;
+        background:  #f8f9fa;
     }
     
-    .table tbody tr.critical-row {
+    .table tbody tr. critical-row {
         background: #fff5f5;
     }
     
     .badge {
         display: inline-block;
         padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 0.75rem;
+        border-radius:  12px;
+        font-size:  0.75rem;
         font-weight: 600;
     }
     
@@ -212,8 +212,8 @@
         color: white;
     }
     
-    .badge-success {
-        background: #28a745;
+    . badge-success {
+        background:  #28a745;
         color: white;
     }
     
@@ -273,7 +273,7 @@
 
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-value">{{ $cpmResult['project_duration'] ?? 0 }}</div>
+        <div class="stat-value">{{ $cpmResult['project_duration'] ??  0 }}</div>
         <div class="stat-label">إجمالي مدة المشروع (أيام)</div>
     </div>
     <div class="stat-card">
@@ -304,7 +304,7 @@
             @endforeach
         </div>
     @else
-        <p style="opacity: 0.9;">لا توجد أنشطة حرجة في الوقت الحالي.</p>
+        <p style="opacity: 0.9;">لا توجد أنشطة حرجة في الوقت الحالي. </p>
     @endif
 </div>
 
@@ -328,7 +328,7 @@
             
             <select name="is_critical" class="filter-input" onchange="document.getElementById('filterForm').submit()">
                 <option value="">كل الأنشطة</option>
-                <option value="1" {{ request('is_critical') == '1' ? 'selected' : '' }}>حرجة فقط</option>
+                <option value="1" {{ request('is_critical') == '1' ? 'selected' :  '' }}>حرجة فقط</option>
                 <option value="0" {{ request('is_critical') == '0' ? 'selected' : '' }}>غير حرجة فقط</option>
             </select>
             
@@ -358,7 +358,7 @@
                     <td><strong>{{ $activity->activity_code }}</strong></td>
                     <td style="text-align: right; max-width: 250px;">{{ $activity->name }}</td>
                     <td>{{ $activity->duration_days }}</td>
-                    <td>{{ $activity->early_start ?? 0 }}</td>
+                    <td>{{ $activity->early_start ??  0 }}</td>
                     <td>{{ $activity->early_finish ?? 0 }}</td>
                     <td>{{ $activity->late_start ?? 0 }}</td>
                     <td>{{ $activity->late_finish ?? 0 }}</td>
@@ -368,7 +368,7 @@
                         @elseif(($activity->total_float ?? 0) < 5)
                             <span style="color: #ffc107; font-weight: bold;">{{ $activity->total_float }}</span>
                         @else
-                            <span style="color: #28a745;">{{ $activity->total_float }}</span>
+                            <span style="color:  #28a745;">{{ $activity->total_float }}</span>
                         @endif
                     </td>
                     <td>{{ $activity->free_float ?? 0 }}</td>
@@ -394,10 +394,10 @@
 
 <!-- Include vis.js for network diagram -->
 <link href="https://unpkg.com/vis-network@9.1.6/styles/vis-network.min.css" rel="stylesheet">
-<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script>
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network. min.js"></script>
 
 <script>
-    lucide.createIcons();
+    lucide. createIcons();
     
     // Network diagram data
     var networkData = @json($networkData);
@@ -424,7 +424,7 @@
                 },
                 font: {
                     color: 'white',
-                    size: 12,
+                    size:  12,
                     bold: node.is_critical
                 },
                 borderWidth: node.is_critical ? 3 : 2,
@@ -438,7 +438,7 @@
         networkData.edges.map(function(edge) {
             var edgeTypeLabel = '';
             switch(edge.type) {
-                case 'FS': edgeTypeLabel = 'FS'; break;
+                case 'FS':  edgeTypeLabel = 'FS'; break;
                 case 'SS': edgeTypeLabel = 'SS'; break;
                 case 'FF': edgeTypeLabel = 'FF'; break;
                 case 'SF': edgeTypeLabel = 'SF'; break;
@@ -454,7 +454,7 @@
                     highlight: '#333',
                     hover: '#333'
                 },
-                font: {
+                font:  {
                     size: 10,
                     align: 'middle'
                 },
@@ -507,35 +507,35 @@
     };
     
     // Initialize network
-    var network = new vis.Network(container, {nodes: nodes, edges: edges}, options);
+    var network = new vis. Network(container, {nodes: nodes, edges: edges}, options);
     
     // Fit network to screen
     network.once('stabilizationIterationsDone', function() {
         network.fit({
             animation: {
                 duration: 1000,
-                easingFunction: 'easeInOutQuad'
+                easingFunction:  'easeInOutQuad'
             }
         });
     });
     
     // Click event to show activity details
     network.on('click', function(params) {
-        if (params.nodes.length > 0) {
+        if (params.nodes. length > 0) {
             var nodeId = params.nodes[0];
             var node = networkData.nodes.find(n => n.id === nodeId);
             if (node) {
                 // Create safe text for alert by concatenating safely
                 var details = [
                     'النشاط: ' + String(node.name),
-                    'الكود: ' + String(node.label),
+                    'الكود: ' + String(node. label),
                     'المدة: ' + String(node.duration) + ' أيام',
-                    'Early Start: ' + String(node.early_start),
-                    'Early Finish: ' + String(node.early_finish),
+                    'Early Start: ' + String(node. early_start),
+                    'Early Finish:  ' + String(node.early_finish),
                     'Late Start: ' + String(node.late_start),
                     'Late Finish: ' + String(node.late_finish),
                     'Total Float: ' + String(node.total_float),
-                    'حرج: ' + (node.is_critical ? 'نعم' : 'لا')
+                    'حرج:  ' + (node.is_critical ? 'نعم' :  'لا')
                 ];
                 alert(details.join('\n'));
             }
