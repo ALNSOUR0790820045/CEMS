@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DocumentController;
+use App\Http\Controllers\Api\WarehouseController;
+use App\Http\Controllers\Api\WarehouseLocationController;
+use App\Http\Controllers\Api\WarehouseStockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,10 @@ use App\Http\Controllers\Api\DocumentController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // Documents Management API
@@ -28,4 +36,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/{document}/versions', [DocumentController::class, 'versions']);
         Route::post('/{document}/grant-access', [DocumentController::class, 'grantAccess']);
     });
+    
+    // Warehouse Management API Routes
+    // Warehouses
+    Route::apiResource('warehouses', WarehouseController::class);
+    
+    // Warehouse Locations
+    Route::apiResource('warehouse-locations', WarehouseLocationController:: class);
+    
+    // Warehouse Stock
+    Route::get('warehouse-stock', [WarehouseStockController::class, 'index']);
+    Route::get('warehouse-stock/availability', [WarehouseStockController:: class, 'availability']);
+    Route::post('warehouse-stock/transfer', [WarehouseStockController::class, 'transfer']);
 });

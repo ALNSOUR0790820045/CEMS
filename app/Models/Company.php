@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Company extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -23,10 +23,17 @@ class Company extends Model
         'tax_number',
         'logo',
         'is_active',
+        'established_date',
+        'license_number',
+        'license_expiry',
+        'settings',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'established_date' => 'date',
+        'license_expiry' => 'date',
+        'settings' => 'array',
     ];
 
     // Relationships
@@ -38,5 +45,10 @@ class Company extends Model
     public function branches()
     {
         return $this->hasMany(Branch::class);
+    }
+    
+    public function warehouses()
+    {
+        return $this->hasMany(Warehouse::class);
     }
 }

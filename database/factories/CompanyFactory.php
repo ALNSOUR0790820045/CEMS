@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CompanyFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the model's default state. 
      *
      * @return array<string, mixed>
      */
@@ -30,6 +30,9 @@ class CompanyFactory extends Factory
             'city' => fake()->city(),
             'country' => 'JO',
             'is_active' => true,
+            'established_date' => fake()->date(),
+            'license_number' => fake()->numerify('LIC-########'),
+            'license_expiry' => fake()->dateTimeBetween('now', '+2 years')->format('Y-m-d'),
         ];
     }
 }
