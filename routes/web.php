@@ -17,11 +17,11 @@ Route::middleware('guest')->group(function () {
 
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController:: class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController:: class, 'logout'])->name('logout');
     
     // Companies Management - with permission middleware
-    Route::middleware('permission:companies.view')->group(function () {
+    Route::middleware('permission:companies. view')->group(function () {
         Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
         Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('companies.show');
     });
@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/branches', [\App\Http\Controllers\BranchController::class, 'index'])->name('branches.index');
         Route::get('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'show'])->name('branches.show');
     });
-    Route::get('/branches/create', [\App\Http\Controllers\BranchController:: class, 'create'])
+    Route::get('/branches/create', [\App\Http\Controllers\BranchController::class, 'create'])
         ->name('branches.create')->middleware('permission:branches.create');
     Route::post('/branches', [\App\Http\Controllers\BranchController::class, 'store'])
         ->name('branches.store')->middleware('permission:branches.create');
@@ -92,13 +92,24 @@ Route::middleware('auth')->group(function () {
     Route::post('guarantees/{guarantee}/approve', [GuaranteeController::class, 'approve'])->name('guarantees.approve');
     Route::get('guarantees/{guarantee}/renew', [GuaranteeController::class, 'showRenewForm'])->name('guarantees.renew');
     Route::post('guarantees/{guarantee}/renew', [GuaranteeController::class, 'renew'])->name('guarantees.renew.store');
-    Route::get('guarantees/{guarantee}/release', [GuaranteeController::class, 'showReleaseForm'])->name('guarantees.release');
+    Route::get('guarantees/{guarantee}/release', [GuaranteeController:: class, 'showReleaseForm'])->name('guarantees.release');
     Route::post('guarantees/{guarantee}/release', [GuaranteeController::class, 'release'])->name('guarantees.release. store');
     
     // Guarantees Reports & Statistics
     Route::get('guarantees-expiring', [GuaranteeController:: class, 'expiring'])->name('guarantees.expiring');
     Route::get('guarantees-statistics', [GuaranteeController::class, 'statistics'])->name('guarantees.statistics');
     Route::get('guarantees-reports', [GuaranteeController::class, 'reports'])->name('guarantees.reports');
+    
+    // Tenders Management
+    Route::resource('tenders', TenderController:: class);
+    Route::post('tenders/{tender}/go-decision', [TenderController::class, 'goDecision'])->name('tenders.go-decision');
+    Route::post('tenders/{tender}/submit', [TenderController:: class, 'submit'])->name('tenders.submit');
+    Route::post('tenders/{tender}/result', [TenderController:: class, 'result'])->name('tenders.result');
+    Route::post('tenders/{tender}/convert', [TenderController:: class, 'convert'])->name('tenders.convert');
+    Route::get('tenders-pipeline', [TenderController::class, 'pipeline'])->name('tenders.pipeline');
+    Route::get('tenders-statistics', [TenderController::class, 'statistics'])->name('tenders.statistics');
+    Route::get('tenders-calendar', [TenderController::class, 'calendar'])->name('tenders.calendar');
+    Route::get('tenders-expiring', [TenderController::class, 'expiring'])->name('tenders.expiring');
     
     // Tender Activities Management
     Route::prefix('tenders/{tender}')->group(function () {
@@ -107,7 +118,7 @@ Route::middleware('auth')->group(function () {
         Route::post('activities', [TenderActivityController::class, 'store'])->name('tender-activities.store');
         Route::get('activities/gantt', [TenderActivityController::class, 'gantt'])->name('tender-activities. gantt');
         Route::get('activities/cpm-analysis', [TenderActivityController::class, 'cpmAnalysis'])->name('tender-activities.cpm-analysis');
-        Route::post('activities/recalculate-cpm', [TenderActivityController::class, 'recalculateCPM'])->name('tender-activities. recalculate-cpm');
+        Route::post('activities/recalculate-cpm', [TenderActivityController::class, 'recalculateCPM'])->name('tender-activities.recalculate-cpm');
     });
     
     // Tender Activities - Edit & Update (without tender prefix)

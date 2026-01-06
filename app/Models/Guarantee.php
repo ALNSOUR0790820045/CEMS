@@ -17,6 +17,7 @@ class Guarantee extends Model
         'tender_id',
         'contract_id',
         'bank_id',
+        'bank_name',
         'beneficiary',
         'beneficiary_address',
         'amount',
@@ -127,17 +128,23 @@ class Guarantee extends Model
     // Accessors
     public function getDaysUntilExpiryAttribute()
     {
+        if (! $this->expiry_date) {
+            return null;
+        }
         return Carbon::now()->diffInDays($this->expiry_date, false);
     }
 
     public function getIsExpiringAttribute()
     {
-        return $this->days_until_expiry <= $this->alert_days_before_expiry && $this->days_until_expiry > 0;
+        $days = $this->days_until_expiry;
+        $alertDays = $this->alert_days_before_expiry ??  30;
+        return $days !== null && $days <= $alertDays && $days > 0;
     }
 
     public function getIsExpiredAttribute()
     {
-        return $this->days_until_expiry < 0;
+        $days = $this->days_until_expiry;
+        return $days !== null && $days < 0;
     }
 
     public function getTypeNameAttribute()
@@ -172,7 +179,7 @@ class Guarantee extends Model
     public static function generateGuaranteeNumber()
     {
         return \DB::transaction(function () {
-            $year = Carbon::now()->year;
+            $year = Carbon:: now()->year;
             $lastGuarantee = self::whereYear('created_at', $year)
                 ->latest('id')
                 ->lockForUpdate()
@@ -186,9 +193,11 @@ class Guarantee extends Model
 
     public function calculateCommission()
     {
-        if ($this->bank_commission_rate > 0) {
+        if ($this->bank_commission_rate > 0 && $this->amount > 0) {
             $daysInYear = 365;
-            $daysBetween = Carbon::parse($this->issue_date)->diffInDays(Carbon::parse($this->expiry_date));
+            $issueDate = Carbon::parse($this->issue_date);
+            $expiryDate = Carbon::parse($this->expiry_date);
+            $daysBetween = $issueDate->diffInDays($expiryDate);
             return ($this->amount * $this->bank_commission_rate / 100) * ($daysBetween / $daysInYear);
         }
         

@@ -356,21 +356,22 @@
                 </div>
 
                 <div class="nav-group">
-                    <a class="nav-link">العطاءات</a>
+                    <a class="nav-link">المناقصات</a>
                     <div class="mega-menu">
                         <div class="menu-col">
-                            <h4>إدارة العطاءات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="megaphone"></i> العطاءات المتاحة</a>
-                            <a href="#" class="sub-link"><i data-lucide="file-check"></i> عروض الأسعار</a>
+                            <h4>إدارة المناقصات</h4>
+                            <a href="{{ route('tenders.index') }}" class="sub-link"><i data-lucide="list"></i> جميع المناقصات</a>
+                            <a href="{{ route('tenders.create') }}" class="sub-link"><i data-lucide="plus-circle"></i> إضافة مناقصة</a>
+                            <a href="{{ route('tenders.pipeline') }}" class="sub-link"><i data-lucide="kanban-square"></i> Pipeline</a>
                         </div>
                         <div class="menu-col">
-                            <h4>التقييم</h4>
-                            <a href="#" class="sub-link"><i data-lucide="list-checks"></i> التقييم</a>
-                            <a href="#" class="sub-link"><i data-lucide="trophy"></i> الترسية</a>
+                            <h4>التقارير والإحصائيات</h4>
+                            <a href="{{ route('tenders.statistics') }}" class="sub-link"><i data-lucide="bar-chart-3"></i> الإحصائيات</a>
+                            <a href="{{ route('tenders.calendar') }}" class="sub-link"><i data-lucide="calendar"></i> التقويم</a>
                         </div>
                         <div class="menu-col">
                             <h4>المتابعة</h4>
-                            <a href="#" class="sub-link"><i data-lucide="eye"></i> المتابعة</a>
+                            <a href="{{ route('tenders.expiring') }}" class="sub-link"><i data-lucide="alert-triangle"></i> المناقصات القريبة</a>
                         </div>
                     </div>
                 </div>
