@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\UserRoleController;
 use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\WarehouseController;
 use App\Http\Controllers\Api\WarehouseLocationController;
@@ -20,7 +23,7 @@ use App\Http\Controllers\Api\BranchController;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group.   Make something great!
+| be assigned to the "api" middleware group. Make something great!
 |
 */
 
@@ -29,6 +32,27 @@ Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    
+    // Roles Management (requires permission)
+    Route::middleware('permission:manage-roles')->group(function () {
+        Route::get('/roles', [RoleController::class, 'index']);
+        Route::post('/roles', [RoleController::class, 'store']);
+        Route::get('/roles/{id}', [RoleController:: class, 'show']);
+        Route::put('/roles/{id}', [RoleController::class, 'update']);
+        Route::post('/roles/{id}/permissions', [RoleController::class, 'assignPermissions']);
+    });
+
+    // Permissions Management (requires permission)
+    Route::middleware('permission:manage-permissions')->group(function () {
+        Route::get('/permissions', [PermissionController::class, 'index']);
+        Route::post('/permissions', [PermissionController::class, 'store']);
+    });
+
+    // User Role Assignment (requires permission)
+    Route::middleware('permission: assign-roles')->group(function () {
+        Route::post('/users/{id}/assign-role', [UserRoleController::class, 'assignRole']);
+    });
+
     // Documents Management API
     Route::prefix('documents')->group(function () {
         Route::get('/', [DocumentController::class, 'index']);
@@ -52,14 +76,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('warehouse-stock/transfer', [WarehouseStockController::class, 'transfer']);
     
     // Branch Management API
-    Route::apiResource('branches', BranchController::class);
+    Route:: apiResource('branches', BranchController::class);
     Route::get('branches/{branch}/users', [BranchController::class, 'users']);
     
     // Employee Management API
-    Route::prefix('employees')->group(function () {
+    Route:: prefix('employees')->group(function () {
         Route::get('/', [EmployeeController::class, 'index']);
         Route::post('/', [EmployeeController::class, 'store']);
-        Route::get('/{id}', [EmployeeController:: class, 'show']);
+        Route::get('/{id}', [EmployeeController::class, 'show']);
         Route::put('/{id}', [EmployeeController::class, 'update']);
         Route::delete('/{id}', [EmployeeController::class, 'destroy']);
     });

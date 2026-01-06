@@ -3,43 +3,49 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class TenderWbs extends Model
+class TenderWBS extends Model
 {
     protected $table = 'tender_wbs';
 
     protected $fillable = [
         'tender_id',
+        'parent_id',
         'wbs_code',
         'name',
+        'name_en',
         'description',
-        'parent_wbs_id',
         'level',
-        'sequence_order',
+        'sort_order',
+        'is_active',
     ];
 
     protected $casts = [
+        'is_active' => 'boolean',
         'level' => 'integer',
-        'sequence_order' => 'integer',
+        'sort_order' => 'integer',
     ];
 
-    public function tender()
+    // Relationships
+    public function tender(): BelongsTo
     {
         return $this->belongsTo(Tender::class);
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
-        return $this->belongsTo(TenderWbs::class, 'parent_wbs_id');
+        return $this->belongsTo(TenderWBS::class, 'parent_id');
     }
 
-    public function children()
+    public function children(): HasMany
     {
-        return $this->hasMany(TenderWbs::class, 'parent_wbs_id');
+        return $this->hasMany(TenderWBS::class, 'parent_id');
     }
 
-    public function activities()
+    public function activities(): HasMany
     {
-        return $this->hasMany(TenderActivity::class, 'wbs_id');
+        return $this->hasMany(TenderActivity::class);
     }
 }
