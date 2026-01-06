@@ -43,10 +43,10 @@ class Guarantee extends Model
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
+        'amount' => 'decimal: 2',
         'amount_in_base_currency' => 'decimal:2',
-        'bank_charges' => 'decimal:2',
-        'bank_commission_rate' => 'decimal:2',
+        'bank_charges' => 'decimal: 2',
+        'bank_commission_rate' => 'decimal: 2',
         'cash_margin' => 'decimal:2',
         'margin_percentage' => 'decimal:2',
         'issue_date' => 'date',
@@ -59,7 +59,7 @@ class Guarantee extends Model
     // Relationships
     public function bank()
     {
-        return $this->belongsTo(Bank::class);
+        return $this->belongsTo(Bank:: class);
     }
 
     public function project()
@@ -89,7 +89,7 @@ class Guarantee extends Model
 
     public function renewals()
     {
-        return $this->hasMany(GuaranteeRenewal::class);
+        return $this->hasMany(GuaranteeRenewal:: class);
     }
 
     public function releases()
@@ -100,6 +100,16 @@ class Guarantee extends Model
     public function claims()
     {
         return $this->hasMany(GuaranteeClaim::class);
+    }
+
+    public function performanceBondProjects()
+    {
+        return $this->hasMany(Project::class, 'performance_bond_id');
+    }
+
+    public function advanceBondProjects()
+    {
+        return $this->hasMany(Project::class, 'advance_bond_id');
     }
 
     // Scopes
@@ -180,7 +190,7 @@ class Guarantee extends Model
     {
         return \DB::transaction(function () {
             $year = Carbon:: now()->year;
-            $lastGuarantee = self::whereYear('created_at', $year)
+            $lastGuarantee = self:: whereYear('created_at', $year)
                 ->latest('id')
                 ->lockForUpdate()
                 ->first();
@@ -195,7 +205,7 @@ class Guarantee extends Model
     {
         if ($this->bank_commission_rate > 0 && $this->amount > 0) {
             $daysInYear = 365;
-            $issueDate = Carbon::parse($this->issue_date);
+            $issueDate = Carbon:: parse($this->issue_date);
             $expiryDate = Carbon::parse($this->expiry_date);
             $daysBetween = $issueDate->diffInDays($expiryDate);
             return ($this->amount * $this->bank_commission_rate / 100) * ($daysBetween / $daysInYear);

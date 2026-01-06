@@ -19,8 +19,11 @@ class Client extends Model
         'city',
         'country',
         'contact_person',
+        'commercial_registration',
         'tax_number',
+        'type',
         'is_active',
+        'notes',
     ];
 
     protected $casts = [
@@ -36,5 +39,10 @@ class Client extends Model
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
     }
 }

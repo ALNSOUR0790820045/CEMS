@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tender extends Model
 {
@@ -106,6 +107,11 @@ class Tender extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function contract(): HasOne
+    {
+        return $this->hasOne(Contract::class);
+    }
+
     public function bidBond(): BelongsTo
     {
         return $this->belongsTo(Guarantee:: class, 'bid_bond_id');
@@ -128,7 +134,7 @@ class Tender extends Model
 
     public function goDecidedBy(): BelongsTo
     {
-        return $this->belongsTo(User:: class, 'go_decided_by');
+        return $this->belongsTo(User::  class, 'go_decided_by');
     }
 
     public function activities(): HasMany
