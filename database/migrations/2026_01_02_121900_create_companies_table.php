@@ -1,4 +1,4 @@
-<? php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -8,9 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema:: create('companies', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_en')->nullable();
+            $table->string('slug')->unique();
             $table->string('commercial_registration', 100)->nullable();
             $table->string('tax_number', 100)->nullable();
             $table->string('email')->nullable();
@@ -25,6 +27,7 @@ return new class extends Migration
             $table->date('license_expiry')->nullable();
             $table->json('settings')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
