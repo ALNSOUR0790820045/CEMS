@@ -281,7 +281,7 @@
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
+                            <a href="{{ route('backups.index') }}" class="sub-link"><i data-lucide="shield-alt"></i> النسخ الاحتياطية</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
                         </div>
