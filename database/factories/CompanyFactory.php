@@ -10,24 +10,29 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CompanyFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the model's default state. 
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
+        $name = fake()->company();
+        
         return [
-            'name' => fake()->company(),
-            'name_en' => fake()->company(),
-            'slug' => fake()->slug(),
-            'email' => fake()->email(),
+            'name' => $name,
+            'name_en' => $name,
+            'slug' => \Illuminate\Support\Str::slug($name),
+            'commercial_registration' => fake()->numerify('CR-########'),
+            'tax_number' => fake()->numerify('TAX-########'),
+            'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'city' => fake()->city(),
             'country' => 'JO',
-            'commercial_registration' => fake()->numerify('CR-########'),
-            'tax_number' => fake()->numerify('TAX-########'),
             'is_active' => true,
+            'established_date' => fake()->date(),
+            'license_number' => fake()->numerify('LIC-########'),
+            'license_expiry' => fake()->dateTimeBetween('now', '+2 years')->format('Y-m-d'),
         ];
     }
 }

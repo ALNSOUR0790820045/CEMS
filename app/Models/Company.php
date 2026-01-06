@@ -23,15 +23,32 @@ class Company extends Model
         'tax_number',
         'logo',
         'is_active',
+        'established_date',
+        'license_number',
+        'license_expiry',
+        'settings',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'established_date' => 'date',
+        'license_expiry' => 'date',
+        'settings' => 'array',
     ];
 
     // Relationships
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
+    
+    public function warehouses()
+    {
+        return $this->hasMany(Warehouse::class);
     }
 }
