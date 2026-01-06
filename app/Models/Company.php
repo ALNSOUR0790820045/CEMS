@@ -51,4 +51,24 @@ class Company extends Model
     {
         return $this->hasMany(Warehouse::class);
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+    public function shiftSchedules()
+    {
+        return $this->hasMany(ShiftSchedule::class);
+    }
+
+    public function attendanceRecords()
+    {
+        return $this->hasMany(AttendanceRecord::class);
+    }
+
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class);
+    }
 }
