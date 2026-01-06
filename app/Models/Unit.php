@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
@@ -10,11 +11,18 @@ class Unit extends Model
         'code',
         'name',
         'name_en',
+        'symbol',
         'category',
+        'description',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    public function tenderActivities(): HasMany
+    {
+        return $this->hasMany(TenderActivity::class);
+    }
 }
