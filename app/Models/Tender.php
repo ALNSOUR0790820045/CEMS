@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tender extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'company_id',
         'tender_number',
         'tender_code',
         'name',
         'name_en',
+        'code',
         'title',
         'description',
         'client_name',
@@ -49,11 +53,21 @@ class Tender extends Model
 
     public function wbsItems(): HasMany
     {
-        return $this->hasMany(TenderWBS::class);
+        return $this->hasMany(TenderWbs::class, 'tender_id');
     }
 
     public function milestones(): HasMany
     {
         return $this->hasMany(TenderMilestone::class);
+    }
+
+    public function guarantees(): HasMany
+    {
+        return $this->hasMany(Guarantee::class);
+    }
+
+    public function warehouses(): HasMany
+    {
+        return $this->hasMany(Warehouse::class);
     }
 }
