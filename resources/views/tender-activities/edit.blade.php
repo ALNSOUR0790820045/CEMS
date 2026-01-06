@@ -178,29 +178,29 @@
         <div class="form-row">
             <div class="form-group">
                 <label class="form-label">اسم النشاط <span style="color: red;">*</span></label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+                <input type="text" name="name" class="form-control" value="{{ old('name', $activity->name) }}" required>
             </div>
             
             <div class="form-group">
                 <label class="form-label">الاسم بالإنجليزية</label>
-                <input type="text" name="name_en" class="form-control" value="{{ old('name_en') }}">
+                <input type="text" name="name_en" class="form-control" value="{{ old('name_en', $activity->name_en) }}">
             </div>
         </div>
         
         <div class="form-group">
             <label class="form-label">الوصف</label>
-            <textarea name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+            <textarea name="description" class="form-control" rows="3">{{ old('description', $activity->description) }}</textarea>
         </div>
         
         <div class="form-row">
             <div class="form-group">
                 <label class="form-label">المدة (أيام) <span style="color: red;">*</span></label>
-                <input type="number" name="duration_days" class="form-control" value="{{ old('duration_days', 1) }}" min="1" required>
+                <input type="number" name="duration_days" class="form-control" value="{{ old('duration_days', $activity->duration_days) }}" min="1" required>
             </div>
             
             <div class="form-group">
                 <label class="form-label">الجهد (ساعات)</label>
-                <input type="number" name="effort_hours" class="form-control" value="{{ old('effort_hours', 0) }}" min="0" step="0.01">
+                <input type="number" name="effort_hours" class="form-control" value="{{ old('effort_hours', $activity->effort_hours) }}" min="0" step="0.01">
             </div>
         </div>
         
@@ -208,32 +208,53 @@
             <div class="form-group">
                 <label class="form-label">النوع <span style="color: red;">*</span></label>
                 <select name="type" class="form-control" required>
-                    <option value="task" {{ old('type') == 'task' ? 'selected' : '' }}>مهمة</option>
-                    <option value="milestone" {{ old('type') == 'milestone' ? 'selected' : '' }}>معلم</option>
-                    <option value="summary" {{ old('type') == 'summary' ? 'selected' : '' }}>ملخص</option>
+                    <option value="task" {{ old('type', $activity->type) == 'task' ? 'selected' : '' }}>مهمة</option>
+                    <option value="milestone" {{ old('type', $activity->type) == 'milestone' ? 'selected' : '' }}>معلم</option>
+                    <option value="summary" {{ old('type', $activity->type) == 'summary' ? 'selected' : '' }}>ملخص</option>
                 </select>
             </div>
             
             <div class="form-group">
                 <label class="form-label">الأولوية <span style="color: red;">*</span></label>
                 <select name="priority" class="form-control" required>
-                    <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>منخفضة</option>
-                    <option value="medium" {{ old('priority', 'medium') == 'medium' ? 'selected' : '' }}>متوسطة</option>
-                    <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>عالية</option>
-                    <option value="critical" {{ old('priority') == 'critical' ? 'selected' : '' }}>حرجة</option>
+                    <option value="low" {{ old('priority', $activity->priority) == 'low' ? 'selected' : '' }}>منخفضة</option>
+                    <option value="medium" {{ old('priority', $activity->priority) == 'medium' ? 'selected' : '' }}>متوسطة</option>
+                    <option value="high" {{ old('priority', $activity->priority) == 'high' ? 'selected' : '' }}>عالية</option>
+                    <option value="critical" {{ old('priority', $activity->priority) == 'critical' ? 'selected' : '' }}>حرجة</option>
                 </select>
             </div>
         </div>
         
         <div class="form-group">
             <label class="form-label">التكلفة المقدرة (ريال)</label>
-            <input type="number" name="estimated_cost" class="form-control" value="{{ old('estimated_cost', 0) }}" min="0" step="0.01">
+            <input type="number" name="estimated_cost" class="form-control" value="{{ old('estimated_cost', $activity->estimated_cost) }}" min="0" step="0.01">
         </div>
         
         <div class="form-group">
             <label class="form-label">الأنشطة السابقة (Dependencies)</label>
             <div id="predecessors-container">
-                <!-- Predecessors will be added here dynamically -->
+                @foreach($activity->predecessors as $index => $predecessor)
+                <div class="predecessor-item" id="predecessor-{{ $index }}">
+                    <select name="predecessors[{{ $index }}][id]" class="form-control" required style="flex: 2;">
+                        <option value="">-- اختر النشاط السابق --</option>
+                        @foreach($activities as $act)
+                            <option value="{{ $act->id }}" {{ $predecessor->predecessor_id == $act->id ? 'selected' : '' }}>
+                                {{ $act->activity_code }} - {{ $act->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <select name="predecessors[{{ $index }}][type]" class="form-control" required style="flex: 1;">
+                        <option value="FS" {{ $predecessor->type == 'FS' ? 'selected' : '' }}>Finish-Start (FS)</option>
+                        <option value="SS" {{ $predecessor->type == 'SS' ? 'selected' : '' }}>Start-Start (SS)</option>
+                        <option value="FF" {{ $predecessor->type == 'FF' ? 'selected' : '' }}>Finish-Finish (FF)</option>
+                        <option value="SF" {{ $predecessor->type == 'SF' ? 'selected' : '' }}>Start-Finish (SF)</option>
+                    </select>
+                    <input type="number" name="predecessors[{{ $index }}][lag_days]" class="form-control" placeholder="Lag (أيام)" value="{{ $predecessor->lag_days ?? 0 }}" style="flex: 1;">
+                    <button type="button" class="btn btn-danger btn-small" onclick="removePredecessor({{ $index }})">
+                        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                    </button>
+                </div>
+                @endforeach
             </div>
             <button type="button" class="btn btn-secondary btn-small" onclick="addPredecessor()">
                 <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
@@ -257,7 +278,7 @@
 <script>
     lucide.createIcons();
     
-    let predecessorCount = 0;
+    let predecessorCount = {{ $activity->predecessors->count() }};
     
     function addPredecessor() {
         predecessorCount++;
