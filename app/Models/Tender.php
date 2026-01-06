@@ -10,12 +10,15 @@ class Tender extends Model
 {
     protected $fillable = [
         'company_id',
+        'tender_number',
         'tender_code',
         'name',
         'name_en',
+        'title',
         'description',
         'client_name',
         'estimated_value',
+        'budget',
         'submission_date',
         'opening_date',
         'project_start_date',
@@ -30,6 +33,7 @@ class Tender extends Model
         'opening_date' => 'date',
         'project_start_date' => 'date',
         'estimated_value' => 'decimal:2',
+        'budget' => 'decimal: 2',
     ];
 
     // Relationships
@@ -38,14 +42,14 @@ class Tender extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function wbsItems(): HasMany
-    {
-        return $this->hasMany(TenderWBS::class);
-    }
-
     public function activities(): HasMany
     {
         return $this->hasMany(TenderActivity::class);
+    }
+
+    public function wbsItems(): HasMany
+    {
+        return $this->hasMany(TenderWBS::class);
     }
 
     public function milestones(): HasMany

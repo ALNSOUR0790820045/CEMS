@@ -71,4 +71,14 @@ class Company extends Model
     {
         return $this->hasMany(LeaveRequest::class);
     }
+
+    public function tenders()
+    {
+        return $this->hasMany(Tender::class);
+    }
+
+    public function tenderActivities()
+    {
+        return $this->hasMany(TenderActivity:: class);
+    }
 }
