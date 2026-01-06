@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
@@ -13,6 +15,7 @@ class Project extends Model
         'project_number',
         'name',
         'name_en',
+        'code',
         'description',
         'tender_id',
         'contract_id',
@@ -34,11 +37,14 @@ class Project extends Model
         'actual_completion_date',
         'handover_date',
         'final_handover_date',
+        'start_date',
+        'end_date',
         'original_duration_days',
         'approved_extension_days',
         'original_contract_value',
         'approved_variations',
         'revised_contract_value',
+        'budget',
         'currency',
         'advance_payment_percentage',
         'advance_payment_amount',
@@ -68,15 +74,18 @@ class Project extends Model
         'actual_completion_date' => 'date',
         'handover_date' => 'date',
         'final_handover_date' => 'date',
+        'start_date' => 'date',
+        'end_date' => 'date',
         'original_duration_days' => 'integer',
         'approved_extension_days' => 'integer',
-        'original_contract_value' => 'decimal:2',
-        'approved_variations' => 'decimal:2',
-        'revised_contract_value' => 'decimal:2',
+        'original_contract_value' => 'decimal:  2',
+        'approved_variations' => 'decimal: 2',
+        'revised_contract_value' => 'decimal: 2',
+        'budget' => 'decimal:2',
         'advance_payment_percentage' => 'decimal:2',
         'advance_payment_amount' => 'decimal:2',
-        'retention_percentage' => 'decimal:2',
-        'performance_bond_percentage' => 'decimal:2',
+        'retention_percentage' => 'decimal: 2',
+        'performance_bond_percentage' => 'decimal: 2',
         'physical_progress' => 'decimal:2',
         'financial_progress' => 'decimal:2',
         'time_progress' => 'decimal:2',
@@ -85,72 +94,77 @@ class Project extends Model
     ];
 
     // Relationships
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
     }
 
-    public function tender()
+    public function tender(): BelongsTo
     {
         return $this->belongsTo(Tender::class);
     }
 
-    public function contract()
+    public function contract(): BelongsTo
     {
         return $this->belongsTo(Contract::class);
     }
 
-    public function projectManager()
+    public function projectManager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'project_manager_id');
     }
 
-    public function siteEngineer()
+    public function siteEngineer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'site_engineer_id');
+        return $this->belongsTo(User:: class, 'site_engineer_id');
     }
 
-    public function quantitySurveyor()
+    public function quantitySurveyor(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'quantity_surveyor_id');
+        return $this->belongsTo(User:: class, 'quantity_surveyor_id');
     }
 
-    public function creator()
+    public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User:: class, 'created_by');
     }
 
-    public function performanceBond()
+    public function performanceBond(): BelongsTo
     {
         return $this->belongsTo(Guarantee::class, 'performance_bond_id');
     }
 
-    public function advanceBond()
+    public function advanceBond(): BelongsTo
     {
         return $this->belongsTo(Guarantee::class, 'advance_bond_id');
     }
 
-    public function team()
+    public function guarantees(): HasMany
+    {
+        return $this->hasMany(Guarantee::class);
+    }
+
+    public function team(): HasMany
     {
         return $this->hasMany(ProjectTeam::class);
     }
 
-    public function phases()
+    public function phases(): HasMany
     {
-        return $this->hasMany(ProjectPhase::class);
+        return $this->hasMany(ProjectPhase:: class);
     }
 
-    public function milestones()
+    public function milestones(): HasMany
     {
-        return $this->hasMany(ProjectMilestone::class);
+        return $this->hasMany(ProjectMilestone:: class);
     }
 
-    public function progressReports()
+    public function progressReports(): HasMany
     {
         return $this->hasMany(ProjectProgressReport::class);
     }
 
-    public function issues()
+    public function issues(): HasMany
     {
         return $this->hasMany(ProjectIssue::class);
     }

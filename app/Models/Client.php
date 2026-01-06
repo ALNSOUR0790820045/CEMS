@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
@@ -17,6 +18,7 @@ class Client extends Model
         'address',
         'city',
         'country',
+        'contact_person',
         'commercial_registration',
         'tax_number',
         'type',
@@ -29,17 +31,17 @@ class Client extends Model
     ];
 
     // Relationships
-    public function projects()
-    {
-        return $this->hasMany(Project::class);
-    }
-
-    public function tenders()
+    public function tenders(): HasMany
     {
         return $this->hasMany(Tender::class);
     }
 
-    public function contracts()
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);
     }
