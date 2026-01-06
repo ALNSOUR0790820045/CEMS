@@ -30,6 +30,10 @@ class DatabaseBackupCommand extends Command
         $this->info('Starting database backup...');
 
         $name = $this->option('name') ?: 'database_' . now()->format('Y-m-d_H-i-s');
+        
+        // Sanitize name to prevent path traversal
+        $name = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
+        
         $filename = $name . '.sql';
         $backupPath = 'backups/database/' . $filename;
         $fullPath = storage_path('app/' . $backupPath);
@@ -41,6 +45,7 @@ class DatabaseBackupCommand extends Command
             'filename' => $filename,
             'path' => $backupPath,
             'status' => 'processing',
+            'created_by' => null, // System-generated backup
         ]);
 
         try {
@@ -52,24 +57,24 @@ class DatabaseBackupCommand extends Command
             if ($dbConnection === 'pgsql') {
                 // PostgreSQL backup
                 $command = sprintf(
-                    'PGPASSWORD="%s" pg_dump -h %s -p %s -U %s %s > %s',
-                    $dbConfig['password'],
-                    $dbConfig['host'],
-                    $dbConfig['port'],
-                    $dbConfig['username'],
-                    $dbConfig['database'],
-                    $fullPath
+                    'PGPASSWORD=%s pg_dump -h %s -p %s -U %s %s > %s',
+                    escapeshellarg($dbConfig['password']),
+                    escapeshellarg($dbConfig['host']),
+                    escapeshellarg($dbConfig['port']),
+                    escapeshellarg($dbConfig['username']),
+                    escapeshellarg($dbConfig['database']),
+                    escapeshellarg($fullPath)
                 );
             } elseif ($dbConnection === 'mysql') {
                 // MySQL backup
                 $command = sprintf(
-                    'mysqldump -h %s -P %s -u %s -p"%s" %s > %s',
-                    $dbConfig['host'],
-                    $dbConfig['port'] ?? 3306,
-                    $dbConfig['username'],
-                    $dbConfig['password'],
-                    $dbConfig['database'],
-                    $fullPath
+                    'mysqldump -h %s -P %s -u %s -p%s %s > %s',
+                    escapeshellarg($dbConfig['host']),
+                    escapeshellarg($dbConfig['port'] ?? 3306),
+                    escapeshellarg($dbConfig['username']),
+                    escapeshellarg($dbConfig['password']),
+                    escapeshellarg($dbConfig['database']),
+                    escapeshellarg($fullPath)
                 );
             } else {
                 throw new \Exception("Unsupported database type: {$dbConnection}");

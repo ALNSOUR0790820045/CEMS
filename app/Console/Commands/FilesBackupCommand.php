@@ -30,6 +30,10 @@ class FilesBackupCommand extends Command
         $this->info('Starting files backup...');
 
         $name = $this->option('name') ?: 'files_' . now()->format('Y-m-d_H-i-s');
+        
+        // Sanitize name to prevent path traversal
+        $name = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
+        
         $filename = $name . '.zip';
         $backupPath = 'backups/files/' . $filename;
         $fullPath = storage_path('app/' . $backupPath);
@@ -41,6 +45,7 @@ class FilesBackupCommand extends Command
             'filename' => $filename,
             'path' => $backupPath,
             'status' => 'processing',
+            'created_by' => null, // System-generated backup
         ]);
 
         try {

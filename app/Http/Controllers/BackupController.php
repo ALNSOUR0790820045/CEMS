@@ -42,7 +42,7 @@ class BackupController extends Controller
     {
         $request->validate([
             'type' => 'required|in:database,files,full',
-            'name' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255|regex:/^[a-zA-Z0-9_\-]+$/',
         ]);
 
         $type = $request->input('type');
@@ -116,24 +116,24 @@ class BackupController extends Controller
             if ($dbConnection === 'pgsql') {
                 // PostgreSQL restore
                 $command = sprintf(
-                    'PGPASSWORD="%s" psql -h %s -p %s -U %s %s < %s',
-                    $dbConfig['password'],
-                    $dbConfig['host'],
-                    $dbConfig['port'],
-                    $dbConfig['username'],
-                    $dbConfig['database'],
-                    $fullPath
+                    'PGPASSWORD=%s psql -h %s -p %s -U %s %s < %s',
+                    escapeshellarg($dbConfig['password']),
+                    escapeshellarg($dbConfig['host']),
+                    escapeshellarg($dbConfig['port']),
+                    escapeshellarg($dbConfig['username']),
+                    escapeshellarg($dbConfig['database']),
+                    escapeshellarg($fullPath)
                 );
             } elseif ($dbConnection === 'mysql') {
                 // MySQL restore
                 $command = sprintf(
-                    'mysql -h %s -P %s -u %s -p"%s" %s < %s',
-                    $dbConfig['host'],
-                    $dbConfig['port'] ?? 3306,
-                    $dbConfig['username'],
-                    $dbConfig['password'],
-                    $dbConfig['database'],
-                    $fullPath
+                    'mysql -h %s -P %s -u %s -p%s %s < %s',
+                    escapeshellarg($dbConfig['host']),
+                    escapeshellarg($dbConfig['port'] ?? 3306),
+                    escapeshellarg($dbConfig['username']),
+                    escapeshellarg($dbConfig['password']),
+                    escapeshellarg($dbConfig['database']),
+                    escapeshellarg($fullPath)
                 );
             } else {
                 throw new \Exception("Unsupported database type: {$dbConnection}");
