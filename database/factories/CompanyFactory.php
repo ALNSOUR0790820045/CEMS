@@ -5,24 +5,38 @@ namespace Database\Factories;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
+ */
 class CompanyFactory extends Factory
 {
     protected $model = Company::class;
 
+    /**
+     * Define the model's default state. 
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
+        $name = fake()->company();
+        
         return [
-            'name' => fake()->company(),
-            'name_en' => fake()->company(),
-            'slug' => fake()->slug(),
-            'email' => fake()->safeEmail(),
+            'name' => $name,
+            'name_en' => $name,
+            'slug' => \Illuminate\Support\Str::slug($name) . '-' . fake()->unique()->numerify('###'),
+            'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'city' => fake()->city(),
-            'country' => fake()->countryCode(),
-            'commercial_registration' => fake()->numerify('##########'),
-            'tax_number' => fake()->numerify('###########'),
+            'country' => 'JO',
+            'commercial_registration' => fake()->numerify('CR-########'),
+            'tax_number' => fake()->numerify('TAX-########'),
+            'logo' => null,
             'is_active' => true,
+            'established_date' => fake()->date(),
+            'license_number' => fake()->numerify('LIC-########'),
+            'license_expiry' => fake()->dateTimeBetween('now', '+2 years')->format('Y-m-d'),
         ];
     }
 }
