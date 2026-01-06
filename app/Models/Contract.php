@@ -17,16 +17,24 @@ class Contract extends Model
         'name',
         'code',
         'description',
+        'project_id',
         'client_id',
         'tender_id',
+        'title',
         'contract_date',
         'contract_value',
+        'value',
+        'start_date',
+        'end_date',
         'status',
     ];
 
     protected $casts = [
         'contract_date' => 'date',
         'contract_value' => 'decimal: 2',
+        'value' => 'decimal: 2',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     // Relationships
@@ -40,13 +48,18 @@ class Contract extends Model
         return $this->belongsTo(Tender::class);
     }
 
-    public function project(): HasOne
+    public function project(): BelongsTo
     {
-        return $this->hasOne(Project::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function guarantees(): HasMany
     {
-        return $this->hasMany(Guarantee::class);
+        return $this->hasMany(Guarantee:: class);
+    }
+
+    public function variationOrders(): HasMany
+    {
+        return $this->hasMany(VariationOrder::class);
     }
 }

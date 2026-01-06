@@ -17,6 +17,7 @@ class Project extends Model
         'name_en',
         'code',
         'description',
+        'company_id',
         'tender_id',
         'contract_id',
         'client_id',
@@ -78,9 +79,9 @@ class Project extends Model
         'end_date' => 'date',
         'original_duration_days' => 'integer',
         'approved_extension_days' => 'integer',
-        'original_contract_value' => 'decimal:  2',
+        'original_contract_value' => 'decimal:   2',
         'approved_variations' => 'decimal: 2',
-        'revised_contract_value' => 'decimal: 2',
+        'revised_contract_value' => 'decimal:  2',
         'budget' => 'decimal:2',
         'advance_payment_percentage' => 'decimal:2',
         'advance_payment_amount' => 'decimal:2',
@@ -94,6 +95,11 @@ class Project extends Model
     ];
 
     // Relationships
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
@@ -107,6 +113,11 @@ class Project extends Model
     public function contract(): BelongsTo
     {
         return $this->belongsTo(Contract::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
     }
 
     public function projectManager(): BelongsTo
@@ -151,12 +162,12 @@ class Project extends Model
 
     public function phases(): HasMany
     {
-        return $this->hasMany(ProjectPhase:: class);
+        return $this->hasMany(ProjectPhase::  class);
     }
 
     public function milestones(): HasMany
     {
-        return $this->hasMany(ProjectMilestone:: class);
+        return $this->hasMany(ProjectMilestone::  class);
     }
 
     public function progressReports(): HasMany
@@ -167,6 +178,16 @@ class Project extends Model
     public function issues(): HasMany
     {
         return $this->hasMany(ProjectIssue::class);
+    }
+
+    public function variationOrders(): HasMany
+    {
+        return $this->hasMany(VariationOrder::class);
+    }
+
+    public function boqItems(): HasMany
+    {
+        return $this->hasMany(BoqItem:: class);
     }
 
     // Accessor for project status badge color
