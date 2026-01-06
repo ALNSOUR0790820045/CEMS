@@ -26,7 +26,31 @@ Route::middleware('auth')->group(function () {
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
     // Tenders Management
-    Route::resource('tenders', TenderController::class);
+    // Tender Activities Routes
+Route::prefix('tenders/{tender}')->group(function () {
+    Route::get('activities', [TenderActivityController::class, 'index'])
+        ->name('tender-activities.index');
+    Route::get('activities/create', [TenderActivityController:: class, 'create'])
+        ->name('tender-activities.create');
+    Route::post('activities', [TenderActivityController::class, 'store'])
+        ->name('tender-activities.store');
+    Route::get('activities/gantt', [TenderActivityController::class, 'gantt'])
+        ->name('tender-activities.gantt');
+    Route::get('activities/cpm-analysis', [TenderActivityController::class, 'cpmAnalysis'])
+        ->name('tender-activities.cpm-analysis');
+    Route::post('activities/recalculate-cpm', [TenderActivityController::class, 'recalculateCPM'])
+        ->name('tender-activities.recalculate-cpm');
+    Route::delete('activities/{id}', [TenderActivityController:: class, 'destroy'])
+        ->name('tender-activities.destroy');
+});
+
+// Tender Activities - Edit & Update (without tender prefix)
+Route::get('tender-activities/{id}/edit', [TenderActivityController::class, 'edit'])
+    ->name('tender-activities. edit');
+Route::put('tender-activities/{id}', [TenderActivityController::class, 'update'])
+    ->name('tender-activities.update');
+Route::get('tender-activities/{tender}/{id}', [TenderActivityController::class, 'show'])
+    ->name('tender-activities.show');
     
     // Tender Activities Management
     Route::prefix('tenders/{tender}')->group(function () {
