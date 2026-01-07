@@ -253,4 +253,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+    
+    // Purchase Requisitions
+    Route::apiResource('purchase-requisitions', \App\Http\Controllers\Api\PurchaseRequisitionController::class);
+    Route::post('purchase-requisitions/{id}/submit', [\App\Http\Controllers\Api\PurchaseRequisitionController::class, 'submit']);
+    Route::post('purchase-requisitions/{id}/approve', [\App\Http\Controllers\Api\PurchaseRequisitionController::class, 'approve']);
+    Route::post('purchase-requisitions/{id}/reject', [\App\Http\Controllers\Api\PurchaseRequisitionController::class, 'reject']);
+    Route::post('purchase-requisitions/{id}/cancel', [\App\Http\Controllers\Api\PurchaseRequisitionController::class, 'cancel']);
+    Route::get('purchase-requisitions/{id}/approval-history', [\App\Http\Controllers\Api\PurchaseRequisitionController::class, 'approvalHistory']);
+    Route::post('purchase-requisitions/{id}/convert-to-po', [\App\Http\Controllers\Api\PurchaseRequisitionController::class, 'convertToPO']);
+
+    // PR Quotes
+    Route::apiResource('pr-quotes', \App\Http\Controllers\Api\PrQuoteController::class);
+    Route::post('pr-quotes/{id}/select', [\App\Http\Controllers\Api\PrQuoteController::class, 'select']);
+    Route::get('purchase-requisitions/{prId}/quotes', [\App\Http\Controllers\Api\PrQuoteController::class, 'getQuotes']);
+    Route::post('purchase-requisitions/{prId}/request-quotes', [\App\Http\Controllers\Api\PrQuoteController::class, 'requestQuotes']);
+
+    // PR Reports
+    Route::get('reports/pr-status', [\App\Http\Controllers\Api\PrReportController::class, 'statusReport']);
+    Route::get('reports/pr-by-department', [\App\Http\Controllers\Api\PrReportController::class, 'byDepartment']);
+    Route::get('reports/pending-approvals', [\App\Http\Controllers\Api\PrReportController::class, 'pendingApprovals']);
 });
