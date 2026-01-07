@@ -271,7 +271,9 @@ class PettyCashTransactionController extends Controller
             'status' => 'rejected',
             'approved_by_id' => $request->user()->id,
             'approved_at' => now(),
-            'notes' => ($transaction->notes ?? '') . "\nRejection reason: " . ($request->rejection_reason ?? 'No reason provided'),
+            'notes' => $transaction->notes 
+                ? $transaction->notes . "\n[Rejected on " . now()->toDateString() . "]: " . ($request->rejection_reason ?? 'No reason provided')
+                : "[Rejected on " . now()->toDateString() . "]: " . ($request->rejection_reason ?? 'No reason provided'),
         ]);
 
         return response()->json($transaction->load([
@@ -298,7 +300,11 @@ class PettyCashTransactionController extends Controller
             'posted_at' => now(),
         ]);
 
-        // TODO: Create GL journal entry here if needed
+        // TODO: Implement GL Journal Entry creation
+        // When posting a transaction, create a GL journal entry with:
+        // - Debit: Expense GL Account (from expense_category or default)
+        // - Credit: Petty Cash GL Account (from petty_cash_account)
+        // This will provide full integration with the General Ledger module
 
         return response()->json($transaction->load([
             'pettyCashAccount', 'expenseCategory', 'postedBy'
