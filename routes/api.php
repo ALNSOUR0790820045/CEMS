@@ -33,6 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
+use App\Http\Controllers\Api\ExpenseCategoryController;
+use App\Http\Controllers\Api\PettyCashAccountController;
+use App\Http\Controllers\Api\PettyCashTransactionController;
+use App\Http\Controllers\Api\PettyCashReplenishmentController;
 
 Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -253,4 +257,23 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+
+    // Expense Categories
+    Route::apiResource('expense-categories', ExpenseCategoryController::class);
+
+    // Petty Cash Accounts
+    Route::apiResource('petty-cash-accounts', PettyCashAccountController::class);
+    Route::get('petty-cash-accounts/{id}/statement', [PettyCashAccountController::class, 'statement']);
+    Route::get('petty-cash-accounts/{id}/balance', [PettyCashAccountController::class, 'balance']);
+
+    // Petty Cash Transactions
+    Route::apiResource('petty-cash-transactions', PettyCashTransactionController::class);
+    Route::post('petty-cash-transactions/{id}/approve', [PettyCashTransactionController::class, 'approve']);
+    Route::post('petty-cash-transactions/{id}/reject', [PettyCashTransactionController::class, 'reject']);
+    Route::post('petty-cash-transactions/{id}/post', [PettyCashTransactionController::class, 'post']);
+
+    // Petty Cash Replenishments
+    Route::apiResource('petty-cash-replenishments', PettyCashReplenishmentController::class);
+    Route::post('petty-cash-replenishments/{id}/approve', [PettyCashReplenishmentController::class, 'approve']);
+    Route::post('petty-cash-replenishments/{id}/complete', [PettyCashReplenishmentController::class, 'complete']);
 });
