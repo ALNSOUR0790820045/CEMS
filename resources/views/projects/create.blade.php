@@ -11,40 +11,40 @@
         <div style="margin-bottom: 40px; padding-bottom: 30px; border-bottom: 2px solid #f5f5f7;">
             <h2 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; color: #0071e3;">المعلومات الأساسية</h2>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap:  20px; margin-bottom: 20px;">
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">كود المشروع</label>
-                    <input type="text" value="{{ $projectCode }}" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #f5f5f7; font-family: 'Cairo', sans-serif;">
+                    <label style="display:  block; margin-bottom: 8px; font-weight: 600;">كود المشروع</label>
+                    <input type="text" value="{{ $projectCode }}" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius:  8px; background: #f5f5f7; font-family: 'Cairo', sans-serif;">
                 </div>
                 
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">نوع المشروع *</label>
-                    <select name="project_type" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
-                        <option value="lump_sum" {{ old('project_type') == 'lump_sum' ? 'selected' : '' }}>مقطوعية</option>
+                    <select name="project_type" required style="width:  100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                        <option value="lump_sum" {{ old('project_type') == 'lump_sum' ? 'selected' :  '' }}>مقطوعية</option>
                         <option value="unit_price" {{ old('project_type') == 'unit_price' ? 'selected' : '' }}>فئة سعر</option>
                         <option value="cost_plus" {{ old('project_type') == 'cost_plus' ? 'selected' : '' }}>تكلفة زائد</option>
-                        <option value="design_build" {{ old('project_type') == 'design_build' ? 'selected' : '' }}>تصميم وتنفيذ</option>
+                        <option value="design_build" {{ old('project_type') == 'design_build' ?  'selected' : '' }}>تصميم وتنفيذ</option>
                     </select>
                 </div>
             </div>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="display:  grid; grid-template-columns:  1fr 1fr; gap: 20px; margin-bottom: 20px;">
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">اسم المشروع *</label>
-                    <input type="text" name="name" required value="{{ old('name') }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <input type="text" name="name" required value="{{ old('name') }}" style="width: 100%; padding:  12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                     @error('name')<span style="color: #c62828; font-size: 0.85rem;">{{ $message }}</span>@enderror
                 </div>
                 
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">اسم المشروع (إنجليزي)</label>
-                    <input type="text" name="name_en" value="{{ old('name_en') }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <input type="text" name="name_en" value="{{ old('name_en') }}" style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap:  20px; margin-bottom:  20px;">
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">العميل *</label>
-                    <select name="client_id" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <label style="display: block; margin-bottom:  8px; font-weight:  600;">العميل *</label>
+                    <select name="client_id" required style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر العميل</option>
                         @foreach($clients as $client)
                             <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
@@ -54,11 +54,11 @@
                 </div>
                 
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">حالة المشروع *</label>
-                    <select name="project_status" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <label style="display: block; margin-bottom:  8px; font-weight:  600;">حالة المشروع *</label>
+                    <select name="project_status" required style="width:  100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="tendering" {{ old('project_status') == 'tendering' ? 'selected' : '' }}>عطاء</option>
                         <option value="awarded" {{ old('project_status') == 'awarded' ? 'selected' : '' }}>مرسى</option>
-                        <option value="mobilization" {{ old('project_status') == 'mobilization' ? 'selected' : '' }}>حشد</option>
+                        <option value="mobilization" {{ old('project_status') == 'mobilization' ?  'selected' : '' }}>حشد</option>
                         <option value="execution" {{ old('project_status') == 'execution' ? 'selected' : '' }}>تنفيذ</option>
                         <option value="on_hold" {{ old('project_status') == 'on_hold' ? 'selected' : '' }}>متوقف</option>
                         <option value="completed" {{ old('project_status') == 'completed' ? 'selected' : '' }}>مكتمل</option>
@@ -72,7 +72,7 @@
         <div style="margin-bottom: 40px; padding-bottom: 30px; border-bottom: 2px solid #f5f5f7;">
             <h2 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; color: #0071e3;">تفاصيل العقد</h2>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="display:  grid; grid-template-columns:  1fr 1fr; gap: 20px; margin-bottom: 20px;">
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">قيمة العقد *</label>
                     <input type="number" name="contract_value" required min="0" step="0.01" value="{{ old('contract_value') }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
@@ -80,7 +80,7 @@
                 </div>
                 
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">العملة *</label>
+                    <label style="display: block; margin-bottom:  8px; font-weight:  600;">العملة *</label>
                     <select name="contract_currency_id" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر العملة</option>
                         @foreach($currencies as $currency)
@@ -94,12 +94,12 @@
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">تاريخ البدء *</label>
                     <input type="date" name="contract_start_date" required value="{{ old('contract_start_date') }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
-                    @error('contract_start_date')<span style="color: #c62828; font-size: 0.85rem;">{{ $message }}</span>@enderror
+                    @error('contract_start_date')<span style="color: #c62828; font-size:  0.85rem;">{{ $message }}</span>@enderror
                 </div>
                 
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">تاريخ الانتهاء *</label>
-                    <input type="date" name="contract_end_date" required value="{{ old('contract_end_date') }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <input type="date" name="contract_end_date" required value="{{ old('contract_end_date') }}" style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                     @error('contract_end_date')<span style="color: #c62828; font-size: 0.85rem;">{{ $message }}</span>@enderror
                 </div>
             </div>
@@ -112,7 +112,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">الدولة</label>
-                    <select name="country_id" id="country_id" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <select name="country_id" id="country_id" style="width: 100%; padding:  12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر الدولة</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
@@ -121,7 +121,7 @@
                 </div>
                 
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">المدينة</label>
+                    <label style="display: block; margin-bottom:  8px; font-weight:  600;">المدينة</label>
                     <select name="city_id" id="city_id" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر المدينة</option>
                         @foreach($cities as $city)
@@ -133,7 +133,7 @@
             
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 600;">عنوان الموقع</label>
-                <textarea name="site_address" rows="2" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">{{ old('site_address') }}</textarea>
+                <textarea name="site_address" rows="2" style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">{{ old('site_address') }}</textarea>
             </div>
         </div>
 
@@ -144,18 +144,18 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">مدير المشروع *</label>
-                    <select name="project_manager_id" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <select name="project_manager_id" required style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر مدير المشروع</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" {{ old('project_manager_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                         @endforeach
                     </select>
-                    @error('project_manager_id')<span style="color: #c62828; font-size: 0.85rem;">{{ $message }}</span>@enderror
+                    @error('project_manager_id')<span style="color: #c62828; font-size:  0.85rem;">{{ $message }}</span>@enderror
                 </div>
                 
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">مهندس الموقع</label>
-                    <select name="site_engineer_id" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
+                    <select name="site_engineer_id" style="width: 100%; padding:  12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">
                         <option value="">اختر مهندس الموقع</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" {{ old('site_engineer_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -181,16 +181,16 @@
             
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 600;">وصف المشروع</label>
-                <textarea name="description" rows="4" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">{{ old('description') }}</textarea>
+                <textarea name="description" rows="4" style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">{{ old('description') }}</textarea>
             </div>
             
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 600;">ملاحظات</label>
-                <textarea name="notes" rows="3" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">{{ old('notes') }}</textarea>
+                <textarea name="notes" rows="3" style="width: 100%; padding: 12px; border:  1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;">{{ old('notes') }}</textarea>
             </div>
             
             <div>
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <label style="display:  flex; align-items: center; gap: 8px; cursor: pointer;">
                     <input type="checkbox" name="is_active" value="1" checked style="width: 18px; height: 18px;">
                     <span style="font-weight: 600;">المشروع نشط</span>
                 </label>
@@ -221,7 +221,7 @@
             if (option.dataset.country === countryId || countryId === '') {
                 option.style.display = 'block';
             } else {
-                option.style.display = 'none';
+                option.style. display = 'none';
             }
         });
         

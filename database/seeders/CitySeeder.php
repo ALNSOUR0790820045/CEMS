@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 class CitySeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeds. 
      */
     public function run(): void
     {
@@ -26,10 +26,11 @@ class CitySeeder extends Seeder
                 ['country_id' => $saudiArabia->id, 'name' => 'الطائف', 'name_en' => 'Taif', 'is_active' => true],
                 ['country_id' => $saudiArabia->id, 'name' => 'أبها', 'name_en' => 'Abha', 'is_active' => true],
                 ['country_id' => $saudiArabia->id, 'name' => 'تبوك', 'name_en' => 'Tabuk', 'is_active' => true],
+                ['country_id' => $saudiArabia->id, 'name' => 'القصيم', 'name_en' => 'Qassim', 'is_active' => true],
             ];
             
             foreach ($saudiCities as $city) {
-                \App\Models\City::create($city);
+                \App\Models\City:: create($city);
             }
         }
 

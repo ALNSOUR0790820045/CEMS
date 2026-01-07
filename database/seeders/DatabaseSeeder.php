@@ -17,16 +17,27 @@ class DatabaseSeeder extends Seeder
     {
         // Seed basic data first
         $this->call([
+            // Core system data
+            RolesAndPermissionsSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
+            
+            // Master data
             CurrencySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
+            BranchSeeder::class,
         ]);
-
+        
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        
+        // Optional: Create test user if UserSeeder doesn't exist
+        if (!class_exists(UserSeeder::class)) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
+        }
     }
 }

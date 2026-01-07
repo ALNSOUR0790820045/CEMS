@@ -46,14 +46,14 @@ class ProjectController extends Controller
         }
 
         $projects = $query->latest()->paginate(15);
-        $clients = Client::active()->get();
+        $clients = Client:: active()->get();
         $projectManagers = User::where('is_active', true)->get();
 
         return view('projects.index', compact('projects', 'clients', 'projectManagers'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource. 
      */
     public function create()
     {
@@ -65,7 +65,7 @@ class ProjectController extends Controller
         $cities = City::active()->get();
         $users = User::where('is_active', true)->get();
 
-        return view('projects.create', compact(
+        return view('projects. create', compact(
             'projectCode',
             'clients',
             'contracts',
@@ -94,7 +94,7 @@ class ProjectController extends Controller
         // Add company_id from authenticated user
         if (!auth()->user()->company_id) {
             return redirect()->back()
-                ->withErrors(['error' => 'لم يتم تعيين شركة للمستخدم. يرجى الاتصال بالمسؤول.'])
+                ->withErrors(['error' => 'لم يتم تعيين شركة للمستخدم. يرجى الاتصال بالمسؤول. '])
                 ->withInput();
         }
         $validated['company_id'] = auth()->user()->company_id;
@@ -109,7 +109,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource. 
      */
     public function show(Project $project)
     {
@@ -140,7 +140,7 @@ class ProjectController extends Controller
         $cities = City::active()->get();
         $users = User::where('is_active', true)->get();
 
-        return view('projects.edit', compact(
+        return view('projects. edit', compact(
             'project',
             'clients',
             'contracts',
@@ -189,7 +189,7 @@ class ProjectController extends Controller
     public function generateCode()
     {
         return response()->json([
-            'code' => Project::generateProjectCode()
+            'code' => Project:: generateProjectCode()
         ]);
     }
 }
