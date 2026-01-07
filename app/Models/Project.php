@@ -1,4 +1,4 @@
-<?php
+<? php
 
 namespace App\Models;
 
@@ -165,17 +165,17 @@ class Project extends Model
         return $this->hasMany(Contract::class);
     }
 
-    public function currency()
+    public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class, 'contract_currency_id');
     }
 
-    public function city()
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
-    public function country()
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
@@ -195,7 +195,7 @@ class Project extends Model
         return $this->belongsTo(User::class, 'site_engineer_id');
     }
 
-    public function contractManager()
+    public function contractManager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'contract_manager_id');
     }
@@ -280,6 +280,16 @@ class Project extends Model
         return $this->hasMany(JournalEntry::class);
     }
 
+    public function glTransactions(): HasMany
+    {
+        return $this->hasMany(GLTransaction::class);
+    }
+
+    public function costCenters(): HasMany
+    {
+        return $this->hasMany(CostCenter::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {
@@ -288,7 +298,10 @@ class Project extends Model
 
     public function scopeByStatus($query, $status)
     {
-        return $query->where('project_status', $status);
+        return $query->where(function($q) use ($status) {
+            $q->where('project_status', $status)
+              ->orWhere('status', $status);
+        });
     }
 
     public function scopeByClient($query, $clientId)
@@ -298,7 +311,10 @@ class Project extends Model
 
     public function scopeByManager($query, $userId)
     {
-        return $query->where('project_manager_id', $userId);
+        return $query->where(function($q) use ($userId) {
+            $q->where('project_manager_id', $userId)
+              ->orWhere('manager_id', $userId);
+        });
     }
 
     // Accessors
@@ -309,7 +325,7 @@ class Project extends Model
 
     public function getDaysRemainingAttribute()
     {
-        $endDate = $this->contract_end_date ??  $this->end_date;
+        $endDate = $this->contract_end_date ?? $this->end_date;
         
         if (! $endDate) {
             return null;
@@ -332,7 +348,7 @@ class Project extends Model
 
     public function getIsOverdueAttribute()
     {
-        $endDate = $this->contract_end_date ?? $this->end_date;
+        $endDate = $this->contract_end_date ??  $this->end_date;
         
         if (!$endDate) {
             return false;

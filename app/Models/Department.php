@@ -18,14 +18,15 @@ class Department extends Model
         'name_en',
         'parent_id',
         'manager_id',
-        'is_active',
         'description',
+        'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
+    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
@@ -59,5 +60,21 @@ class Department extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function glAccounts(): HasMany
+    {
+        return $this->hasMany(GLAccount::class);
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeRoot($query)
+    {
+        return $query->whereNull('parent_id');
     }
 }
