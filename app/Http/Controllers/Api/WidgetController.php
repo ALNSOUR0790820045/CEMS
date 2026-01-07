@@ -59,6 +59,12 @@ class WidgetController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        // Check if dashboard belongs to user's company
+        $dashboard = \App\Models\Dashboard::findOrFail($request->dashboard_id);
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $widget = DashboardWidget::create([
             'dashboard_id' => $request->dashboard_id,
             'widget_type' => $request->widget_type,

@@ -212,6 +212,11 @@ class KpiController extends Controller
 
         $kpiDefinition = KpiDefinition::findOrFail($request->kpi_definition_id);
 
+        // Check if KPI belongs to user's company
+        if ($kpiDefinition->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         // Calculate variance
         $targetValue = $kpiDefinition->target_value ?? 0;
         $actualValue = $request->actual_value;
