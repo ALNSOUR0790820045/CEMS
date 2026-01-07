@@ -23,6 +23,7 @@ class WarehouseLocationFactory extends Factory
             'location_type' => fake()->randomElement(['zone', 'rack', 'bin', 'shelf']),
             'capacity' => fake()->randomFloat(2, 100, 10000),
             'is_active' => true,
+            'company_id' => \App\Models\Company::factory(),
         ];
     }
 }
