@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Contract extends Model
@@ -17,15 +17,31 @@ class Contract extends Model
         'contract_number',
         'contract_title',
         'contract_title_en',
+        'name',
+        'name_en',
+        'code',
+        'title',
+        'description',
         'client_id',
+        'project_id',
+        'tender_id',
         'contract_type',
         'contract_category',
+        'type',
         'contract_value',
+        'value',
+        'amount',
+        'currency',
         'currency_id',
         'signing_date',
+        'contract_date',
+        'signed_date',
         'commencement_date',
+        'start_date',
         'completion_date',
+        'end_date',
         'contract_duration_days',
+        'duration_days',
         'defects_liability_period',
         'retention_percentage',
         'advance_payment_percentage',
@@ -34,6 +50,7 @@ class Contract extends Model
         'scope_of_work',
         'special_conditions',
         'contract_status',
+        'status',
         'original_contract_value',
         'current_contract_value',
         'total_change_orders_value',
@@ -50,14 +67,20 @@ class Contract extends Model
 
     protected $casts = [
         'contract_value' => 'decimal:2',
+        'value' => 'decimal:2',
+        'amount' => 'decimal:2',
         'original_contract_value' => 'decimal:2',
         'current_contract_value' => 'decimal:2',
         'total_change_orders_value' => 'decimal:2',
         'retention_percentage' => 'decimal:2',
         'advance_payment_percentage' => 'decimal:2',
         'signing_date' => 'date',
+        'contract_date' => 'date',
+        'signed_date' => 'date',
         'commencement_date' => 'date',
+        'start_date' => 'date',
         'completion_date' => 'date',
+        'end_date' => 'date',
         'is_active' => 'boolean',
     ];
 
@@ -74,24 +97,34 @@ class Contract extends Model
 
             // Set original and current values on creation
             if (!$contract->original_contract_value) {
-                $contract->original_contract_value = $contract->contract_value;
+                $contract->original_contract_value = $contract->contract_value ??  $contract->value ??  $contract->amount;
             }
             if (!$contract->current_contract_value) {
-                $contract->current_contract_value = $contract->contract_value;
+                $contract->current_contract_value = $contract->contract_value ?? $contract->value ?? $contract->amount;
             }
 
             // Calculate contract duration
-            if ($contract->commencement_date && $contract->completion_date) {
-                $contract->contract_duration_days = Carbon::parse($contract->commencement_date)
-                    ->diffInDays(Carbon::parse($contract->completion_date));
+            $startDate = $contract->commencement_date ??  $contract->start_date;
+            $endDate = $contract->completion_date ?? $contract->end_date;
+            
+            if ($startDate && $endDate) {
+                $contract->contract_duration_days = Carbon::parse($startDate)
+                    ->diffInDays(Carbon::parse($endDate));
+                $contract->duration_days = $contract->contract_duration_days;
             }
         });
 
         static::updating(function ($contract) {
             // Recalculate contract duration if dates change
-            if ($contract->isDirty(['commencement_date', 'completion_date'])) {
-                $contract->contract_duration_days = Carbon::parse($contract->commencement_date)
-                    ->diffInDays(Carbon::parse($contract->completion_date));
+            if ($contract->isDirty(['commencement_date', 'completion_date', 'start_date', 'end_date'])) {
+                $startDate = $contract->commencement_date ?? $contract->start_date;
+                $endDate = $contract->completion_date ?? $contract->end_date;
+                
+                if ($startDate && $endDate) {
+                    $contract->contract_duration_days = Carbon::parse($startDate)
+                        ->diffInDays(Carbon::parse($endDate));
+                    $contract->duration_days = $contract->contract_duration_days;
+                }
             }
         });
     }
@@ -100,6 +133,16 @@ class Contract extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function tender(): BelongsTo
+    {
+        return $this->belongsTo(Tender::class);
     }
 
     public function currency(): BelongsTo
@@ -124,7 +167,7 @@ class Contract extends Model
 
     public function glReceivableAccount(): BelongsTo
     {
-        return $this->belongsTo(GLAccount::class, 'gl_receivable_account_id');
+        return $this->belongsTo(GLAccount:: class, 'gl_receivable_account_id');
     }
 
     public function parentContract(): BelongsTo
@@ -149,7 +192,7 @@ class Contract extends Model
 
     public function clauses(): HasMany
     {
-        return $this->hasMany(ContractClause::class);
+        return $this->hasMany(ContractClause:: class);
     }
 
     public function milestones(): HasMany
@@ -157,15 +200,42 @@ class Contract extends Model
         return $this->hasMany(ContractMilestone::class);
     }
 
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project:: class);
+    }
+
+    public function guarantees(): HasMany
+    {
+        return $this->hasMany(Guarantee::class);
+    }
+
+    public function variationOrders(): HasMany
+    {
+        return $this->hasMany(VariationOrder::class);
+    }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where(function($q) {
+            $q->where('is_active', true)
+              ->orWhere('status', 'active')
+              ->orWhere('contract_status', 'active');
+        });
     }
 
     public function scopeByStatus($query, $status)
     {
-        return $query->where('contract_status', $status);
+        return $query->where(function($q) use ($status) {
+            $q->where('contract_status', $status)
+              ->orWhere('status', $status);
+        });
     }
 
     public function scopeByClient($query, $clientId)
@@ -175,43 +245,58 @@ class Contract extends Model
 
     public function scopeByType($query, $type)
     {
-        return $query->where('contract_type', $type);
+        return $query->where(function($q) use ($type) {
+            $q->where('contract_type', $type)
+              ->orWhere('type', $type);
+        });
     }
 
     public function scopeExpiringSoon($query, $days = 30)
     {
-        $futureDate = Carbon::now()->addDays($days);
-        return $query->where('completion_date', '<=', $futureDate)
-            ->where('completion_date', '>=', Carbon::now())
-            ->whereIn('contract_status', ['active', 'signed']);
+        $futureDate = Carbon:: now()->addDays($days);
+        return $query->where(function($q) use ($futureDate) {
+            $q->where('completion_date', '<=', $futureDate)
+              ->where('completion_date', '>=', Carbon::now())
+              ->orWhere(function($q2) use ($futureDate) {
+                  $q2->where('end_date', '<=', $futureDate)
+                     ->where('end_date', '>=', Carbon::now());
+              });
+        })->where(function($q) {
+            $q->whereIn('contract_status', ['active', 'signed'])
+              ->orWhere('status', 'active');
+        });
     }
 
     // Accessors
     public function getDaysRemainingAttribute()
     {
-        if (!$this->completion_date) {
+        $completionDate = $this->completion_date ??  $this->end_date;
+        
+        if (!$completionDate) {
             return null;
         }
         
         $now = Carbon::now();
-        $completionDate = Carbon::parse($this->completion_date);
+        $endDate = Carbon::parse($completionDate);
         
-        if ($completionDate->isPast()) {
+        if ($endDate->isPast()) {
             return 0;
         }
         
-        return $now->diffInDays($completionDate);
+        return $now->diffInDays($endDate);
     }
 
     public function getProgressPercentageAttribute()
     {
-        if (!$this->contract_duration_days || $this->contract_duration_days == 0) {
+        $duration = $this->contract_duration_days ?? $this->duration_days;
+        
+        if (!$duration || $duration == 0) {
             return 0;
         }
 
         $now = Carbon::now();
-        $startDate = Carbon::parse($this->commencement_date);
-        $endDate = Carbon::parse($this->completion_date);
+        $startDate = Carbon:: parse($this->commencement_date ?? $this->start_date);
+        $endDate = Carbon::parse($this->completion_date ?? $this->end_date);
 
         if ($now->isBefore($startDate)) {
             return 0;
@@ -222,28 +307,32 @@ class Contract extends Model
         }
 
         $daysPassed = $startDate->diffInDays($now);
-        return round(($daysPassed / $this->contract_duration_days) * 100, 2);
+        return round(($daysPassed / $duration) * 100, 2);
     }
 
     public function getIsExpiredAttribute()
     {
-        if (!$this->completion_date) {
+        $completionDate = $this->completion_date ?? $this->end_date;
+        
+        if (! $completionDate) {
             return false;
         }
         
-        return Carbon::parse($this->completion_date)->isPast();
+        return Carbon::parse($completionDate)->isPast();
     }
 
     public function getIsNearExpiryAttribute()
     {
-        if (!$this->completion_date) {
+        $completionDate = $this->completion_date ?? $this->end_date;
+        
+        if (!$completionDate) {
             return false;
         }
         
-        $completionDate = Carbon::parse($this->completion_date);
-        $now = Carbon::now();
+        $endDate = Carbon::parse($completionDate);
+        $now = Carbon:: now();
         
-        return $completionDate->isFuture() && $completionDate->diffInDays($now) <= 30;
+        return $endDate->isFuture() && $endDate->diffInDays($now) <= 30;
     }
 
     // Static methods
