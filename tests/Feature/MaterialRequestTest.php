@@ -48,11 +48,16 @@ class MaterialRequestTest extends TestCase
 
         $this->project = Project::create([
             'name' => 'Test Project',
-            'code' => 'PROJ001',
             'project_code' => 'PROJ001',
+            'client_id' => \App\Models\Client::factory()->create(['company_id' => $this->company->id])->id,
+            'contract_value' => 1000000,
+            'contract_currency_id' => \App\Models\Currency::factory()->create(['company_id' => $this->company->id])->id,
+            'contract_start_date' => now(),
+            'contract_end_date' => now()->addMonths(12),
+            'contract_duration_days' => 365,
+            'project_manager_id' => $this->user->id,
             'company_id' => $this->company->id,
-            'department_id' => $this->department->id,
-            'status' => 'active',
+            'project_status' => 'execution',
             'is_active' => true,
         ]);
 
