@@ -38,7 +38,7 @@ use App\Http\Controllers\Api\BankStatementController;
 use App\Http\Controllers\Api\BankReconciliationController;
 use App\Http\Controllers\Api\BankReportController;
 
-Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 

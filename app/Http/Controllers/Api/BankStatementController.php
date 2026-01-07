@@ -213,7 +213,6 @@ class BankStatementController extends Controller
             $receipt = \App\Models\ARReceipt::where('receipt_date', $line->transaction_date)
                 ->where('amount', abs($amount))
                 ->where('bank_account_id', $bankStatement->bank_account_id)
-                ->whereNull('matched_statement_line_id')
                 ->first();
 
             if ($receipt) {
@@ -231,7 +230,6 @@ class BankStatementController extends Controller
             $payment = \App\Models\ApPayment::where('payment_date', $line->transaction_date)
                 ->where('amount', abs($amount))
                 ->where('bank_account_id', $bankStatement->bank_account_id)
-                ->whereNull('matched_statement_line_id')
                 ->first();
 
             if ($payment) {
