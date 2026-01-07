@@ -253,4 +253,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+
+    // Cost Accounting Module
+    Route::apiResource('cost-centers', App\Http\Controllers\Api\CostCenterController::class);
+    Route::apiResource('cost-categories', App\Http\Controllers\Api\CostCategoryController::class);
+    Route::apiResource('budgets', App\Http\Controllers\Api\BudgetController::class);
+    Route::post('budgets/{id}/approve', [App\Http\Controllers\Api\BudgetController::class, 'approve']);
+    Route::apiResource('cost-allocations', App\Http\Controllers\Api\CostAllocationController::class);
+    Route::post('cost-allocations/{id}/post', [App\Http\Controllers\Api\CostAllocationController::class, 'post']);
+    Route::post('cost-allocations/{id}/reverse', [App\Http\Controllers\Api\CostAllocationController::class, 'reverse']);
+
+    // Cost Reports
+    Route::get('reports/cost-analysis', [App\Http\Controllers\Api\CostReportController::class, 'costAnalysis']);
+    Route::get('reports/budget-variance', [App\Http\Controllers\Api\CostReportController::class, 'budgetVariance']);
+    Route::get('reports/cost-center-report', [App\Http\Controllers\Api\CostReportController::class, 'costCenterReport']);
+    Route::get('reports/project-cost-summary', [App\Http\Controllers\Api\CostReportController::class, 'projectCostSummary']);
 });
