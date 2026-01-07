@@ -91,8 +91,13 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Dashboard $dashboard)
+    public function show(Request $request, Dashboard $dashboard)
     {
+        // Check if dashboard belongs to user's company
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $dashboard->load(['createdBy', 'company', 'widgets']);
         return response()->json($dashboard);
     }
@@ -102,6 +107,11 @@ class DashboardController extends Controller
      */
     public function update(Request $request, Dashboard $dashboard)
     {
+        // Check if dashboard belongs to user's company
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|string|max:255',
             'name_en' => 'nullable|string|max:255',
@@ -151,8 +161,13 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy(Request $request, Dashboard $dashboard)
     {
+        // Check if dashboard belongs to user's company
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $dashboard->delete();
         return response()->json(['message' => 'Dashboard deleted successfully']);
     }
@@ -160,8 +175,13 @@ class DashboardController extends Controller
     /**
      * Get widgets for a specific dashboard.
      */
-    public function widgets(Dashboard $dashboard)
+    public function widgets(Request $request, Dashboard $dashboard)
     {
+        // Check if dashboard belongs to user's company
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $widgets = $dashboard->widgets()->visible()->get();
         return response()->json($widgets);
     }
@@ -171,6 +191,11 @@ class DashboardController extends Controller
      */
     public function addWidget(Request $request, Dashboard $dashboard)
     {
+        // Check if dashboard belongs to user's company
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'widget_type' => 'required|in:chart,kpi,table,counter,gauge',
             'title' => 'required|string|max:255',
@@ -212,6 +237,10 @@ class DashboardController extends Controller
      */
     public function updateLayout(Request $request, Dashboard $dashboard)
     {
+        // Check if dashboard belongs to user's company
+        if ($dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
         $validator = Validator::make($request->all(), [
             'layout' => 'required|array',
         ]);

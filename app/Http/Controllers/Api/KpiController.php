@@ -85,8 +85,13 @@ class KpiController extends Controller
     /**
      * Display the specified KPI definition.
      */
-    public function show(KpiDefinition $kpiDefinition)
+    public function show(Request $request, KpiDefinition $kpiDefinition)
     {
+        // Check if KPI belongs to user's company
+        if ($kpiDefinition->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $kpiDefinition->load(['company', 'values']);
         return response()->json($kpiDefinition);
     }
@@ -96,6 +101,11 @@ class KpiController extends Controller
      */
     public function update(Request $request, KpiDefinition $kpiDefinition)
     {
+        // Check if KPI belongs to user's company
+        if ($kpiDefinition->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'code' => 'sometimes|required|string|max:255|unique:kpi_definitions,code,' . $kpiDefinition->id,
             'name' => 'sometimes|required|string|max:255',
@@ -139,8 +149,13 @@ class KpiController extends Controller
     /**
      * Remove the specified KPI definition.
      */
-    public function destroy(KpiDefinition $kpiDefinition)
+    public function destroy(Request $request, KpiDefinition $kpiDefinition)
     {
+        // Check if KPI belongs to user's company
+        if ($kpiDefinition->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $kpiDefinition->delete();
         return response()->json(['message' => 'KPI definition deleted successfully']);
     }
