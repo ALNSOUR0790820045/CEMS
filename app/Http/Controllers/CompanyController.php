@@ -22,6 +22,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::latest()->get();
+
         return view('companies.index', compact('companies'));
     }
 
@@ -84,6 +85,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
+
         return redirect()->route('companies.index')
             ->with('success', 'تم حذف الشركة بنجاح');
     }

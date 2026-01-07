@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function employee()
     {
-        return $this->hasOne(Employee::  class);
+        return $this->hasOne(Employee::   class);
     }
 
     public function attendanceRecords()
@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function bankAccounts()
     {
-        return $this->hasMany(BankAccount::class);
+        return $this->hasMany(BankAccount:: class);
     }
 
     public function primaryBankAccount()

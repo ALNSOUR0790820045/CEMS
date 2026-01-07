@@ -11,6 +11,13 @@ class Project extends Model
 {
     use SoftDeletes;
 
+    // Project Status Constants
+    const STATUS_PLANNING = 'planning';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_ON_HOLD = 'on_hold';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CANCELLED = 'cancelled';
+
     protected $fillable = [
         'project_number',
         'name',
@@ -46,6 +53,7 @@ class Project extends Model
         'approved_variations',
         'revised_contract_value',
         'budget',
+        'actual_cost',
         'currency',
         'advance_payment_percentage',
         'advance_payment_amount',
@@ -58,11 +66,14 @@ class Project extends Model
         'health',
         'priority',
         'project_manager_id',
+        'manager_id',
         'site_engineer_id',
         'quantity_surveyor_id',
         'created_by',
         'performance_bond_id',
         'advance_bond_id',
+        'department_id',
+        'is_billable',
         'notes',
     ];
 
@@ -83,21 +94,28 @@ class Project extends Model
         'approved_variations' => 'decimal: 2',
         'revised_contract_value' => 'decimal: 2',
         'budget' => 'decimal:2',
+        'actual_cost' => 'decimal:2',
         'advance_payment_percentage' => 'decimal:2',
         'advance_payment_amount' => 'decimal:2',
-        'retention_percentage' => 'decimal:2',
-        'performance_bond_percentage' => 'decimal:2',
+        'retention_percentage' => 'decimal: 2',
+        'performance_bond_percentage' => 'decimal: 2',
         'physical_progress' => 'decimal: 2',
         'financial_progress' => 'decimal:2',
         'time_progress' => 'decimal:2',
         'latitude' => 'decimal: 8',
         'longitude' => 'decimal:8',
+        'is_billable' => 'boolean',
     ];
 
     // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company:: class);
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
     }
 
     public function client(): BelongsTo
@@ -123,6 +141,11 @@ class Project extends Model
     public function projectManager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'project_manager_id');
+    }
+
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'manager_id');
     }
 
     public function siteEngineer(): BelongsTo
@@ -200,6 +223,16 @@ class Project extends Model
         return $this->hasMany(InventoryTransaction::class);
     }
 
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function journalEntries(): HasMany
+    {
+        return $this->hasMany(JournalEntry::class);
+    }
+
     // Accessors
     public function getStatusBadgeAttribute()
     {
@@ -214,6 +247,9 @@ class Project extends Model
             'final_handover' => 'teal',
             'closed' => 'gray',
             'terminated' => 'red',
+            'planning' => 'blue',
+            'active' => 'green',
+            'cancelled' => 'red',
             default => 'gray',
         };
     }
