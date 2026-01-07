@@ -39,7 +39,7 @@ use App\Http\Controllers\Api\CashTransferController;
 use App\Http\Controllers\Api\CashForecastController;
 use App\Http\Controllers\Api\CashReportController;
 
-Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
