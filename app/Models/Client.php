@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
@@ -55,7 +55,7 @@ class Client extends Model
 
     protected static function boot()
     {
-        parent:: boot();
+        parent::boot();
 
         static::creating(function ($client) {
             if (empty($client->client_code)) {
@@ -68,19 +68,19 @@ class Client extends Model
     {
         $year = date('Y');
         $prefix = "CLT-{$year}-";
-        
-        $lastClient = static::where('client_code', 'like', $prefix . '%')
+
+        $lastClient = static::where('client_code', 'like', $prefix.'%')
             ->orderBy('client_code', 'desc')
             ->first();
-        
+
         if ($lastClient) {
             $lastNumber = (int) substr($lastClient->client_code, -4);
             $newNumber = $lastNumber + 1;
         } else {
             $newNumber = 1;
         }
-        
-        return $prefix . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+
+        return $prefix.str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
 
     public function city(): BelongsTo

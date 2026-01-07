@@ -46,7 +46,7 @@ class ScheduledNotification extends Model
     public function scopeDue($query)
     {
         return $query->where('status', 'pending')
-                     ->where('scheduled_at', '<=', now());
+            ->where('scheduled_at', '<=', now());
     }
 
     // Methods

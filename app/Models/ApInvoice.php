@@ -145,13 +145,13 @@ class ApInvoice extends Model
     public function updatePaidAmount()
     {
         $this->paid_amount = $this->paymentAllocations()->sum('allocated_amount');
-        
+
         if ($this->paid_amount >= $this->total_amount) {
             $this->status = 'paid';
         } elseif ($this->paid_amount > 0) {
             $this->status = 'partially_paid';
         }
-        
+
         $this->save();
     }
 }

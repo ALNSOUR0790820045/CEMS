@@ -16,7 +16,7 @@ class ScheduledNotificationController extends Controller
     public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
-        
+
         $query = ScheduledNotification::where('company_id', $user->company_id)
             ->with('createdBy');
 

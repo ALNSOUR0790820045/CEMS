@@ -10,8 +10,11 @@ class DeadlineApproachingEvent
     use Dispatchable, SerializesModels;
 
     public $item;
+
     public $type;
+
     public $deadline;
+
     public $company;
 
     /**

@@ -10,8 +10,11 @@ class BudgetExceededEvent
     use Dispatchable, SerializesModels;
 
     public $project;
+
     public $budget;
+
     public $spent;
+
     public $company;
 
     /**

@@ -10,8 +10,11 @@ class ApprovalRequestedEvent
     use Dispatchable, SerializesModels;
 
     public $item;
+
     public $type;
+
     public $approvers;
+
     public $company;
 
     /**

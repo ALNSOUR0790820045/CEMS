@@ -10,7 +10,9 @@ class ContractExpiringEvent
     use Dispatchable, SerializesModels;
 
     public $contract;
+
     public $expiryDate;
+
     public $company;
 
     /**

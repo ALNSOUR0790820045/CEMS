@@ -17,7 +17,7 @@ class NotificationController extends Controller
     public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
-        
+
         $query = Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->notExpired();
@@ -56,7 +56,7 @@ class NotificationController extends Controller
     public function unread(Request $request): JsonResponse
     {
         $user = Auth::user();
-        
+
         $notifications = Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->unread()
@@ -76,7 +76,7 @@ class NotificationController extends Controller
     public function unreadCount(): JsonResponse
     {
         $user = Auth::user();
-        
+
         $count = Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->unread()
@@ -95,7 +95,7 @@ class NotificationController extends Controller
     public function markAsRead($id): JsonResponse
     {
         $user = Auth::user();
-        
+
         $notification = Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->findOrFail($id);
@@ -114,7 +114,7 @@ class NotificationController extends Controller
     public function markAllAsRead(): JsonResponse
     {
         $user = Auth::user();
-        
+
         Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->unread()
@@ -132,7 +132,7 @@ class NotificationController extends Controller
     public function destroy($id): JsonResponse
     {
         $user = Auth::user();
-        
+
         $notification = Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->findOrFail($id);
@@ -151,7 +151,7 @@ class NotificationController extends Controller
     public function clearAll(): JsonResponse
     {
         $user = Auth::user();
-        
+
         Notification::where('notifiable_type', User::class)
             ->where('notifiable_id', $user->id)
             ->delete();
@@ -180,7 +180,7 @@ class NotificationController extends Controller
         ]);
 
         $users = User::whereIn('id', $validated['user_ids'])->get();
-        
+
         foreach ($users as $user) {
             Notification::create([
                 'type' => $validated['type'] ?? 'info',
@@ -219,7 +219,7 @@ class NotificationController extends Controller
 
         $user = Auth::user();
         $users = User::where('company_id', $user->company_id)->get();
-        
+
         foreach ($users as $recipient) {
             Notification::create([
                 'type' => $validated['type'] ?? 'info',

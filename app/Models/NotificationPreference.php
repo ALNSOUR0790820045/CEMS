@@ -43,11 +43,12 @@ class NotificationPreference extends Model
 
     public function isInQuietHours()
     {
-        if (!$this->quiet_hours_start || !$this->quiet_hours_end) {
+        if (! $this->quiet_hours_start || ! $this->quiet_hours_end) {
             return false;
         }
 
         $now = now()->format('H:i:s');
+
         return $now >= $this->quiet_hours_start && $now <= $this->quiet_hours_end;
     }
 }

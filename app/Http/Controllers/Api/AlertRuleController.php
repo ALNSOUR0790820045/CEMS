@@ -16,7 +16,7 @@ class AlertRuleController extends Controller
     public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
-        
+
         $query = AlertRule::where('company_id', $user->company_id);
 
         // Filter by event type
@@ -34,8 +34,8 @@ class AlertRuleController extends Controller
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('name_en', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('name_en', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -160,7 +160,7 @@ class AlertRuleController extends Controller
             'message' => 'Alert rule test completed',
             'matches' => $matches,
             'recipients_count' => $recipients->count(),
-            'recipients' => $recipients->map(fn($u) => [
+            'recipients' => $recipients->map(fn ($u) => [
                 'id' => $u->id,
                 'name' => $u->name,
                 'email' => $u->email,

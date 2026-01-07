@@ -10,7 +10,9 @@ class PaymentOverdueEvent
     use Dispatchable, SerializesModels;
 
     public $invoice;
+
     public $daysOverdue;
+
     public $company;
 
     /**

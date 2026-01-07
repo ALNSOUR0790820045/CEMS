@@ -50,7 +50,8 @@ class AlertRule extends Model
     // Methods
     public function toggle()
     {
-        $this->update(['is_active' => !$this->is_active]);
+        $this->update(['is_active' => ! $this->is_active]);
+
         return $this->is_active;
     }
 
@@ -61,7 +62,7 @@ class AlertRule extends Model
         }
 
         foreach ($this->conditions as $key => $value) {
-            if (!isset($data[$key]) || $data[$key] != $value) {
+            if (! isset($data[$key]) || $data[$key] != $value) {
                 return false;
             }
         }

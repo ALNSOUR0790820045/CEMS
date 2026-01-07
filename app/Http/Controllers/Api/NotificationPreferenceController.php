@@ -16,7 +16,7 @@ class NotificationPreferenceController extends Controller
     public function index(): JsonResponse
     {
         $user = Auth::user();
-        
+
         $preferences = NotificationPreference::where('user_id', $user->id)->get();
 
         return response()->json([

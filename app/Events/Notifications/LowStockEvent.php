@@ -10,8 +10,11 @@ class LowStockEvent
     use Dispatchable, SerializesModels;
 
     public $material;
+
     public $currentStock;
+
     public $minStock;
+
     public $company;
 
     /**

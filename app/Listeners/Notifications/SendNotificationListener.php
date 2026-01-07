@@ -19,7 +19,7 @@ class SendNotificationListener implements ShouldQueue
     {
         // Get the event type
         $eventType = $this->getEventType($event);
-        
+
         // Find active alert rules for this event type
         $alertRules = AlertRule::active()
             ->where('company_id', $event->company->id)
@@ -52,12 +52,13 @@ class SendNotificationListener implements ShouldQueue
     protected function getEventType($event): string
     {
         $className = class_basename($event);
+
         return strtolower(str_replace('Event', '', $className));
     }
 
     protected function getNotificationType($eventType): string
     {
-        return match($eventType) {
+        return match ($eventType) {
             'budgetexceeded', 'lowstock', 'paymentoverdue' => 'error',
             'deadlineapproaching', 'contractexpiring' => 'warning',
             'approvalrequested' => 'info',
@@ -67,7 +68,7 @@ class SendNotificationListener implements ShouldQueue
 
     protected function getCategory($eventType): string
     {
-        return match($eventType) {
+        return match ($eventType) {
             'budgetexceeded' => 'alert',
             'deadlineapproaching' => 'deadline',
             'approvalrequested' => 'approval',
@@ -80,7 +81,7 @@ class SendNotificationListener implements ShouldQueue
 
     protected function getPriority($eventType): string
     {
-        return match($eventType) {
+        return match ($eventType) {
             'budgetexceeded', 'paymentoverdue' => 'urgent',
             'lowstock', 'contractexpiring' => 'high',
             'deadlineapproaching' => 'normal',
@@ -91,7 +92,7 @@ class SendNotificationListener implements ShouldQueue
 
     protected function getTitle($event, $eventType): string
     {
-        return match($eventType) {
+        return match ($eventType) {
             'budgetexceeded' => 'Budget Exceeded',
             'deadlineapproaching' => 'Deadline Approaching',
             'approvalrequested' => 'Approval Required',
@@ -104,7 +105,7 @@ class SendNotificationListener implements ShouldQueue
 
     protected function getBody($event, $eventType): string
     {
-        return match($eventType) {
+        return match ($eventType) {
             'budgetexceeded' => "Budget exceeded: {$event->spent} / {$event->budget}",
             'deadlineapproaching' => "Deadline approaching: {$event->deadline}",
             'approvalrequested' => "Approval required for {$event->type}",

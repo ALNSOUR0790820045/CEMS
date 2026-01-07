@@ -2,7 +2,6 @@
 
 namespace App\Listeners\Notifications;
 
-use App\Models\NotificationLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
