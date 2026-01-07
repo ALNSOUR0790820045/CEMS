@@ -28,7 +28,6 @@ class Currency extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
@@ -64,12 +63,21 @@ class Currency extends Model
         return $this->hasMany(ApPayment::class);
     }
 
+    public function arInvoices(): HasMany
+    {
+        return $this->hasMany(ARInvoice::class);
+    }
+
+    public function arReceipts(): HasMany
+    {
+        return $this->hasMany(ARReceipt::class);
+    }
+
     public function bankAccounts(): HasMany
     {
         return $this->hasMany(BankAccount::class);
     }
 
-    // Scopes
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

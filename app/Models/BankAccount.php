@@ -1,4 +1,4 @@
-<? php
+<?php
 
 namespace App\Models;
 
@@ -23,6 +23,7 @@ class BankAccount extends Model
         'balance',
         'is_active',
         'is_primary',
+        'gl_account_id',
         'company_id',
     ];
 
@@ -32,10 +33,9 @@ class BankAccount extends Model
         'is_primary' => 'boolean',
     ];
 
-    // Relationships
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User:: class);
     }
 
     public function company(): BelongsTo
@@ -48,6 +48,11 @@ class BankAccount extends Model
         return $this->belongsTo(Currency::class);
     }
 
+    public function glAccount(): BelongsTo
+    {
+        return $this->belongsTo(GLAccount::class);
+    }
+
     public function apPayments(): HasMany
     {
         return $this->hasMany(ApPayment::class);
@@ -55,7 +60,7 @@ class BankAccount extends Model
 
     public function arReceipts(): HasMany
     {
-        return $this->hasMany(ArReceipt::class);
+        return $this->hasMany(ARReceipt::class);
     }
 
     public function transactions(): HasMany
@@ -63,7 +68,6 @@ class BankAccount extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    // Scopes
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

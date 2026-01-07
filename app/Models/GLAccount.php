@@ -45,7 +45,6 @@ class GLAccount extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
@@ -86,7 +85,21 @@ class GLAccount extends Model
         return $this->hasMany(Contract::class, 'gl_receivable_account_id');
     }
 
-    // Scopes
+    public function arInvoices(): HasMany
+    {
+        return $this->hasMany(ARInvoice::class);
+    }
+
+    public function arInvoiceItems(): HasMany
+    {
+        return $this->hasMany(ARInvoiceItem::class);
+    }
+
+    public function bankAccounts(): HasMany
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
@@ -122,7 +135,6 @@ class GLAccount extends Model
         return $query->where('account_level', $level);
     }
 
-    // Accessors
     public function getFullAccountCodeAttribute()
     {
         if ($this->parentAccount) {

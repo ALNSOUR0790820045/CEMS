@@ -50,15 +50,12 @@ class Client extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
-        'credit_limit' => 'decimal:2',
+        'credit_limit' => 'decimal: 2',
     ];
 
-    /**
-     * Boot the model. 
-     */
     protected static function boot()
     {
-        parent::boot();
+        parent:: boot();
 
         static::creating(function ($client) {
             if (empty($client->client_code)) {
@@ -67,15 +64,12 @@ class Client extends Model
         });
     }
 
-    /**
-     * Generate unique client code: CLT-YYYY-XXXX
-     */
     public static function generateClientCode(): string
     {
         $year = date('Y');
         $prefix = "CLT-{$year}-";
         
-        $lastClient = static:: where('client_code', 'like', $prefix . '%')
+        $lastClient = static::where('client_code', 'like', $prefix . '%')
             ->orderBy('client_code', 'desc')
             ->first();
         
@@ -89,7 +83,6 @@ class Client extends Model
         return $prefix . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
 
-    // Relationships
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
@@ -107,12 +100,12 @@ class Client extends Model
 
     public function contacts(): HasMany
     {
-        return $this->hasMany(ClientContact:: class);
+        return $this->hasMany(ClientContact::class);
     }
 
     public function bankAccounts(): HasMany
     {
-        return $this->hasMany(ClientBankAccount:: class);
+        return $this->hasMany(ClientBankAccount::class);
     }
 
     public function documents(): HasMany
@@ -135,7 +128,16 @@ class Client extends Model
         return $this->hasMany(Contract::class);
     }
 
-    // Scopes
+    public function arInvoices(): HasMany
+    {
+        return $this->hasMany(ARInvoice::class);
+    }
+
+    public function arReceipts(): HasMany
+    {
+        return $this->hasMany(ARReceipt::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
@@ -178,7 +180,6 @@ class Client extends Model
         });
     }
 
-    // Accessors
     public function getPrimaryContactAttribute()
     {
         return $this->contacts()->where('is_primary', true)->first();

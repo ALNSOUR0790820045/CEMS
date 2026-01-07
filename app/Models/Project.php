@@ -113,7 +113,7 @@ class Project extends Model
         'original_duration_days' => 'integer',
         'approved_extension_days' => 'integer',
         'contract_value' => 'decimal: 2',
-        'original_contract_value' => 'decimal:2',
+        'original_contract_value' => 'decimal: 2',
         'approved_variations' => 'decimal:2',
         'revised_contract_value' => 'decimal:2',
         'budget' => 'decimal:2',
@@ -298,6 +298,16 @@ class Project extends Model
         return $this->hasMany(ApInvoiceItem:: class);
     }
 
+    public function ipcs(): HasMany
+    {
+        return $this->hasMany(IPC::class);
+    }
+
+    public function arInvoices(): HasMany
+    {
+        return $this->hasMany(ARInvoice::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
@@ -339,13 +349,13 @@ class Project extends Model
 
     public function getContractDurationAttribute()
     {
-        return $this->contract_duration_days ??  $this->original_duration_days;
+        return $this->contract_duration_days ?? $this->original_duration_days;
     }
 
     public function getIsOverdueAttribute()
     {
         $endDate = $this->contract_end_date ?? $this->end_date;
-        if (! $endDate) return false;
+        if (!$endDate) return false;
         $isCompleted = in_array($this->project_status ??  $this->status, ['completed', 'closed', 'handed_over', 'final_handover']);
         return Carbon::parse($endDate)->isPast() && !$isCompleted;
     }
