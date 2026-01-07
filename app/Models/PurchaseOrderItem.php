@@ -19,10 +19,8 @@ class PurchaseOrderItem extends Model
         'tax_percentage',
         'tax_amount',
         'total_price',
-        'total_amount',
         'quantity_received',
         'quantity_invoiced',
-        'received_quantity',
         'delivery_date',
         'notes',
     ];
@@ -35,10 +33,8 @@ class PurchaseOrderItem extends Model
         'tax_percentage' => 'decimal:2',
         'tax_amount' => 'decimal:2',
         'total_price' => 'decimal:2',
-        'total_amount' => 'decimal:2',
         'quantity_received' => 'decimal:2',
         'quantity_invoiced' => 'decimal:2',
-        'received_quantity' => 'decimal:2',
         'delivery_date' => 'date',
     ];
 

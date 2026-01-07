@@ -38,7 +38,7 @@ use App\Http\Controllers\Api\PoReceiptController;
 use App\Http\Controllers\Api\PoAmendmentController;
 use App\Http\Controllers\Api\PoReportController;
 
-Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
