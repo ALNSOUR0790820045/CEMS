@@ -49,9 +49,9 @@ class MaterialRequestTest extends TestCase
         $this->project = Project::create([
             'name' => 'Test Project',
             'project_code' => 'PROJ001',
-            'client_id' => \App\Models\Client::factory()->create(['company_id' => $this->company->id])->id,
+            'client_id' => \App\Models\Client::factory()->create()->id,
             'contract_value' => 1000000,
-            'contract_currency_id' => \App\Models\Currency::factory()->create(['company_id' => $this->company->id])->id,
+            'contract_currency_id' => \App\Models\Currency::factory()->create()->id,
             'contract_start_date' => now(),
             'contract_end_date' => now()->addMonths(12),
             'contract_duration_days' => 365,
@@ -63,7 +63,6 @@ class MaterialRequestTest extends TestCase
 
         $this->unit = Unit::create([
             'name' => 'Piece',
-            'code' => 'PC',
             'symbol' => 'pc',
             'is_active' => true,
         ]);
@@ -72,7 +71,7 @@ class MaterialRequestTest extends TestCase
             'name' => 'Test Material',
             'code' => 'MAT001',
             'unit' => 'piece',
-            'unit_price' => 100,
+            'standard_cost' => 100,
             'company_id' => $this->company->id,
             'is_active' => true,
         ]);
@@ -80,7 +79,7 @@ class MaterialRequestTest extends TestCase
         $this->warehouse = Warehouse::create([
             'name' => 'Main Warehouse',
             'code' => 'WH001',
-            'location' => 'Test Location',
+            'address' => 'Test Location',
             'company_id' => $this->company->id,
             'is_active' => true,
         ]);
