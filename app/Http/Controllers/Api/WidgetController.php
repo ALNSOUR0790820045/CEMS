@@ -14,7 +14,10 @@ class WidgetController extends Controller
      */
     public function index(Request $request)
     {
-        $query = DashboardWidget::with(['dashboard']);
+        $query = DashboardWidget::with(['dashboard'])
+            ->whereHas('dashboard', function($q) use ($request) {
+                $q->where('company_id', $request->user()->company_id);
+            });
 
         if ($request->has('dashboard_id')) {
             $query->where('dashboard_id', $request->dashboard_id);
@@ -79,9 +82,14 @@ class WidgetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DashboardWidget $widget)
+    public function show(Request $request, DashboardWidget $widget)
     {
+        // Check if widget belongs to user's company
         $widget->load('dashboard');
+        if ($widget->dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        
         return response()->json($widget);
     }
 
@@ -90,6 +98,12 @@ class WidgetController extends Controller
      */
     public function update(Request $request, DashboardWidget $widget)
     {
+        // Check if widget belongs to user's company
+        $widget->load('dashboard');
+        if ($widget->dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'widget_type' => 'sometimes|required|in:chart,kpi,table,counter,gauge',
             'title' => 'sometimes|required|string|max:255',
@@ -129,8 +143,14 @@ class WidgetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DashboardWidget $widget)
+    public function destroy(Request $request, DashboardWidget $widget)
     {
+        // Check if widget belongs to user's company
+        $widget->load('dashboard');
+        if ($widget->dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $widget->delete();
         return response()->json(['message' => 'Widget deleted successfully']);
     }
@@ -138,8 +158,14 @@ class WidgetController extends Controller
     /**
      * Get widget data based on its data source.
      */
-    public function getData(DashboardWidget $widget)
+    public function getData(Request $request, DashboardWidget $widget)
     {
+        // Check if widget belongs to user's company
+        $widget->load('dashboard');
+        if ($widget->dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         // This would be implemented based on the data_source field
         // For now, returning a simple response
         return response()->json([
@@ -153,8 +179,14 @@ class WidgetController extends Controller
     /**
      * Refresh widget data.
      */
-    public function refresh(DashboardWidget $widget)
+    public function refresh(Request $request, DashboardWidget $widget)
     {
+        // Check if widget belongs to user's company
+        $widget->load('dashboard');
+        if ($widget->dashboard->company_id !== $request->user()->company_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         // This would trigger a refresh of the widget's data
         // For now, returning a simple response
         return response()->json([
