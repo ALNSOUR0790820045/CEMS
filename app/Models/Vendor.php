@@ -11,6 +11,7 @@ class Vendor extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'vendor_code',
         'name',
         'code',
         'email',
@@ -18,6 +19,7 @@ class Vendor extends Model
         'address',
         'contact_person',
         'tax_number',
+        'payment_terms',
         'is_active',
         'company_id',
     ];
@@ -26,18 +28,9 @@ class Vendor extends Model
         'is_active' => 'boolean',
     ];
 
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function purchaseOrders()
-    {
-        return $this->hasMany(PurchaseOrder::class);
-    }
-
-    public function grns()
-    {
-        return $this->hasMany(GRN::class);
-    }
+    public function company() { return $this->belongsTo(Company::class); }
+    public function purchaseOrders() { return $this->hasMany(PurchaseOrder::class); }
+    public function grns() { return $this->hasMany(GRN:: class); }
+    public function apInvoices() { return $this->hasMany(ApInvoice:: class); }
+    public function apPayments() { return $this->hasMany(ApPayment::class); }
 }
