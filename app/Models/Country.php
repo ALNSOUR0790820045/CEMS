@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class Country extends Model
 {
     protected $fillable = [
-        'country_id',
+        'code',
         'name',
         'name_en',
+        'phone_code',
         'is_active',
     ];
 
@@ -18,9 +19,9 @@ class City extends Model
     ];
 
     // Relationships
-    public function country()
+    public function cities()
     {
-        return $this->belongsTo(Country::class);
+        return $this->hasMany(City::class);
     }
 
     public function clients()
@@ -37,10 +38,5 @@ class City extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function scopeByCountry($query, $countryId)
-    {
-        return $query->where('country_id', $countryId);
     }
 }

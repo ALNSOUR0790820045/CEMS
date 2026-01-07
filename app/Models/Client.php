@@ -13,17 +13,20 @@ class Client extends Model
     protected $fillable = [
         'name',
         'name_en',
+        'client_code',
         'email',
         'phone',
-        'address',
-        'city',
-        'country',
-        'contact_person',
         'commercial_registration',
         'tax_number',
+        'address',
+        'city_id',
+        'country_id',
+        'client_type',
+        'contact_person',
         'type',
-        'is_active',
         'notes',
+        'is_active',
+        'company_id',
     ];
 
     protected $casts = [
@@ -31,6 +34,21 @@ class Client extends Model
     ];
 
     // Relationships
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function tenders(): HasMany
     {
         return $this->hasMany(Tender::class);
@@ -44,5 +62,16 @@ class Client extends Model
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeByType($query, $type)
+    {
+        return $query->where('client_type', $type);
     }
 }

@@ -4,13 +4,14 @@
 /storage/*.key
 /storage/framework/views/*.php
 /vendor
-.env
+. env
 .env.backup
-.phpunit.result.cache
+. phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
+/. idea
 /.vscode
-database/database.sqlite
+/database/*.sqlite
+/database/*.sqlite-journal

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->text('address')->nullable();
             $table->string('city', 100)->nullable();
-            $table->string('country', 2)->default('JO');
+            $table->string('country', 2)->default('SA');
             $table->string('logo')->nullable();
             $table->boolean('is_active')->default(true);
             $table->date('established_date')->nullable();

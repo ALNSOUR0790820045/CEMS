@@ -294,7 +294,8 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>إدارة المشاريع</h4>
-                            <a href="#" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع النشطة</a>
+                            <a href="{{ route('projects.index') }}" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع</a>
+                            <a href="{{ route('clients.index') }}" class="sub-link"><i data-lucide="users"></i> العملاء</a>
                             <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المواقع</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
                             <a href="{{ route('boq.index') }}" class="sub-link"><i data-lucide="file-spreadsheet"></i> جداول الكميات</a>

@@ -6,12 +6,13 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuaranteeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\TenderController;
 use App\Http\Controllers\TenderActivityController;
 use Illuminate\Support\Facades\Route;
 
 // Guest Routes
-Route:: middleware('guest')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 });
@@ -24,7 +25,7 @@ Route::middleware('auth')->group(function () {
     // Companies Management - with permission middleware
     Route::middleware('permission:companies.view')->group(function () {
         Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
-        Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('companies.show');
+        Route::get('/companies/{company}', [CompanyController:: class, 'show'])->name('companies.show');
     });
     Route::get('/companies/create', [CompanyController::class, 'create'])
         ->name('companies.create')->middleware('permission:companies.create');
@@ -86,7 +87,7 @@ Route::middleware('auth')->group(function () {
         ->name('roles.destroy')->middleware('permission:roles.delete');
     
     // Banks Management
-    Route:: resource('banks', BankController:: class);
+    Route::resource('banks', BankController:: class);
     
     // Guarantees Management
     Route::resource('guarantees', GuaranteeController::class);
@@ -128,14 +129,22 @@ Route::middleware('auth')->group(function () {
     Route::get('tender-activities/{tender}/{id}', [TenderActivityController::class, 'show'])->name('tender-activities.show');
     Route::delete('tenders/{tender}/activities/{id}', [TenderActivityController::class, 'destroy'])->name('tender-activities.destroy');
     
-    // Projects Management
+    // Clients Management (من PR #33)
+    Route::resource('clients', ClientController::class);
+    
+    // Projects Management (دمج الاثنين)
     Route::resource('projects', ProjectController::class);
+    
+    // من PR #33
+    Route::get('/api/projects/generate-code', [ProjectController::class, 'generateCode'])->name('projects.generate-code');
+    
+    // من main
     Route::get('/projects/{project}/dashboard', [ProjectController::class, 'dashboard'])->name('projects.dashboard');
     Route::get('/projects/{project}/progress', [ProjectController::class, 'progress'])->name('projects.progress');
     Route::post('/projects/{project}/progress', [ProjectController::class, 'storeProgress'])->name('projects.progress.store');
-    Route::get('/projects/{project}/team', [ProjectController:: class, 'team'])->name('projects.team');
+    Route::get('/projects/{project}/team', [ProjectController::class, 'team'])->name('projects.team');
     Route::get('/projects/{project}/milestones', [ProjectController::class, 'milestones'])->name('projects.milestones');
-    Route::get('/projects/{project}/issues', [ProjectController:: class, 'issues'])->name('projects.issues');
+    Route::get('/projects/{project}/issues', [ProjectController::class, 'issues'])->name('projects.issues');
     Route::get('/portfolio', [ProjectController::class, 'portfolio'])->name('projects.portfolio');
     Route::get('/api/projects/statistics', [ProjectController::class, 'statistics'])->name('projects.statistics');
     
