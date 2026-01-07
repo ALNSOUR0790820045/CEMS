@@ -1,4 +1,4 @@
-<? php
+<?php
 
 namespace App\Models;
 
@@ -12,7 +12,6 @@ class Project extends Model
 {
     use SoftDeletes;
 
-    // Project Status Constants
     const STATUS_PLANNING = 'planning';
     const STATUS_ACTIVE = 'active';
     const STATUS_ON_HOLD = 'on_hold';
@@ -113,10 +112,10 @@ class Project extends Model
         'contract_duration_days' => 'integer',
         'original_duration_days' => 'integer',
         'approved_extension_days' => 'integer',
-        'contract_value' => 'decimal:2',
+        'contract_value' => 'decimal: 2',
         'original_contract_value' => 'decimal:2',
-        'approved_variations' => 'decimal: 2',
-        'revised_contract_value' => 'decimal: 2',
+        'approved_variations' => 'decimal:2',
+        'revised_contract_value' => 'decimal:2',
         'budget' => 'decimal:2',
         'actual_cost' => 'decimal:2',
         'advance_payment_percentage' => 'decimal:2',
@@ -129,12 +128,11 @@ class Project extends Model
         'latitude' => 'decimal:8',
         'longitude' => 'decimal:8',
         'gps_latitude' => 'decimal:8',
-        'gps_longitude' => 'decimal: 8',
+        'gps_longitude' => 'decimal:8',
         'is_active' => 'boolean',
         'is_billable' => 'boolean',
     ];
 
-    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
@@ -227,7 +225,7 @@ class Project extends Model
 
     public function team(): HasMany
     {
-        return $this->hasMany(ProjectTeam:: class);
+        return $this->hasMany(ProjectTeam::class);
     }
 
     public function phases(): HasMany
@@ -267,7 +265,7 @@ class Project extends Model
 
     public function inventoryTransactions(): HasMany
     {
-        return $this->hasMany(InventoryTransaction:: class);
+        return $this->hasMany(InventoryTransaction::class);
     }
 
     public function transactions(): HasMany
@@ -290,7 +288,16 @@ class Project extends Model
         return $this->hasMany(CostCenter::class);
     }
 
-    // Scopes
+    public function apInvoices(): HasMany
+    {
+        return $this->hasMany(ApInvoice::class);
+    }
+
+    public function apInvoiceItems(): HasMany
+    {
+        return $this->hasMany(ApInvoiceItem:: class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
@@ -299,8 +306,7 @@ class Project extends Model
     public function scopeByStatus($query, $status)
     {
         return $query->where(function($q) use ($status) {
-            $q->where('project_status', $status)
-              ->orWhere('status', $status);
+            $q->where('project_status', $status)->orWhere('status', $status);
         });
     }
 
@@ -312,12 +318,10 @@ class Project extends Model
     public function scopeByManager($query, $userId)
     {
         return $query->where(function($q) use ($userId) {
-            $q->where('project_manager_id', $userId)
-              ->orWhere('manager_id', $userId);
+            $q->where('project_manager_id', $userId)->orWhere('manager_id', $userId);
         });
     }
 
-    // Accessors
     public function getProgressPercentageAttribute()
     {
         return $this->physical_progress ??  0;
@@ -325,44 +329,30 @@ class Project extends Model
 
     public function getDaysRemainingAttribute()
     {
-        $endDate = $this->contract_end_date ?? $this->end_date;
-        
-        if (! $endDate) {
-            return null;
-        }
-
+        $endDate = $this->contract_end_date ??  $this->end_date;
+        if (!$endDate) return null;
         $today = Carbon::now();
         $end = Carbon::parse($endDate);
-
-        if ($end->isPast()) {
-            return 0;
-        }
-
+        if ($end->isPast()) return 0;
         return $today->diffInDays($end);
     }
 
     public function getContractDurationAttribute()
     {
-        return $this->contract_duration_days ?? $this->original_duration_days;
+        return $this->contract_duration_days ??  $this->original_duration_days;
     }
 
     public function getIsOverdueAttribute()
     {
-        $endDate = $this->contract_end_date ??  $this->end_date;
-        
-        if (!$endDate) {
-            return false;
-        }
-
+        $endDate = $this->contract_end_date ?? $this->end_date;
+        if (! $endDate) return false;
         $isCompleted = in_array($this->project_status ??  $this->status, ['completed', 'closed', 'handed_over', 'final_handover']);
-
         return Carbon::parse($endDate)->isPast() && !$isCompleted;
     }
 
     public function getStatusBadgeAttribute()
     {
         $status = $this->project_status ?? $this->status;
-        
         return match($status) {
             'not_started' => 'gray',
             'mobilization' => 'blue',
@@ -392,24 +382,19 @@ class Project extends Model
         };
     }
 
-    // Static methods
     public static function generateProjectCode()
     {
         $year = date('Y');
         $month = date('m');
-        
-        // Get the last project code for this year-month
         $lastProject = static::whereYear('created_at', $year)
             ->whereMonth('created_at', $month)
             ->orderBy('id', 'desc')
             ->first();
-        
         if ($lastProject && preg_match('/PRJ-(\d{4})-(\d{2})-(\d{4})/', $lastProject->project_code, $matches)) {
             $sequence = intval($matches[3]) + 1;
         } else {
             $sequence = 1;
         }
-        
         return sprintf('PRJ-%s-%s-%04d', $year, $month, $sequence);
     }
 }

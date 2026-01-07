@@ -25,27 +25,60 @@ class CostCenter extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Get the company that owns the cost center.
-     */
+    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    /**
-     * Get the parent cost center.
-     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(CostCenter::class, 'parent_id');
     }
 
-    /**
-     * Get the child cost centers.
-     */
     public function children(): HasMany
     {
         return $this->hasMany(CostCenter::class, 'parent_id');
+    }
+
+    public function apInvoiceItems(): HasMany
+    {
+        return $this->hasMany(ApInvoiceItem::class);
+    }
+
+    public function arInvoiceItems(): HasMany
+    {
+        return $this->hasMany(ArInvoiceItem:: class);
+    }
+
+    public function budgets(): HasMany
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function glTransactions(): HasMany
+    {
+        return $this->hasMany(GLTransaction::class);
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeRoot($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
+    public function scopeByCompany($query, $companyId)
+    {
+        return $query->where('company_id', $companyId);
     }
 }

@@ -54,6 +54,21 @@ class Currency extends Model
         return $this->hasMany(Guarantee::class);
     }
 
+    public function apInvoices(): HasMany
+    {
+        return $this->hasMany(ApInvoice::class);
+    }
+
+    public function apPayments(): HasMany
+    {
+        return $this->hasMany(ApPayment::class);
+    }
+
+    public function bankAccounts(): HasMany
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {
