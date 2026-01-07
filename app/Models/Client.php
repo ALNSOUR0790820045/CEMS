@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
 {
@@ -17,11 +17,14 @@ class Client extends Model
         'name_en',
         'client_type',
         'client_category',
+        'type',
         'commercial_registration',
         'tax_number',
         'license_number',
         'country',
         'city',
+        'country_id',
+        'city_id',
         'address',
         'po_box',
         'postal_code',
@@ -34,6 +37,7 @@ class Client extends Model
         'primary_contact_title',
         'primary_contact_phone',
         'primary_contact_email',
+        'contact_person',
         'payment_terms',
         'credit_limit',
         'currency',
@@ -50,11 +54,11 @@ class Client extends Model
     ];
 
     /**
-     * Boot the model.
+     * Boot the model. 
      */
     protected static function boot()
     {
-        parent::boot();
+        parent::  boot();
 
         static::creating(function ($client) {
             if (empty($client->client_code)) {
@@ -86,6 +90,21 @@ class Client extends Model
     }
 
     // Relationships
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function contacts(): HasMany
     {
         return $this->hasMany(ClientContact::class);
@@ -101,9 +120,19 @@ class Client extends Model
         return $this->hasMany(ClientDocument::class);
     }
 
-    public function company(): BelongsTo
+    public function tenders(): HasMany
     {
-        return $this->belongsTo(Company::class);
+        return $this->hasMany(Tender::class);
+    }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
     }
 
     // Scopes
@@ -127,14 +156,14 @@ class Client extends Model
         return $query->where('rating', $rating);
     }
 
-    public function scopeByCountry($query, $country)
+    public function scopeByCountry($query, $countryId)
     {
-        return $query->where('country', $country);
+        return $query->where('country_id', $countryId);
     }
 
-    public function scopeByCity($query, $city)
+    public function scopeByCity($query, $cityId)
     {
-        return $query->where('city', $city);
+        return $query->where('city_id', $cityId);
     }
 
     public function scopeSearch($query, $search)
