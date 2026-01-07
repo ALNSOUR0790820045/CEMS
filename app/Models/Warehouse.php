@@ -18,6 +18,7 @@ class Warehouse extends Model
         'warehouse_code',
         'warehouse_name',
         'warehouse_type',
+        'location',
         'address',
         'city',
         'country',
@@ -32,34 +33,11 @@ class Warehouse extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function manager(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'manager_id');
-    }
-
-    public function inventoryBalances(): HasMany
-    {
-        return $this->hasMany(InventoryBalance::class);
-    }
-
-    public function inventoryTransactions(): HasMany
-    {
-        return $this->hasMany(InventoryTransaction:: class);
-    }
-
-    public function locations(): HasMany
-    {
-        return $this->hasMany(WarehouseLocation::class);
-    }
-
-    public function stock(): HasMany
-    {
-        return $this->hasMany(WarehouseStock::class);
-    }
+    public function company(): BelongsTo { return $this->belongsTo(Company::class); }
+    public function manager(): BelongsTo { return $this->belongsTo(User::class, 'manager_id'); }
+    public function grns(): HasMany { return $this->hasMany(GRN::class); }
+    public function inventoryBalances(): HasMany { return $this->hasMany(InventoryBalance::class); }
+    public function inventoryTransactions(): HasMany { return $this->hasMany(InventoryTransaction::class); }
+    public function locations(): HasMany { return $this->hasMany(WarehouseLocation:: class); }
+    public function stock(): HasMany { return $this->hasMany(WarehouseStock::class); }
 }

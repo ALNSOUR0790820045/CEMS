@@ -15,6 +15,9 @@ class InventoryTransaction extends Model
         'warehouse_id',
         'quantity',
         'unit_cost',
+        'unit_price',
+        'batch_number',
+        'expiry_date',
         'reference_type',
         'reference_id',
         'from_warehouse_id',
@@ -22,19 +25,22 @@ class InventoryTransaction extends Model
         'project_id',
         'notes',
         'company_id',
+        'created_by',
         'created_by_id',
     ];
 
     protected $casts = [
         'transaction_date' => 'date',
+        'expiry_date' => 'date',
         'quantity' => 'decimal:2',
         'unit_cost' => 'decimal:2',
+        'unit_price' => 'decimal: 2',
         'total_value' => 'decimal:2',
     ];
 
     protected static function boot()
     {
-        parent::boot();
+        parent:: boot();
 
         static::creating(function ($transaction) {
             if (empty($transaction->transaction_number)) {
@@ -62,7 +68,7 @@ class InventoryTransaction extends Model
 
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company:: class);
     }
 
     public function material(): BelongsTo
@@ -88,6 +94,11 @@ class InventoryTransaction extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function createdBy(): BelongsTo

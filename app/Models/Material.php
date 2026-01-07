@@ -18,6 +18,7 @@ class Material extends Model
         'description',
         'unit',
         'category',
+        'unit_price',
         'standard_cost',
         'reorder_level',
         'minimum_stock',
@@ -30,17 +31,27 @@ class Material extends Model
     ];
 
     protected $casts = [
+        'unit_price' => 'decimal:2',
         'standard_cost' => 'decimal:2',
         'reorder_level' => 'decimal:2',
         'minimum_stock' => 'decimal:2',
-        'maximum_stock' => 'decimal:2',
+        'maximum_stock' => 'decimal: 2',
         'is_active' => 'boolean',
     ];
 
-    // Relationships
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company:: class);
+    }
+
+    public function purchaseOrderItems(): HasMany
+    {
+        return $this->hasMany(PurchaseOrderItem::class);
+    }
+
+    public function grnItems(): HasMany
+    {
+        return $this->hasMany(GRNItem:: class);
     }
 
     public function inventoryBalances(): HasMany
