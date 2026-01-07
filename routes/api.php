@@ -38,7 +38,7 @@ use App\Http\Controllers\Api\PettyCashAccountController;
 use App\Http\Controllers\Api\PettyCashTransactionController;
 use App\Http\Controllers\Api\PettyCashReplenishmentController;
 
-Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
