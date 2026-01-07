@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->text('description')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('cost_centers')->nullOnDelete();
+            $table->enum('type', ['project', 'department', 'overhead', 'administrative'])->default('project');
             $table->boolean('is_active')->default(true);
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
