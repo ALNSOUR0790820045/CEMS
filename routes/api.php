@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\StockTransferController;
+use App\Http\Controllers\Api\InventoryReportController;
 use App\Http\Controllers\PayrollPeriodController;
 use App\Http\Controllers\PayrollEntryController;
 use App\Http\Controllers\EmployeeLoanController;
@@ -28,11 +31,11 @@ use App\Http\Controllers\Api\BranchController;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group.   Make something great!
+| be assigned to the "api" middleware group.  Make something great!
 |
 */
 
-Route::middleware('auth:  sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -42,31 +45,31 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('permission: manage-roles')->group(function () {
         Route::get('/roles', [RoleController::class, 'index']);
         Route::post('/roles', [RoleController::class, 'store']);
-        Route::get('/roles/{id}', [RoleController::   class, 'show']);
+        Route::get('/roles/{id}', [RoleController::class, 'show']);
         Route::put('/roles/{id}', [RoleController::class, 'update']);
         Route::post('/roles/{id}/permissions', [RoleController::class, 'assignPermissions']);
     });
 
     // Permissions Management (requires permission)
     Route::middleware('permission:manage-permissions')->group(function () {
-        Route::get('/permissions', [PermissionController::class, 'index']);
+        Route::get('/permissions', [PermissionController:: class, 'index']);
         Route::post('/permissions', [PermissionController::class, 'store']);
     });
 
     // User Role Assignment (requires permission)
-    Route::middleware('permission:   assign-roles')->group(function () {
+    Route::middleware('permission:assign-roles')->group(function () {
         Route::post('/users/{id}/assign-role', [UserRoleController::class, 'assignRole']);
     });
 
     // Documents Management API
-    Route::prefix('documents')->group(function () {
+    Route:: prefix('documents')->group(function () {
         Route::get('/', [DocumentController::class, 'index']);
         Route::post('/', [DocumentController::class, 'store']);
-        Route::get('/search', [DocumentController::   class, 'search']);
+        Route::get('/search', [DocumentController::class, 'search']);
         Route::get('/{document}', [DocumentController::class, 'show']);
-        Route::put('/{document}', [DocumentController::    class, 'update']);
+        Route::put('/{document}', [DocumentController::class, 'update']);
         Route::patch('/{document}', [DocumentController::class, 'update']);
-        Route::delete('/{document}', [DocumentController::   class, 'destroy']);
+        Route::delete('/{document}', [DocumentController::class, 'destroy']);
         Route::post('/{document}/upload-version', [DocumentController::class, 'uploadVersion']);
         Route::get('/{document}/versions', [DocumentController::class, 'versions']);
         Route::post('/{document}/grant-access', [DocumentController::class, 'grantAccess']);
@@ -76,28 +79,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route:: apiResource('warehouses', WarehouseController::class);
     Route::apiResource('warehouse-locations', WarehouseLocationController:: class);
     
-    Route::get('warehouse-stock', [WarehouseStockController::   class, 'index']);
+    Route::get('warehouse-stock', [WarehouseStockController::class, 'index']);
     Route::get('warehouse-stock/availability', [WarehouseStockController::class, 'availability']);
     Route::post('warehouse-stock/transfer', [WarehouseStockController::class, 'transfer']);
     
     // Branch Management API
-    Route::    apiResource('branches', BranchController::class);
+    Route::apiResource('branches', BranchController::class);
     Route::get('branches/{branch}/users', [BranchController::class, 'users']);
     
     // Employee Management API
-    Route::   prefix('employees')->group(function () {
-        Route::get('/', [EmployeeController:: class, 'index']);
-        Route::post('/', [EmployeeController::class, 'store']);
+    Route::prefix('employees')->group(function () {
+        Route::get('/', [EmployeeController::class, 'index']);
+        Route::post('/', [EmployeeController:: class, 'store']);
         Route::get('/{id}', [EmployeeController::class, 'show']);
         Route::put('/{id}', [EmployeeController::class, 'update']);
         Route::delete('/{id}', [EmployeeController::class, 'destroy']);
     });
     
     // Attendance Management API
-    Route::prefix('attendance')->group(function () {
-        Route::get('/', [AttendanceController::  class, 'index']);
+    Route:: prefix('attendance')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index']);
         Route::post('/', [AttendanceController::class, 'store']);
-        Route::get('/{id}', [AttendanceController::class, 'show']);
+        Route::get('/{id}', [AttendanceController:: class, 'show']);
         Route::put('/{id}', [AttendanceController::class, 'update']);
         Route::delete('/{id}', [AttendanceController::class, 'destroy']);
         Route::post('/check-in', [AttendanceController::class, 'checkIn']);
@@ -108,21 +111,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('leave-requests')->group(function () {
         Route::get('/', [LeaveRequestController::class, 'index']);
         Route::post('/', [LeaveRequestController::class, 'store']);
-        Route::get('/{id}', [LeaveRequestController::   class, 'show']);
+        Route::get('/{id}', [LeaveRequestController::class, 'show']);
         Route::put('/{id}', [LeaveRequestController::class, 'update']);
         Route::delete('/{id}', [LeaveRequestController::class, 'destroy']);
         Route::post('/{id}/approve', [LeaveRequestController::class, 'approve']);
         Route::post('/{id}/reject', [LeaveRequestController::class, 'reject']);
-        Route::post('/{id}/cancel', [LeaveRequestController::class, 'cancel']);
+        Route::post('/{id}/cancel', [LeaveRequestController:: class, 'cancel']);
     });
 
     // Shift Schedule Management API
     Route::prefix('shift-schedules')->group(function () {
-        Route::get('/', [ShiftScheduleController::    class, 'index']);
+        Route::get('/', [ShiftScheduleController::class, 'index']);
         Route::post('/', [ShiftScheduleController::class, 'store']);
         Route::get('/{id}', [ShiftScheduleController::class, 'show']);
         Route::put('/{id}', [ShiftScheduleController::class, 'update']);
-        Route::delete('/{id}', [ShiftScheduleController::class, 'destroy']);
+        Route::delete('/{id}', [ShiftScheduleController:: class, 'destroy']);
     });
 
     // Reports API
@@ -146,13 +149,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/variation-orders/{variationOrder}', [VariationOrderController::class, 'destroy']);
     
     // Workflow actions
-    Route::post('/variation-orders/{variationOrder}/submit', [VariationOrderController:: class, 'submit']);
+    Route::post('/variation-orders/{variationOrder}/submit', [VariationOrderController::class, 'submit']);
     Route::post('/variation-orders/{variationOrder}/approve', [VariationOrderController::class, 'approve']);
-    Route::post('/variation-orders/{variationOrder}/reject', [VariationOrderController::class, 'reject']);
-    Route::get('/variation-orders/{variationOrder}/export', [VariationOrderController:: class, 'export']);
+    Route::post('/variation-orders/{variationOrder}/reject', [VariationOrderController:: class, 'reject']);
+    Route::get('/variation-orders/{variationOrder}/export', [VariationOrderController::class, 'export']);
     
     // Project-specific routes
-    Route::get('/projects/{project}/variation-orders', [VariationOrderController::class, 'byProject']);
+    Route:: get('/projects/{project}/variation-orders', [VariationOrderController::class, 'byProject']);
 
     // Payroll Periods
     Route::apiResource('payroll-periods', PayrollPeriodController::class);
@@ -170,4 +173,23 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // WPS Export
     Route::post('payroll/wps-export', [WpsExportController::class, 'export']);
     Route::post('payroll/bank-transfer-list', [WpsExportController:: class, 'generateBankTransferList']);
+
+    // Inventory Management
+    Route::get('/inventory/balance', [InventoryController::class, 'getBalance']);
+    Route::get('/inventory/transactions', [InventoryController::class, 'getTransactions']);
+    Route::post('/inventory/transactions', [InventoryController::class, 'createTransaction']);
+
+    // Stock Transfers
+    Route::get('/stock-transfers', [StockTransferController::class, 'index']);
+    Route::post('/stock-transfers', [StockTransferController::class, 'store']);
+    Route::get('/stock-transfers/{id}', [StockTransferController::class, 'show']);
+    Route::post('/stock-transfers/{id}/approve', [StockTransferController:: class, 'approve']);
+    Route::post('/stock-transfers/{id}/receive', [StockTransferController:: class, 'receive']);
+    Route::post('/stock-transfers/{id}/cancel', [StockTransferController::class, 'cancel']);
+
+    // Inventory Reports
+    Route::get('/inventory/reports/valuation', [InventoryReportController::class, 'valuation']);
+    Route::get('/inventory/reports/stock-status', [InventoryReportController::class, 'stockStatus']);
+    Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
+    Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 });

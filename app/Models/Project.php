@@ -79,25 +79,25 @@ class Project extends Model
         'end_date' => 'date',
         'original_duration_days' => 'integer',
         'approved_extension_days' => 'integer',
-        'original_contract_value' => 'decimal:   2',
+        'original_contract_value' => 'decimal:2',
         'approved_variations' => 'decimal: 2',
-        'revised_contract_value' => 'decimal:  2',
+        'revised_contract_value' => 'decimal: 2',
         'budget' => 'decimal:2',
         'advance_payment_percentage' => 'decimal:2',
         'advance_payment_amount' => 'decimal:2',
-        'retention_percentage' => 'decimal: 2',
-        'performance_bond_percentage' => 'decimal: 2',
-        'physical_progress' => 'decimal:2',
+        'retention_percentage' => 'decimal:2',
+        'performance_bond_percentage' => 'decimal:2',
+        'physical_progress' => 'decimal: 2',
         'financial_progress' => 'decimal:2',
         'time_progress' => 'decimal:2',
-        'latitude' => 'decimal:8',
+        'latitude' => 'decimal: 8',
         'longitude' => 'decimal:8',
     ];
 
     // Relationships
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company:: class);
     }
 
     public function client(): BelongsTo
@@ -132,12 +132,12 @@ class Project extends Model
 
     public function quantitySurveyor(): BelongsTo
     {
-        return $this->belongsTo(User:: class, 'quantity_surveyor_id');
+        return $this->belongsTo(User::class, 'quantity_surveyor_id');
     }
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User:: class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function performanceBond(): BelongsTo
@@ -147,7 +147,7 @@ class Project extends Model
 
     public function advanceBond(): BelongsTo
     {
-        return $this->belongsTo(Guarantee::class, 'advance_bond_id');
+        return $this->belongsTo(Guarantee:: class, 'advance_bond_id');
     }
 
     public function guarantees(): HasMany
@@ -162,12 +162,12 @@ class Project extends Model
 
     public function phases(): HasMany
     {
-        return $this->hasMany(ProjectPhase::   class);
+        return $this->hasMany(ProjectPhase::class);
     }
 
     public function milestones(): HasMany
     {
-        return $this->hasMany(ProjectMilestone::  class);
+        return $this->hasMany(ProjectMilestone::class);
     }
 
     public function progressReports(): HasMany
@@ -182,12 +182,12 @@ class Project extends Model
 
     public function variationOrders(): HasMany
     {
-        return $this->hasMany(VariationOrder:: class);
+        return $this->hasMany(VariationOrder::class);
     }
 
     public function boqItems(): HasMany
     {
-        return $this->hasMany(BoqItem::  class);
+        return $this->hasMany(BoqItem::class);
     }
 
     public function claims(): HasMany
@@ -195,7 +195,12 @@ class Project extends Model
         return $this->hasMany(Claim::class);
     }
 
-    // Accessor for project status badge color
+    public function inventoryTransactions(): HasMany
+    {
+        return $this->hasMany(InventoryTransaction::class);
+    }
+
+    // Accessors
     public function getStatusBadgeAttribute()
     {
         return match($this->status) {
@@ -213,7 +218,6 @@ class Project extends Model
         };
     }
 
-    // Accessor for health badge color
     public function getHealthBadgeAttribute()
     {
         return match($this->health) {
