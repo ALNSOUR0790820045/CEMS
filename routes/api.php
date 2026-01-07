@@ -33,6 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
+use App\Http\Controllers\Api\BankAccountController;
+use App\Http\Controllers\Api\BankStatementController;
+use App\Http\Controllers\Api\BankReconciliationController;
+use App\Http\Controllers\Api\BankReportController;
 
 Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -253,4 +257,27 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+
+    // Bank Accounts
+    Route::apiResource('bank-accounts', BankAccountController::class);
+    Route::get('bank-accounts/{bankAccount}/balance', [BankAccountController::class, 'balance']);
+    Route::get('bank-accounts/{bankAccount}/transactions', [BankAccountController::class, 'transactions']);
+
+    // Bank Statements
+    Route::apiResource('bank-statements', BankStatementController::class);
+    Route::post('bank-statements/import', [BankStatementController::class, 'import']);
+    Route::post('bank-statements/{bankStatement}/auto-match', [BankStatementController::class, 'autoMatch']);
+
+    // Bank Reconciliations
+    Route::apiResource('bank-reconciliations', BankReconciliationController::class);
+    Route::post('bank-reconciliations/{bankReconciliation}/match-item', [BankReconciliationController::class, 'matchItem']);
+    Route::post('bank-reconciliations/{bankReconciliation}/unmatch-item', [BankReconciliationController::class, 'unmatchItem']);
+    Route::post('bank-reconciliations/{bankReconciliation}/complete', [BankReconciliationController::class, 'complete']);
+    Route::post('bank-reconciliations/{bankReconciliation}/approve', [BankReconciliationController::class, 'approve']);
+
+    // Bank Reports
+    Route::get('reports/bank-reconciliation-report', [BankReportController::class, 'reconciliationReport']);
+    Route::get('reports/outstanding-checks', [BankReportController::class, 'outstandingChecks']);
+    Route::get('reports/deposits-in-transit', [BankReportController::class, 'depositsInTransit']);
+    Route::get('reports/bank-book', [BankReportController::class, 'bankBook']);
 });
