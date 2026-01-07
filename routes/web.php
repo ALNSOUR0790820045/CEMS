@@ -1,4 +1,4 @@
-<?  php
+<? php
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankController;
@@ -10,6 +10,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClientContactController;
 use App\Http\Controllers\ClientBankAccountController;
 use App\Http\Controllers\ClientDocumentController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\TenderController;
 use App\Http\Controllers\TenderActivityController;
 use Illuminate\Support\Facades\Route;
@@ -33,32 +34,32 @@ Route::middleware('auth')->group(function () {
     Route::get('/companies/create', [CompanyController::class, 'create'])
         ->name('companies.create')->middleware('permission:companies.create');
     Route::post('/companies', [CompanyController::class, 'store'])
-        ->name('companies. store')->middleware('permission:companies. create');
+        ->name('companies.store')->middleware('permission:companies.create');
     Route::get('/companies/{company}/edit', [CompanyController::class, 'edit'])
-        ->name('companies. edit')->middleware('permission:companies. edit');
+        ->name('companies.edit')->middleware('permission:companies.edit');
     Route::put('/companies/{company}', [CompanyController::class, 'update'])
         ->name('companies.update')->middleware('permission:companies.edit');
     Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])
         ->name('companies.destroy')->middleware('permission:companies.delete');
     
     // Branches Management - with permission middleware
-    Route::middleware('permission:  branches.view')->group(function () {
+    Route::middleware('permission:branches.view')->group(function () {
         Route::get('/branches', [\App\Http\Controllers\BranchController::class, 'index'])->name('branches.index');
         Route::get('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'show'])->name('branches.show');
     });
     Route::get('/branches/create', [\App\Http\Controllers\BranchController:: class, 'create'])
         ->name('branches.create')->middleware('permission:branches.create');
     Route::post('/branches', [\App\Http\Controllers\BranchController::class, 'store'])
-        ->name('branches. store')->middleware('permission:branches. create');
+        ->name('branches.store')->middleware('permission:branches.create');
     Route::get('/branches/{branch}/edit', [\App\Http\Controllers\BranchController::class, 'edit'])
-        ->name('branches. edit')->middleware('permission:branches. edit');
+        ->name('branches.edit')->middleware('permission:branches.edit');
     Route::put('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'update'])
         ->name('branches. update')->middleware('permission:branches. edit');
     Route::delete('/branches/{branch}', [\App\Http\Controllers\BranchController::class, 'destroy'])
         ->name('branches.destroy')->middleware('permission:branches.delete');
     
     // Users Management - with permission middleware
-    Route:: middleware('permission:users.view')->group(function () {
+    Route::middleware('permission:users.view')->group(function () {
         Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('users.show');
     });
@@ -94,20 +95,20 @@ Route::middleware('auth')->group(function () {
     
     // Guarantees Management
     Route::resource('guarantees', GuaranteeController::class);
-    Route::post('guarantees/{guarantee}/approve', [GuaranteeController:: class, 'approve'])->name('guarantees.approve');
+    Route::post('guarantees/{guarantee}/approve', [GuaranteeController::class, 'approve'])->name('guarantees.approve');
     Route::get('guarantees/{guarantee}/renew', [GuaranteeController::class, 'showRenewForm'])->name('guarantees.renew');
-    Route::post('guarantees/{guarantee}/renew', [GuaranteeController::class, 'renew'])->name('guarantees.renew.store');
-    Route::get('guarantees/{guarantee}/release', [GuaranteeController::class, 'showReleaseForm'])->name('guarantees.release');
-    Route::post('guarantees/{guarantee}/release', [GuaranteeController::class, 'release'])->name('guarantees.release.store');
+    Route::post('guarantees/{guarantee}/renew', [GuaranteeController:: class, 'renew'])->name('guarantees.renew. store');
+    Route::get('guarantees/{guarantee}/release', [GuaranteeController:: class, 'showReleaseForm'])->name('guarantees.release');
+    Route::post('guarantees/{guarantee}/release', [GuaranteeController:: class, 'release'])->name('guarantees.release.store');
     
     // Guarantees Reports & Statistics
-    Route::get('guarantees-expiring', [GuaranteeController::class, 'expiring'])->name('guarantees.expiring');
+    Route::get('guarantees-expiring', [GuaranteeController:: class, 'expiring'])->name('guarantees.expiring');
     Route::get('guarantees-statistics', [GuaranteeController::class, 'statistics'])->name('guarantees.statistics');
     Route::get('guarantees-reports', [GuaranteeController:: class, 'reports'])->name('guarantees.reports');
     
     // Tenders Management
     Route::resource('tenders', TenderController::class);
-    Route::post('tenders/{tender}/go-decision', [TenderController:: class, 'goDecision'])->name('tenders.go-decision');
+    Route::post('tenders/{tender}/go-decision', [TenderController::class, 'goDecision'])->name('tenders.go-decision');
     Route::post('tenders/{tender}/submit', [TenderController::class, 'submit'])->name('tenders.submit');
     Route::post('tenders/{tender}/result', [TenderController::class, 'result'])->name('tenders.result');
     Route::post('tenders/{tender}/convert', [TenderController::class, 'convert'])->name('tenders.convert');
@@ -118,19 +119,19 @@ Route::middleware('auth')->group(function () {
     
     // Tender Activities Management
     Route::prefix('tenders/{tender}')->group(function () {
-        Route::get('activities', [TenderActivityController:: class, 'index'])->name('tender-activities.index');
+        Route::get('activities', [TenderActivityController::class, 'index'])->name('tender-activities.index');
         Route::get('activities/create', [TenderActivityController::class, 'create'])->name('tender-activities.create');
         Route::post('activities', [TenderActivityController::class, 'store'])->name('tender-activities.store');
         Route::get('activities/gantt', [TenderActivityController:: class, 'gantt'])->name('tender-activities.gantt');
-        Route::get('activities/cpm-analysis', [TenderActivityController::class, 'cpmAnalysis'])->name('tender-activities.cpm-analysis');
+        Route::get('activities/cpm-analysis', [TenderActivityController:: class, 'cpmAnalysis'])->name('tender-activities. cpm-analysis');
         Route::post('activities/recalculate-cpm', [TenderActivityController::class, 'recalculateCPM'])->name('tender-activities.recalculate-cpm');
     });
     
     // Tender Activities - Edit & Update (without tender prefix)
     Route::get('tender-activities/{id}/edit', [TenderActivityController::class, 'edit'])->name('tender-activities.edit');
-    Route::put('tender-activities/{id}', [TenderActivityController::class, 'update'])->name('tender-activities.  update');
+    Route::put('tender-activities/{id}', [TenderActivityController::class, 'update'])->name('tender-activities. update');
     Route::get('tender-activities/{tender}/{id}', [TenderActivityController:: class, 'show'])->name('tender-activities.show');
-    Route::delete('tenders/{tender}/activities/{id}', [TenderActivityController:: class, 'destroy'])->name('tender-activities.destroy');
+    Route::delete('tenders/{tender}/activities/{id}', [TenderActivityController::class, 'destroy'])->name('tender-activities. destroy');
     
     // Clients Management (Main CRUD)
     Route::resource('clients', ClientController::class);
@@ -149,13 +150,18 @@ Route::middleware('auth')->group(function () {
     Route::post('clients/{client}/bank-accounts', [ClientBankAccountController::class, 'store'])->name('clients.bank-accounts.store');
     Route::put('clients/{client}/bank-accounts/{bankAccount}', [ClientBankAccountController::class, 'update'])->name('clients.bank-accounts.update');
     Route::delete('clients/{client}/bank-accounts/{bankAccount}', [ClientBankAccountController::class, 'destroy'])->name('clients.bank-accounts.destroy');
-    Route::post('clients/{client}/bank-accounts/{bankAccount}/primary', [ClientBankAccountController::class, 'setPrimary'])->name('clients.bank-accounts. primary');
+    Route::post('clients/{client}/bank-accounts/{bankAccount}/primary', [ClientBankAccountController:: class, 'setPrimary'])->name('clients.bank-accounts.primary');
     
     // Client Documents (Nested Resources)
-    Route::get('clients/{client}/documents', [ClientDocumentController:: class, 'index'])->name('clients.documents.index');
+    Route::get('clients/{client}/documents', [ClientDocumentController::class, 'index'])->name('clients.documents.index');
     Route::post('clients/{client}/documents', [ClientDocumentController::class, 'store'])->name('clients.documents.store');
-    Route::get('clients/{client}/documents/{document}/download', [ClientDocumentController::class, 'download'])->name('clients.documents.download');
-    Route::delete('clients/{client}/documents/{document}', [ClientDocumentController::class, 'destroy'])->name('clients.documents. destroy');
+    Route::get('clients/{client}/documents/{document}/download', [ClientDocumentController:: class, 'download'])->name('clients.documents.download');
+    Route::delete('clients/{client}/documents/{document}', [ClientDocumentController::class, 'destroy'])->name('clients.documents.destroy');
+    
+    // Contracts Management (PR #36)
+    Route::resource('contracts', ContractController::class);
+    Route::post('contracts/{contract}/clone', [ContractController::class, 'clone'])->name('contracts.clone');
+    Route::get('contracts/generate-code', [ContractController::class, 'generateCode'])->name('contracts.generate-code');
     
     // Projects Management
     Route::resource('projects', ProjectController::class);
@@ -187,7 +193,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('variation-orders', \App\Http\Controllers\VariationOrderController::class);
     Route::post('variation-orders/{variationOrder}/submit', [\App\Http\Controllers\VariationOrderController::class, 'submit'])->name('variation-orders.submit');
     Route::post('variation-orders/{variationOrder}/approve', [\App\Http\Controllers\VariationOrderController::class, 'approve'])->name('variation-orders.approve');
-    Route::post('variation-orders/{variationOrder}/reject', [\App\Http\Controllers\VariationOrderController::class, 'reject'])->name('variation-orders.  reject');
+    Route::post('variation-orders/{variationOrder}/reject', [\App\Http\Controllers\VariationOrderController::class, 'reject'])->name('variation-orders.reject');
     Route::get('variation-orders/{variationOrder}/export', [\App\Http\Controllers\VariationOrderController::class, 'export'])->name('variation-orders.export');
     
     // Claims Management

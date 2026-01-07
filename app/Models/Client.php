@@ -58,7 +58,7 @@ class Client extends Model
      */
     protected static function boot()
     {
-        parent::  boot();
+        parent::boot();
 
         static::creating(function ($client) {
             if (empty($client->client_code)) {
@@ -75,7 +75,7 @@ class Client extends Model
         $year = date('Y');
         $prefix = "CLT-{$year}-";
         
-        $lastClient = static::where('client_code', 'like', $prefix . '%')
+        $lastClient = static:: where('client_code', 'like', $prefix . '%')
             ->orderBy('client_code', 'desc')
             ->first();
         
@@ -107,12 +107,12 @@ class Client extends Model
 
     public function contacts(): HasMany
     {
-        return $this->hasMany(ClientContact::class);
+        return $this->hasMany(ClientContact:: class);
     }
 
     public function bankAccounts(): HasMany
     {
-        return $this->hasMany(ClientBankAccount::class);
+        return $this->hasMany(ClientBankAccount:: class);
     }
 
     public function documents(): HasMany
