@@ -1,21 +1,26 @@
-﻿/node_modules
+/node_modules
 /public/hot
 /public/storage
-/storage/*. key
+/storage/*.key
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/views
 /vendor
 . env
-.env.backup
-. phpunit.result.cache
+.env. backup
+.phpunit.result.cache
 Homestead.json
-Homestead. yaml
+Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode
+/. idea
+/. vscode
+/database/*. sqlite
+/database/*.sqlite-journal
 
 # Backups - exclude backup files but keep directory structure
-storage/app/backups/database/*.sql
-storage/app/backups/database/*.sql.gz
-storage/app/backups/files/*.zip
-*.sql
+storage/app/backups/database/*. sql
+storage/app/backups/database/*. sql.gz
+storage/app/backups/files/*. zip
+*. sql
 *.sql.gz
