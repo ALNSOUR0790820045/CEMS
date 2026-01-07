@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class ComplianceCheck extends Model
@@ -100,7 +101,7 @@ class ComplianceCheck extends Model
     // Methods
     public static function generateCheckNumber()
     {
-        return \DB::transaction(function () {
+        return DB::transaction(function () {
             $year = Carbon::now()->year;
             $lastCheck = self::whereYear('created_at', $year)
                 ->latest('id')

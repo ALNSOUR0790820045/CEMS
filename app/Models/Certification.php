@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class Certification extends Model
@@ -169,7 +170,7 @@ class Certification extends Model
     // Methods
     public static function generateCertificationNumber()
     {
-        return \DB::transaction(function () {
+        return DB::transaction(function () {
             $year = Carbon::now()->year;
             $lastCertification = self::whereYear('created_at', $year)
                 ->latest('id')
@@ -184,7 +185,7 @@ class Certification extends Model
 
     public function renew($newExpiryDate, $cost = null, $processedBy = null, $notes = null)
     {
-        return \DB::transaction(function () use ($newExpiryDate, $cost, $processedBy, $notes) {
+        return DB::transaction(function () use ($newExpiryDate, $cost, $processedBy, $notes) {
             // Create renewal record
             $renewal = CertificationRenewal::create([
                 'renewal_number' => CertificationRenewal::generateRenewalNumber(),

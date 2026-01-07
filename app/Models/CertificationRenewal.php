@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class CertificationRenewal extends Model
@@ -40,7 +41,7 @@ class CertificationRenewal extends Model
     // Methods
     public static function generateRenewalNumber()
     {
-        return \DB::transaction(function () {
+        return DB::transaction(function () {
             $year = Carbon::now()->year;
             $lastRenewal = self::whereYear('created_at', $year)
                 ->latest('id')
