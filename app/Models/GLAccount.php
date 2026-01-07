@@ -45,67 +45,94 @@ class GLAccount extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Get the company that owns the account.
-     */
+    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    /**
-     * Get the currency for the account.
-     */
     public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
     }
 
-    /**
-     * Get the parent account.
-     */
     public function parentAccount(): BelongsTo
     {
         return $this->belongsTo(GLAccount::class, 'parent_account_id');
     }
 
-    /**
-     * Get the child accounts.
-     */
     public function childAccounts(): HasMany
     {
         return $this->hasMany(GLAccount::class, 'parent_account_id');
     }
 
-    /**
-     * Get the journal entry lines for this account.
-     */
     public function journalEntryLines(): HasMany
     {
-        return $this->hasMany(GLJournalEntryLine::class);
+        return $this->hasMany(GLJournalEntryLine::class, 'account_id');
     }
 
-    /**
-     * Scope to filter by account type.
-     */
-    public function scopeByType($query, $type)
+    public function transactions(): HasMany
     {
-        return $query->where('account_type', $type);
+        return $this->hasMany(GLTransaction::class, 'account_id');
     }
 
-    /**
-     * Scope to filter active accounts.
-     */
+    public function revenueContracts(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'gl_revenue_account_id');
+    }
+
+    public function receivableContracts(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'gl_receivable_account_id');
+    }
+
+    // Scopes
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    /**
-     * Scope to filter accounts that allow posting.
-     */
+    public function scopeByType($query, $type)
+    {
+        return $query->where('account_type', $type);
+    }
+
+    public function scopeByCategory($query, $category)
+    {
+        return $query->where('account_category', $category);
+    }
+
     public function scopeAllowsPosting($query)
     {
         return $query->where('allow_posting', true);
+    }
+
+    public function scopeMainAccounts($query)
+    {
+        return $query->where('is_main_account', true);
+    }
+
+    public function scopeControlAccounts($query)
+    {
+        return $query->where('is_control_account', true);
+    }
+
+    public function scopeByLevel($query, $level)
+    {
+        return $query->where('account_level', $level);
+    }
+
+    // Accessors
+    public function getFullAccountCodeAttribute()
+    {
+        if ($this->parentAccount) {
+            return $this->parentAccount->full_account_code . '-' . $this->account_code;
+        }
+        return $this->account_code;
+    }
+
+    public function getBalanceAttribute()
+    {
+        return $this->current_balance ??  $this->opening_balance ??  0;
     }
 }

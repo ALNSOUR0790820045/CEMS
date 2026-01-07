@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Currency extends Model
@@ -27,11 +28,40 @@ class Currency extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Get the company that owns the currency.
-     */
+    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function glAccounts(): HasMany
+    {
+        return $this->hasMany(GLAccount::class);
+    }
+
+    public function guarantees(): HasMany
+    {
+        return $this->hasMany(Guarantee::class);
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeBase($query)
+    {
+        return $query->where('is_base', true);
     }
 }
