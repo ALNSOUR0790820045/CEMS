@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Material extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'code',
@@ -21,6 +22,9 @@ class Material extends Model
         'reorder_level',
         'minimum_stock',
         'maximum_stock',
+        'material_code',
+        'material_name',
+        'unit_of_measure',
         'is_active',
         'company_id',
     ];
@@ -33,6 +37,7 @@ class Material extends Model
         'is_active' => 'boolean',
     ];
 
+    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
@@ -46,5 +51,10 @@ class Material extends Model
     public function inventoryTransactions(): HasMany
     {
         return $this->hasMany(InventoryTransaction::class);
+    }
+
+    public function warehouseStock(): HasMany
+    {
+        return $this->hasMany(WarehouseStock::class);
     }
 }
