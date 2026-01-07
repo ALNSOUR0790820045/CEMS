@@ -10,7 +10,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'مدير النظام',
             'email' => 'admin@cems.local',
             'password' => Hash::make('password'),
@@ -18,5 +18,8 @@ class UserSeeder extends Seeder
             'employee_id' => 'EMP001',
             'is_active' => true,
         ]);
+
+        // Assign Super Admin role to the default user
+        $user->assignRole('Super Admin');
     }
 }
