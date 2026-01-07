@@ -33,6 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
+use App\Http\Controllers\Api\CertificationController;
+use App\Http\Controllers\Api\ComplianceRequirementController;
+use App\Http\Controllers\Api\ComplianceCheckController;
+use App\Http\Controllers\Api\ComplianceReportController;
 
 Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -253,4 +257,27 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+
+    // Certifications
+    Route::prefix('certifications')->group(function () {
+        Route::get('/expiring', [CertificationController::class, 'expiring']);
+        Route::get('/expired', [CertificationController::class, 'expired']);
+        Route::post('/{id}/renew', [CertificationController::class, 'renew']);
+    });
+    Route::apiResource('certifications', CertificationController::class);
+
+    // Compliance Requirements
+    Route::apiResource('compliance-requirements', ComplianceRequirementController::class);
+
+    // Compliance Checks
+    Route::prefix('compliance-checks')->group(function () {
+        Route::post('/{id}/pass', [ComplianceCheckController::class, 'pass']);
+        Route::post('/{id}/fail', [ComplianceCheckController::class, 'fail']);
+    });
+    Route::apiResource('compliance-checks', ComplianceCheckController::class);
+
+    // Compliance Reports
+    Route::get('/reports/certification-register', [ComplianceReportController::class, 'certificationRegister']);
+    Route::get('/reports/compliance-status', [ComplianceReportController::class, 'complianceStatus']);
+    Route::get('/reports/expiry-calendar', [ComplianceReportController::class, 'expiryCalendar']);
 });
