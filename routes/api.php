@@ -6,13 +6,13 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\Api\PhotoAlbumController;
-use App\Http\Controllers\Api\PhotoController;
-use App\Http\Controllers\Api\PhotoAnnotationController;
-use App\Http\Controllers\Api\PhotoComparisonController;
-use App\Http\Controllers\Api\PhotoReportController;
-use App\Http\Controllers\Api\PhotoTagController;
-use App\Http\Controllers\Api\PhotoLocationController;
+use App\Http\Controllers\Api\PunchListController;
+use App\Http\Controllers\Api\PunchItemController;
+use App\Http\Controllers\Api\PunchCommentController;
+use App\Http\Controllers\Api\PunchTemplateController;
+use App\Http\Controllers\Api\PunchCategoryController;
+use App\Http\Controllers\Api\PunchReportController;
+use App\Http\Controllers\Api\PunchDashboardController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -27,47 +27,55 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Photo Albums
-    Route::apiResource('photo-albums', PhotoAlbumController::class);
-    Route::get('photo-albums/project/{projectId}', [PhotoAlbumController::class, 'byProject']);
-    Route::post('photo-albums/{id}/set-cover', [PhotoAlbumController::class, 'setCover']);
+    // Punch Lists
+    Route::apiResource('punch-lists', PunchListController::class);
+    Route::get('punch-lists/project/{projectId}', [PunchListController::class, 'byProject']);
+    Route::post('punch-lists/{id}/issue', [PunchListController::class, 'issue']);
+    Route::post('punch-lists/{id}/verify', [PunchListController::class, 'verify']);
+    Route::post('punch-lists/{id}/close', [PunchListController::class, 'close']);
+    Route::get('punch-lists/{id}/pdf', [PunchListController::class, 'generatePdf']);
+    Route::post('punch-lists/{id}/send-notification', [PunchListController::class, 'sendNotification']);
 
-    // Photos
-    Route::apiResource('photos', PhotoController::class);
-    Route::get('photos/project/{projectId}', [PhotoController::class, 'byProject']);
-    Route::get('photos/album/{albumId}', [PhotoController::class, 'byAlbum']);
-    Route::post('photos/upload', [PhotoController::class, 'upload']);
-    Route::post('photos/bulk-upload', [PhotoController::class, 'bulkUpload']);
-    Route::post('photos/{id}/approve', [PhotoController::class, 'approve']);
-    Route::post('photos/{id}/feature', [PhotoController::class, 'toggleFeatured']);
-    Route::get('photos/search', [PhotoController::class, 'search']);
-    Route::get('photos/by-location', [PhotoController::class, 'byLocation']);
-    Route::get('photos/by-date-range', [PhotoController::class, 'byDateRange']);
-    Route::get('photos/by-tag/{tag}', [PhotoController::class, 'byTag']);
-    Route::post('photos/{id}/download', [PhotoController::class, 'download']);
-    Route::post('photos/bulk-download', [PhotoController::class, 'bulkDownload']);
+    // Punch Items
+    Route::apiResource('punch-items', PunchItemController::class);
+    Route::get('punch-items/list/{listId}', [PunchItemController::class, 'byList']);
+    Route::post('punch-items/{id}/assign', [PunchItemController::class, 'assign']);
+    Route::post('punch-items/{id}/complete', [PunchItemController::class, 'complete']);
+    Route::post('punch-items/{id}/verify', [PunchItemController::class, 'verify']);
+    Route::post('punch-items/{id}/reject', [PunchItemController::class, 'reject']);
+    Route::post('punch-items/{id}/reopen', [PunchItemController::class, 'reopen']);
+    Route::post('punch-items/{id}/photos', [PunchItemController::class, 'uploadPhotos']);
+    Route::post('punch-items/{id}/completion-photos', [PunchItemController::class, 'uploadCompletionPhotos']);
+    Route::post('punch-items/bulk-update', [PunchItemController::class, 'bulkUpdate']);
+    Route::post('punch-items/bulk-assign', [PunchItemController::class, 'bulkAssign']);
+    Route::get('punch-items/{itemId}/history', [PunchItemController::class, 'history']);
 
-    // Annotations
-    Route::get('photos/{photoId}/annotations', [PhotoAnnotationController::class, 'byPhoto']);
-    Route::post('photos/{photoId}/annotations', [PhotoAnnotationController::class, 'store']);
-    Route::put('photo-annotations/{id}', [PhotoAnnotationController::class, 'update']);
-    Route::delete('photo-annotations/{id}', [PhotoAnnotationController::class, 'destroy']);
+    // Comments
+    Route::get('punch-items/{itemId}/comments', [PunchCommentController::class, 'byItem']);
+    Route::post('punch-items/{itemId}/comments', [PunchCommentController::class, 'store']);
 
-    // Comparisons
-    Route::apiResource('photo-comparisons', PhotoComparisonController::class);
-    Route::get('photo-comparisons/project/{projectId}', [PhotoComparisonController::class, 'byProject']);
+    // Templates
+    Route::apiResource('punch-templates', PunchTemplateController::class);
+    Route::post('punch-lists/{listId}/apply-template/{templateId}', [PunchTemplateController::class, 'applyTemplate']);
 
-    // Photo Reports
-    Route::apiResource('photo-reports', PhotoReportController::class);
-    Route::post('photo-reports/{id}/add-photos', [PhotoReportController::class, 'addPhotos']);
-    Route::post('photo-reports/{id}/generate-pdf', [PhotoReportController::class, 'generatePdf']);
-    Route::post('photo-reports/{id}/publish', [PhotoReportController::class, 'publish']);
+    // Categories
+    Route::apiResource('punch-categories', PunchCategoryController::class);
+    Route::get('punch-categories/tree', [PunchCategoryController::class, 'tree']);
 
-    // Tags
-    Route::apiResource('photo-tags', PhotoTagController::class);
-    Route::get('photo-tags/popular', [PhotoTagController::class, 'popular']);
+    // Dashboard
+    Route::get('punch-dashboard/project/{projectId}', [PunchDashboardController::class, 'projectDashboard']);
+    Route::get('punch-dashboard/summary/{projectId}', [PunchDashboardController::class, 'summary']);
+    Route::get('punch-dashboard/by-discipline/{projectId}', [PunchDashboardController::class, 'byDiscipline']);
+    Route::get('punch-dashboard/by-contractor/{projectId}', [PunchDashboardController::class, 'byContractor']);
+    Route::get('punch-dashboard/by-location/{projectId}', [PunchDashboardController::class, 'byLocation']);
+    Route::get('punch-dashboard/aging/{projectId}', [PunchDashboardController::class, 'aging']);
+    Route::get('punch-dashboard/trend/{projectId}', [PunchDashboardController::class, 'trend']);
 
-    // Locations
-    Route::apiResource('photo-locations', PhotoLocationController::class);
-    Route::get('photo-locations/project/{projectId}', [PhotoLocationController::class, 'byProject']);
+    // Reports
+    Route::get('reports/punch-summary/{projectId}', [PunchReportController::class, 'summary']);
+    Route::get('reports/punch-detailed/{projectId}', [PunchReportController::class, 'detailed']);
+    Route::get('reports/punch-by-contractor/{projectId}', [PunchReportController::class, 'byContractor']);
+    Route::get('reports/punch-overdue/{projectId}', [PunchReportController::class, 'overdue']);
+    Route::get('reports/punch-statistics/{projectId}', [PunchReportController::class, 'statistics']);
+    Route::post('reports/punch-export/{projectId}', [PunchReportController::class, 'export']);
 });
