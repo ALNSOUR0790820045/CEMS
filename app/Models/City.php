@@ -7,25 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $fillable = [
-        'country_id',
         'name',
         'name_en',
-        'is_active',
-    ];
-
-    protected $casts = [
-        'is_active' => 'boolean',
+        'country_code',
     ];
 
     // Relationships
-    public function country()
+    public function branches()
     {
-        return $this->belongsTo(Country::class);
+        return $this->hasMany(Branch::class);
     }
 
-    // Scopes
-    public function scopeActive($query)
+    public function warehouses()
     {
-        return $query->where('is_active', true);
+        return $this->hasMany(Warehouse::class);
     }
 }

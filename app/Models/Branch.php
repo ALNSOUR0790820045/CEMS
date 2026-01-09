@@ -11,9 +11,9 @@ class Branch extends Model
         'name',
         'name_en',
         'code',
-        'city',
-        'address',
         'phone',
+        'address',
+        'city_id',
         'is_active',
     ];
 
@@ -27,9 +27,14 @@ class Branch extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function departments()
+    public function city()
     {
-        return $this->hasMany(Department::class);
+        return $this->belongsTo(City::class);
+    }
+
+    public function warehouses()
+    {
+        return $this->hasMany(Warehouse::class);
     }
 
     // Scopes

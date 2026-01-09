@@ -2,69 +2,63 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Warehouse extends Model
 {
-    use HasFactory, SoftDeletes;
-
     protected $fillable = [
+        'company_id',
+        'branch_id',
         'code',
         'name',
-        'warehouse_code',
-        'warehouse_name',
-        'warehouse_type',
-        'location',
-        'address',
-        'city',
-        'country',
-        'phone',
+        'name_en',
         'manager_id',
-        'manager_name',
+        'phone',
+        'address',
+        'city_id',
+        'is_main',
         'is_active',
-        'company_id',
     ];
 
     protected $casts = [
+        'is_main' => 'boolean',
         'is_active' => 'boolean',
     ];
 
-    public function company(): BelongsTo
+    // Relationships
+    public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function manager(): BelongsTo
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function manager()
     {
         return $this->belongsTo(User::class, 'manager_id');
     }
 
-    public function grns(): HasMany
+    public function city()
     {
-        return $this->hasMany(GRN::class);
+        return $this->belongsTo(City::class);
     }
 
-    public function inventoryBalances(): HasMany
+    public function stockMovements()
     {
-        return $this->hasMany(InventoryBalance::class);
+        return $this->hasMany(StockMovement::class);
     }
 
-    public function inventoryTransactions(): HasMany
+    // Scopes
+    public function scopeActive($query)
     {
-        return $this->hasMany(InventoryTransaction::class);
+        return $query->where('is_active', true);
     }
 
-    public function locations(): HasMany
+    public function scopeMain($query)
     {
-        return $this->hasMany(WarehouseLocation::class);
-    }
-
-    public function stock(): HasMany
-    {
-        return $this->hasMany(WarehouseStock::class);
+        return $query->where('is_main', true);
     }
 }

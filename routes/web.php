@@ -18,8 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Countries Management
-    Route::resource('countries', \App\Http\Controllers\CountryController::class);
+    // Warehouses Management
+    Route::resource('warehouses', \App\Http\Controllers\WarehouseController::class);
 });
