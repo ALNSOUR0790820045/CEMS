@@ -33,16 +33,13 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
-use App\Http\Controllers\Api\FixedAssetController;
-use App\Http\Controllers\Api\AssetCategoryController;
-use App\Http\Controllers\Api\AssetDepreciationController;
-use App\Http\Controllers\Api\AssetDisposalController;
-use App\Http\Controllers\Api\AssetMaintenanceController;
-use App\Http\Controllers\Api\AssetTransferController;
-use App\Http\Controllers\Api\AssetRevaluationController;
-use App\Http\Controllers\Api\AssetReportController;
+use App\Http\Controllers\Api\CashAccountController;
+use App\Http\Controllers\Api\CashTransactionController;
+use App\Http\Controllers\Api\CashTransferController;
+use App\Http\Controllers\Api\CashForecastController;
+use App\Http\Controllers\Api\CashReportController;
 
-Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -262,46 +259,32 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Fixed Assets
-    Route::apiResource('fixed-assets', FixedAssetController::class);
-    Route::get('fixed-assets/{id}/history', [FixedAssetController::class, 'history']);
-    Route::get('fixed-assets/{id}/depreciation-schedule', [FixedAssetController::class, 'depreciationSchedule']);
-    Route::post('fixed-assets/{id}/calculate-depreciation', [FixedAssetController::class, 'calculateDepreciation']);
+    // Cash Accounts
+    Route::apiResource('cash-accounts', CashAccountController::class);
+    Route::get('cash-accounts/{id}/balance', [CashAccountController::class, 'balance']);
+    Route::get('cash-accounts/{id}/statement', [CashAccountController::class, 'statement']);
+    Route::get('cash-accounts/{id}/transactions', [CashAccountController::class, 'transactions']);
 
-    // Asset Categories
-    Route::apiResource('asset-categories', AssetCategoryController::class);
+    // Cash Transactions
+    Route::apiResource('cash-transactions', CashTransactionController::class);
+    Route::post('cash-transactions/{id}/post', [CashTransactionController::class, 'post']);
+    Route::post('cash-transactions/{id}/cancel', [CashTransactionController::class, 'cancel']);
 
-    // Depreciation
-    Route::get('asset-depreciations', [AssetDepreciationController::class, 'index']);
-    Route::post('asset-depreciations/run-monthly', [AssetDepreciationController::class, 'runMonthly']);
-    Route::post('asset-depreciations/post', [AssetDepreciationController::class, 'post']);
-    Route::get('asset-depreciations/preview', [AssetDepreciationController::class, 'preview']);
+    // Cash Transfers
+    Route::apiResource('cash-transfers', CashTransferController::class);
+    Route::post('cash-transfers/{id}/approve', [CashTransferController::class, 'approve']);
+    Route::post('cash-transfers/{id}/complete', [CashTransferController::class, 'complete']);
+    Route::post('cash-transfers/{id}/cancel', [CashTransferController::class, 'cancel']);
 
-    // Disposals
-    Route::apiResource('asset-disposals', AssetDisposalController::class);
-    Route::post('asset-disposals/{id}/approve', [AssetDisposalController::class, 'approve']);
-    Route::post('asset-disposals/{id}/complete', [AssetDisposalController::class, 'complete']);
+    // Cash Forecasts
+    Route::apiResource('cash-forecasts', CashForecastController::class);
+    Route::get('cash-forecasts-summary', [CashForecastController::class, 'summary']);
 
-    // Maintenance
-    Route::apiResource('asset-maintenances', AssetMaintenanceController::class);
-    Route::get('asset-maintenances/scheduled', [AssetMaintenanceController::class, 'scheduled']);
-    Route::post('asset-maintenances/{id}/complete', [AssetMaintenanceController::class, 'complete']);
-
-    // Transfers
-    Route::apiResource('asset-transfers', AssetTransferController::class);
-    Route::post('asset-transfers/{id}/approve', [AssetTransferController::class, 'approve']);
-    Route::post('asset-transfers/{id}/complete', [AssetTransferController::class, 'complete']);
-
-    // Revaluations
-    Route::apiResource('asset-revaluations', AssetRevaluationController::class);
-    Route::post('asset-revaluations/{id}/approve', [AssetRevaluationController::class, 'approve']);
-    Route::post('asset-revaluations/{id}/post', [AssetRevaluationController::class, 'post']);
-
-    // Asset Reports
-    Route::get('reports/asset-register', [AssetReportController::class, 'assetRegister']);
-    Route::get('reports/depreciation-schedule', [AssetReportController::class, 'depreciationSchedule']);
-    Route::get('reports/asset-valuation', [AssetReportController::class, 'assetValuation']);
-    Route::get('reports/asset-movement', [AssetReportController::class, 'assetMovement']);
-    Route::get('reports/maintenance-schedule', [AssetReportController::class, 'maintenanceSchedule']);
-    Route::get('reports/disposal-report', [AssetReportController::class, 'disposalReport']);
+    // Cash Reports
+    Route::get('daily-cash-positions', [CashReportController::class, 'dailyPositions']);
+    Route::post('daily-cash-positions/reconcile', [CashReportController::class, 'reconcile']);
+    Route::get('reports/cash-flow-statement', [CashReportController::class, 'cashFlowStatement']);
+    Route::get('reports/cash-position', [CashReportController::class, 'cashPosition']);
+    Route::get('reports/cash-forecast', [CashReportController::class, 'cashForecast']);
+    Route::get('reports/cash-movement', [CashReportController::class, 'cashMovement']);
 });

@@ -2,21 +2,42 @@
 
 namespace Database\Factories;
 
-use App\Models\Currency;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Currency>
+ */
 class CurrencyFactory extends Factory
 {
-    protected $model = Currency::class;
-
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
-            'code' => fake()->unique()->currencyCode(),
-            'name' => fake()->word(),
-            'symbol' => fake()->randomElement(['$', '€', '£', '¥']),
-            'exchange_rate' => fake()->randomFloat(4, 0.5, 1.5),
+            'code' => strtoupper(fake()->unique()->currencyCode()),
+            'name' => fake()->currencyCode() . ' Currency',
+            'name_en' => fake()->currencyCode() . ' Currency',
+            'symbol' => fake()->randomElement(['$', '€', '£', 'د.ا', 'ر.س']),
+            'exchange_rate' => fake()->randomFloat(4, 0.5, 5),
+            'is_base' => false,
             'is_active' => true,
         ];
+    }
+
+    public function base()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'code' => 'JOD',
+                'name' => 'Jordanian Dinar',
+                'name_en' => 'Jordanian Dinar',
+                'symbol' => 'د.ا',
+                'exchange_rate' => 1.0000,
+                'is_base' => true,
+            ];
+        });
     }
 }
