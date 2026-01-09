@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
-            
+
             // Auth::user()->updateLastLogin();  ← احذف أو علّق هذا السطر
 
             return redirect()->intended(route('dashboard'));
@@ -35,7 +35,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth:: logout();
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
