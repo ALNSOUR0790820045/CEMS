@@ -81,7 +81,7 @@ Individual punch items/defects.
 - `punch_list_id`: Foreign key to punch_lists
 - `category`: defect, incomplete, damage, missing, wrong
 - `severity`: minor, major, critical
-- `status`: open, in_progress, completed, verified, rejected, disputed
+- `status`: open, in_progress, completed, verified, rejected
 - `priority`: low, medium, high, urgent
 - `photos`, `completion_photos`: JSON arrays
 - `due_date`, `completed_date`, `verified_date`
