@@ -6,12 +6,12 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\ProjectScheduleController;
-use App\Http\Controllers\ScheduleActivityController;
-use App\Http\Controllers\DependencyController;
-use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\BaselineController;
-use App\Http\Controllers\ScheduleReportController;
+use App\Http\Controllers\Api\InspectionTypeController;
+use App\Http\Controllers\Api\InspectionRequestController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\InspectionActionController;
+use App\Http\Controllers\Api\InspectionTemplateController;
+use App\Http\Controllers\Api\InspectionReportController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -26,43 +26,42 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Project Schedules
-    Route::apiResource('project-schedules', ProjectScheduleController::class);
-    Route::get('project-schedules/project/{projectId}', [ProjectScheduleController::class, 'byProject']);
-    Route::post('project-schedules/{id}/approve', [ProjectScheduleController::class, 'approve']);
-    Route::post('project-schedules/{id}/calculate', [ProjectScheduleController::class, 'calculate']);
-    Route::post('project-schedules/{id}/set-baseline', [ProjectScheduleController::class, 'setBaseline']);
-    Route::get('project-schedules/{id}/gantt', [ProjectScheduleController::class, 'ganttData']);
-    Route::get('project-schedules/{id}/critical-path', [ProjectScheduleController::class, 'criticalPath']);
+    // Inspection Types
+    Route::apiResource('inspection-types', InspectionTypeController::class);
 
-    // Schedule Activities
-    Route::apiResource('schedule-activities', ScheduleActivityController::class);
-    Route::get('schedule-activities/schedule/{scheduleId}', [ScheduleActivityController::class, 'bySchedule']);
-    Route::post('schedule-activities/{id}/update-progress', [ScheduleActivityController::class, 'updateProgress']);
-    Route::post('schedule-activities/bulk-update', [ScheduleActivityController::class, 'bulkUpdate']);
-    Route::post('schedule-activities/import', [ScheduleActivityController::class, 'import']);
+    // Inspection Requests
+    Route::apiResource('inspection-requests', InspectionRequestController::class);
+    Route::get('inspection-requests/project/{projectId}', [InspectionRequestController::class, 'byProject']);
+    Route::post('inspection-requests/{id}/schedule', [InspectionRequestController::class, 'schedule']);
+    Route::post('inspection-requests/{id}/cancel', [InspectionRequestController::class, 'cancel']);
+    Route::post('inspection-requests/{id}/reject', [InspectionRequestController::class, 'reject']);
 
-    // Dependencies
-    Route::get('schedule-activities/{activityId}/predecessors', [DependencyController::class, 'predecessors']);
-    Route::get('schedule-activities/{activityId}/successors', [DependencyController::class, 'successors']);
-    Route::post('schedule-activities/{activityId}/dependencies', [DependencyController::class, 'addDependency']);
-    Route::delete('dependencies/{id}', [DependencyController::class, 'removeDependency']);
+    // Inspections
+    Route::apiResource('inspections', InspectionController::class);
+    Route::get('inspections/project/{projectId}', [InspectionController::class, 'byProject']);
+    Route::get('inspections/{id}/items', [InspectionController::class, 'getItems']);
+    Route::post('inspections/{id}/items', [InspectionController::class, 'saveItems']);
+    Route::post('inspections/{id}/submit', [InspectionController::class, 'submit']);
+    Route::post('inspections/{id}/approve', [InspectionController::class, 'approve']);
+    Route::post('inspections/{id}/reject', [InspectionController::class, 'reject']);
+    Route::post('inspections/{id}/reinspect', [InspectionController::class, 'createReinspection']);
 
-    // Calendars
-    Route::apiResource('schedule-calendars', CalendarController::class);
-    Route::post('schedule-calendars/{id}/exceptions', [CalendarController::class, 'addException']);
+    // Inspection Actions
+    Route::get('inspections/{id}/actions', [InspectionActionController::class, 'byInspection']);
+    Route::post('inspections/{id}/actions', [InspectionActionController::class, 'store']);
+    Route::post('inspection-actions/{id}/complete', [InspectionActionController::class, 'complete']);
+    Route::post('inspection-actions/{id}/verify', [InspectionActionController::class, 'verify']);
 
-    // Baselines
-    Route::get('project-schedules/{scheduleId}/baselines', [BaselineController::class, 'bySchedule']);
-    Route::post('project-schedules/{scheduleId}/baselines', [BaselineController::class, 'create']);
-    Route::get('project-schedules/{scheduleId}/baseline-comparison', [BaselineController::class, 'compare']);
+    // Inspection Templates
+    Route::apiResource('inspection-templates', InspectionTemplateController::class);
+    Route::post('inspection-templates/{id}/duplicate', [InspectionTemplateController::class, 'duplicate']);
+    Route::get('inspection-templates/{id}/items', [InspectionTemplateController::class, 'getItems']);
 
-    // Reports
-    Route::get('reports/schedule-summary/{projectId}', [ScheduleReportController::class, 'summary']);
-    Route::get('reports/critical-activities/{projectId}', [ScheduleReportController::class, 'criticalActivities']);
-    Route::get('reports/schedule-variance/{projectId}', [ScheduleReportController::class, 'variance']);
-    Route::get('reports/look-ahead/{projectId}', [ScheduleReportController::class, 'lookAhead']);
-    Route::get('reports/milestone-status/{projectId}', [ScheduleReportController::class, 'milestoneStatus']);
-    Route::get('reports/resource-histogram/{projectId}', [ScheduleReportController::class, 'resourceHistogram']);
-    Route::get('reports/s-curve/{projectId}', [ScheduleReportController::class, 'sCurve']);
+    // Inspection Reports
+    Route::get('reports/inspection-summary/{projectId}', [InspectionReportController::class, 'summary']);
+    Route::get('reports/inspection-log/{projectId}', [InspectionReportController::class, 'log']);
+    Route::get('reports/pass-rate/{projectId}', [InspectionReportController::class, 'passRate']);
+    Route::get('reports/pending-actions/{projectId}', [InspectionReportController::class, 'pendingActions']);
+    Route::get('reports/inspector-performance', [InspectionReportController::class, 'inspectorPerformance']);
+    Route::get('reports/defect-analysis/{projectId}', [InspectionReportController::class, 'defectAnalysis']);
 });
