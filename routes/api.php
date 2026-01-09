@@ -33,11 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
-use App\Http\Controllers\Api\CashAccountController;
-use App\Http\Controllers\Api\CashTransactionController;
-use App\Http\Controllers\Api\CashTransferController;
-use App\Http\Controllers\Api\CashForecastController;
-use App\Http\Controllers\Api\CashReportController;
+use App\Http\Controllers\Api\PurchaseOrderController;
+use App\Http\Controllers\Api\PoReceiptController;
+use App\Http\Controllers\Api\PoAmendmentController;
+use App\Http\Controllers\Api\PoReportController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -92,6 +91,33 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('grns/{id}/inspect', [GRNController::class, 'inspect']);
     Route::post('grns/{id}/accept', [GRNController::class, 'accept']);
     Route::apiResource('grns', GRNController::class);
+    
+    // Purchase Orders
+    Route::apiResource('purchase-orders', PurchaseOrderController::class);
+    Route::post('purchase-orders/{id}/approve', [PurchaseOrderController::class, 'approve']);
+    Route::post('purchase-orders/{id}/reject', [PurchaseOrderController::class, 'reject']);
+    Route::post('purchase-orders/{id}/send', [PurchaseOrderController::class, 'send']);
+    Route::post('purchase-orders/{id}/cancel', [PurchaseOrderController::class, 'cancel']);
+    Route::post('purchase-orders/{id}/close', [PurchaseOrderController::class, 'close']);
+    Route::get('purchase-orders/{id}/print', [PurchaseOrderController::class, 'print']);
+    Route::get('purchase-orders/{id}/pdf', [PurchaseOrderController::class, 'generatePdf']);
+    Route::post('purchase-orders/create-from-pr/{prId}', [PurchaseOrderController::class, 'createFromPR']);
+
+    // PO Receipts
+    Route::apiResource('po-receipts', PoReceiptController::class);
+    Route::post('po-receipts/{id}/inspect', [PoReceiptController::class, 'inspect']);
+    Route::post('po-receipts/{id}/accept', [PoReceiptController::class, 'accept']);
+
+    // PO Amendments
+    Route::apiResource('po-amendments', PoAmendmentController::class);
+    Route::post('po-amendments/{id}/approve', [PoAmendmentController::class, 'approve']);
+    Route::post('po-amendments/{id}/reject', [PoAmendmentController::class, 'reject']);
+
+    // PO Reports
+    Route::get('reports/po-status', [PoReportController::class, 'statusReport']);
+    Route::get('reports/po-by-vendor', [PoReportController::class, 'byVendor']);
+    Route::get('reports/pending-deliveries', [PoReportController::class, 'pendingDeliveries']);
+    Route::get('reports/po-variance', [PoReportController::class, 'priceVariance']);
     
     // Roles Management
     Route::middleware('permission:manage-roles')->group(function () {
