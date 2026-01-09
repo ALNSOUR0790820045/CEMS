@@ -33,10 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
-use App\Http\Controllers\Api\BankAccountController;
-use App\Http\Controllers\Api\BankStatementController;
-use App\Http\Controllers\Api\BankReconciliationController;
-use App\Http\Controllers\Api\BankReportController;
+use App\Http\Controllers\Api\ExpenseCategoryController;
+use App\Http\Controllers\Api\PettyCashAccountController;
+use App\Http\Controllers\Api\PettyCashTransactionController;
+use App\Http\Controllers\Api\PettyCashReplenishmentController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -285,26 +285,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Bank Accounts
-    Route::apiResource('bank-accounts', BankAccountController::class);
-    Route::get('bank-accounts/{bankAccount}/balance', [BankAccountController::class, 'balance']);
-    Route::get('bank-accounts/{bankAccount}/transactions', [BankAccountController::class, 'transactions']);
+    // Expense Categories
+    Route::apiResource('expense-categories', ExpenseCategoryController::class);
 
-    // Bank Statements
-    Route::apiResource('bank-statements', BankStatementController::class);
-    Route::post('bank-statements/import', [BankStatementController::class, 'import']);
-    Route::post('bank-statements/{bankStatement}/auto-match', [BankStatementController::class, 'autoMatch']);
+    // Petty Cash Accounts
+    Route::apiResource('petty-cash-accounts', PettyCashAccountController::class);
+    Route::get('petty-cash-accounts/{id}/statement', [PettyCashAccountController::class, 'statement']);
+    Route::get('petty-cash-accounts/{id}/balance', [PettyCashAccountController::class, 'balance']);
 
-    // Bank Reconciliations
-    Route::apiResource('bank-reconciliations', BankReconciliationController::class);
-    Route::post('bank-reconciliations/{bankReconciliation}/match-item', [BankReconciliationController::class, 'matchItem']);
-    Route::post('bank-reconciliations/{bankReconciliation}/unmatch-item', [BankReconciliationController::class, 'unmatchItem']);
-    Route::post('bank-reconciliations/{bankReconciliation}/complete', [BankReconciliationController::class, 'complete']);
-    Route::post('bank-reconciliations/{bankReconciliation}/approve', [BankReconciliationController::class, 'approve']);
+    // Petty Cash Transactions
+    Route::apiResource('petty-cash-transactions', PettyCashTransactionController::class);
+    Route::post('petty-cash-transactions/{id}/approve', [PettyCashTransactionController::class, 'approve']);
+    Route::post('petty-cash-transactions/{id}/reject', [PettyCashTransactionController::class, 'reject']);
+    Route::post('petty-cash-transactions/{id}/post', [PettyCashTransactionController::class, 'post']);
 
-    // Bank Reports
-    Route::get('reports/bank-reconciliation-report', [BankReportController::class, 'reconciliationReport']);
-    Route::get('reports/outstanding-checks', [BankReportController::class, 'outstandingChecks']);
-    Route::get('reports/deposits-in-transit', [BankReportController::class, 'depositsInTransit']);
-    Route::get('reports/bank-book', [BankReportController::class, 'bankBook']);
+    // Petty Cash Replenishments
+    Route::apiResource('petty-cash-replenishments', PettyCashReplenishmentController::class);
+    Route::post('petty-cash-replenishments/{id}/approve', [PettyCashReplenishmentController::class, 'approve']);
+    Route::post('petty-cash-replenishments/{id}/complete', [PettyCashReplenishmentController::class, 'complete']);
 });
