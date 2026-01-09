@@ -4,7 +4,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SiteReceiptController;
+use App\Http\Controllers\TenderRiskController;
+use App\Http\Controllers\TenderController;
+use App\Http\Controllers\CompanyController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -18,15 +20,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('companies', CompanyController::class);
     
-    // Tender WBS Management
-    Route::get('/tenders/{tender}/wbs', [\App\Http\Controllers\TenderWbsController::class, 'index'])->name('tender-wbs.index');
-    Route::get('/tenders/{tender}/wbs/create', [\App\Http\Controllers\TenderWbsController::class, 'create'])->name('tender-wbs.create');
-    Route::post('/tenders/{tender}/wbs', [\App\Http\Controllers\TenderWbsController::class, 'store'])->name('tender-wbs.store');
-    Route::get('/tenders/{tender}/wbs/{wbs}/edit', [\App\Http\Controllers\TenderWbsController::class, 'edit'])->name('tender-wbs.edit');
-    Route::put('/tenders/{tender}/wbs/{wbs}', [\App\Http\Controllers\TenderWbsController::class, 'update'])->name('tender-wbs.update');
-    Route::delete('/tenders/{tender}/wbs/{wbs}', [\App\Http\Controllers\TenderWbsController::class, 'destroy'])->name('tender-wbs.destroy');
-    Route::get('/tenders/{tender}/wbs/import', [\App\Http\Controllers\TenderWbsController::class, 'import'])->name('tender-wbs.import');
-    Route::post('/tenders/{tender}/wbs/update-sort', [\App\Http\Controllers\TenderWbsController::class, 'updateSort'])->name('tender-wbs.update-sort');
+    // Tender Management
+    Route::resource('tenders', TenderController::class);
+    
+    // Tender Risk Management
+    Route::prefix('tenders/{tender}/risks')->name('tender-risks.')->group(function () {
+        Route::get('dashboard', [TenderRiskController::class, 'dashboard'])->name('dashboard');
+        Route::get('/', [TenderRiskController::class, 'index'])->name('index');
+        Route::get('create', [TenderRiskController::class, 'create'])->name('create');
+        Route::post('/', [TenderRiskController::class, 'store'])->name('store');
+        Route::get('{risk}/edit', [TenderRiskController::class, 'edit'])->name('edit');
+        Route::put('{risk}', [TenderRiskController::class, 'update'])->name('update');
+        Route::delete('{risk}', [TenderRiskController::class, 'destroy'])->name('destroy');
+        Route::get('matrix', [TenderRiskController::class, 'matrix'])->name('matrix');
+        Route::get('contingency', [TenderRiskController::class, 'contingency'])->name('contingency');
+        Route::post('contingency', [TenderRiskController::class, 'updateContingency'])->name('update-contingency');
+        Route::get('response-plan', [TenderRiskController::class, 'responsePlan'])->name('response-plan');
+    });
 });

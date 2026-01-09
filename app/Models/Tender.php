@@ -3,43 +3,74 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tender extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'company_id',
-        'tender_code',
-        'name',
-        'name_en',
+        'code',
+        'title',
         'description',
-        'status',
-        'total_value',
         'submission_date',
+        'estimated_value',
+        'status',
     ];
 
     protected $casts = [
         'submission_date' => 'date',
-        'total_value' => 'decimal:2',
+        'estimated_value' => 'decimal:2',
     ];
 
     // Relationships
-    public function company()
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function activities()
+    public function risks(): HasMany
     {
-        return $this->hasMany(TenderActivity::class);
+        return $this->hasMany(TenderRisk::class);
     }
 
-    public function resources()
+    public function contingencyReserve(): HasOne
     {
-        return $this->hasMany(TenderResource::class);
+        return $this->hasOne(TenderContingencyReserve::class);
     }
 
-    public function histograms()
+    // Helper methods
+    public function calculateTotalRiskExposure(): float
     {
-        return $this->hasMany(TenderResourceHistogram::class);
+        return $this->risks()
+            ->whereNotNull('cost_impact_expected')
+            ->get()
+            ->sum(function ($risk) {
+                return ($risk->probability_score / 5) * $risk->cost_impact_expected;
+            });
+    }
+
+    public function getCriticalRisksCount(): int
+    {
+        return $this->risks()->where('risk_level', 'critical')->count();
+    }
+
+    public function getHighRisksCount(): int
+    {
+        return $this->risks()->where('risk_level', 'high')->count();
+    }
+
+    public function getMediumRisksCount(): int
+    {
+        return $this->risks()->where('risk_level', 'medium')->count();
+    }
+
+    public function getLowRisksCount(): int
+    {
+        return $this->risks()->where('risk_level', 'low')->count();
     }
 }
