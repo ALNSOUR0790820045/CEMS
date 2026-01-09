@@ -73,10 +73,10 @@ class ContractMilestone extends Model
     // Accessors
     public function getIsDelayedAttribute()
     {
-        if ($this->status === 'completed' || !$this->planned_date) {
+        if ($this->status === 'completed' || ! $this->planned_date) {
             return false;
         }
-        
+
         return \Carbon\Carbon::parse($this->planned_date)->isPast() && $this->status !== 'completed';
     }
 }

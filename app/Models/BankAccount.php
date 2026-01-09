@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BankAccount extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     
     protected $fillable = [
         'user_id',
@@ -21,6 +23,8 @@ class BankAccount extends Model
         'iban',
         'currency_id',
         'balance',
+        'current_balance',
+        'bank_balance',
         'is_active',
         'is_primary',
         'gl_account_id',
@@ -29,13 +33,15 @@ class BankAccount extends Model
 
     protected $casts = [
         'balance' => 'decimal:2',
+        'current_balance' => 'decimal:2',
+        'bank_balance' => 'decimal:2',
         'is_active' => 'boolean',
         'is_primary' => 'boolean',
     ];
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User:: class);
+        return $this->belongsTo(User::class);
     }
 
     public function company(): BelongsTo
@@ -66,6 +72,16 @@ class BankAccount extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function bankStatements(): HasMany
+    {
+        return $this->hasMany(BankStatement::class);
+    }
+
+    public function bankReconciliations(): HasMany
+    {
+        return $this->hasMany(BankReconciliation::class);
     }
 
     public function scopeActive($query)

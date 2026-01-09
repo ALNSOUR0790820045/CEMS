@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GRN extends Model
@@ -41,7 +41,7 @@ class GRN extends Model
         parent::boot();
 
         static::creating(function ($grn) {
-            if (!$grn->grn_number) {
+            if (! $grn->grn_number) {
                 $grn->grn_number = static::generateGRNNumber();
             }
         });
@@ -56,7 +56,7 @@ class GRN extends Model
 
         $nextNumber = $lastGRN ? intval(substr($lastGRN->grn_number, -4)) + 1 : 1;
 
-        return 'GRN-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        return 'GRN-'.$year.'-'.str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
     }
 
     public function purchaseOrder()

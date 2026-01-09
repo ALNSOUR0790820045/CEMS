@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tender extends Model
 {
@@ -94,7 +94,7 @@ class Tender extends Model
     // Relationships
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company:: class);
+        return $this->belongsTo(Company::class);
     }
 
     public function client(): BelongsTo
@@ -114,7 +114,7 @@ class Tender extends Model
 
     public function bidBond(): BelongsTo
     {
-        return $this->belongsTo(Guarantee:: class, 'bid_bond_id');
+        return $this->belongsTo(Guarantee::class, 'bid_bond_id');
     }
 
     public function assignedTo(): BelongsTo
@@ -134,7 +134,7 @@ class Tender extends Model
 
     public function goDecidedBy(): BelongsTo
     {
-        return $this->belongsTo(User::  class, 'go_decided_by');
+        return $this->belongsTo(User::class, 'go_decided_by');
     }
 
     public function activities(): HasMany
@@ -154,7 +154,7 @@ class Tender extends Model
 
     public function guarantees(): HasMany
     {
-        return $this->hasMany(Guarantee:: class);
+        return $this->hasMany(Guarantee::class);
     }
 
     public function warehouses(): HasMany
@@ -174,7 +174,7 @@ class Tender extends Model
 
     public function timeline(): HasMany
     {
-        return $this->hasMany(TenderTimeline:: class);
+        return $this->hasMany(TenderTimeline::class);
     }
 
     public function questions(): HasMany
