@@ -6,13 +6,10 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\RetentionController;
-use App\Http\Controllers\RetentionReleaseController;
-use App\Http\Controllers\RetentionGuaranteeController;
-use App\Http\Controllers\AdvancePaymentController;
-use App\Http\Controllers\DefectsLiabilityController;
-use App\Http\Controllers\DefectNotificationController;
-use App\Http\Controllers\RetentionReportController;
+use App\Http\Controllers\ProgressBillController;
+use App\Http\Controllers\MeasurementSheetController;
+use App\Http\Controllers\BillApprovalController;
+use App\Http\Controllers\BillReportController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -27,48 +24,47 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Retention Management
-    Route::apiResource('retentions', RetentionController::class);
-    Route::get('retentions/project/{projectId}', [RetentionController::class, 'byProject']);
-    Route::get('retentions/{id}/accumulations', [RetentionController::class, 'getAccumulations']);
-    Route::get('retentions/{id}/releases', [RetentionController::class, 'getReleases']);
-    Route::get('retentions/{id}/statement', [RetentionController::class, 'statement']);
-    Route::post('retentions/{id}/calculate', [RetentionController::class, 'calculate']);
+    // Progress Bills
+    Route::apiResource('progress-bills', ProgressBillController::class);
+    Route::get('progress-bills/project/{projectId}', [ProgressBillController::class, 'byProject']);
+    Route::get('progress-bills/{id}/preview', [ProgressBillController::class, 'preview']);
+    Route::post('progress-bills/{id}/submit', [ProgressBillController::class, 'submit']);
+    Route::post('progress-bills/{id}/review', [ProgressBillController::class, 'review']);
+    Route::post('progress-bills/{id}/certify', [ProgressBillController::class, 'certify']);
+    Route::post('progress-bills/{id}/approve', [ProgressBillController::class, 'approve']);
+    Route::post('progress-bills/{id}/reject', [ProgressBillController::class, 'reject']);
+    Route::post('progress-bills/{id}/mark-paid', [ProgressBillController::class, 'markPaid']);
+    Route::post('progress-bills/create-next/{projectId}', [ProgressBillController::class, 'createNext']);
 
-    // Retention Releases
-    Route::apiResource('retention-releases', RetentionReleaseController::class);
-    Route::post('retention-releases/{id}/approve', [RetentionReleaseController::class, 'approve']);
-    Route::post('retention-releases/{id}/release', [RetentionReleaseController::class, 'release']);
-    Route::post('retention-releases/{id}/mark-paid', [RetentionReleaseController::class, 'markPaid']);
+    // Bill Items
+    Route::get('progress-bills/{id}/items', [ProgressBillController::class, 'getItems']);
+    Route::post('progress-bills/{id}/items', [ProgressBillController::class, 'updateItems']);
+    Route::post('progress-bills/{id}/items/import-boq', [ProgressBillController::class, 'importFromBoq']);
+    Route::post('progress-bills/{id}/items/calculate', [ProgressBillController::class, 'calculateItems']);
 
-    // Retention Guarantees
-    Route::apiResource('retention-guarantees', RetentionGuaranteeController::class);
-    Route::post('retention-guarantees/{id}/release', [RetentionGuaranteeController::class, 'release']);
-    Route::get('retention-guarantees/expiring', [RetentionGuaranteeController::class, 'expiring']);
+    // Variations
+    Route::get('progress-bills/{id}/variations', [ProgressBillController::class, 'getVariations']);
+    Route::post('progress-bills/{id}/variations', [ProgressBillController::class, 'addVariation']);
 
-    // Advance Payments
-    Route::apiResource('advance-payments', AdvancePaymentController::class);
-    Route::get('advance-payments/{id}/recoveries', [AdvancePaymentController::class, 'getRecoveries']);
-    Route::post('advance-payments/{id}/approve', [AdvancePaymentController::class, 'approve']);
-    Route::post('advance-payments/{id}/pay', [AdvancePaymentController::class, 'pay']);
-    Route::get('advance-payments/{id}/statement', [AdvancePaymentController::class, 'statement']);
+    // Deductions
+    Route::get('progress-bills/{id}/deductions', [ProgressBillController::class, 'getDeductions']);
+    Route::post('progress-bills/{id}/deductions', [ProgressBillController::class, 'addDeduction']);
+    Route::post('progress-bills/{id}/calculate-deductions', [ProgressBillController::class, 'calculateDeductions']);
 
-    // Defects Liability
-    Route::apiResource('defects-liability', DefectsLiabilityController::class);
-    Route::get('defects-liability/{id}/notifications', [DefectsLiabilityController::class, 'getNotifications']);
-    Route::post('defects-liability/{id}/extend', [DefectsLiabilityController::class, 'extend']);
-    Route::post('defects-liability/{id}/complete', [DefectsLiabilityController::class, 'complete']);
+    // Measurement Sheets
+    Route::apiResource('measurement-sheets', MeasurementSheetController::class);
+    Route::get('measurement-sheets/bill/{billId}', [MeasurementSheetController::class, 'byBill']);
+    Route::post('measurement-sheets/{id}/approve', [MeasurementSheetController::class, 'approve']);
 
-    // Defect Notifications
-    Route::apiResource('defect-notifications', DefectNotificationController::class);
-    Route::post('defect-notifications/{id}/acknowledge', [DefectNotificationController::class, 'acknowledge']);
-    Route::post('defect-notifications/{id}/rectify', [DefectNotificationController::class, 'rectify']);
+    // Bill Approval Workflow
+    Route::apiResource('bill-approvals', BillApprovalController::class)->only(['index', 'store', 'show']);
+    Route::get('bill-approvals/bill/{billId}', [BillApprovalController::class, 'getByBill']);
 
-    // Retention Reports
-    Route::get('reports/retention-summary', [RetentionReportController::class, 'summary']);
-    Route::get('reports/retention-aging', [RetentionReportController::class, 'aging']);
-    Route::get('reports/advance-balance', [RetentionReportController::class, 'advanceBalance']);
-    Route::get('reports/dlp-status', [RetentionReportController::class, 'dlpStatus']);
-    Route::get('reports/guarantee-expiry', [RetentionReportController::class, 'guaranteeExpiry']);
-    Route::get('reports/retention-forecast', [RetentionReportController::class, 'releaseForecast']);
+    // Reports
+    Route::get('reports/billing-summary/{projectId}', [BillReportController::class, 'billingSummary']);
+    Route::get('reports/payment-status/{projectId}', [BillReportController::class, 'paymentStatus']);
+    Route::get('reports/retention-summary/{projectId}', [BillReportController::class, 'retentionSummary']);
+    Route::get('reports/billing-forecast/{projectId}', [BillReportController::class, 'billingForecast']);
+    Route::get('reports/cash-flow/{projectId}', [BillReportController::class, 'cashFlow']);
+    Route::get('reports/aging-report', [BillReportController::class, 'agingReport']);
 });
