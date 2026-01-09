@@ -30,8 +30,11 @@ class InspectionReportController extends Controller
         
         $byType = (clone $query)->select('inspection_type_id', DB::raw('count(*) as count'))
             ->groupBy('inspection_type_id')
-            ->with('inspectionType')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                $item->inspection_type = \App\Models\InspectionType::find($item->inspection_type_id);
+                return $item;
+            });
 
         $byStatus = (clone $query)->select('status', DB::raw('count(*) as count'))
             ->groupBy('status')
@@ -191,8 +194,11 @@ class InspectionReportController extends Controller
         
         $byType = (clone $query)->select('inspection_type_id', DB::raw('SUM(defects_found) as total_defects'))
             ->groupBy('inspection_type_id')
-            ->with('inspectionType')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                $item->inspection_type = \App\Models\InspectionType::find($item->inspection_type_id);
+                return $item;
+            });
 
         $byMonth = $query->select(
             DB::raw('YEAR(inspection_date) as year'),
