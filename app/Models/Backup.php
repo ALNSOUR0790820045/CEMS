@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Backup extends Model
 {
@@ -40,7 +39,7 @@ class Backup extends Model
      */
     public function getFormattedSizeAttribute()
     {
-        if (!$this->size) {
+        if (! $this->size) {
             return 'N/A';
         }
 
@@ -53,7 +52,7 @@ class Backup extends Model
             $unit++;
         }
 
-        return round($size, 2) . ' ' . $units[$unit];
+        return round($size, 2).' '.$units[$unit];
     }
 
     /**
@@ -61,18 +60,18 @@ class Backup extends Model
      */
     public function getDurationAttribute()
     {
-        if (!$this->completed_at) {
+        if (! $this->completed_at) {
             return 'N/A';
         }
 
         $duration = $this->created_at->diffInSeconds($this->completed_at);
 
         if ($duration < 60) {
-            return $duration . ' ثانية';
+            return $duration.' ثانية';
         } elseif ($duration < 3600) {
-            return round($duration / 60, 1) . ' دقيقة';
+            return round($duration / 60, 1).' دقيقة';
         } else {
-            return round($duration / 3600, 1) . ' ساعة';
+            return round($duration / 3600, 1).' ساعة';
         }
     }
 
@@ -81,9 +80,9 @@ class Backup extends Model
      */
     public function download()
     {
-        $fullPath = storage_path('app/' . $this->path);
+        $fullPath = storage_path('app/'.$this->path);
 
-        if (!file_exists($fullPath)) {
+        if (! file_exists($fullPath)) {
             throw new \Exception('الملف غير موجود');
         }
 
@@ -95,7 +94,7 @@ class Backup extends Model
      */
     public function delete()
     {
-        $fullPath = storage_path('app/' . $this->path);
+        $fullPath = storage_path('app/'.$this->path);
 
         if (file_exists($fullPath)) {
             unlink($fullPath);

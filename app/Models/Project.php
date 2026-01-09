@@ -2,20 +2,24 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Project extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     const STATUS_PLANNING = 'planning';
+
     const STATUS_ACTIVE = 'active';
+
     const STATUS_ON_HOLD = 'on_hold';
+
     const STATUS_COMPLETED = 'completed';
+
     const STATUS_CANCELLED = 'cancelled';
 
     protected $fillable = [
@@ -133,53 +137,252 @@ class Project extends Model
         'is_billable' => 'boolean',
     ];
 
-    public function company(): BelongsTo { return $this->belongsTo(Company:: class); }
-    public function department(): BelongsTo { return $this->belongsTo(Department:: class); }
-    public function client(): BelongsTo { return $this->belongsTo(Client::class); }
-    public function tender(): BelongsTo { return $this->belongsTo(Tender::class); }
-    public function contract(): BelongsTo { return $this->belongsTo(Contract::class); }
-    public function contracts(): HasMany { return $this->hasMany(Contract::class); }
-    public function currency(): BelongsTo { return $this->belongsTo(Currency::class, 'contract_currency_id'); }
-    public function city(): BelongsTo { return $this->belongsTo(City::class); }
-    public function country(): BelongsTo { return $this->belongsTo(Country::class); }
-    public function projectManager(): BelongsTo { return $this->belongsTo(User::class, 'project_manager_id'); }
-    public function manager(): BelongsTo { return $this->belongsTo(User::class, 'manager_id'); }
-    public function siteEngineer(): BelongsTo { return $this->belongsTo(User::class, 'site_engineer_id'); }
-    public function contractManager(): BelongsTo { return $this->belongsTo(User:: class, 'contract_manager_id'); }
-    public function quantitySurveyor(): BelongsTo { return $this->belongsTo(User::class, 'quantity_surveyor_id'); }
-    public function creator(): BelongsTo { return $this->belongsTo(User::class, 'created_by'); }
-    public function performanceBond(): BelongsTo { return $this->belongsTo(Guarantee::class, 'performance_bond_id'); }
-    public function advanceBond(): BelongsTo { return $this->belongsTo(Guarantee::class, 'advance_bond_id'); }
-    public function guarantees(): HasMany { return $this->hasMany(Guarantee::class); }
-    public function team(): HasMany { return $this->hasMany(ProjectTeam::class); }
-    public function phases(): HasMany { return $this->hasMany(ProjectPhase:: class); }
-    public function milestones(): HasMany { return $this->hasMany(ProjectMilestone::class); }
-    public function progressReports(): HasMany { return $this->hasMany(ProjectProgressReport::class); }
-    public function issues(): HasMany { return $this->hasMany(ProjectIssue::class); }
-    public function variationOrders(): HasMany { return $this->hasMany(VariationOrder::class); }
-    public function boqItems(): HasMany { return $this->hasMany(BoqItem::class); }
-    public function claims(): HasMany { return $this->hasMany(Claim::class); }
-    public function inventoryTransactions(): HasMany { return $this->hasMany(InventoryTransaction::class); }
-    public function transactions(): HasMany { return $this->hasMany(Transaction::class); }
-    public function journalEntries(): HasMany { return $this->hasMany(JournalEntry::class); }
-    public function glTransactions(): HasMany { return $this->hasMany(GLTransaction::class); }
-    public function costCenters(): HasMany { return $this->hasMany(CostCenter::class); }
-    public function apInvoices(): HasMany { return $this->hasMany(ApInvoice::class); }
-    public function apInvoiceItems(): HasMany { return $this->hasMany(ApInvoiceItem:: class); }
-    public function ipcs(): HasMany { return $this->hasMany(IPC::class); }
-    public function arInvoices(): HasMany { return $this->hasMany(ARInvoice::class); }
-    public function purchaseOrders(): HasMany { return $this->hasMany(PurchaseOrder::class); }
-    public function grns(): HasMany { return $this->hasMany(GRN:: class); }
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
 
-    public function scopeActive($query) { return $query->where('is_active', true); }
-    public function scopeByStatus($query, $status) { return $query->where(function($q) use ($status) { $q->where('project_status', $status)->orWhere('status', $status); }); }
-    public function scopeByClient($query, $clientId) { return $query->where('client_id', $clientId); }
-    public function scopeByManager($query, $userId) { return $query->where(function($q) use ($userId) { $q->where('project_manager_id', $userId)->orWhere('manager_id', $userId); }); }
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
 
-    public function getProgressPercentageAttribute() { return $this->physical_progress ??  0; }
-    public function getDaysRemainingAttribute() { $endDate = $this->contract_end_date ??  $this->end_date; if (! $endDate) return null; $end = Carbon::parse($endDate); return $end->isPast() ? 0 : Carbon::now()->diffInDays($end); }
-    public function getContractDurationAttribute() { return $this->contract_duration_days ?? $this->original_duration_days; }
-    public function getIsOverdueAttribute() { $endDate = $this->contract_end_date ?? $this->end_date; if (!$endDate) return false; $isCompleted = in_array($this->project_status ??  $this->status, ['completed', 'closed', 'handed_over', 'final_handover']); return Carbon::parse($endDate)->isPast() && ! $isCompleted; }
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
 
-    public static function generateProjectCode() { $year = date('Y'); $month = date('m'); $lastProject = static::whereYear('created_at', $year)->whereMonth('created_at', $month)->orderBy('id', 'desc')->first(); $sequence = ($lastProject && preg_match('/PRJ-(\d{4})-(\d{2})-(\d{4})/', $lastProject->project_code, $matches)) ? intval($matches[3]) + 1 : 1; return sprintf('PRJ-%s-%s-%04d', $year, $month, $sequence); }
+    public function tender(): BelongsTo
+    {
+        return $this->belongsTo(Tender::class);
+    }
+
+    public function contract(): BelongsTo
+    {
+        return $this->belongsTo(Contract::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class, 'contract_currency_id');
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function projectManager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'project_manager_id');
+    }
+
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    public function siteEngineer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'site_engineer_id');
+    }
+
+    public function contractManager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'contract_manager_id');
+    }
+
+    public function quantitySurveyor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'quantity_surveyor_id');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function performanceBond(): BelongsTo
+    {
+        return $this->belongsTo(Guarantee::class, 'performance_bond_id');
+    }
+
+    public function advanceBond(): BelongsTo
+    {
+        return $this->belongsTo(Guarantee::class, 'advance_bond_id');
+    }
+
+    public function guarantees(): HasMany
+    {
+        return $this->hasMany(Guarantee::class);
+    }
+
+    public function team(): HasMany
+    {
+        return $this->hasMany(ProjectTeam::class);
+    }
+
+    public function phases(): HasMany
+    {
+        return $this->hasMany(ProjectPhase::class);
+    }
+
+    public function milestones(): HasMany
+    {
+        return $this->hasMany(ProjectMilestone::class);
+    }
+
+    public function progressReports(): HasMany
+    {
+        return $this->hasMany(ProjectProgressReport::class);
+    }
+
+    public function issues(): HasMany
+    {
+        return $this->hasMany(ProjectIssue::class);
+    }
+
+    public function variationOrders(): HasMany
+    {
+        return $this->hasMany(VariationOrder::class);
+    }
+
+    public function boqItems(): HasMany
+    {
+        return $this->hasMany(BoqItem::class);
+    }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
+    }
+
+    public function inventoryTransactions(): HasMany
+    {
+        return $this->hasMany(InventoryTransaction::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function journalEntries(): HasMany
+    {
+        return $this->hasMany(JournalEntry::class);
+    }
+
+    public function glTransactions(): HasMany
+    {
+        return $this->hasMany(GLTransaction::class);
+    }
+
+    public function costCenters(): HasMany
+    {
+        return $this->hasMany(CostCenter::class);
+    }
+
+    public function apInvoices(): HasMany
+    {
+        return $this->hasMany(ApInvoice::class);
+    }
+
+    public function apInvoiceItems(): HasMany
+    {
+        return $this->hasMany(ApInvoiceItem::class);
+    }
+
+    public function ipcs(): HasMany
+    {
+        return $this->hasMany(IPC::class);
+    }
+
+    public function arInvoices(): HasMany
+    {
+        return $this->hasMany(ARInvoice::class);
+    }
+
+    public function purchaseOrders(): HasMany
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
+
+    public function grns(): HasMany
+    {
+        return $this->hasMany(GRN::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where(function ($q) use ($status) {
+            $q->where('project_status', $status)->orWhere('status', $status);
+        });
+    }
+
+    public function scopeByClient($query, $clientId)
+    {
+        return $query->where('client_id', $clientId);
+    }
+
+    public function scopeByManager($query, $userId)
+    {
+        return $query->where(function ($q) use ($userId) {
+            $q->where('project_manager_id', $userId)->orWhere('manager_id', $userId);
+        });
+    }
+
+    public function getProgressPercentageAttribute()
+    {
+        return $this->physical_progress ?? 0;
+    }
+
+    public function getDaysRemainingAttribute()
+    {
+        $endDate = $this->contract_end_date ?? $this->end_date;
+        if (! $endDate) {
+            return null;
+        } $end = Carbon::parse($endDate);
+
+        return $end->isPast() ? 0 : Carbon::now()->diffInDays($end);
+    }
+
+    public function getContractDurationAttribute()
+    {
+        return $this->contract_duration_days ?? $this->original_duration_days;
+    }
+
+    public function getIsOverdueAttribute()
+    {
+        $endDate = $this->contract_end_date ?? $this->end_date;
+        if (! $endDate) {
+            return false;
+        } $isCompleted = in_array($this->project_status ?? $this->status, ['completed', 'closed', 'handed_over', 'final_handover']);
+
+        return Carbon::parse($endDate)->isPast() && ! $isCompleted;
+    }
+
+    public static function generateProjectCode()
+    {
+        $year = date('Y');
+        $month = date('m');
+        $lastProject = static::whereYear('created_at', $year)->whereMonth('created_at', $month)->orderBy('id', 'desc')->first();
+        $sequence = ($lastProject && preg_match('/PRJ-(\d{4})-(\d{2})-(\d{4})/', $lastProject->project_code, $matches)) ? intval($matches[3]) + 1 : 1;
+
+        return sprintf('PRJ-%s-%s-%04d', $year, $month, $sequence);
+    }
 }

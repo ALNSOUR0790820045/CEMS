@@ -39,7 +39,7 @@ class Branch extends Model
     ];
 
     // Relationships
-    
+
     /**
      * Get the company that owns the branch.
      */
@@ -81,9 +81,9 @@ class Branch extends Model
     }
 
     // Scopes
-    
+
     /**
-     * Scope a query to only include active branches. 
+     * Scope a query to only include active branches.
      */
     public function scopeActive($query)
     {
@@ -91,7 +91,7 @@ class Branch extends Model
     }
 
     /**
-     * Scope a query to only include main branches. 
+     * Scope a query to only include main branches.
      */
     public function scopeMain($query)
     {

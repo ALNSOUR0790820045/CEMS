@@ -49,7 +49,7 @@ class CostCenter extends Model
 
     public function arInvoiceItems(): HasMany
     {
-        return $this->hasMany(ArInvoiceItem:: class);
+        return $this->hasMany(ArInvoiceItem::class);
     }
 
     public function budgets(): HasMany

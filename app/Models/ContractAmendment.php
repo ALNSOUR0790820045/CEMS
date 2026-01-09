@@ -46,16 +46,16 @@ class ContractAmendment extends Model
 
         static::creating(function ($amendment) {
             // Auto-generate amendment code if not provided
-            if (!$amendment->amendment_code) {
+            if (! $amendment->amendment_code) {
                 $amendment->amendment_code = static::generateAmendmentCode($amendment->contract_id);
             }
-            
+
             // Auto-generate amendment number if not provided
-            if (!$amendment->amendment_number) {
+            if (! $amendment->amendment_number) {
                 $lastAmendment = static::where('contract_id', $amendment->contract_id)
                     ->orderBy('amendment_number', 'desc')
                     ->first();
-                
+
                 $amendment->amendment_number = $lastAmendment ? ($lastAmendment->amendment_number + 1) : 1;
             }
         });
@@ -106,11 +106,11 @@ class ContractAmendment extends Model
         // Update contract with amendment values
         $contract = $this->contract;
         $contract->current_contract_value = $this->new_contract_value;
-        
+
         if ($this->new_completion_date) {
             $contract->completion_date = $this->new_completion_date;
         }
-        
+
         $contract->save();
     }
 
@@ -118,26 +118,26 @@ class ContractAmendment extends Model
     public static function generateAmendmentCode($contractId)
     {
         $contract = Contract::find($contractId);
-        if (!$contract) {
+        if (! $contract) {
             return null;
         }
 
         $contractCode = str_replace('CNT-', '', $contract->contract_code);
         $prefix = "AMD-CNT-{$contractCode}-";
-        
+
         // Get the last amendment code for this contract
         $lastAmendment = static::where('contract_id', $contractId)
-            ->where('amendment_code', 'LIKE', $prefix . '%')
+            ->where('amendment_code', 'LIKE', $prefix.'%')
             ->orderBy('amendment_code', 'desc')
             ->first();
-        
+
         if ($lastAmendment) {
             $lastNumber = intval(substr($lastAmendment->amendment_code, -3));
             $newNumber = $lastNumber + 1;
         } else {
             $newNumber = 1;
         }
-        
-        return $prefix . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+
+        return $prefix.str_pad($newNumber, 3, '0', STR_PAD_LEFT);
     }
 }
