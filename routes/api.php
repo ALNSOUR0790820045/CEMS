@@ -6,14 +6,13 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\RiskRegisterController;
-use App\Http\Controllers\RiskController;
-use App\Http\Controllers\RiskCategoryController;
-use App\Http\Controllers\RiskAssessmentController;
-use App\Http\Controllers\RiskResponseController;
-use App\Http\Controllers\RiskMonitoringController;
-use App\Http\Controllers\RiskIncidentController;
-use App\Http\Controllers\RiskReportController;
+use App\Http\Controllers\Api\ProjectBudgetController;
+use App\Http\Controllers\Api\CostCodeController;
+use App\Http\Controllers\Api\ActualCostController;
+use App\Http\Controllers\Api\CommittedCostController;
+use App\Http\Controllers\Api\CostForecastController;
+use App\Http\Controllers\Api\VarianceAnalysisController;
+use App\Http\Controllers\Api\ProjectCostReportController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -28,49 +27,51 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Risk Management Module
-    // Risk Registers
-    Route::apiResource('risk-registers', RiskRegisterController::class);
-    Route::get('risk-registers/project/{projectId}', [RiskRegisterController::class, 'byProject']);
-    Route::post('risk-registers/{id}/approve', [RiskRegisterController::class, 'approve']);
+    // Project Cost Control Module
+    // Project Budgets
+    Route::apiResource('project-budgets', ProjectBudgetController::class);
+    Route::get('project-budgets/project/{projectId}', [ProjectBudgetController::class, 'byProject']);
+    Route::post('project-budgets/{id}/approve', [ProjectBudgetController::class, 'approve']);
+    Route::post('project-budgets/{id}/revise', [ProjectBudgetController::class, 'revise']);
+    Route::get('project-budgets/{id}/items', [ProjectBudgetController::class, 'getItems']);
+    Route::post('project-budgets/{id}/items', [ProjectBudgetController::class, 'updateItems']);
+    Route::post('project-budgets/{id}/import-boq', [ProjectBudgetController::class, 'importFromBoq']);
 
-    // Risks
-    Route::apiResource('risks', RiskController::class);
-    Route::get('risks/project/{projectId}', [RiskController::class, 'byProject']);
-    Route::get('risks/register/{registerId}', [RiskController::class, 'byRegister']);
-    Route::post('risks/{id}/assess', [RiskController::class, 'assess']);
-    Route::post('risks/{id}/respond', [RiskController::class, 'addResponse']);
-    Route::post('risks/{id}/monitor', [RiskController::class, 'monitor']);
-    Route::post('risks/{id}/close', [RiskController::class, 'close']);
-    Route::post('risks/{id}/escalate', [RiskController::class, 'escalate']);
+    // Cost Codes
+    Route::get('cost-codes/tree', [CostCodeController::class, 'tree']);
+    Route::apiResource('cost-codes', CostCodeController::class);
 
-    // Risk Categories
-    Route::apiResource('risk-categories', RiskCategoryController::class);
-    Route::get('risk-categories/tree', [RiskCategoryController::class, 'tree']);
+    // Actual Costs
+    Route::apiResource('actual-costs', ActualCostController::class);
+    Route::get('actual-costs/project/{projectId}', [ActualCostController::class, 'byProject']);
+    Route::post('actual-costs/import', [ActualCostController::class, 'import']);
 
-    // Risk Assessments
-    Route::get('risks/{riskId}/assessments', [RiskAssessmentController::class, 'byRisk']);
-    Route::post('risks/{riskId}/assessments', [RiskAssessmentController::class, 'store']);
+    // Committed Costs
+    Route::apiResource('committed-costs', CommittedCostController::class);
+    Route::get('committed-costs/project/{projectId}', [CommittedCostController::class, 'byProject']);
+    Route::post('committed-costs/sync-pos', [CommittedCostController::class, 'syncFromPurchaseOrders']);
+    Route::post('committed-costs/sync-subcontracts', [CommittedCostController::class, 'syncFromSubcontracts']);
 
-    // Risk Responses
-    Route::get('risks/{riskId}/responses', [RiskResponseController::class, 'byRisk']);
-    Route::post('risks/{riskId}/responses', [RiskResponseController::class, 'store']);
-    Route::post('risk-responses/{id}/complete', [RiskResponseController::class, 'complete']);
+    // Cost Forecasts
+    Route::apiResource('cost-forecasts', CostForecastController::class);
+    Route::post('cost-forecasts/generate/{projectId}', [CostForecastController::class, 'generate']);
+    Route::get('cost-forecasts/project/{projectId}', [CostForecastController::class, 'byProject']);
 
-    // Risk Monitoring
-    Route::get('risks/{riskId}/monitoring', [RiskMonitoringController::class, 'byRisk']);
-    Route::post('risks/{riskId}/monitoring', [RiskMonitoringController::class, 'store']);
+    // Variance Analysis
+    Route::apiResource('variance-analysis', VarianceAnalysisController::class);
+    Route::post('variance-analysis/analyze/{projectId}', [VarianceAnalysisController::class, 'analyze']);
+    Route::get('variance-analysis/project/{projectId}', [VarianceAnalysisController::class, 'byProject']);
 
-    // Risk Incidents
-    Route::apiResource('risk-incidents', RiskIncidentController::class);
-    Route::post('risk-incidents/{id}/resolve', [RiskIncidentController::class, 'resolve']);
-
-    // Risk Reports
-    Route::get('reports/risk-summary/{projectId}', [RiskReportController::class, 'summary']);
-    Route::get('reports/risk-matrix/{projectId}', [RiskReportController::class, 'riskMatrix']);
-    Route::get('reports/risk-heat-map/{projectId}', [RiskReportController::class, 'heatMap']);
-    Route::get('reports/risk-trend/{projectId}', [RiskReportController::class, 'trend']);
-    Route::get('reports/top-risks/{projectId}', [RiskReportController::class, 'topRisks']);
-    Route::get('reports/risk-exposure/{projectId}', [RiskReportController::class, 'exposure']);
-    Route::get('reports/response-status/{projectId}', [RiskReportController::class, 'responseStatus']);
+    // Project Cost Reports
+    Route::get('project-cost-reports/cost-summary/{projectId}', [ProjectCostReportController::class, 'costSummary']);
+    Route::get('project-cost-reports/budget-vs-actual/{projectId}', [ProjectCostReportController::class, 'budgetVsActual']);
+    Route::get('project-cost-reports/cost-breakdown/{projectId}', [ProjectCostReportController::class, 'costBreakdown']);
+    Route::get('project-cost-reports/commitment-status/{projectId}', [ProjectCostReportController::class, 'commitmentStatus']);
+    Route::get('project-cost-reports/cost-trend/{projectId}', [ProjectCostReportController::class, 'costTrend']);
+    Route::get('project-cost-reports/evm-analysis/{projectId}', [ProjectCostReportController::class, 'evmAnalysis']);
+    Route::get('project-cost-reports/variance-report/{projectId}', [ProjectCostReportController::class, 'varianceReport']);
+    Route::get('project-cost-reports/forecast-report/{projectId}', [ProjectCostReportController::class, 'forecastReport']);
+    Route::get('project-cost-reports/cost-to-complete/{projectId}', [ProjectCostReportController::class, 'costToComplete']);
+    Route::post('project-cost-reports/generate-monthly/{projectId}', [ProjectCostReportController::class, 'generateMonthlyReport']);
+    Route::apiResource('project-cost-reports', ProjectCostReportController::class);
 });
