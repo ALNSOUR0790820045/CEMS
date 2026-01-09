@@ -33,10 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
-use App\Http\Controllers\Api\CertificationController;
-use App\Http\Controllers\Api\ComplianceRequirementController;
-use App\Http\Controllers\Api\ComplianceCheckController;
-use App\Http\Controllers\Api\ComplianceReportController;
+use App\Http\Controllers\Api\BankAccountController;
+use App\Http\Controllers\Api\BankStatementController;
+use App\Http\Controllers\Api\BankReconciliationController;
+use App\Http\Controllers\Api\BankReportController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -285,28 +285,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Dashboards & Analytics
-    Route::apiResource('dashboards', \App\Http\Controllers\Api\DashboardController::class);
-    Route::get('dashboards/{dashboard}/widgets', [\App\Http\Controllers\Api\DashboardController::class, 'widgets']);
-    Route::post('dashboards/{dashboard}/widgets', [\App\Http\Controllers\Api\DashboardController::class, 'addWidget']);
-    Route::put('dashboards/{dashboard}/layout', [\App\Http\Controllers\Api\DashboardController::class, 'updateLayout']);
+    // Bank Accounts
+    Route::apiResource('bank-accounts', BankAccountController::class);
+    Route::get('bank-accounts/{bankAccount}/balance', [BankAccountController::class, 'balance']);
+    Route::get('bank-accounts/{bankAccount}/transactions', [BankAccountController::class, 'transactions']);
 
-    // Widgets
-    Route::apiResource('widgets', \App\Http\Controllers\Api\WidgetController::class);
-    Route::get('widgets/{widget}/data', [\App\Http\Controllers\Api\WidgetController::class, 'getData']);
-    Route::post('widgets/{widget}/refresh', [\App\Http\Controllers\Api\WidgetController::class, 'refresh']);
+    // Bank Statements
+    Route::apiResource('bank-statements', BankStatementController::class);
+    Route::post('bank-statements/import', [BankStatementController::class, 'import']);
+    Route::post('bank-statements/{bankStatement}/auto-match', [BankStatementController::class, 'autoMatch']);
 
-    // KPIs
-    Route::apiResource('kpi-definitions', \App\Http\Controllers\Api\KpiController::class);
-    Route::get('kpi-values', [\App\Http\Controllers\Api\KpiController::class, 'getValues']);
-    Route::post('kpi-values/calculate', [\App\Http\Controllers\Api\KpiController::class, 'calculate']);
+    // Bank Reconciliations
+    Route::apiResource('bank-reconciliations', BankReconciliationController::class);
+    Route::post('bank-reconciliations/{bankReconciliation}/match-item', [BankReconciliationController::class, 'matchItem']);
+    Route::post('bank-reconciliations/{bankReconciliation}/unmatch-item', [BankReconciliationController::class, 'unmatchItem']);
+    Route::post('bank-reconciliations/{bankReconciliation}/complete', [BankReconciliationController::class, 'complete']);
+    Route::post('bank-reconciliations/{bankReconciliation}/approve', [BankReconciliationController::class, 'approve']);
 
-    // Analytics
-    Route::get('analytics/project-summary', [\App\Http\Controllers\Api\AnalyticsController::class, 'projectSummary']);
-    Route::get('analytics/financial-overview', [\App\Http\Controllers\Api\AnalyticsController::class, 'financialOverview']);
-    Route::get('analytics/revenue-trend', [\App\Http\Controllers\Api\AnalyticsController::class, 'revenueTrend']);
-    Route::get('analytics/expense-breakdown', [\App\Http\Controllers\Api\AnalyticsController::class, 'expenseBreakdown']);
-    Route::get('analytics/cash-position', [\App\Http\Controllers\Api\AnalyticsController::class, 'cashPosition']);
-    Route::get('analytics/project-performance', [\App\Http\Controllers\Api\AnalyticsController::class, 'projectPerformance']);
-    Route::get('analytics/hr-metrics', [\App\Http\Controllers\Api\AnalyticsController::class, 'hrMetrics']);
+    // Bank Reports
+    Route::get('reports/bank-reconciliation-report', [BankReportController::class, 'reconciliationReport']);
+    Route::get('reports/outstanding-checks', [BankReportController::class, 'outstandingChecks']);
+    Route::get('reports/deposits-in-transit', [BankReportController::class, 'depositsInTransit']);
+    Route::get('reports/bank-book', [BankReportController::class, 'bankBook']);
 });
