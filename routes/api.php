@@ -33,6 +33,14 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
+use App\Http\Controllers\Api\FixedAssetController;
+use App\Http\Controllers\Api\AssetCategoryController;
+use App\Http\Controllers\Api\AssetDepreciationController;
+use App\Http\Controllers\Api\AssetDisposalController;
+use App\Http\Controllers\Api\AssetMaintenanceController;
+use App\Http\Controllers\Api\AssetTransferController;
+use App\Http\Controllers\Api\AssetRevaluationController;
+use App\Http\Controllers\Api\AssetReportController;
 
 Route::middleware('auth: sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -254,10 +262,46 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Material Requests
-    Route::apiResource('material-requests', \App\Http\Controllers\Api\MaterialRequestController::class);
-    Route::post('material-requests/{id}/approve', [\App\Http\Controllers\Api\MaterialRequestController::class, 'approve']);
-    Route::post('material-requests/{id}/reject', [\App\Http\Controllers\Api\MaterialRequestController::class, 'reject']);
-    Route::post('material-requests/{id}/issue', [\App\Http\Controllers\Api\MaterialRequestController::class, 'issue']);
-    Route::post('material-requests/{id}/convert-to-pr', [\App\Http\Controllers\Api\MaterialRequestController::class, 'convertToPurchaseRequisition']);
+    // Fixed Assets
+    Route::apiResource('fixed-assets', FixedAssetController::class);
+    Route::get('fixed-assets/{id}/history', [FixedAssetController::class, 'history']);
+    Route::get('fixed-assets/{id}/depreciation-schedule', [FixedAssetController::class, 'depreciationSchedule']);
+    Route::post('fixed-assets/{id}/calculate-depreciation', [FixedAssetController::class, 'calculateDepreciation']);
+
+    // Asset Categories
+    Route::apiResource('asset-categories', AssetCategoryController::class);
+
+    // Depreciation
+    Route::get('asset-depreciations', [AssetDepreciationController::class, 'index']);
+    Route::post('asset-depreciations/run-monthly', [AssetDepreciationController::class, 'runMonthly']);
+    Route::post('asset-depreciations/post', [AssetDepreciationController::class, 'post']);
+    Route::get('asset-depreciations/preview', [AssetDepreciationController::class, 'preview']);
+
+    // Disposals
+    Route::apiResource('asset-disposals', AssetDisposalController::class);
+    Route::post('asset-disposals/{id}/approve', [AssetDisposalController::class, 'approve']);
+    Route::post('asset-disposals/{id}/complete', [AssetDisposalController::class, 'complete']);
+
+    // Maintenance
+    Route::apiResource('asset-maintenances', AssetMaintenanceController::class);
+    Route::get('asset-maintenances/scheduled', [AssetMaintenanceController::class, 'scheduled']);
+    Route::post('asset-maintenances/{id}/complete', [AssetMaintenanceController::class, 'complete']);
+
+    // Transfers
+    Route::apiResource('asset-transfers', AssetTransferController::class);
+    Route::post('asset-transfers/{id}/approve', [AssetTransferController::class, 'approve']);
+    Route::post('asset-transfers/{id}/complete', [AssetTransferController::class, 'complete']);
+
+    // Revaluations
+    Route::apiResource('asset-revaluations', AssetRevaluationController::class);
+    Route::post('asset-revaluations/{id}/approve', [AssetRevaluationController::class, 'approve']);
+    Route::post('asset-revaluations/{id}/post', [AssetRevaluationController::class, 'post']);
+
+    // Asset Reports
+    Route::get('reports/asset-register', [AssetReportController::class, 'assetRegister']);
+    Route::get('reports/depreciation-schedule', [AssetReportController::class, 'depreciationSchedule']);
+    Route::get('reports/asset-valuation', [AssetReportController::class, 'assetValuation']);
+    Route::get('reports/asset-movement', [AssetReportController::class, 'assetMovement']);
+    Route::get('reports/maintenance-schedule', [AssetReportController::class, 'maintenanceSchedule']);
+    Route::get('reports/disposal-report', [AssetReportController::class, 'disposalReport']);
 });

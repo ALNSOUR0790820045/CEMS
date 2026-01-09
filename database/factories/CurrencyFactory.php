@@ -2,24 +2,20 @@
 
 namespace Database\Factories;
 
+use App\Models\Currency;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Currency>
- */
 class CurrencyFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Currency::class;
+
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->currencyCode(),
-            'name' => $this->faker->word(),
-            'symbol' => $this->faker->randomElement(['$', '€', '£', '¥', 'SAR']),
+            'code' => fake()->unique()->currencyCode(),
+            'name' => fake()->word(),
+            'symbol' => fake()->randomElement(['$', '€', '£', '¥']),
+            'exchange_rate' => fake()->randomFloat(4, 0.5, 1.5),
             'is_active' => true,
         ];
     }
