@@ -6,13 +6,13 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\PunchListController;
-use App\Http\Controllers\PunchItemController;
-use App\Http\Controllers\PunchCommentController;
-use App\Http\Controllers\PunchTemplateController;
-use App\Http\Controllers\PunchCategoryController;
-use App\Http\Controllers\PunchReportController;
-use App\Http\Controllers\PunchDashboardController;
+use App\Http\Controllers\Api\PunchListController;
+use App\Http\Controllers\Api\PunchItemController;
+use App\Http\Controllers\Api\PunchCommentController;
+use App\Http\Controllers\Api\PunchTemplateController;
+use App\Http\Controllers\Api\PunchCategoryController;
+use App\Http\Controllers\Api\PunchReportController;
+use App\Http\Controllers\Api\PunchDashboardController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents

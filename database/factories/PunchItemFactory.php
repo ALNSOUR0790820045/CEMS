@@ -40,7 +40,7 @@ class PunchItemFactory extends Factory
             'due_date' => fake()->optional()->dateTimeBetween('now', '+30 days'),
             'completed_date' => null,
             'verified_date' => null,
-            'status' => fake()->randomElement(['open', 'in_progress', 'completed', 'verified', 'rejected', 'disputed']),
+            'status' => fake()->randomElement(['open', 'in_progress', 'completed', 'verified', 'rejected']),
             'rejection_reason' => null,
             'completion_remarks' => null,
             'verified_by_id' => null,

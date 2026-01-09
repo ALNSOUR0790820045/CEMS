@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\PunchItem;
 use App\Models\PunchList;
@@ -183,6 +183,7 @@ class PunchItemController extends Controller
 
         DB::beginTransaction();
         try {
+            $oldStatus = $item->status; // Capture old status before update
             $item->update([
                 'status' => 'completed',
                 'completed_date' => now(),
@@ -190,7 +191,7 @@ class PunchItemController extends Controller
             ]);
 
             // Add history
-            $item->addHistory('status_changed', $item->getOriginal('status'), 'completed', Auth::id(), 'Item completed');
+            $item->addHistory('status_changed', $oldStatus, 'completed', Auth::id(), 'Item completed');
 
             // Update list statistics
             $item->punchList->updateStatistics();
@@ -372,7 +373,7 @@ class PunchItemController extends Controller
             'item_ids' => 'required|array',
             'item_ids.*' => 'exists:punch_items,id',
             'updates' => 'required|array',
-            'updates.status' => 'sometimes|in:open,in_progress,completed,verified,rejected,disputed',
+            'updates.status' => 'sometimes|in:open,in_progress,completed,verified,rejected',
             'updates.assigned_to_id' => 'sometimes|exists:users,id',
             'updates.priority' => 'sometimes|in:low,medium,high,urgent',
             'updates.due_date' => 'sometimes|date',
@@ -381,12 +382,20 @@ class PunchItemController extends Controller
         DB::beginTransaction();
         try {
             $items = PunchItem::whereIn('id', $validated['item_ids'])->get();
+            $changedFields = array_keys($validated['updates']);
 
             foreach ($items as $item) {
+                $oldValues = $item->only($changedFields);
                 $item->update($validated['updates']);
 
-                // Add history
-                $item->addHistory('status_changed', null, json_encode($validated['updates']), Auth::id(), 'Bulk update');
+                // Add history with specific changes
+                $changes = [];
+                foreach ($changedFields as $field) {
+                    if (isset($oldValues[$field])) {
+                        $changes[] = "{$field}: {$oldValues[$field]} → {$validated['updates'][$field]}";
+                    }
+                }
+                $item->addHistory('status_changed', null, implode(', ', $changes), Auth::id(), 'Bulk update');
             }
 
             // Update list statistics for affected lists

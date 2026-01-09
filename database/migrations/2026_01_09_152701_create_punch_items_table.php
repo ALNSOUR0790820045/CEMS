@@ -45,7 +45,7 @@ return new class extends Migration
             $table->date('verified_date')->nullable();
             
             // Status
-            $table->enum('status', ['open', 'in_progress', 'completed', 'verified', 'rejected', 'disputed'])->default('open');
+            $table->enum('status', ['open', 'in_progress', 'completed', 'verified', 'rejected'])->default('open');
             $table->text('rejection_reason')->nullable();
             $table->text('completion_remarks')->nullable();
             

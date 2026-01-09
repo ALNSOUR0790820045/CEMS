@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\PunchTemplate;
 use App\Models\PunchList;
@@ -98,6 +98,7 @@ class PunchTemplateController extends Controller
 
             foreach ($items as $templateItem) {
                 $sequence++;
+                // Use consistent format with PunchItemController
                 PunchItem::create([
                     'punch_list_id' => $list->id,
                     'item_number' => $list->list_number.'-'.str_pad($sequence, 3, '0', STR_PAD_LEFT),
@@ -106,6 +107,7 @@ class PunchTemplateController extends Controller
                     'category' => $templateItem['category'],
                     'status' => 'open',
                     'priority' => 'medium',
+                    'discipline' => $template->discipline ?? null,
                 ]);
             }
 

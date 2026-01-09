@@ -106,9 +106,18 @@ class PunchList extends Model
     // Helper methods
     public function updateStatistics(): void
     {
-        $this->total_items = $this->items()->count();
-        $this->completed_items = $this->items()->whereIn('status', ['completed', 'verified'])->count();
-        $this->pending_items = $this->items()->whereIn('status', ['open', 'in_progress'])->count();
+        // Single query with conditional aggregation for better performance
+        $stats = $this->items()
+            ->selectRaw('
+                COUNT(*) as total_items,
+                SUM(CASE WHEN status IN ("completed", "verified") THEN 1 ELSE 0 END) as completed_items,
+                SUM(CASE WHEN status IN ("open", "in_progress") THEN 1 ELSE 0 END) as pending_items
+            ')
+            ->first();
+        
+        $this->total_items = $stats->total_items ?? 0;
+        $this->completed_items = $stats->completed_items ?? 0;
+        $this->pending_items = $stats->pending_items ?? 0;
         
         if ($this->total_items > 0) {
             $this->completion_percentage = ($this->completed_items / $this->total_items) * 100;
