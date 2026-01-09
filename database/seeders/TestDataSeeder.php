@@ -6,8 +6,9 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Project;
-use App\Models\Contract;
-use App\Models\VariationOrder;
+use App\Models\ProjectWbs;
+use App\Models\BoqItem;
+use App\Models\ChangeOrder;
 use Illuminate\Support\Facades\Hash;
 
 class TestDataSeeder extends Seeder
@@ -17,149 +18,144 @@ class TestDataSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create a test user (or use existing)
-        $user = User::firstOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => Hash::make('password'),
-                'phone' => '0501234567',
-                'is_active' => true,
-                'language' => 'ar',
-            ]
-        );
+        // Create a test user
+        $user = User::create([
+            'name' => 'مدير النظام',
+            'email' => 'admin@cems.com',
+            'password' => Hash::make('password'),
+            'company_id' => null,
+        ]);
 
-        // Create a company (or use existing)
-        $company = Company::firstOrCreate(
-            ['slug' => 'advanced-construction'],
-            [
-                'name' => 'شركة الإنشاءات المتقدمة',
-                'name_en' => 'Advanced Construction Company',
-                'email' => 'info@advanced.com',
-                'phone' => '0112345678',
-                'country' => 'SA',
-                'is_active' => true,
-            ]
-        );
+        // Create a company
+        $company = Company::create([
+            'name' => 'شركة المقاولات الرئيسية',
+            'name_en' => 'Main Contracting Company',
+            'slug' => 'main-contracting',
+            'email' => 'info@company.com',
+            'phone' => '0123456789',
+            'address' => 'الرياض',
+            'city' => 'الرياض',
+            'country' => 'SA',
+            'commercial_registration' => '1234567890',
+            'tax_number' => '300000000000003',
+            'is_active' => true,
+        ]);
 
-        // Link user to company
+        // Update user with company
         $user->update(['company_id' => $company->id]);
 
-        // Create projects
-        $project1 = Project::create([
-            'name' => 'مشروع برج الرياض',
-            'code' => 'PRJ001',
+        // Create a project
+        $project = Project::create([
             'company_id' => $company->id,
-            'description' => 'مشروع إنشاء برج سكني تجاري في الرياض',
+            'project_number' => 'PRJ-001',
+            'name' => 'مشروع إنشاء مبنى إداري',
+            'name_en' => 'Administrative Building Construction Project',
+            'description' => 'مشروع إنشاء مبنى إداري متكامل',
+            'location' => 'الرياض - حي الملقا',
             'start_date' => '2024-01-01',
-            'end_date' => '2026-12-31',
+            'end_date' => '2024-12-31',
+            'contract_value' => 5000000.00,
             'status' => 'active',
+            'project_manager_id' => $user->id,
         ]);
 
-        $project2 = Project::create([
-            'name' => 'مشروع كورنيش جدة',
-            'code' => 'PRJ002',
-            'company_id' => $company->id,
-            'description' => 'تطوير كورنيش جدة',
-            'start_date' => '2024-06-01',
-            'end_date' => '2025-12-31',
-            'status' => 'active',
+        // Create WBS
+        $wbs1 = ProjectWbs::create([
+            'project_id' => $project->id,
+            'parent_id' => null,
+            'wbs_code' => 'WBS-001',
+            'name' => 'الأعمال الإنشائية',
+            'description' => 'أعمال الخرسانة والحديد',
+            'level' => 1,
+            'sort_order' => 1,
         ]);
 
-        // Create contracts
-        $contract1 = Contract::create([
-            'contract_number' => 'CNT-001-2024',
-            'project_id' => $project1->id,
-            'title' => 'عقد الأعمال الإنشائية',
-            'value' => 50000000,
-            'start_date' => '2024-01-01',
-            'end_date' => '2026-12-31',
-            'status' => 'active',
+        $wbs2 = ProjectWbs::create([
+            'project_id' => $project->id,
+            'parent_id' => null,
+            'wbs_code' => 'WBS-002',
+            'name' => 'أعمال التشطيبات',
+            'description' => 'أعمال التشطيب والدهانات',
+            'level' => 1,
+            'sort_order' => 2,
         ]);
 
-        // Create variation orders
-        $vo1 = VariationOrder::create([
-            'vo_number' => 'temp-1', // Temporary, will be updated
-            'project_id' => $project1->id,
-            'contract_id' => $contract1->id,
-            'sequence_number' => 1,
-            'title' => 'إضافة طابق إضافي',
-            'description' => 'إضافة طابق إضافي للبرج بناءً على طلب العميل',
-            'justification' => 'زيادة الطلب على الوحدات السكنية',
+        // Create BOQ Items
+        BoqItem::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs1->id,
+            'item_code' => 'BOQ-001',
+            'description' => 'أعمال الحفر والردم',
+            'unit' => 'م³',
+            'quantity' => 1000.000,
+            'unit_price' => 50.00,
+            'total_price' => 50000.00,
+            'sort_order' => 1,
+        ]);
+
+        BoqItem::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs1->id,
+            'item_code' => 'BOQ-002',
+            'description' => 'أعمال الخرسانة المسلحة',
+            'unit' => 'م³',
+            'quantity' => 500.000,
+            'unit_price' => 800.00,
+            'total_price' => 400000.00,
+            'sort_order' => 2,
+        ]);
+
+        BoqItem::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs1->id,
+            'item_code' => 'BOQ-003',
+            'description' => 'أعمال حديد التسليح',
+            'unit' => 'طن',
+            'quantity' => 80.000,
+            'unit_price' => 4500.00,
+            'total_price' => 360000.00,
+            'sort_order' => 3,
+        ]);
+
+        BoqItem::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs2->id,
+            'item_code' => 'BOQ-004',
+            'description' => 'أعمال البياض الداخلي',
+            'unit' => 'م²',
+            'quantity' => 3000.000,
+            'unit_price' => 35.00,
+            'total_price' => 105000.00,
+            'sort_order' => 4,
+        ]);
+
+        BoqItem::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs2->id,
+            'item_code' => 'BOQ-005',
+            'description' => 'أعمال الدهانات',
+            'unit' => 'م²',
+            'quantity' => 3000.000,
+            'unit_price' => 25.00,
+            'total_price' => 75000.00,
+            'sort_order' => 5,
+        ]);
+
+        // Create Change Orders
+        ChangeOrder::create([
+            'project_id' => $project->id,
+            'co_number' => 'CO-001',
+            'description' => 'إضافة أعمال إضافية للبدروم',
+            'amount' => 150000.00,
             'type' => 'addition',
-            'source' => 'client',
-            'estimated_value' => 5000000,
-            'currency' => 'SAR',
-            'time_impact_days' => 90,
-            'identification_date' => '2024-03-15',
-            'status' => 'draft',
-            'priority' => 'high',
-            'requested_by' => $user->id,
-        ]);
-
-        $vo1->vo_number = $vo1->generateVoNumber();
-        $vo1->save();
-        $vo1->addTimelineEntry('Created', null, 'draft', 'Variation order created');
-
-        $vo2 = VariationOrder::create([
-            'vo_number' => 'temp-2', // Temporary, will be updated
-            'project_id' => $project1->id,
-            'contract_id' => $contract1->id,
-            'sequence_number' => 2,
-            'title' => 'تعديل نظام التكييف',
-            'description' => 'تغيير نظام التكييف من مركزي إلى VRV',
-            'justification' => 'توفير في استهلاك الطاقة',
-            'type' => 'modification',
-            'source' => 'consultant',
-            'estimated_value' => 2000000,
-            'quoted_value' => 1800000,
-            'currency' => 'SAR',
-            'time_impact_days' => 30,
-            'identification_date' => '2024-04-01',
-            'submission_date' => '2024-04-05',
-            'status' => 'submitted',
-            'priority' => 'medium',
-            'requested_by' => $user->id,
-        ]);
-
-        $vo2->vo_number = $vo2->generateVoNumber();
-        $vo2->save();
-        $vo2->addTimelineEntry('Created', null, 'draft', 'Variation order created');
-        $vo2->addTimelineEntry('Submitted', 'draft', 'submitted', 'Submitted for review');
-
-        $vo3 = VariationOrder::create([
-            'vo_number' => 'temp-3', // Temporary, will be updated
-            'project_id' => $project2->id,
-            'sequence_number' => 1,
-            'title' => 'إضافة منطقة ألعاب مائية',
-            'description' => 'إضافة منطقة ألعاب مائية للأطفال',
-            'justification' => 'تحسين المرافق الترفيهية',
-            'type' => 'addition',
-            'source' => 'client',
-            'estimated_value' => 3500000,
-            'quoted_value' => 3200000,
-            'approved_value' => 3000000,
-            'currency' => 'SAR',
-            'time_impact_days' => 60,
-            'approved_extension_days' => 45,
-            'extension_approved' => true,
-            'identification_date' => '2024-07-01',
-            'submission_date' => '2024-07-05',
-            'approval_date' => '2024-07-15',
             'status' => 'approved',
-            'priority' => 'high',
-            'requested_by' => $user->id,
+            'approval_date' => now(),
             'approved_by' => $user->id,
         ]);
 
-        $vo3->vo_number = $vo3->generateVoNumber();
-        $vo3->save();
-        $vo3->addTimelineEntry('Created', null, 'draft', 'Variation order created');
-        $vo3->addTimelineEntry('Submitted', 'draft', 'submitted', 'Submitted for review');
-        $vo3->addTimelineEntry('Approved', 'submitted', 'approved', 'Approved with value of 3,000,000 SAR');
-
-        $this->command->info('Test data created successfully!');
-        $this->command->info('Email: test@example.com');
+        $this->command->info('Test data seeded successfully!');
+        $this->command->info('Login credentials:');
+        $this->command->info('Email: admin@cems.com');
         $this->command->info('Password: password');
     }
 }

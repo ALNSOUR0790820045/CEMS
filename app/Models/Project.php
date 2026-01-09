@@ -3,50 +3,60 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'company_id',
+        'project_number',
         'name',
-        'code',
+        'name_en',
         'description',
-        'status',
+        'location',
         'start_date',
         'end_date',
-        'location',
-        'manager_id',
+        'contract_value',
+        'status',
+        'project_manager_id',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
+        'contract_value' => 'decimal:2',
     ];
 
-    public function company(): BelongsTo
+    // Relationships
+    public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function manager(): BelongsTo
+    public function projectManager()
     {
-        return $this->belongsTo(User::class, 'manager_id');
+        return $this->belongsTo(User::class, 'project_manager_id');
     }
 
-    public function contracts(): HasMany
+    public function wbs()
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(ProjectWbs::class);
     }
 
-    public function costPlusContracts(): HasMany
+    public function boqItems()
     {
-        return $this->hasMany(CostPlusContract::class);
+        return $this->hasMany(BoqItem::class);
     }
 
-    public function transactions(): HasMany
+    public function changeOrders()
     {
-        return $this->hasMany(CostPlusTransaction::class);
+        return $this->hasMany(ChangeOrder::class);
+    }
+
+    public function mainIpcs()
+    {
+        return $this->hasMany(MainIpc::class);
     }
 }

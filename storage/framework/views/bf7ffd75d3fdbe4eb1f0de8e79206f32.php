@@ -316,7 +316,8 @@
                         <div class="menu-col">
                             <h4>المحاسبة</h4>
                             <a href="#" class="sub-link"><i data-lucide="calculator"></i> المحاسبة</a>
-                            <a href="#" class="sub-link"><i data-lucide="receipt"></i> المستخلصات</a>
+                            <a href="<?php echo e(route('main-ipcs.index')); ?>" class="sub-link"><i data-lucide="receipt"></i> المستخلصات الرئيسية</a>
+                            <a href="<?php echo e(route('main-ipcs.report')); ?>" class="sub-link"><i data-lucide="bar-chart"></i> تقرير المستخلصات</a>
                         </div>
                         <div class="menu-col">
                             <h4>العقود</h4>
