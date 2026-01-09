@@ -20,9 +20,6 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Vendors Management
-    Route::resource('vendors', VendorController::class);
-    Route::post('vendors/{vendor}/approve', [VendorController::class, 'approve'])->name('vendors.approve');
-    Route::post('vendors/{vendor}/reject', [VendorController::class, 'reject'])->name('vendors.reject');
-    Route::get('api/vendors/generate-code', [VendorController::class, 'generateCode'])->name('vendors.generate-code');
+    // Payment Terms Management
+    Route::resource('payment-terms', \App\Http\Controllers\PaymentTermController::class);
 });

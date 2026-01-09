@@ -329,11 +329,10 @@
                             <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
                         <div class="menu-col">
-                            <h4>الضمانات</h4>
-                            <a href="{{ route('guarantees.index') }}" class="sub-link"><i data-lucide="landmark"></i> خطابات الضمان</a>
-                            <a href="{{ route('guarantees.expiring') }}" class="sub-link"><i data-lucide="alert-circle"></i> قريبة من الانتهاء</a>
-                            <a href="{{ route('guarantees.statistics') }}" class="sub-link"><i data-lucide="bar-chart"></i> الإحصائيات</a>
-                            <a href="{{ route('banks.index') }}" class="sub-link"><i data-lucide="building"></i> البنوك</a>
+                            <h4>الإعدادات المالية</h4>
+                            <a href="#" class="sub-link"><i data-lucide="landmark"></i> الكفالات</a>
+                            <a href="#" class="sub-link"><i data-lucide="piggy-bank"></i> المحبوسات</a>
+                            <a href="{{ route('payment-terms.index') }}" class="sub-link"><i data-lucide="calendar-clock"></i> شروط الدفع</a>
                         </div>
                     </div>
                 </div>
