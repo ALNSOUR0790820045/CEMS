@@ -292,6 +292,27 @@
                 </div>
 
                 <div class="nav-group">
+                    <a class="nav-link">البيانات الأساسية</a>
+                    <div class="mega-menu">
+                        <div class="menu-col">
+                            <h4>البيانات الجغرافية</h4>
+                            <a href="{{ route('countries.index') }}" class="sub-link"><i data-lucide="globe"></i> الدول</a>
+                            <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المدن</a>
+                        </div>
+                        <div class="menu-col">
+                            <h4>البيانات العامة</h4>
+                            <a href="#" class="sub-link"><i data-lucide="users"></i> العملاء</a>
+                            <a href="#" class="sub-link"><i data-lucide="briefcase"></i> الموردين</a>
+                        </div>
+                        <div class="menu-col">
+                            <h4>الإعدادات</h4>
+                            <a href="#" class="sub-link"><i data-lucide="settings"></i> إعدادات النظام</a>
+                            <a href="#" class="sub-link"><i data-lucide="tag"></i> التصنيفات</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-group">
                     <a class="nav-link">المشاريع</a>
                     <div class="mega-menu">
                         <div class="menu-col">

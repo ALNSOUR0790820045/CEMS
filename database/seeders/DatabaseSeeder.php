@@ -29,5 +29,8 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             TenderSeeder::class,
         ]);
+
+        // Seed Countries
+        $this->call(CountrySeeder::class);
     }
 }

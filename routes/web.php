@@ -18,13 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // EOT Claims Management
-    Route::get('/eot/dashboard', [EotClaimController::class, 'dashboard'])->name('eot.dashboard');
-    Route::get('/eot/report', [EotClaimController::class, 'report'])->name('eot.report');
-    Route::post('/eot/{eotClaim}/submit', [EotClaimController::class, 'submit'])->name('eot.submit');
-    Route::get('/eot/{eotClaim}/approve', [EotClaimController::class, 'approvalForm'])->name('eot.approval-form');
-    Route::post('/eot/{eotClaim}/approve', [EotClaimController::class, 'approve'])->name('eot.approve');
-    Route::resource('eot', EotClaimController::class);
+    // Countries Management
+    Route::resource('countries', \App\Http\Controllers\CountryController::class);
 });

@@ -15,4 +15,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-storage/framework/views/*.php
+/storage/framework/views/*.php
+/database/database.sqlite

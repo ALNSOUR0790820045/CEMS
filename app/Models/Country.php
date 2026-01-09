@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     protected $fillable = [
-        'code',
         'name',
         'name_en',
+        'code',
+        'phone_code',
+        'currency_code',
         'is_active',
     ];
 
@@ -18,10 +20,11 @@ class Country extends Model
     ];
 
     // Relationships
-    public function cities()
-    {
-        return $this->hasMany(City::class);
-    }
+    // Note: City model will be implemented in future
+    // public function cities()
+    // {
+    //     return $this->hasMany(City::class);
+    // }
 
     // Scopes
     public function scopeActive($query)
