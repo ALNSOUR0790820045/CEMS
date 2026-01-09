@@ -27,9 +27,10 @@
         <table style="width: 100%; border-collapse: collapse;">
             <thead style="background: #f5f5f7;">
                 <tr>
-                    <th style="padding: 15px; text-align: right; font-weight: 600; color:  #1d1d1f;">#</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">#</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الشعار</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">اسم الشركة</th>
-                    <th style="padding: 15px; text-align: right; font-weight: 600; color:  #1d1d1f;">البريد الإلكتروني</th>
+                    <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">البريد الإلكتروني</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الهاتف</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">المدينة</th>
                     <th style="padding: 15px; text-align: right; font-weight: 600; color: #1d1d1f;">الحالة</th>
@@ -40,8 +41,18 @@
                 @foreach($companies as $company)
                 <tr style="border-bottom: 1px solid #f0f0f0;">
                     <td style="padding: 15px;">{{ $loop->iteration }}</td>
+                    <td style="padding: 15px;">
+                        @if($company->logo)
+                            <img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name }}" 
+                                style="width: 50px; height: 50px; object-fit: contain; border-radius: 8px; border: 1px solid #d2d2d7;">
+                        @else
+                            <div role="img" aria-label="لا يوجد شعار" style="width: 50px; height: 50px; background: #f5f5f7; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid #d2d2d7;">
+                                <i data-lucide="image-off" style="width: 20px; height: 20px; color: #86868b;"></i>
+                            </div>
+                        @endif
+                    </td>
                     <td style="padding: 15px; font-weight: 600;">{{ $company->name }}</td>
-                    <td style="padding: 15px; color: #86868b;">{{ $company->email ??  '-' }}</td>
+                    <td style="padding: 15px; color: #86868b;">{{ $company->email ?? '-' }}</td>
                     <td style="padding: 15px; color: #86868b;">{{ $company->phone ?? '-' }}</td>
                     <td style="padding: 15px; color: #86868b;">{{ $company->city ?? '-' }}</td>
                     <td style="padding: 15px;">
