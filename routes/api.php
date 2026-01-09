@@ -253,4 +253,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+
+    // Material Requests
+    Route::apiResource('material-requests', \App\Http\Controllers\Api\MaterialRequestController::class);
+    Route::post('material-requests/{id}/approve', [\App\Http\Controllers\Api\MaterialRequestController::class, 'approve']);
+    Route::post('material-requests/{id}/reject', [\App\Http\Controllers\Api\MaterialRequestController::class, 'reject']);
+    Route::post('material-requests/{id}/issue', [\App\Http\Controllers\Api\MaterialRequestController::class, 'issue']);
+    Route::post('material-requests/{id}/convert-to-pr', [\App\Http\Controllers\Api\MaterialRequestController::class, 'convertToPurchaseRequisition']);
 });
