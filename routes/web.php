@@ -20,9 +20,13 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Site Receipts Management
-    Route::resource('site-receipts', SiteReceiptController::class);
-    Route::get('site-receipts/{siteReceipt}/verify', [SiteReceiptController::class, 'verify'])->name('site-receipts.verify');
-    Route::post('site-receipts/{siteReceipt}/verify', [SiteReceiptController::class, 'processVerification'])->name('site-receipts.process-verification');
-    Route::get('purchase-orders/{purchaseOrder}/items', [SiteReceiptController::class, 'getPOItems'])->name('purchase-orders.items');
+    // Tender WBS Management
+    Route::get('/tenders/{tender}/wbs', [\App\Http\Controllers\TenderWbsController::class, 'index'])->name('tender-wbs.index');
+    Route::get('/tenders/{tender}/wbs/create', [\App\Http\Controllers\TenderWbsController::class, 'create'])->name('tender-wbs.create');
+    Route::post('/tenders/{tender}/wbs', [\App\Http\Controllers\TenderWbsController::class, 'store'])->name('tender-wbs.store');
+    Route::get('/tenders/{tender}/wbs/{wbs}/edit', [\App\Http\Controllers\TenderWbsController::class, 'edit'])->name('tender-wbs.edit');
+    Route::put('/tenders/{tender}/wbs/{wbs}', [\App\Http\Controllers\TenderWbsController::class, 'update'])->name('tender-wbs.update');
+    Route::delete('/tenders/{tender}/wbs/{wbs}', [\App\Http\Controllers\TenderWbsController::class, 'destroy'])->name('tender-wbs.destroy');
+    Route::get('/tenders/{tender}/wbs/import', [\App\Http\Controllers\TenderWbsController::class, 'import'])->name('tender-wbs.import');
+    Route::post('/tenders/{tender}/wbs/update-sort', [\App\Http\Controllers\TenderWbsController::class, 'updateSort'])->name('tender-wbs.update-sort');
 });

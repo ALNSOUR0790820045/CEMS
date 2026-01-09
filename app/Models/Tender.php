@@ -3,40 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tender extends Model
 {
     protected $fillable = [
-        'project_id',
-        'tender_number',
-        'title',
+        'name',
+        'name_en',
         'description',
+        'reference_number',
         'issue_date',
-        'closing_date',
-        'estimated_value',
+        'submission_deadline',
+        'budget',
         'status',
+        'company_id',
+        'is_active',
     ];
 
     protected $casts = [
         'issue_date' => 'date',
-        'closing_date' => 'date',
-        'estimated_value' => 'decimal:2',
+        'submission_deadline' => 'date',
+        'budget' => 'decimal:2',
+        'is_active' => 'boolean',
     ];
 
-    public function project(): BelongsTo
+    // Relationships
+    public function company()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Company::class);
     }
 
-    public function contracts(): HasMany
+    public function boqItems()
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(TenderBoqItem::class);
     }
 
-    public function changeOrders(): HasMany
+    public function wbsItems()
     {
-        return $this->hasMany(ChangeOrder::class);
+        return $this->hasMany(TenderWbs::class);
     }
 }

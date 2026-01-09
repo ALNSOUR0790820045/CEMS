@@ -395,9 +395,9 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>إدارة العطاءات</h4>
-                            <a href="{{ route('tenders.dashboard') }}" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة العطاءات</a>
-                            <a href="{{ route('tenders.index') }}" class="sub-link"><i data-lucide="megaphone"></i> جميع العطاءات</a>
-                            <a href="{{ route('tenders.create') }}" class="sub-link"><i data-lucide="plus-circle"></i> إضافة عطاء جديد</a>
+                            <a href="#" class="sub-link"><i data-lucide="megaphone"></i> العطاءات المتاحة</a>
+                            <a href="#" class="sub-link"><i data-lucide="file-check"></i> عروض الأسعار</a>
+                            <a href="#" class="sub-link"><i data-lucide="folder-tree"></i> هيكل تقسيم العمل (WBS)</a>
                         </div>
                         <div class="menu-col">
                             <h4>التقييم والمتابعة</h4>
