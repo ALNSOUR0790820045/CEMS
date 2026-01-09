@@ -136,6 +136,23 @@ Comprehensive test coverage including:
 - EVM metric calculations
 - Favorable/unfavorable variance detection
 
+## Configuration
+
+The module provides a `config/cost_control.php` configuration file with the following options:
+
+- `variance_threshold`: Percentage threshold for variance analysis (default: 5%)
+- `auto_generate_reports`: Enable automatic monthly report generation (default: false)
+- `approval_required`: Require budget approval before activation (default: true)
+- `overrun_alert_threshold`: Alert threshold for cost overruns (default: 10%)
+
+You can override these in your `.env` file:
+```env
+COST_CONTROL_VARIANCE_THRESHOLD=5
+COST_CONTROL_AUTO_REPORTS=false
+COST_CONTROL_APPROVAL_REQUIRED=true
+COST_CONTROL_OVERRUN_ALERT=10
+```
+
 ## Installation & Setup
 
 1. Run migrations:
@@ -170,6 +187,15 @@ POST /api/project-budgets
 }
 ```
 
+### Importing BOQ Items to Budget
+```json
+POST /api/project-budgets/{id}/import-boq
+{
+  "boq_items": [1, 2, 3, 4],
+  "default_cost_code_id": 5
+}
+```
+
 ### Recording Actual Costs
 ```json
 POST /api/actual-costs
@@ -197,8 +223,21 @@ POST /api/variance-analysis/analyze/1
 
 ### Getting EVM Analysis
 ```json
-GET /api/project-cost-reports/evm-analysis/1?percentage_complete=50
+GET /api/project-cost-reports/evm-analysis/1?percentage_complete=50&planned_percentage=60
 ```
+
+Response includes:
+- BAC (Budget at Completion)
+- Planned Value (PV)
+- Earned Value (EV)
+- Actual Cost (AC)
+- Cost Variance (CV = EV - AC)
+- Schedule Variance (SV = EV - PV)
+- CPI (Cost Performance Index)
+- SPI (Schedule Performance Index)
+- EAC (Estimate at Completion)
+- VAC (Variance at Completion)
+- TCPI (To Complete Performance Index)
 
 ## Dependencies
 - Laravel 12.x
@@ -212,6 +251,22 @@ GET /api/project-cost-reports/evm-analysis/1?percentage_complete=50
 - Cost report numbers auto-generate as CR-YYYY-XXX
 - Multi-currency support with exchange rates
 - Soft deletes enabled on main entities
+
+## Security & Performance
+
+### Thread Safety
+- Budget and report number generation uses database locks (`lockForUpdate`) to prevent race conditions
+- Safe for concurrent budget/report creation
+
+### Data Integrity
+- Foreign key constraints ensure referential integrity
+- Soft deletes preserve historical data
+- Required field validation prevents incomplete records
+
+### Performance Considerations
+- Indexed fields for common queries (project_id, cost_code_id, dates)
+- Efficient EVM calculations using aggregates
+- Pagination support on all list endpoints
 
 ## Future Enhancements
 - Automatic sync from AP invoices
