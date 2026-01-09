@@ -177,8 +177,17 @@ class RetentionController extends Controller
             $maxRetentionAmount = $retention->total_contract_value * ($retention->max_retention_percentage / 100);
             
             if ($newCumulativeRetention > $maxRetentionAmount) {
-                $retentionAmount = $maxRetentionAmount - $retention->total_retention_amount;
+                $retentionAmount = max(0, $maxRetentionAmount - $retention->total_retention_amount);
                 $newCumulativeRetention = $maxRetentionAmount;
+            }
+
+            // Skip if no retention amount to record
+            if ($retentionAmount <= 0) {
+                DB::rollBack();
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maximum retention limit has been reached. No retention amount to deduct.'
+                ], 422);
             }
 
             // Create accumulation record

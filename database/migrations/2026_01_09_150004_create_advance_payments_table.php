@@ -22,8 +22,7 @@ return new class extends Migration
             $table->foreignId('currency_id')->constrained()->cascadeOnDelete();
             $table->date('payment_date')->nullable();
             $table->boolean('guarantee_required')->default(true);
-            $table->unsignedBigInteger('guarantee_id')->nullable();
-            $table->foreign('guarantee_id')->references('id')->on('retention_guarantees')->nullOnDelete();
+            $table->foreignId('guarantee_id')->nullable()->constrained('retention_guarantees')->nullOnDelete();
             $table->decimal('recovery_start_percentage', 5, 2)->default(0);
             $table->decimal('recovery_percentage', 5, 2);
             $table->decimal('recovered_amount', 15, 2)->default(0);
