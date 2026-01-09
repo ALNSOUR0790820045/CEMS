@@ -284,4 +284,33 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/stock-status', [InventoryReportController:: class, 'stockStatus']);
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
+
+    // Cash Accounts
+    Route::apiResource('cash-accounts', CashAccountController::class);
+    Route::get('cash-accounts/{id}/balance', [CashAccountController::class, 'balance']);
+    Route::get('cash-accounts/{id}/statement', [CashAccountController::class, 'statement']);
+    Route::get('cash-accounts/{id}/transactions', [CashAccountController::class, 'transactions']);
+
+    // Cash Transactions
+    Route::apiResource('cash-transactions', CashTransactionController::class);
+    Route::post('cash-transactions/{id}/post', [CashTransactionController::class, 'post']);
+    Route::post('cash-transactions/{id}/cancel', [CashTransactionController::class, 'cancel']);
+
+    // Cash Transfers
+    Route::apiResource('cash-transfers', CashTransferController::class);
+    Route::post('cash-transfers/{id}/approve', [CashTransferController::class, 'approve']);
+    Route::post('cash-transfers/{id}/complete', [CashTransferController::class, 'complete']);
+    Route::post('cash-transfers/{id}/cancel', [CashTransferController::class, 'cancel']);
+
+    // Cash Forecasts
+    Route::apiResource('cash-forecasts', CashForecastController::class);
+    Route::get('cash-forecasts-summary', [CashForecastController::class, 'summary']);
+
+    // Cash Reports
+    Route::get('daily-cash-positions', [CashReportController::class, 'dailyPositions']);
+    Route::post('daily-cash-positions/reconcile', [CashReportController::class, 'reconcile']);
+    Route::get('reports/cash-flow-statement', [CashReportController::class, 'cashFlowStatement']);
+    Route::get('reports/cash-position', [CashReportController::class, 'cashPosition']);
+    Route::get('reports/cash-forecast', [CashReportController::class, 'cashForecast']);
+    Route::get('reports/cash-movement', [CashReportController::class, 'cashMovement']);
 });
