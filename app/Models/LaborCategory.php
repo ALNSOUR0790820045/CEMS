@@ -4,27 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class LaborCategory extends Model
 {
     protected $fillable = [
         'name',
         'name_en',
         'code',
         'description',
-        'start_date',
-        'end_date',
-        'status',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'start_date' => 'date',
-        'end_date' => 'date',
     ];
 
-    public function priceRequests()
+    public function priceListItems()
     {
-        return $this->hasMany(PriceRequest::class);
+        return $this->hasMany(PriceListItem::class);
     }
 }
