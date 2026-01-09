@@ -4,13 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:companies.view')->only(['index', 'show']);
+        $this->middleware('permission:companies.create')->only(['create', 'store']);
+        $this->middleware('permission:companies.edit')->only(['edit', 'update']);
+        $this->middleware('permission:companies.delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $companies = Company::latest()->get();
+
         return view('companies.index', compact('companies'));
     }
 
@@ -31,10 +45,17 @@ class CompanyController extends Controller
             'country' => 'required|string|max:2',
             'commercial_registration' => 'nullable|string|max:100',
             'tax_number' => 'nullable|string|max:100',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
         $validated['is_active'] = $request->has('is_active') ? 1 : 0;
+
+        // Handle logo upload
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('companies', 'public');
+            $validated['logo'] = $logoPath;
+        }
 
         Company::create($validated);
 
@@ -59,10 +80,23 @@ class CompanyController extends Controller
             'country' => 'required|string|max:2',
             'commercial_registration' => 'nullable|string|max:100',
             'tax_number' => 'nullable|string|max:100',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
         $validated['is_active'] = $request->has('is_active') ? 1 : 0;
+
+        // Handle logo upload
+        if ($request->hasFile('logo')) {
+            // Delete old logo if exists
+            if ($company->logo && Storage::disk('public')->exists($company->logo)) {
+                Storage::disk('public')->delete($company->logo);
+            }
+
+            // Store new logo
+            $logoPath = $request->file('logo')->store('companies', 'public');
+            $validated['logo'] = $logoPath;
+        }
 
         $company->update($validated);
 
@@ -72,7 +106,13 @@ class CompanyController extends Controller
 
     public function destroy(Company $company)
     {
+        // Delete logo if exists
+        if ($company->logo && Storage::disk('public')->exists($company->logo)) {
+            Storage::disk('public')->delete($company->logo);
+        }
+
         $company->delete();
+
         return redirect()->route('companies.index')
             ->with('success', 'تم حذف الشركة بنجاح');
     }
