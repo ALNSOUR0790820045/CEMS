@@ -36,6 +36,12 @@ class Company extends Model
         'settings' => 'array',
     ];
 
+    // Accessors
+    public function getLogoUrlAttribute()
+    {
+        return $this->logo ? asset('storage/' . $this->logo) : asset('images/default-company.png');
+    }
+
     // Relationships
     public function users()
     {
