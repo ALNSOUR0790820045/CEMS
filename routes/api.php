@@ -6,13 +6,13 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\Api\ProjectBudgetController;
-use App\Http\Controllers\Api\CostCodeController;
-use App\Http\Controllers\Api\ActualCostController;
-use App\Http\Controllers\Api\CommittedCostController;
-use App\Http\Controllers\Api\CostForecastController;
-use App\Http\Controllers\Api\VarianceAnalysisController;
-use App\Http\Controllers\Api\ProjectCostReportController;
+use App\Http\Controllers\RetentionController;
+use App\Http\Controllers\RetentionReleaseController;
+use App\Http\Controllers\RetentionGuaranteeController;
+use App\Http\Controllers\AdvancePaymentController;
+use App\Http\Controllers\DefectsLiabilityController;
+use App\Http\Controllers\DefectNotificationController;
+use App\Http\Controllers\RetentionReportController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -27,51 +27,48 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Project Cost Control Module
-    // Project Budgets
-    Route::apiResource('project-budgets', ProjectBudgetController::class);
-    Route::get('project-budgets/project/{projectId}', [ProjectBudgetController::class, 'byProject']);
-    Route::post('project-budgets/{id}/approve', [ProjectBudgetController::class, 'approve']);
-    Route::post('project-budgets/{id}/revise', [ProjectBudgetController::class, 'revise']);
-    Route::get('project-budgets/{id}/items', [ProjectBudgetController::class, 'getItems']);
-    Route::post('project-budgets/{id}/items', [ProjectBudgetController::class, 'updateItems']);
-    Route::post('project-budgets/{id}/import-boq', [ProjectBudgetController::class, 'importFromBoq']);
+    // Retention Management
+    Route::apiResource('retentions', RetentionController::class);
+    Route::get('retentions/project/{projectId}', [RetentionController::class, 'byProject']);
+    Route::get('retentions/{id}/accumulations', [RetentionController::class, 'getAccumulations']);
+    Route::get('retentions/{id}/releases', [RetentionController::class, 'getReleases']);
+    Route::get('retentions/{id}/statement', [RetentionController::class, 'statement']);
+    Route::post('retentions/{id}/calculate', [RetentionController::class, 'calculate']);
 
-    // Cost Codes
-    Route::get('cost-codes/tree', [CostCodeController::class, 'tree']);
-    Route::apiResource('cost-codes', CostCodeController::class);
+    // Retention Releases
+    Route::apiResource('retention-releases', RetentionReleaseController::class);
+    Route::post('retention-releases/{id}/approve', [RetentionReleaseController::class, 'approve']);
+    Route::post('retention-releases/{id}/release', [RetentionReleaseController::class, 'release']);
+    Route::post('retention-releases/{id}/mark-paid', [RetentionReleaseController::class, 'markPaid']);
 
-    // Actual Costs
-    Route::apiResource('actual-costs', ActualCostController::class);
-    Route::get('actual-costs/project/{projectId}', [ActualCostController::class, 'byProject']);
-    Route::post('actual-costs/import', [ActualCostController::class, 'import']);
+    // Retention Guarantees
+    Route::apiResource('retention-guarantees', RetentionGuaranteeController::class);
+    Route::post('retention-guarantees/{id}/release', [RetentionGuaranteeController::class, 'release']);
+    Route::get('retention-guarantees/expiring', [RetentionGuaranteeController::class, 'expiring']);
 
-    // Committed Costs
-    Route::apiResource('committed-costs', CommittedCostController::class);
-    Route::get('committed-costs/project/{projectId}', [CommittedCostController::class, 'byProject']);
-    Route::post('committed-costs/sync-pos', [CommittedCostController::class, 'syncFromPurchaseOrders']);
-    Route::post('committed-costs/sync-subcontracts', [CommittedCostController::class, 'syncFromSubcontracts']);
+    // Advance Payments
+    Route::apiResource('advance-payments', AdvancePaymentController::class);
+    Route::get('advance-payments/{id}/recoveries', [AdvancePaymentController::class, 'getRecoveries']);
+    Route::post('advance-payments/{id}/approve', [AdvancePaymentController::class, 'approve']);
+    Route::post('advance-payments/{id}/pay', [AdvancePaymentController::class, 'pay']);
+    Route::get('advance-payments/{id}/statement', [AdvancePaymentController::class, 'statement']);
 
-    // Cost Forecasts
-    Route::apiResource('cost-forecasts', CostForecastController::class);
-    Route::post('cost-forecasts/generate/{projectId}', [CostForecastController::class, 'generate']);
-    Route::get('cost-forecasts/project/{projectId}', [CostForecastController::class, 'byProject']);
+    // Defects Liability
+    Route::apiResource('defects-liability', DefectsLiabilityController::class);
+    Route::get('defects-liability/{id}/notifications', [DefectsLiabilityController::class, 'getNotifications']);
+    Route::post('defects-liability/{id}/extend', [DefectsLiabilityController::class, 'extend']);
+    Route::post('defects-liability/{id}/complete', [DefectsLiabilityController::class, 'complete']);
 
-    // Variance Analysis
-    Route::apiResource('variance-analysis', VarianceAnalysisController::class);
-    Route::post('variance-analysis/analyze/{projectId}', [VarianceAnalysisController::class, 'analyze']);
-    Route::get('variance-analysis/project/{projectId}', [VarianceAnalysisController::class, 'byProject']);
+    // Defect Notifications
+    Route::apiResource('defect-notifications', DefectNotificationController::class);
+    Route::post('defect-notifications/{id}/acknowledge', [DefectNotificationController::class, 'acknowledge']);
+    Route::post('defect-notifications/{id}/rectify', [DefectNotificationController::class, 'rectify']);
 
-    // Project Cost Reports
-    Route::get('project-cost-reports/cost-summary/{projectId}', [ProjectCostReportController::class, 'costSummary']);
-    Route::get('project-cost-reports/budget-vs-actual/{projectId}', [ProjectCostReportController::class, 'budgetVsActual']);
-    Route::get('project-cost-reports/cost-breakdown/{projectId}', [ProjectCostReportController::class, 'costBreakdown']);
-    Route::get('project-cost-reports/commitment-status/{projectId}', [ProjectCostReportController::class, 'commitmentStatus']);
-    Route::get('project-cost-reports/cost-trend/{projectId}', [ProjectCostReportController::class, 'costTrend']);
-    Route::get('project-cost-reports/evm-analysis/{projectId}', [ProjectCostReportController::class, 'evmAnalysis']);
-    Route::get('project-cost-reports/variance-report/{projectId}', [ProjectCostReportController::class, 'varianceReport']);
-    Route::get('project-cost-reports/forecast-report/{projectId}', [ProjectCostReportController::class, 'forecastReport']);
-    Route::get('project-cost-reports/cost-to-complete/{projectId}', [ProjectCostReportController::class, 'costToComplete']);
-    Route::post('project-cost-reports/generate-monthly/{projectId}', [ProjectCostReportController::class, 'generateMonthlyReport']);
-    Route::apiResource('project-cost-reports', ProjectCostReportController::class);
+    // Retention Reports
+    Route::get('reports/retention-summary', [RetentionReportController::class, 'summary']);
+    Route::get('reports/retention-aging', [RetentionReportController::class, 'aging']);
+    Route::get('reports/advance-balance', [RetentionReportController::class, 'advanceBalance']);
+    Route::get('reports/dlp-status', [RetentionReportController::class, 'dlpStatus']);
+    Route::get('reports/guarantee-expiry', [RetentionReportController::class, 'guaranteeExpiry']);
+    Route::get('reports/retention-forecast', [RetentionReportController::class, 'releaseForecast']);
 });
