@@ -8,9 +8,21 @@ use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:companies.view')->only(['index', 'show']);
+        $this->middleware('permission:companies.create')->only(['create', 'store']);
+        $this->middleware('permission:companies.edit')->only(['edit', 'update']);
+        $this->middleware('permission:companies.delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $companies = Company::latest()->get();
+
         return view('companies.index', compact('companies'));
     }
 
@@ -73,6 +85,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
+
         return redirect()->route('companies.index')
             ->with('success', 'تم حذف الشركة بنجاح');
     }
