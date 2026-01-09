@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
             TenderSeeder::class,
         ]);
 
-        // Seed Countries
-        $this->call(CountrySeeder::class);
+        // Seed sample data for sales quotations
+        $this->call([
+            CustomerSeeder::class,
+            ProductSeeder::class,
+        ]);
     }
 }

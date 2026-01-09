@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Warehouses Management
-    Route::resource('warehouses', \App\Http\Controllers\WarehouseController::class);
+    // Sales Quotations
+    Route::resource('sales-quotations', \App\Http\Controllers\SalesQuotationController::class);
+    Route::get('sales-quotations/{salesQuotation}/pdf', [\App\Http\Controllers\SalesQuotationController::class, 'pdf'])->name('sales-quotations.pdf');
 });

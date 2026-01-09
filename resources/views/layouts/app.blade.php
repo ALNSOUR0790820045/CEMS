@@ -340,6 +340,10 @@
                     <a class="nav-link">المالية</a>
                     <div class="mega-menu">
                         <div class="menu-col">
+                            <h4>المبيعات</h4>
+                            <a href="{{ route('sales-quotations.index') }}" class="sub-link"><i data-lucide="file-text"></i> عروض أسعار المبيعات</a>
+                        </div>
+                        <div class="menu-col">
                             <h4>المحاسبة</h4>
                             <a href="#" class="sub-link"><i data-lucide="calculator"></i> المحاسبة</a>
                             <a href="{{ route('main-ipcs.index') }}" class="sub-link"><i data-lucide="receipt"></i> المستخلصات الرئيسية</a>
