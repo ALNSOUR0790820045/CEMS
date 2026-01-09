@@ -7,23 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Tender extends Model
 {
     protected $fillable = [
+        'company_id',
+        'tender_code',
         'name',
         'name_en',
         'description',
-        'reference_number',
-        'issue_date',
-        'submission_deadline',
-        'budget',
         'status',
-        'company_id',
-        'is_active',
+        'total_value',
+        'submission_date',
     ];
 
     protected $casts = [
-        'issue_date' => 'date',
-        'submission_deadline' => 'date',
-        'budget' => 'decimal:2',
-        'is_active' => 'boolean',
+        'submission_date' => 'date',
+        'total_value' => 'decimal:2',
     ];
 
     // Relationships
@@ -32,13 +28,18 @@ class Tender extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function boqItems()
+    public function activities()
     {
-        return $this->hasMany(TenderBoqItem::class);
+        return $this->hasMany(TenderActivity::class);
     }
 
-    public function wbsItems()
+    public function resources()
     {
-        return $this->hasMany(TenderWbs::class);
+        return $this->hasMany(TenderResource::class);
+    }
+
+    public function histograms()
+    {
+        return $this->hasMany(TenderResourceHistogram::class);
     }
 }
