@@ -15,11 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed countries first
+        $this->call([
+            CountrySeeder::class,
+            CitySeeder::class,
+        ]);
+        
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Seed countries, cities, and currencies
+        $this->call([
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            TenderSeeder::class,
         ]);
     }
 }
