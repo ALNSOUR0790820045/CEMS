@@ -4,7 +4,7 @@
 <div style="padding: 40px; max-width: 900px; margin: 0 auto;">
     <div style="margin-bottom: 30px;">
         <h1 style="font-size: 2rem; color: #1d1d1f; margin-bottom: 5px;">تعديل بيانات الشركة</h1>
-        <p style="color: #86868b;">تحديث بيانات الشركة</p>
+        <p style="color: #86868b;">تحديث بيانات {{ $company->name }}</p>
     </div>
 
     @if($errors->any())
@@ -100,13 +100,22 @@
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">الشعار</label>
+            <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">شعار الشركة</label>
+            
             @if($company->logo)
-                <img src="{{ $company->logo_url }}" alt="{{ $company->name }} logo" style="max-width: 150px; margin-bottom: 10px; border-radius: 8px; display: block;">
+            <div style="margin-bottom: 15px; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                <p style="color: #1d1d1f; font-weight: 600; margin-bottom: 10px;">الشعار الحالي:</p>
+                <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" 
+                    style="max-width: 200px; max-height: 100px; border-radius: 8px; border: 1px solid #d2d2d7;">
+            </div>
             @endif
+            
             <input type="file" name="logo" accept="image/*" 
                 style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
-            <small style="color: #86868b; display: block; margin-top: 5px;">الصيغ المدعومة: JPG, PNG, GIF (حد أقصى: 2MB)</small>
+            <p style="color: #86868b; font-size: 0.85rem; margin-top: 5px;">يُقبل: jpeg, png, jpg, gif, svg - الحد الأقصى: 2MB</p>
+            @if($company->logo)
+            <p style="color: #86868b; font-size: 0.85rem;">اترك الحقل فارغاً للاحتفاظ بالشعار الحالي</p>
+            @endif
         </div>
 
         <div style="margin-bottom: 30px;">
@@ -124,7 +133,7 @@
             </a>
             <button type="submit" 
                 style="background: linear-gradient(135deg, #0071e3 0%, #00c4cc 100%); color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-family: 'Cairo', sans-serif;">
-                تحديث
+                حفظ التعديلات
             </button>
         </div>
     </form>
