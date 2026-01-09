@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('rectification_date')->nullable();
             $table->enum('status', ['notified', 'acknowledged', 'in_progress', 'rectified', 'disputed'])->default('notified');
             $table->decimal('cost_to_rectify', 15, 2)->nullable();
-            $table->decimal('deducted_from_retention', 15, 2')->default(0);
+            $table->decimal('deducted_from_retention', 15, 2)->default(0);
             $table->json('photos')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
