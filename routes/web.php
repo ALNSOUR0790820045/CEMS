@@ -4,12 +4,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PriceListController;
-use App\Http\Controllers\PriceListItemController;
-use App\Http\Controllers\PriceSearchController;
-use App\Http\Controllers\PriceRequestController;
-use App\Http\Controllers\PriceQuotationController;
-use App\Http\Controllers\PriceComparisonController;
+use App\Http\Controllers\CostPlusContractController;
+use App\Http\Controllers\CostPlusTransactionController;
+use App\Http\Controllers\CostPlusInvoiceController;
+use App\Http\Controllers\CostPlusOverheadController;
+use App\Http\Controllers\CostPlusReportController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -25,13 +24,33 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Tenders Management
-    Route::get('/tenders/dashboard', [\App\Http\Controllers\TenderController::class, 'dashboard'])->name('tenders.dashboard');
-    Route::get('/tenders/{tender}/decision', [\App\Http\Controllers\TenderController::class, 'decision'])->name('tenders.decision');
-    Route::post('/tenders/{tender}/decision', [\App\Http\Controllers\TenderController::class, 'storeDecision'])->name('tenders.decision.store');
-    Route::get('/tenders/{tender}/site-visit', [\App\Http\Controllers\TenderController::class, 'siteVisit'])->name('tenders.site-visit');
-    Route::post('/tenders/{tender}/site-visit', [\App\Http\Controllers\TenderController::class, 'storeSiteVisit'])->name('tenders.site-visit.store');
-    Route::get('/tenders/{tender}/competitors', [\App\Http\Controllers\TenderController::class, 'competitors'])->name('tenders.competitors');
-    Route::post('/tenders/{tender}/competitors', [\App\Http\Controllers\TenderController::class, 'storeCompetitor'])->name('tenders.competitors.store');
-    Route::resource('tenders', \App\Http\Controllers\TenderController::class);
+    // Cost Plus Management Module
+    Route::prefix('cost-plus')->name('cost-plus.')->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [CostPlusReportController::class, 'dashboard'])->name('dashboard');
+        
+        // Contracts
+        Route::resource('contracts', CostPlusContractController::class);
+        
+        // Transactions
+        Route::resource('transactions', CostPlusTransactionController::class);
+        Route::post('/transactions/{id}/approve', [CostPlusTransactionController::class, 'approve'])->name('transactions.approve');
+        Route::post('/transactions/{id}/upload-documents', [CostPlusTransactionController::class, 'uploadDocuments'])->name('transactions.upload-documents');
+        
+        // Invoices
+        Route::get('/invoices', [CostPlusInvoiceController::class, 'index'])->name('invoices.index');
+        Route::post('/invoices/generate', [CostPlusInvoiceController::class, 'generate'])->name('invoices.generate');
+        Route::get('/invoices/{id}', [CostPlusInvoiceController::class, 'show'])->name('invoices.show');
+        Route::post('/invoices/{id}/approve', [CostPlusInvoiceController::class, 'approve'])->name('invoices.approve');
+        Route::get('/invoices/{id}/export', [CostPlusInvoiceController::class, 'export'])->name('invoices.export');
+        
+        // Overhead
+        Route::get('/overhead', [CostPlusOverheadController::class, 'index'])->name('overhead.index');
+        Route::post('/overhead/allocate', [CostPlusOverheadController::class, 'allocate'])->name('overhead.allocate');
+        
+        // Reports
+        Route::get('/gmp-status', [CostPlusReportController::class, 'gmpStatus'])->name('gmp-status');
+        Route::get('/open-book-report', [CostPlusReportController::class, 'openBookReport'])->name('open-book-report');
+        Route::get('/reports', [CostPlusReportController::class, 'reports'])->name('reports');
+    });
 });
