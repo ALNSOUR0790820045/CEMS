@@ -10,39 +10,34 @@ class Project extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'company_id',
         'project_number',
         'name',
         'name_en',
         'description',
         'location',
+        'company_id',
         'start_date',
         'end_date',
-        'contract_value',
         'status',
-        'project_manager_id',
+        'budget',
+        'is_active',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
-        'contract_value' => 'decimal:2',
+        'budget' => 'decimal:2',
+        'is_active' => 'boolean',
     ];
 
-    // Relationships
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function projectManager()
+    public function laborers()
     {
-        return $this->belongsTo(User::class, 'project_manager_id');
-    }
-
-    public function wbs()
-    {
-        return $this->hasMany(ProjectWbs::class);
+        return $this->hasMany(Laborer::class, 'current_project_id');
     }
 
     public function boqItems()
@@ -50,13 +45,28 @@ class Project extends Model
         return $this->hasMany(BoqItem::class);
     }
 
-    public function changeOrders()
+    public function laborAssignments()
     {
-        return $this->hasMany(ChangeOrder::class);
+        return $this->hasMany(LaborAssignment::class);
     }
 
-    public function mainIpcs()
+    public function laborAttendance()
     {
-        return $this->hasMany(MainIpc::class);
+        return $this->hasMany(LaborDailyAttendance::class);
+    }
+
+    public function laborProductivity()
+    {
+        return $this->hasMany(LaborProductivity::class);
+    }
+
+    public function laborTimesheets()
+    {
+        return $this->hasMany(LaborTimesheet::class);
+    }
+
+    public function laborCamps()
+    {
+        return $this->hasMany(LaborCamp::class);
     }
 }
