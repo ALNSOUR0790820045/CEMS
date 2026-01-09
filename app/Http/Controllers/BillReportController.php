@@ -71,14 +71,16 @@ class BillReportController extends Controller
         $totalBilled = $bills->sum('current_amount');
         $contractValue = $project->contract->contract_value ?? 0;
         
+        $averageBillAmount = $bills->count() > 0 ? $totalBilled / $bills->count() : 0;
+        
         $forecast = [
             'contract_value' => $contractValue,
             'total_billed' => $totalBilled,
             'percentage_billed' => $contractValue > 0 ? ($totalBilled / $contractValue) * 100 : 0,
             'remaining_value' => $contractValue - $totalBilled,
-            'average_bill_amount' => $bills->count() > 0 ? $totalBilled / $bills->count() : 0,
-            'estimated_bills_remaining' => $bills->count() > 0 && $totalBilled > 0 
-                ? ceil(($contractValue - $totalBilled) / ($totalBilled / $bills->count())) 
+            'average_bill_amount' => $averageBillAmount,
+            'estimated_bills_remaining' => $averageBillAmount > 0 
+                ? ceil(($contractValue - $totalBilled) / $averageBillAmount) 
                 : 0,
         ];
 

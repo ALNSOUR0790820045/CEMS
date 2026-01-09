@@ -153,8 +153,10 @@ class ProgressBill extends Model
     // Business logic methods
     public function calculateAmounts(): void
     {
-        // Calculate current amount from items
+        // Calculate current period amount from items
         $this->current_amount = $this->items()->sum('current_amount');
+        
+        // Calculate gross amount (cumulative billed amount to date)
         $this->gross_amount = $this->items()->sum('cumulative_amount');
         
         // Calculate retention

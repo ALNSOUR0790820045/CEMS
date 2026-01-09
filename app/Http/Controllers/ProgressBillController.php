@@ -359,7 +359,9 @@ class ProgressBillController extends Controller
                     [
                         'item_code' => $boqItem->item_number,
                         'description' => $boqItem->description,
-                        'unit_id' => null, // BOQ items use string units, not unit_id
+                        // Note: BOQ items use string units, not unit_id foreign key
+                        // This could be enhanced with a unit lookup/mapping in future
+                        'unit_id' => null,
                         'contract_quantity' => $boqItem->quantity,
                         'contract_rate' => $boqItem->unit_rate,
                         'contract_amount' => $boqItem->amount,
@@ -416,7 +418,9 @@ class ProgressBillController extends Controller
                     'boq_item_id' => $boqItem->id,
                     'item_code' => $boqItem->item_number,
                     'description' => $boqItem->description,
-                    'unit_id' => null, // BOQ items use string units, not unit_id
+                    // Note: BOQ items use string units, not unit_id foreign key
+                    // This could be enhanced with a unit lookup/mapping in future
+                    'unit_id' => null,
                     'contract_quantity' => $boqItem->quantity,
                     'contract_rate' => $boqItem->unit_rate,
                     'contract_amount' => $boqItem->amount,
