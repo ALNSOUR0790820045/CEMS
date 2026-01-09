@@ -344,6 +344,7 @@
                         <div class="menu-col">
                             <h4>المشتريات</h4>
                             <a href="#" class="sub-link"><i data-lucide="shopping-cart"></i> المشتريات</a>
+                            <a href="{{ route('vendors.index') }}" class="sub-link"><i data-lucide="truck"></i> الموردين</a>
                             <a href="#" class="sub-link"><i data-lucide="package"></i> المستودعات</a>
                         </div>
                         <div class="menu-col">
