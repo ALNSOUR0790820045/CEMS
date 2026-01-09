@@ -36,7 +36,13 @@ class ScheduleActivityController extends Controller
     {
         $validated = $request->validate([
             'project_schedule_id' => 'required|exists:project_schedules,id',
-            'activity_code' => 'required|string|unique:schedule_activities,activity_code',
+            'activity_code' => [
+                'required',
+                'string',
+                \Illuminate\Validation\Rule::unique('schedule_activities')->where(function ($query) use ($request) {
+                    return $query->where('project_schedule_id', $request->project_schedule_id);
+                })
+            ],
             'wbs_id' => 'nullable|exists:project_wbs,id',
             'name' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',

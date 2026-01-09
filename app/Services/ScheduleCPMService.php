@@ -223,14 +223,10 @@ class ScheduleCPMService
                 return Carbon::parse($predecessor->early_start)->addDays($lagDays);
                 
             case 'FF': // Finish-to-Finish
-                return Carbon::parse($predecessor->early_finish)
-                    ->subDays($predecessor->planned_duration)
-                    ->addDays($lagDays);
+                return Carbon::parse($predecessor->early_finish)->addDays($lagDays);
                 
             case 'SF': // Start-to-Finish
-                return Carbon::parse($predecessor->early_start)
-                    ->subDays($predecessor->planned_duration)
-                    ->addDays($lagDays);
+                return Carbon::parse($predecessor->early_start)->addDays($lagDays);
                 
             default:
                 return Carbon::parse($predecessor->early_finish)->addDays($lagDays);
@@ -246,17 +242,13 @@ class ScheduleCPMService
                 return Carbon::parse($successor->late_start)->subDays($lagDays);
                 
             case 'SS': // Start-to-Start
-                return Carbon::parse($successor->late_start)
-                    ->addDays($successor->planned_duration)
-                    ->subDays($lagDays);
+                return Carbon::parse($successor->late_start)->subDays($lagDays);
                 
             case 'FF': // Finish-to-Finish
                 return Carbon::parse($successor->late_finish)->subDays($lagDays);
                 
             case 'SF': // Start-to-Finish
-                return Carbon::parse($successor->late_finish)
-                    ->addDays($successor->planned_duration)
-                    ->subDays($lagDays);
+                return Carbon::parse($successor->late_finish)->subDays($lagDays);
                 
             default:
                 return Carbon::parse($successor->late_start)->subDays($lagDays);

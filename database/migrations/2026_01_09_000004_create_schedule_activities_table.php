@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('schedule_activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_schedule_id')->constrained('project_schedules')->cascadeOnDelete();
-            $table->string('activity_code')->unique();
+            $table->string('activity_code');
             $table->foreignId('wbs_id')->nullable()->constrained('project_wbs')->nullOnDelete();
             $table->string('name');
             $table->string('name_en')->nullable();
@@ -63,6 +63,7 @@ return new class extends Migration
             $table->index('activity_code');
             $table->index('status');
             $table->index('is_critical');
+            $table->unique(['project_schedule_id', 'activity_code']);
         });
     }
 

@@ -234,7 +234,7 @@ class CPMCalculationTest extends TestCase
         ]);
 
         // Try to create B -> A (circular)
-        $this->expectException(\Exception::class);
+        $this->expectException(\Illuminate\Database\QueryException::class);
         
         ActivityDependency::create([
             'project_schedule_id' => $this->schedule->id,
