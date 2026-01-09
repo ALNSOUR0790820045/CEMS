@@ -3,26 +3,38 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'company_id',
-        'project_number',
         'name',
+        'name_en',
+        'code',
         'description',
+        'location',
+        'latitude',
+        'longitude',
         'start_date',
-        'completion_date',
-        'budget',
+        'end_date',
         'status',
+        'budget',
+        'manager_id',
+        'is_active',
     ];
 
     protected $casts = [
         'start_date' => 'date',
-        'completion_date' => 'date',
+        'end_date' => 'date',
         'budget' => 'decimal:2',
+        'latitude' => 'decimal:8',
+        'longitude' => 'decimal:8',
+        'is_active' => 'boolean',
     ];
 
     public function company(): BelongsTo
@@ -30,23 +42,18 @@ class Project extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function tenders(): HasMany
+    public function manager(): BelongsTo
     {
-        return $this->hasMany(Tender::class);
+        return $this->belongsTo(User::class, 'manager_id');
     }
 
-    public function contracts(): HasMany
+    public function siteReceipts(): HasMany
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(SiteReceipt::class);
     }
 
-    public function changeOrders(): HasMany
+    public function purchaseOrders(): HasMany
     {
-        return $this->hasMany(ChangeOrder::class);
-    }
-
-    public function wbs(): HasMany
-    {
-        return $this->hasMany(ProjectWbs::class);
+        return $this->hasMany(PurchaseOrder::class);
     }
 }

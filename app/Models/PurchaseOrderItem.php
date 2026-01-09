@@ -3,63 +3,44 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PurchaseOrderItem extends Model
 {
     protected $fillable = [
         'purchase_order_id',
-        'material_id',
+        'product_id',
         'description',
-        'specifications',
         'quantity',
-        'unit_id',
+        'received_quantity',
+        'unit',
         'unit_price',
-        'discount_percentage',
-        'discount_amount',
-        'tax_percentage',
+        'discount',
+        'tax_rate',
         'tax_amount',
-        'total_price',
-        'quantity_received',
-        'quantity_invoiced',
-        'delivery_date',
+        'total',
+        'expected_delivery_date',
         'notes',
     ];
 
     protected $casts = [
-        'quantity' => 'decimal:2',
+        'quantity' => 'decimal:3',
+        'received_quantity' => 'decimal:3',
         'unit_price' => 'decimal:2',
-        'discount_percentage' => 'decimal:2',
-        'discount_amount' => 'decimal:2',
-        'tax_percentage' => 'decimal:2',
+        'discount' => 'decimal:2',
+        'tax_rate' => 'decimal:2',
         'tax_amount' => 'decimal:2',
-        'total_price' => 'decimal:2',
-        'quantity_received' => 'decimal:2',
-        'quantity_invoiced' => 'decimal:2',
-        'delivery_date' => 'date',
+        'total' => 'decimal:2',
+        'expected_delivery_date' => 'date',
     ];
 
-    public function purchaseOrder()
+    public function purchaseOrder(): BelongsTo
     {
         return $this->belongsTo(PurchaseOrder::class);
     }
 
-    public function material()
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Material::class);
-    }
-
-    public function unit()
-    {
-        return $this->belongsTo(Unit::class);
-    }
-
-    public function grnItems()
-    {
-        return $this->hasMany(GRNItem::class);
-    }
-
-    public function receiptItems()
-    {
-        return $this->hasMany(PoReceiptItem::class, 'po_item_id');
+        return $this->belongsTo(Product::class);
     }
 }

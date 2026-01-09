@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ChangeOrderController;
+use App\Http\Controllers\SiteReceiptController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -20,13 +20,9 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Change Orders Management
-    Route::resource('change-orders', ChangeOrderController::class);
-    Route::post('change-orders/{changeOrder}/submit', [ChangeOrderController::class, 'submit'])->name('change-orders.submit');
-    Route::get('change-orders/{changeOrder}/approve-form', [ChangeOrderController::class, 'approve'])->name('change-orders.approve');
-    Route::post('change-orders/{changeOrder}/approve', [ChangeOrderController::class, 'processApproval'])->name('change-orders.process-approval');
-    Route::get('change-orders-report', [ChangeOrderController::class, 'report'])->name('change-orders.report');
-    Route::get('change-orders/{changeOrder}/export-pdf', [ChangeOrderController::class, 'exportPdf'])->name('change-orders.export-pdf');
-    Route::get('projects/{project}/wbs', [ChangeOrderController::class, 'getProjectWbs'])->name('projects.wbs');
-    Route::get('contracts/{contract}/details', [ChangeOrderController::class, 'getContractDetails'])->name('contracts.details');
+    // Site Receipts Management
+    Route::resource('site-receipts', SiteReceiptController::class);
+    Route::get('site-receipts/{siteReceipt}/verify', [SiteReceiptController::class, 'verify'])->name('site-receipts.verify');
+    Route::post('site-receipts/{siteReceipt}/verify', [SiteReceiptController::class, 'processVerification'])->name('site-receipts.process-verification');
+    Route::get('purchase-orders/{purchaseOrder}/items', [SiteReceiptController::class, 'getPOItems'])->name('purchase-orders.items');
 });

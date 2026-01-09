@@ -4,83 +4,71 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PurchaseOrder extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'po_number',
-        'po_date',
-        'vendor_id',
-        'purchase_requisition_id',
         'project_id',
-        'delivery_address',
-        'delivery_date',
-        'payment_terms_id',
-        'currency_id',
-        'exchange_rate',
-        'subtotal',
-        'discount_amount',
-        'tax_amount',
-        'total_amount',
-        'status',
-        'approved_by_id',
-        'approved_at',
-        'sent_at',
-        'notes',
-        'terms',
-        'terms_and_conditions',
+        'supplier_id',
+        'po_number',
+        'order_date',
         'expected_delivery_date',
-        'company_id',
+        'actual_delivery_date',
+        'status',
+        'subtotal',
+        'tax_amount',
+        'discount',
+        'total_amount',
+        'payment_terms',
+        'terms_conditions',
+        'notes',
         'created_by',
+        'approved_by',
+        'approved_at',
     ];
 
     protected $casts = [
-        'po_date' => 'date',
-        'delivery_date' => 'date',
+        'order_date' => 'date',
         'expected_delivery_date' => 'date',
-        'approved_at' => 'datetime',
-        'sent_at' => 'datetime',
-        'total_amount' => 'decimal:2',
+        'actual_delivery_date' => 'date',
         'subtotal' => 'decimal:2',
-        'discount_amount' => 'decimal:2',
         'tax_amount' => 'decimal:2',
-        'exchange_rate' => 'decimal:4',
+        'discount' => 'decimal:2',
+        'total_amount' => 'decimal:2',
+        'approved_at' => 'datetime',
     ];
 
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class);
-    }
-
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function creator()
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function items()
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function items(): HasMany
     {
         return $this->hasMany(PurchaseOrderItem::class);
     }
 
-    public function grns()
+    public function siteReceipts(): HasMany
     {
-        return $this->hasMany(GRN::class);
-    }
-
-    public function apInvoices()
-    {
-        return $this->hasMany(ApInvoice::class);
+        return $this->hasMany(SiteReceipt::class);
     }
 }
