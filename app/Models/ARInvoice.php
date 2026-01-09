@@ -58,10 +58,10 @@ class ARInvoice extends Model
             if (empty($invoice->invoice_number)) {
                 $invoice->invoice_number = self::generateInvoiceNumber();
             }
-            
+
             // Calculate total_amount
             $invoice->total_amount = $invoice->subtotal + $invoice->tax_amount - $invoice->discount_amount;
-            
+
             // Calculate balance
             $invoice->balance = $invoice->total_amount - $invoice->received_amount;
         });
@@ -69,10 +69,10 @@ class ARInvoice extends Model
         static::updating(function ($invoice) {
             // Recalculate total_amount
             $invoice->total_amount = $invoice->subtotal + $invoice->tax_amount - $invoice->discount_amount;
-            
+
             // Recalculate balance
             $invoice->balance = $invoice->total_amount - $invoice->received_amount;
-            
+
             // Update status based on payment (but don't change cancelled invoices)
             if ($invoice->status !== 'cancelled') {
                 if ($invoice->received_amount >= $invoice->total_amount) {
@@ -92,14 +92,14 @@ class ARInvoice extends Model
         $lastInvoice = self::where('invoice_number', 'like', "ARI-{$year}-%")
             ->orderBy('invoice_number', 'desc')
             ->first();
-        
+
         if ($lastInvoice) {
             $lastNumber = intval(substr($lastInvoice->invoice_number, -4));
             $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
         } else {
             $newNumber = '0001';
         }
-        
+
         return "ARI-{$year}-{$newNumber}";
     }
 

@@ -64,24 +64,9 @@ class PurchaseOrder extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function purchaseRequisition()
-    {
-        return $this->belongsTo(PurchaseRequisition::class);
-    }
-
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function approvedBy()
-    {
-        return $this->belongsTo(User::class, 'approved_by_id');
     }
 
     public function items()
@@ -92,16 +77,6 @@ class PurchaseOrder extends Model
     public function grns()
     {
         return $this->hasMany(GRN::class);
-    }
-
-    public function receipts()
-    {
-        return $this->hasMany(PoReceipt::class);
-    }
-
-    public function amendments()
-    {
-        return $this->hasMany(PoAmendment::class);
     }
 
     public function apInvoices()

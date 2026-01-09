@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Material extends Model
 {
@@ -41,7 +41,7 @@ class Material extends Model
 
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company:: class);
+        return $this->belongsTo(Company::class);
     }
 
     public function purchaseOrderItems(): HasMany
@@ -51,7 +51,7 @@ class Material extends Model
 
     public function grnItems(): HasMany
     {
-        return $this->hasMany(GRNItem:: class);
+        return $this->hasMany(GRNItem::class);
     }
 
     public function inventoryBalances(): HasMany

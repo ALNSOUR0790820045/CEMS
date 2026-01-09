@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -46,7 +47,7 @@ class Company extends Model
     {
         return $this->hasMany(Branch::class);
     }
-    
+
     public function warehouses()
     {
         return $this->hasMany(Warehouse::class);
@@ -54,7 +55,7 @@ class Company extends Model
 
     public function employees()
     {
-        return $this->hasMany(Employee:: class);
+        return $this->hasMany(Employee::class);
     }
 
     public function shiftSchedules()
