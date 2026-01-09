@@ -125,29 +125,25 @@ class RiskReportController extends Controller
 
     public function responseStatus($projectId): JsonResponse
     {
-        $risks = Risk::where('project_id', $projectId)
-            ->with(['responses' => function($query) {
-                $query->select('risk_id', 'status', DB::raw('count(*) as count'))
-                    ->groupBy('risk_id', 'status');
-            }])
-            ->get();
+        $risks = Risk::where('project_id', $projectId)->pluck('id');
 
-        $statusCounts = [
-            'planned' => 0,
-            'in_progress' => 0,
-            'completed' => 0,
-            'cancelled' => 0,
+        $statusCounts = RiskResponse::whereIn('risk_id', $risks)
+            ->select('status', DB::raw('count(*) as count'))
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+
+        // Ensure all statuses are present in response
+        $allStatuses = [
+            'planned' => $statusCounts['planned'] ?? 0,
+            'in_progress' => $statusCounts['in_progress'] ?? 0,
+            'completed' => $statusCounts['completed'] ?? 0,
+            'cancelled' => $statusCounts['cancelled'] ?? 0,
         ];
-
-        foreach ($risks as $risk) {
-            foreach ($risk->responses as $response) {
-                $statusCounts[$response->status] = ($statusCounts[$response->status] ?? 0) + 1;
-            }
-        }
 
         return response()->json([
             'success' => true,
-            'data' => $statusCounts,
+            'data' => $allStatuses,
         ]);
     }
 }
