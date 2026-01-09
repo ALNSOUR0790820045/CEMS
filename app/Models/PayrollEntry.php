@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PayrollEntry extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'payroll_period_id',
         'employee_id',
@@ -101,14 +102,14 @@ class PayrollEntry extends Model
             // Check if deduction already exists for this loan
             $exists = $this->deductions()
                 ->where('deduction_type', 'loan')
-                ->where('deduction_name', 'LIKE', '%Loan #' . $loan->id . '%')
+                ->where('deduction_name', 'LIKE', '%Loan #'.$loan->id.'%')
                 ->exists();
 
-            if (!$exists) {
+            if (! $exists) {
                 DB::transaction(function () use ($loan) {
                     $this->deductions()->create([
                         'deduction_type' => 'loan',
-                        'deduction_name' => 'Loan Installment #' . $loan->id,
+                        'deduction_name' => 'Loan Installment #'.$loan->id,
                         'amount' => $loan->installment_amount,
                     ]);
 

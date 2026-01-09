@@ -40,7 +40,7 @@ class InventoryTransaction extends Model
 
     protected static function boot()
     {
-        parent:: boot();
+        parent::boot();
 
         static::creating(function ($transaction) {
             if (empty($transaction->transaction_number)) {
@@ -68,7 +68,7 @@ class InventoryTransaction extends Model
 
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company:: class);
+        return $this->belongsTo(Company::class);
     }
 
     public function material(): BelongsTo
