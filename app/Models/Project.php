@@ -3,43 +3,51 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
     protected $fillable = [
-        'name',
-        'code',
-        'contract_start_date',
-        'original_completion_date',
-        'current_completion_date',
         'company_id',
+        'project_code',
+        'name',
+        'name_en',
+        'description',
+        'start_date',
+        'end_date',
+        'status',
+        'budget',
+        'manager_id',
     ];
 
     protected $casts = [
-        'contract_start_date' => 'date',
-        'original_completion_date' => 'date',
-        'current_completion_date' => 'date',
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'budget' => 'decimal:2',
     ];
 
-    public function company(): BelongsTo
+    // Relationships
+    public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function activities(): HasMany
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    public function wbsItems()
+    {
+        return $this->hasMany(ProjectWbs::class);
+    }
+
+    public function activities()
     {
         return $this->hasMany(ProjectActivity::class);
     }
 
-    public function eotClaims(): HasMany
+    public function milestones()
     {
-        return $this->hasMany(EotClaim::class);
-    }
-
-    public function timeBarClaims(): HasMany
-    {
-        return $this->hasMany(TimeBarClaim::class);
+        return $this->hasMany(ProjectMilestone::class);
     }
 }

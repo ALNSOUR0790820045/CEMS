@@ -3,10 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Company;
 use App\Models\User;
-use App\Models\Client;
 use App\Models\Project;
-use Illuminate\Support\Facades\Hash;
+use App\Models\ProjectWbs;
+use App\Models\ProjectActivity;
+use App\Models\ActivityDependency;
+use App\Models\ProjectMilestone;
+use Carbon\Carbon;
 
 class ProjectsSeeder extends Seeder
 {
@@ -15,150 +19,285 @@ class ProjectsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create a test user
-        $user = User::create([
-            'name' => 'مدير النظام',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-            'phone' => '0501234567',
-            'job_title' => 'مدير عام',
-            'employee_id' => 'EMP-001',
-            'is_active' => true,
-            'language' => 'ar',
+        // Get or create a company
+        $company = Company::first();
+        if (!$company) {
+            $company = Company::create([
+                'name' => 'شركة المقاولات العامة',
+                'name_en' => 'General Contracting Company',
+                'email' => 'info@gcc.com',
+                'phone' => '966501234567',
+                'country' => 'SA',
+                'is_active' => true,
+            ]);
+        }
+
+        // Get or create a user
+        $user = User::first();
+        if (!$user) {
+            $user = User::create([
+                'name' => 'أحمد محمد',
+                'email' => 'admin@gcc.com',
+                'password' => bcrypt('password'), // WARNING: For development only! Change in production.
+                'company_id' => $company->id,
+                'is_active' => true,
+            ]);
+        }
+
+        // Create a project
+        $project = Project::create([
+            'company_id' => $company->id,
+            'project_code' => 'PRJ-001',
+            'name' => 'مشروع برج الخليج التجاري',
+            'name_en' => 'Gulf Commercial Tower Project',
+            'description' => 'مشروع إنشاء برج تجاري متعدد الطوابق في قلب المدينة',
+            'start_date' => Carbon::now()->subMonths(6),
+            'end_date' => Carbon::now()->addMonths(18),
+            'status' => 'active',
+            'budget' => 50000000,
+            'manager_id' => $user->id,
         ]);
 
-        // Create test clients
-        $client1 = Client::create([
-            'name' => 'وزارة الإسكان',
-            'name_en' => 'Ministry of Housing',
-            'email' => 'housing@gov.sa',
-            'phone' => '0112345678',
-            'address' => 'الرياض، طريق الملك فهد',
-            'city' => 'الرياض',
-            'country' => 'Saudi Arabia',
-            'type' => 'government',
-            'is_active' => true,
+        // Create WBS structure
+        $wbs1 = ProjectWbs::create([
+            'project_id' => $project->id,
+            'wbs_code' => '1.0',
+            'name' => 'الأعمال التمهيدية',
+            'name_en' => 'Preliminary Works',
+            'level' => 1,
+            'order' => 1,
         ]);
 
-        $client2 = Client::create([
-            'name' => 'شركة التطوير العقاري',
-            'name_en' => 'Real Estate Development Company',
-            'email' => 'info@realestate.sa',
-            'phone' => '0123456789',
-            'address' => 'جدة، حي الروضة',
-            'city' => 'جدة',
-            'country' => 'Saudi Arabia',
-            'type' => 'private',
-            'is_active' => true,
+        $wbs1_1 = ProjectWbs::create([
+            'project_id' => $project->id,
+            'parent_id' => $wbs1->id,
+            'wbs_code' => '1.1',
+            'name' => 'أعمال الحفر',
+            'name_en' => 'Excavation Works',
+            'level' => 2,
+            'order' => 1,
         ]);
 
-        // Create test projects
-        Project::create([
-            'project_number' => 'PRJ-2026-0001',
-            'name' => 'مشروع مجمع سكني الربوة',
-            'name_en' => 'Rabwa Residential Complex Project',
-            'description' => 'مشروع مجمع سكني متكامل يتضمن 200 وحدة سكنية',
-            'client_id' => $client1->id,
-            'type' => 'building',
-            'category' => 'new_construction',
-            'location' => 'شمال الرياض، حي الربوة',
-            'city' => 'الرياض',
-            'region' => 'المنطقة الوسطى',
-            'country' => 'Saudi Arabia',
-            'commencement_date' => '2026-01-01',
-            'original_completion_date' => '2026-12-31',
-            'original_duration_days' => 365,
-            'original_contract_value' => 50000000,
-            'revised_contract_value' => 50000000,
-            'currency' => 'SAR',
-            'physical_progress' => 25.5,
-            'status' => 'in_progress',
-            'health' => 'on_track',
-            'priority' => 'high',
-            'project_manager_id' => $user->id,
-            'site_engineer_id' => $user->id,
-            'created_by' => $user->id,
+        $wbs2 = ProjectWbs::create([
+            'project_id' => $project->id,
+            'wbs_code' => '2.0',
+            'name' => 'الهيكل الإنشائي',
+            'name_en' => 'Structural Works',
+            'level' => 1,
+            'order' => 2,
         ]);
 
-        Project::create([
-            'project_number' => 'PRJ-2026-0002',
-            'name' => 'مشروع برج الأعمال التجاري',
-            'name_en' => 'Business Tower Project',
-            'description' => 'برج تجاري بارتفاع 30 طابق',
-            'client_id' => $client2->id,
-            'type' => 'building',
-            'category' => 'new_construction',
-            'location' => 'طريق الملك عبدالله، جدة',
-            'city' => 'جدة',
-            'region' => 'المنطقة الغربية',
-            'country' => 'Saudi Arabia',
-            'commencement_date' => '2025-06-01',
-            'original_completion_date' => '2027-06-01',
-            'original_duration_days' => 730,
-            'original_contract_value' => 120000000,
-            'revised_contract_value' => 125000000,
-            'approved_variations' => 5000000,
-            'currency' => 'SAR',
-            'physical_progress' => 45.0,
-            'status' => 'in_progress',
-            'health' => 'at_risk',
-            'priority' => 'critical',
-            'project_manager_id' => $user->id,
-            'created_by' => $user->id,
+        $wbs2_1 = ProjectWbs::create([
+            'project_id' => $project->id,
+            'parent_id' => $wbs2->id,
+            'wbs_code' => '2.1',
+            'name' => 'الأساسات',
+            'name_en' => 'Foundations',
+            'level' => 2,
+            'order' => 1,
         ]);
 
-        Project::create([
-            'project_number' => 'PRJ-2026-0003',
-            'name' => 'مشروع طريق الدائري الشرقي',
-            'name_en' => 'Eastern Ring Road Project',
-            'description' => 'تطوير وتوسعة الدائري الشرقي',
-            'client_id' => $client1->id,
-            'type' => 'infrastructure',
-            'category' => 'expansion',
-            'location' => 'الدائري الشرقي',
-            'city' => 'الرياض',
-            'region' => 'المنطقة الوسطى',
-            'country' => 'Saudi Arabia',
-            'commencement_date' => '2025-01-01',
-            'original_completion_date' => '2026-06-30',
-            'original_duration_days' => 545,
-            'original_contract_value' => 85000000,
-            'revised_contract_value' => 85000000,
-            'currency' => 'SAR',
-            'physical_progress' => 78.5,
-            'status' => 'in_progress',
-            'health' => 'on_track',
-            'priority' => 'medium',
-            'project_manager_id' => $user->id,
-            'created_by' => $user->id,
-        ]);
+        // Create activities
+        $activities = [];
 
-        Project::create([
-            'project_number' => 'PRJ-2025-0015',
-            'name' => 'مشروع مصنع الإسمنت',
-            'name_en' => 'Cement Factory Project',
-            'description' => 'إنشاء مصنع إسمنت بطاقة إنتاجية 5000 طن يومياً',
-            'client_id' => $client2->id,
-            'type' => 'industrial',
-            'category' => 'new_construction',
-            'location' => 'المنطقة الصناعية، ينبع',
-            'city' => 'ينبع',
-            'region' => 'المنطقة الغربية',
-            'country' => 'Saudi Arabia',
-            'commencement_date' => '2024-03-01',
-            'original_completion_date' => '2025-12-31',
-            'actual_completion_date' => '2025-12-15',
-            'original_duration_days' => 670,
-            'original_contract_value' => 200000000,
-            'revised_contract_value' => 210000000,
-            'approved_variations' => 10000000,
-            'currency' => 'SAR',
-            'physical_progress' => 100.0,
+        $activities[] = ProjectActivity::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs1_1->id,
+            'activity_code' => 'ACT-001',
+            'name' => 'مسح الموقع والتجهيز',
+            'name_en' => 'Site Survey and Preparation',
+            'description' => 'إجراء مسح شامل للموقع وتجهيز المعدات اللازمة',
+            'planned_start_date' => Carbon::now()->subMonths(6),
+            'planned_end_date' => Carbon::now()->subMonths(6)->addDays(7),
+            'planned_duration_days' => 7,
+            'actual_start_date' => Carbon::now()->subMonths(6),
+            'actual_end_date' => Carbon::now()->subMonths(6)->addDays(7),
+            'actual_duration_days' => 7,
+            'planned_effort_hours' => 168,
+            'actual_effort_hours' => 175,
+            'progress_percent' => 100,
+            'progress_method' => 'manual',
+            'type' => 'task',
+            'is_critical' => true,
+            'responsible_id' => $user->id,
             'status' => 'completed',
-            'health' => 'on_track',
+            'budgeted_cost' => 50000,
+            'actual_cost' => 52000,
             'priority' => 'high',
-            'project_manager_id' => $user->id,
-            'created_by' => $user->id,
+        ]);
+
+        $activities[] = ProjectActivity::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs1_1->id,
+            'activity_code' => 'ACT-002',
+            'name' => 'أعمال الحفر الرئيسية',
+            'name_en' => 'Main Excavation Works',
+            'description' => 'حفر الموقع للأساسات والطوابق السفلية',
+            'planned_start_date' => Carbon::now()->subMonths(6)->addDays(7),
+            'planned_end_date' => Carbon::now()->subMonths(5)->addDays(7),
+            'planned_duration_days' => 30,
+            'actual_start_date' => Carbon::now()->subMonths(6)->addDays(7),
+            'actual_end_date' => Carbon::now()->subMonths(5)->addDays(10),
+            'actual_duration_days' => 33,
+            'planned_effort_hours' => 720,
+            'actual_effort_hours' => 792,
+            'progress_percent' => 100,
+            'progress_method' => 'duration',
+            'type' => 'task',
+            'is_critical' => true,
+            'responsible_id' => $user->id,
+            'status' => 'completed',
+            'budgeted_cost' => 250000,
+            'actual_cost' => 275000,
+            'priority' => 'critical',
+        ]);
+
+        $activities[] = ProjectActivity::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs2_1->id,
+            'activity_code' => 'ACT-003',
+            'name' => 'صب الخرسانة للأساسات',
+            'name_en' => 'Concrete Pouring for Foundations',
+            'description' => 'صب وتسوية الخرسانة للأساسات',
+            'planned_start_date' => Carbon::now()->subMonths(5)->addDays(10),
+            'planned_end_date' => Carbon::now()->subMonths(4)->addDays(10),
+            'planned_duration_days' => 30,
+            'actual_start_date' => Carbon::now()->subMonths(5)->addDays(10),
+            'actual_end_date' => null,
+            'actual_duration_days' => null,
+            'planned_effort_hours' => 600,
+            'actual_effort_hours' => 420,
+            'progress_percent' => 70,
+            'progress_method' => 'effort',
+            'type' => 'task',
+            'is_critical' => true,
+            'responsible_id' => $user->id,
+            'status' => 'in_progress',
+            'budgeted_cost' => 500000,
+            'actual_cost' => 350000,
+            'priority' => 'critical',
+        ]);
+
+        $activities[] = ProjectActivity::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs2->id,
+            'activity_code' => 'ACT-004',
+            'name' => 'أعمال الحدادة للأعمدة',
+            'name_en' => 'Reinforcement for Columns',
+            'description' => 'تركيب حديد التسليح للأعمدة',
+            'planned_start_date' => Carbon::now()->subMonths(4)->addDays(10),
+            'planned_end_date' => Carbon::now()->subMonths(3)->addDays(10),
+            'planned_duration_days' => 30,
+            'actual_start_date' => null,
+            'actual_end_date' => null,
+            'actual_duration_days' => null,
+            'planned_effort_hours' => 480,
+            'actual_effort_hours' => 0,
+            'progress_percent' => 0,
+            'progress_method' => 'manual',
+            'type' => 'task',
+            'is_critical' => false,
+            'responsible_id' => $user->id,
+            'status' => 'not_started',
+            'budgeted_cost' => 300000,
+            'actual_cost' => 0,
+            'priority' => 'high',
+        ]);
+
+        $activities[] = ProjectActivity::create([
+            'project_id' => $project->id,
+            'wbs_id' => $wbs2->id,
+            'activity_code' => 'ACT-005',
+            'name' => 'صب الأعمدة',
+            'name_en' => 'Columns Concrete Pouring',
+            'description' => 'صب الخرسانة للأعمدة',
+            'planned_start_date' => Carbon::now()->subMonths(3)->addDays(10),
+            'planned_end_date' => Carbon::now()->subMonths(2)->addDays(10),
+            'planned_duration_days' => 30,
+            'actual_start_date' => null,
+            'actual_end_date' => null,
+            'actual_duration_days' => null,
+            'planned_effort_hours' => 400,
+            'actual_effort_hours' => 0,
+            'progress_percent' => 0,
+            'progress_method' => 'duration',
+            'type' => 'task',
+            'is_critical' => false,
+            'responsible_id' => $user->id,
+            'status' => 'not_started',
+            'budgeted_cost' => 400000,
+            'actual_cost' => 0,
+            'priority' => 'medium',
+        ]);
+
+        // Create dependencies
+        ActivityDependency::create([
+            'predecessor_id' => $activities[0]->id,
+            'successor_id' => $activities[1]->id,
+            'type' => 'FS',
+            'lag_days' => 0,
+        ]);
+
+        ActivityDependency::create([
+            'predecessor_id' => $activities[1]->id,
+            'successor_id' => $activities[2]->id,
+            'type' => 'FS',
+            'lag_days' => 3,
+        ]);
+
+        ActivityDependency::create([
+            'predecessor_id' => $activities[2]->id,
+            'successor_id' => $activities[3]->id,
+            'type' => 'FS',
+            'lag_days' => 0,
+        ]);
+
+        ActivityDependency::create([
+            'predecessor_id' => $activities[3]->id,
+            'successor_id' => $activities[4]->id,
+            'type' => 'FS',
+            'lag_days' => 0,
+        ]);
+
+        // Create milestones
+        ProjectMilestone::create([
+            'project_id' => $project->id,
+            'activity_id' => $activities[1]->id,
+            'name' => 'اكتمال أعمال الحفر',
+            'description' => 'إنهاء جميع أعمال الحفر والبدء بالأساسات',
+            'target_date' => Carbon::now()->subMonths(5)->addDays(7),
+            'actual_date' => Carbon::now()->subMonths(5)->addDays(10),
+            'status' => 'achieved',
+            'type' => 'project',
+            'is_critical' => true,
+            'deliverables' => 'تقرير الحفر النهائي، شهادة المختبر',
+        ]);
+
+        ProjectMilestone::create([
+            'project_id' => $project->id,
+            'activity_id' => $activities[2]->id,
+            'name' => 'اكتمال الأساسات',
+            'description' => 'إنهاء أعمال الأساسات والبدء بالأعمدة',
+            'target_date' => Carbon::now()->subMonths(4)->addDays(10),
+            'actual_date' => null,
+            'status' => 'pending',
+            'type' => 'project',
+            'is_critical' => true,
+            'deliverables' => 'تقرير الأساسات، شهادة فحص الخرسانة',
+        ]);
+
+        ProjectMilestone::create([
+            'project_id' => $project->id,
+            'activity_id' => null,
+            'name' => 'دفعة الدفع الأولى',
+            'description' => 'استحقاق الدفعة الأولى من المستخلص',
+            'target_date' => Carbon::now()->subMonths(4),
+            'actual_date' => Carbon::now()->subMonths(4)->addDays(5),
+            'status' => 'achieved',
+            'type' => 'payment',
+            'is_critical' => false,
+            'deliverables' => 'مستخلص رقم 1، شهادة الاستلام المؤقت',
         ]);
     }
 }
+
