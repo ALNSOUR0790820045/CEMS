@@ -285,26 +285,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Certifications
-    Route::prefix('certifications')->group(function () {
-        Route::get('/expiring', [CertificationController::class, 'expiring']);
-        Route::get('/expired', [CertificationController::class, 'expired']);
-        Route::post('/{id}/renew', [CertificationController::class, 'renew']);
-    });
-    Route::apiResource('certifications', CertificationController::class);
+    // Dashboards & Analytics
+    Route::apiResource('dashboards', \App\Http\Controllers\Api\DashboardController::class);
+    Route::get('dashboards/{dashboard}/widgets', [\App\Http\Controllers\Api\DashboardController::class, 'widgets']);
+    Route::post('dashboards/{dashboard}/widgets', [\App\Http\Controllers\Api\DashboardController::class, 'addWidget']);
+    Route::put('dashboards/{dashboard}/layout', [\App\Http\Controllers\Api\DashboardController::class, 'updateLayout']);
 
-    // Compliance Requirements
-    Route::apiResource('compliance-requirements', ComplianceRequirementController::class);
+    // Widgets
+    Route::apiResource('widgets', \App\Http\Controllers\Api\WidgetController::class);
+    Route::get('widgets/{widget}/data', [\App\Http\Controllers\Api\WidgetController::class, 'getData']);
+    Route::post('widgets/{widget}/refresh', [\App\Http\Controllers\Api\WidgetController::class, 'refresh']);
 
-    // Compliance Checks
-    Route::prefix('compliance-checks')->group(function () {
-        Route::post('/{id}/pass', [ComplianceCheckController::class, 'pass']);
-        Route::post('/{id}/fail', [ComplianceCheckController::class, 'fail']);
-    });
-    Route::apiResource('compliance-checks', ComplianceCheckController::class);
+    // KPIs
+    Route::apiResource('kpi-definitions', \App\Http\Controllers\Api\KpiController::class);
+    Route::get('kpi-values', [\App\Http\Controllers\Api\KpiController::class, 'getValues']);
+    Route::post('kpi-values/calculate', [\App\Http\Controllers\Api\KpiController::class, 'calculate']);
 
-    // Compliance Reports
-    Route::get('/reports/certification-register', [ComplianceReportController::class, 'certificationRegister']);
-    Route::get('/reports/compliance-status', [ComplianceReportController::class, 'complianceStatus']);
-    Route::get('/reports/expiry-calendar', [ComplianceReportController::class, 'expiryCalendar']);
+    // Analytics
+    Route::get('analytics/project-summary', [\App\Http\Controllers\Api\AnalyticsController::class, 'projectSummary']);
+    Route::get('analytics/financial-overview', [\App\Http\Controllers\Api\AnalyticsController::class, 'financialOverview']);
+    Route::get('analytics/revenue-trend', [\App\Http\Controllers\Api\AnalyticsController::class, 'revenueTrend']);
+    Route::get('analytics/expense-breakdown', [\App\Http\Controllers\Api\AnalyticsController::class, 'expenseBreakdown']);
+    Route::get('analytics/cash-position', [\App\Http\Controllers\Api\AnalyticsController::class, 'cashPosition']);
+    Route::get('analytics/project-performance', [\App\Http\Controllers\Api\AnalyticsController::class, 'projectPerformance']);
+    Route::get('analytics/hr-metrics', [\App\Http\Controllers\Api\AnalyticsController::class, 'hrMetrics']);
 });
