@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Country extends Model
+class Position extends Model
 {
     protected $fillable = [
         'name',
         'name_en',
-        'code',
-        'phone_code',
+        'description',
+        'company_id',
         'is_active',
     ];
 
@@ -19,18 +20,13 @@ class Country extends Model
         'is_active' => 'boolean',
     ];
 
-    public function cities(): HasMany
+    public function company(): BelongsTo
     {
-        return $this->hasMany(City::class);
+        return $this->belongsTo(Company::class);
     }
 
     public function employees(): HasMany
     {
-        return $this->hasMany(Employee::class, 'country_id');
-    }
-
-    public function nationalityEmployees(): HasMany
-    {
-        return $this->hasMany(Employee::class, 'nationality_id');
+        return $this->hasMany(Employee::class);
     }
 }

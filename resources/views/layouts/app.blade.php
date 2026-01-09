@@ -378,7 +378,7 @@
                         </div>
                         <div class="menu-col">
                             <h4>الموارد البشرية</h4>
-                            <a href="#" class="sub-link"><i data-lucide="users"></i> الموظفون</a>
+                            <a href="{{ route('employees.index') }}" class="sub-link"><i data-lucide="users"></i> الموظفون</a>
                             <a href="#" class="sub-link"><i data-lucide="calendar"></i> الرواتب</a>
                             <a href="{{ route('labor.index') }}" class="sub-link"><i data-lucide="hard-hat"></i> إدارة العمالة</a>
                         </div>

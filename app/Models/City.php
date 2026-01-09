@@ -3,23 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class City extends Model
 {
     protected $fillable = [
+        'country_id',
         'name',
         'name_en',
-        'country_code',
+        'is_active',
     ];
 
-    // Relationships
-    public function branches()
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function country(): BelongsTo
     {
-        return $this->hasMany(Branch::class);
+        return $this->belongsTo(Country::class);
     }
 
-    public function warehouses()
+    public function employees(): HasMany
     {
-        return $this->hasMany(Warehouse::class);
+        return $this->hasMany(Employee::class);
     }
 }

@@ -3,18 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bank extends Model
 {
     protected $fillable = [
-        'code',
         'name',
         'name_en',
+        'code',
         'swift_code',
-        'contact_person',
-        'phone',
-        'email',
-        'address',
+        'country_id',
         'is_active',
     ];
 
@@ -22,9 +21,13 @@ class Bank extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function guarantees()
+    public function country(): BelongsTo
     {
-        return $this->hasMany(Guarantee::class);
+        return $this->belongsTo(Country::class);
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
     }
 }

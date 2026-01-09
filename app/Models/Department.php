@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Department extends Model
 {
     protected $fillable = [
-        'branch_id',
         'name',
         'name_en',
-        'code',
-        'manager_id',
         'description',
+        'company_id',
         'is_active',
     ];
 
@@ -20,25 +20,13 @@ class Department extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function branch()
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Company::class);
     }
 
-    public function manager()
-    {
-        return $this->belongsTo(User::class, 'manager_id');
-    }
-
-    public function employees()
+    public function employees(): HasMany
     {
         return $this->hasMany(Employee::class);
-    }
-
-    // Scopes
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
     }
 }
