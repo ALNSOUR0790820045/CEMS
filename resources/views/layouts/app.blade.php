@@ -322,17 +322,19 @@
                             <a href="{{ route('dependencies.index') }}" class="sub-link"><i data-lucide="git-branch"></i> التبعيات</a>
                             <a href="{{ route('milestones.index') }}" class="sub-link"><i data-lucide="flag"></i> المعالم</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
-                            <a href="{{ route('eot.dashboard') }}" class="sub-link"><i data-lucide="clock"></i> EOT والإطالة</a>
+                            <a href="{{ route('daily-reports.index') }}" class="sub-link"><i data-lucide="file-text"></i> التقارير اليومية</a>
                         </div>
                         <div class="menu-col">
                             <h4>الجودة</h4>
                             <a href="#" class="sub-link"><i data-lucide="clipboard-check"></i> الاستلامات</a>
                             <a href="#" class="sub-link"><i data-lucide="shield-alert"></i> السلامة</a>
+                            <a href="{{ route('daily-reports.weather') }}" class="sub-link"><i data-lucide="cloud-rain"></i> سجل الطقس</a>
                         </div>
                         <div class="menu-col">
                             <h4>المعدات</h4>
                             <a href="#" class="sub-link"><i data-lucide="truck"></i> الآليات</a>
                             <a href="#" class="sub-link"><i data-lucide="wrench"></i> الصيانة</a>
+                            <a href="{{ route('daily-reports.photos') }}" class="sub-link"><i data-lucide="camera"></i> معرض الصور</a>
                         </div>
                     </div>
                 </div>
