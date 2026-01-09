@@ -56,4 +56,9 @@ class Project extends Model
     {
         return $this->hasMany(PurchaseOrder::class);
     }
+
+    public function siteDiaries(): HasMany
+    {
+        return $this->hasMany(SiteDiary::class);
+    }
 }

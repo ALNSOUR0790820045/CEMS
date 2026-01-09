@@ -6,10 +6,9 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\ProgressBillController;
-use App\Http\Controllers\MeasurementSheetController;
-use App\Http\Controllers\BillApprovalController;
-use App\Http\Controllers\BillReportController;
+use App\Http\Controllers\Api\SiteDiaryController;
+use App\Http\Controllers\Api\DiaryEntryController;
+use App\Http\Controllers\Api\DiaryReportController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -24,47 +23,35 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Progress Bills
-    Route::apiResource('progress-bills', ProgressBillController::class);
-    Route::get('progress-bills/project/{projectId}', [ProgressBillController::class, 'byProject']);
-    Route::get('progress-bills/{id}/preview', [ProgressBillController::class, 'preview']);
-    Route::post('progress-bills/{id}/submit', [ProgressBillController::class, 'submit']);
-    Route::post('progress-bills/{id}/review', [ProgressBillController::class, 'review']);
-    Route::post('progress-bills/{id}/certify', [ProgressBillController::class, 'certify']);
-    Route::post('progress-bills/{id}/approve', [ProgressBillController::class, 'approve']);
-    Route::post('progress-bills/{id}/reject', [ProgressBillController::class, 'reject']);
-    Route::post('progress-bills/{id}/mark-paid', [ProgressBillController::class, 'markPaid']);
-    Route::post('progress-bills/create-next/{projectId}', [ProgressBillController::class, 'createNext']);
+    // Site Diaries
+    Route::apiResource('site-diaries', SiteDiaryController::class);
+    Route::get('site-diaries/by-date/{projectId}/{date}', [SiteDiaryController::class, 'byDate']);
+    Route::get('site-diaries/latest/{projectId}', [SiteDiaryController::class, 'latest']);
+    Route::post('site-diaries/{id}/submit', [SiteDiaryController::class, 'submit']);
+    Route::post('site-diaries/{id}/review', [SiteDiaryController::class, 'review']);
+    Route::post('site-diaries/{id}/approve', [SiteDiaryController::class, 'approve']);
+    Route::post('site-diaries/{id}/reject', [SiteDiaryController::class, 'reject']);
+    Route::post('site-diaries/{id}/duplicate', [SiteDiaryController::class, 'duplicateFromPrevious']);
 
-    // Bill Items
-    Route::get('progress-bills/{id}/items', [ProgressBillController::class, 'getItems']);
-    Route::post('progress-bills/{id}/items', [ProgressBillController::class, 'updateItems']);
-    Route::post('progress-bills/{id}/items/import-boq', [ProgressBillController::class, 'importFromBoq']);
-    Route::post('progress-bills/{id}/items/calculate', [ProgressBillController::class, 'calculateItems']);
-
-    // Variations
-    Route::get('progress-bills/{id}/variations', [ProgressBillController::class, 'getVariations']);
-    Route::post('progress-bills/{id}/variations', [ProgressBillController::class, 'addVariation']);
-
-    // Deductions
-    Route::get('progress-bills/{id}/deductions', [ProgressBillController::class, 'getDeductions']);
-    Route::post('progress-bills/{id}/deductions', [ProgressBillController::class, 'addDeduction']);
-    Route::post('progress-bills/{id}/calculate-deductions', [ProgressBillController::class, 'calculateDeductions']);
-
-    // Measurement Sheets
-    Route::apiResource('measurement-sheets', MeasurementSheetController::class);
-    Route::get('measurement-sheets/bill/{billId}', [MeasurementSheetController::class, 'byBill']);
-    Route::post('measurement-sheets/{id}/approve', [MeasurementSheetController::class, 'approve']);
-
-    // Bill Approval Workflow
-    Route::apiResource('bill-approvals', BillApprovalController::class)->only(['index', 'store', 'show']);
-    Route::get('bill-approvals/bill/{billId}', [BillApprovalController::class, 'getByBill']);
+    // Diary Entries
+    Route::post('site-diaries/{id}/manpower', [DiaryEntryController::class, 'addManpower']);
+    Route::put('site-diaries/{id}/manpower/{entryId}', [DiaryEntryController::class, 'updateManpower']);
+    Route::delete('site-diaries/{id}/manpower/{entryId}', [DiaryEntryController::class, 'deleteManpower']);
+    Route::post('site-diaries/{id}/equipment', [DiaryEntryController::class, 'addEquipment']);
+    Route::post('site-diaries/{id}/activities', [DiaryEntryController::class, 'addActivity']);
+    Route::post('site-diaries/{id}/materials', [DiaryEntryController::class, 'addMaterial']);
+    Route::post('site-diaries/{id}/visitors', [DiaryEntryController::class, 'addVisitor']);
+    Route::post('site-diaries/{id}/incidents', [DiaryEntryController::class, 'addIncident']);
+    Route::post('site-diaries/{id}/instructions', [DiaryEntryController::class, 'addInstruction']);
+    Route::post('site-diaries/{id}/photos', [DiaryEntryController::class, 'uploadPhoto']);
 
     // Reports
-    Route::get('reports/billing-summary/{projectId}', [BillReportController::class, 'billingSummary']);
-    Route::get('reports/payment-status/{projectId}', [BillReportController::class, 'paymentStatus']);
-    Route::get('reports/retention-summary/{projectId}', [BillReportController::class, 'retentionSummary']);
-    Route::get('reports/billing-forecast/{projectId}', [BillReportController::class, 'billingForecast']);
-    Route::get('reports/cash-flow/{projectId}', [BillReportController::class, 'cashFlow']);
-    Route::get('reports/aging-report', [BillReportController::class, 'agingReport']);
+    Route::get('reports/daily-summary/{projectId}', [DiaryReportController::class, 'dailySummary']);
+    Route::get('reports/weekly-summary/{projectId}', [DiaryReportController::class, 'weeklySummary']);
+    Route::get('reports/monthly-summary/{projectId}', [DiaryReportController::class, 'monthlySummary']);
+    Route::get('reports/manpower-histogram/{projectId}', [DiaryReportController::class, 'manpowerHistogram']);
+    Route::get('reports/equipment-utilization/{projectId}', [DiaryReportController::class, 'equipmentUtilization']);
+    Route::get('reports/weather-analysis/{projectId}', [DiaryReportController::class, 'weatherAnalysis']);
+    Route::get('reports/incident-log/{projectId}', [DiaryReportController::class, 'incidentLog']);
+    Route::get('reports/progress-photos/{projectId}', [DiaryReportController::class, 'progressPhotos']);
 });
