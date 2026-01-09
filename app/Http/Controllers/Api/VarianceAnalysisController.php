@@ -198,8 +198,11 @@ class VarianceAnalysisController extends Controller
                     ? ($varianceAmount / $item->budgeted_amount) * 100 
                     : 0;
 
-                // Only create analysis if there's a significant variance (> 5%)
-                if (abs($variancePercentage) > 5) {
+                // Get variance threshold from config or use default
+                $varianceThreshold = config('cost_control.variance_threshold', 5);
+                
+                // Only create analysis if there's a significant variance
+                if (abs($variancePercentage) > $varianceThreshold) {
                     $analysis = VarianceAnalysis::create([
                         'project_id' => $projectId,
                         'analysis_date' => now(),

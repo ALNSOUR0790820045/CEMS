@@ -260,12 +260,17 @@ class ProjectCostReportController extends Controller
 
         $actualCosts = ActualCost::where('project_id', $projectId)->sum('amount_local');
         
-        // Assuming earned_value is tracked elsewhere or calculated based on progress
-        // This is a simplified calculation
-        $percentComplete = $request->get('percentage_complete', 50); // Would come from project progress
+        // Get project progress percentage
+        $percentComplete = $request->get('percentage_complete', 50); // Would come from project progress tracking
+        
+        // Calculate Earned Value (EV) based on work completed
         $earnedValue = ($budget->total_budget * $percentComplete) / 100;
         
-        $plannedValue = $budget->total_budget; // BAC (Budget at Completion)
+        // For accurate SPI, we need actual Planned Value (PV) for the current period
+        // This is a simplified calculation assuming linear progress
+        // In a real implementation, PV should come from the project schedule
+        $plannedPercentage = $request->get('planned_percentage', $percentComplete);
+        $plannedValue = ($budget->total_budget * $plannedPercentage) / 100;
         
         $cpi = $actualCosts > 0 ? $earnedValue / $actualCosts : 0;
         $spi = $plannedValue > 0 ? $earnedValue / $plannedValue : 0;

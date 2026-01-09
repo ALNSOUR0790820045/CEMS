@@ -110,7 +110,10 @@ class ProjectBudget extends Model
     public static function generateBudgetNumber($year = null)
     {
         $year = $year ?? date('Y');
+        
+        // Use lockForUpdate to prevent race conditions
         $lastBudget = static::whereYear('budget_date', $year)
+            ->lockForUpdate()
             ->orderBy('id', 'desc')
             ->first();
 

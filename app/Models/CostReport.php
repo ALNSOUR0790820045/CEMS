@@ -81,7 +81,10 @@ class CostReport extends Model
     public static function generateReportNumber($year = null)
     {
         $year = $year ?? date('Y');
+        
+        // Use lockForUpdate to prevent race conditions
         $lastReport = static::whereYear('report_date', $year)
+            ->lockForUpdate()
             ->orderBy('id', 'desc')
             ->first();
 

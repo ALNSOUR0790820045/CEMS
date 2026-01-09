@@ -321,6 +321,7 @@ class ProjectBudgetController extends Controller
         $validator = Validator::make($request->all(), [
             'boq_items' => 'required|array',
             'boq_items.*' => 'exists:boq_items,id',
+            'default_cost_code_id' => 'required|exists:cost_codes,id',
         ]);
 
         if ($validator->fails()) {
@@ -334,7 +335,7 @@ class ProjectBudgetController extends Controller
             foreach ($boqItems as $boqItem) {
                 ProjectBudgetItem::create([
                     'project_budget_id' => $budget->id,
-                    'cost_code_id' => $request->default_cost_code_id ?? 1, // Would need proper mapping
+                    'cost_code_id' => $request->default_cost_code_id,
                     'boq_item_id' => $boqItem->id,
                     'description' => $boqItem->description ?? $boqItem->item_description,
                     'quantity' => $boqItem->quantity ?? 0,

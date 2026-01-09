@@ -38,8 +38,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('project-budgets/{id}/import-boq', [ProjectBudgetController::class, 'importFromBoq']);
 
     // Cost Codes
-    Route::apiResource('cost-codes', CostCodeController::class);
     Route::get('cost-codes/tree', [CostCodeController::class, 'tree']);
+    Route::apiResource('cost-codes', CostCodeController::class);
 
     // Actual Costs
     Route::apiResource('actual-costs', ActualCostController::class);
