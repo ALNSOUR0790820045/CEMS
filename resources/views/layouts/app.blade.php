@@ -355,8 +355,8 @@
                         </div>
                         <div class="menu-col">
                             <h4>العقود</h4>
-                            <a href="{{ route('contract-templates.index') }}" class="sub-link"><i data-lucide="file-text"></i> قوالب العقود</a>
-                            <a href="#" class="sub-link"><i data-lucide="file-check"></i> العقود</a>
+                            <a href="#" class="sub-link"><i data-lucide="file-text"></i> العقود</a>
+                            <a href="{{ route('change-orders.index') }}" class="sub-link"><i data-lucide="git-branch"></i> أوامر التغيير</a>
                             <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
                         <div class="menu-col">
@@ -461,7 +461,7 @@
 
         function updateClock() {
             const now = new Date();
-            const hours = String(now. getHours()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             document.getElementById('clock').textContent = hours + ':' + minutes + ':' + seconds;

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProjectWbs extends Model
 {
@@ -13,49 +15,33 @@ class ProjectWbs extends Model
         'parent_id',
         'wbs_code',
         'name',
-        'name_en',
         'description',
         'level',
-        'order',
+        'budget',
     ];
 
     protected $casts = [
         'level' => 'integer',
-        'order' => 'integer',
+        'budget' => 'decimal:2',
     ];
 
-    // Relationships
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(ProjectWbs::class, 'parent_id');
     }
 
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(ProjectWbs::class, 'parent_id');
     }
 
-    public function activities()
+    public function changeOrderItems(): HasMany
     {
-        return $this->hasMany(ProjectActivity::class, 'wbs_id');
-    }
-
-    // Helper method to get full WBS path
-    public function getFullPath()
-    {
-        $path = [$this->name];
-        $parent = $this->parent;
-        
-        while ($parent) {
-            array_unshift($path, $parent->name);
-            $parent = $parent->parent;
-        }
-        
-        return implode(' > ', $path);
+        return $this->hasMany(ChangeOrderItem::class, 'wbs_id');
     }
 }
