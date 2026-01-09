@@ -33,10 +33,10 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\AgedReportController;
 use App\Http\Controllers\Api\CustomReportController;
 use App\Http\Controllers\Api\ProjectReportController;
-use App\Http\Controllers\Api\NotificationController;
-use App\Http\Controllers\Api\NotificationPreferenceController;
-use App\Http\Controllers\Api\AlertRuleController;
-use App\Http\Controllers\Api\ScheduledNotificationController;
+use App\Http\Controllers\Api\CertificationController;
+use App\Http\Controllers\Api\ComplianceRequirementController;
+use App\Http\Controllers\Api\ComplianceCheckController;
+use App\Http\Controllers\Api\ComplianceReportController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -285,32 +285,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Notifications
-    Route::prefix('notifications')->group(function () {
-        Route::get('/', [NotificationController::class, 'index']);
-        Route::get('/unread', [NotificationController::class, 'unread']);
-        Route::get('/unread-count', [NotificationController::class, 'unreadCount']);
-        Route::post('/{id}/read', [NotificationController::class, 'markAsRead']);
-        Route::post('/read-all', [NotificationController::class, 'markAllAsRead']);
-        Route::delete('/{id}', [NotificationController::class, 'destroy']);
-        Route::delete('/clear-all', [NotificationController::class, 'clearAll']);
-        Route::post('/send', [NotificationController::class, 'send']);
-        Route::post('/broadcast', [NotificationController::class, 'broadcast']);
+    // Certifications
+    Route::prefix('certifications')->group(function () {
+        Route::get('/expiring', [CertificationController::class, 'expiring']);
+        Route::get('/expired', [CertificationController::class, 'expired']);
+        Route::post('/{id}/renew', [CertificationController::class, 'renew']);
     });
+    Route::apiResource('certifications', CertificationController::class);
 
-    // Notification Preferences
-    Route::prefix('notification-preferences')->group(function () {
-        Route::get('/', [NotificationPreferenceController::class, 'index']);
-        Route::put('/', [NotificationPreferenceController::class, 'update']);
-        Route::put('/{type}', [NotificationPreferenceController::class, 'updateByType']);
+    // Compliance Requirements
+    Route::apiResource('compliance-requirements', ComplianceRequirementController::class);
+
+    // Compliance Checks
+    Route::prefix('compliance-checks')->group(function () {
+        Route::post('/{id}/pass', [ComplianceCheckController::class, 'pass']);
+        Route::post('/{id}/fail', [ComplianceCheckController::class, 'fail']);
     });
+    Route::apiResource('compliance-checks', ComplianceCheckController::class);
 
-    // Alert Rules
-    Route::apiResource('alert-rules', AlertRuleController::class);
-    Route::post('/alert-rules/{alertRule}/toggle', [AlertRuleController::class, 'toggle']);
-    Route::post('/alert-rules/{alertRule}/test', [AlertRuleController::class, 'test']);
-
-    // Scheduled Notifications
-    Route::apiResource('scheduled-notifications', ScheduledNotificationController::class);
-    Route::post('/scheduled-notifications/{scheduledNotification}/cancel', [ScheduledNotificationController::class, 'cancel']);
+    // Compliance Reports
+    Route::get('/reports/certification-register', [ComplianceReportController::class, 'certificationRegister']);
+    Route::get('/reports/compliance-status', [ComplianceReportController::class, 'complianceStatus']);
+    Route::get('/reports/expiry-calendar', [ComplianceReportController::class, 'expiryCalendar']);
 });
