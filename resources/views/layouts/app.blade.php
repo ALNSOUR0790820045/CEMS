@@ -271,7 +271,8 @@
                             <h4>الهيكل التنظيمي</h4>
                             <a href="/" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة التحكم</a>
                             <a href="{{ route('companies.index') }}" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
-                            <a href="{{ route('branches.index') }}" class="sub-link"><i data-lucide="map"></i> الفروع</a>
+                            <a href="#" class="sub-link"><i data-lucide="map"></i> الفروع</a>
+                            <a href="{{ route('departments.index') }}" class="sub-link"><i data-lucide="git-branch"></i> الأقسام</a>
                         </div>
                         <div class="menu-col">
                             <h4>العمليات</h4>

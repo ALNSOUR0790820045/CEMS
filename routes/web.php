@@ -20,6 +20,6 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Cities Management
-    Route::resource('cities', \App\Http\Controllers\CityController::class);
+    // Departments Management
+    Route::resource('departments', \App\Http\Controllers\DepartmentController::class);
 });
