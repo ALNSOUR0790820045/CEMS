@@ -155,7 +155,7 @@ class ProgressBill extends Model
     {
         // Calculate current amount from items
         $this->current_amount = $this->items()->sum('current_amount');
-        $this->gross_amount = $this->cumulative_amount;
+        $this->gross_amount = $this->items()->sum('cumulative_amount');
         
         // Calculate retention
         $this->retention_amount = $this->current_amount * ($this->retention_percentage / 100);

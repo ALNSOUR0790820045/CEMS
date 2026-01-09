@@ -129,12 +129,15 @@ class BillReportController extends Controller
         $aging = $bills->map(function ($bill) {
             $daysOutstanding = $bill->approved_at ? now()->diffInDays($bill->approved_at) : 0;
             
-            $ageBucket = match(true) {
-                $daysOutstanding <= 30 => '0-30 days',
-                $daysOutstanding <= 60 => '31-60 days',
-                $daysOutstanding <= 90 => '61-90 days',
-                default => '90+ days',
-            };
+            if ($daysOutstanding <= 30) {
+                $ageBucket = '0-30 days';
+            } elseif ($daysOutstanding <= 60) {
+                $ageBucket = '31-60 days';
+            } elseif ($daysOutstanding <= 90) {
+                $ageBucket = '61-90 days';
+            } else {
+                $ageBucket = '90+ days';
+            }
 
             return [
                 'bill_number' => $bill->bill_number,

@@ -359,7 +359,7 @@ class ProgressBillController extends Controller
                     [
                         'item_code' => $boqItem->item_number,
                         'description' => $boqItem->description,
-                        'unit_id' => $boqItem->unit_id ?? null,
+                        'unit_id' => null, // BOQ items use string units, not unit_id
                         'contract_quantity' => $boqItem->quantity,
                         'contract_rate' => $boqItem->unit_rate,
                         'contract_amount' => $boqItem->amount,
@@ -416,7 +416,7 @@ class ProgressBillController extends Controller
                     'boq_item_id' => $boqItem->id,
                     'item_code' => $boqItem->item_number,
                     'description' => $boqItem->description,
-                    'unit_id' => null,
+                    'unit_id' => null, // BOQ items use string units, not unit_id
                     'contract_quantity' => $boqItem->quantity,
                     'contract_rate' => $boqItem->unit_rate,
                     'contract_amount' => $boqItem->amount,

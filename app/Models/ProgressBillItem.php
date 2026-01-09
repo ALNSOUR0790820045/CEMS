@@ -64,10 +64,12 @@ class ProgressBillItem extends Model
     {
         // Calculate cumulative
         $this->cumulative_quantity = $this->previous_quantity + $this->current_quantity;
-        $this->cumulative_amount = $this->cumulative_quantity * $this->contract_rate;
         
         // Calculate current amount
         $this->current_amount = $this->current_quantity * $this->contract_rate;
+        
+        // Calculate cumulative amount (previous + current)
+        $this->cumulative_amount = $this->previous_amount + $this->current_amount;
         
         // Calculate percentage complete
         if ($this->contract_quantity > 0) {
