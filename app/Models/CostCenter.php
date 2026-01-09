@@ -17,6 +17,7 @@ class CostCenter extends Model
         'name_en',
         'description',
         'parent_id',
+        'type',
         'is_active',
         'company_id',
     ];
@@ -66,6 +67,11 @@ class CostCenter extends Model
         return $this->hasMany(GLTransaction::class);
     }
 
+    public function costAllocations(): HasMany
+    {
+        return $this->hasMany(CostAllocation::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {
@@ -80,5 +86,10 @@ class CostCenter extends Model
     public function scopeByCompany($query, $companyId)
     {
         return $query->where('company_id', $companyId);
+    }
+
+    public function scopeByType($query, $type)
+    {
+        return $query->where('type', $type);
     }
 }

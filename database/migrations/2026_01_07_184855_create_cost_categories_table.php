@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cost_centers', function (Blueprint $table) {
+        Schema::create('cost_categories', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
             $table->string('name_en')->nullable();
-            $table->text('description')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('cost_centers')->nullOnDelete();
-            $table->enum('type', ['project', 'department', 'overhead', 'administrative'])->default('project');
+            $table->enum('type', ['direct_material', 'direct_labor', 'subcontractor', 'equipment', 'overhead', 'other'])->default('other');
             $table->boolean('is_active')->default(true);
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cost_centers');
+        Schema::dropIfExists('cost_categories');
     }
 };

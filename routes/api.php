@@ -285,22 +285,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/inventory/reports/movement', [InventoryReportController::class, 'movement']);
     Route::get('/inventory/reports/low-stock', [InventoryReportController::class, 'lowStock']);
 
-    // Expense Categories
-    Route::apiResource('expense-categories', ExpenseCategoryController::class);
+    // Cost Accounting Module
+    Route::apiResource('cost-centers', App\Http\Controllers\Api\CostCenterController::class);
+    Route::apiResource('cost-categories', App\Http\Controllers\Api\CostCategoryController::class);
+    Route::apiResource('budgets', App\Http\Controllers\Api\BudgetController::class);
+    Route::post('budgets/{id}/approve', [App\Http\Controllers\Api\BudgetController::class, 'approve']);
+    Route::apiResource('cost-allocations', App\Http\Controllers\Api\CostAllocationController::class);
+    Route::post('cost-allocations/{id}/post', [App\Http\Controllers\Api\CostAllocationController::class, 'post']);
+    Route::post('cost-allocations/{id}/reverse', [App\Http\Controllers\Api\CostAllocationController::class, 'reverse']);
 
-    // Petty Cash Accounts
-    Route::apiResource('petty-cash-accounts', PettyCashAccountController::class);
-    Route::get('petty-cash-accounts/{id}/statement', [PettyCashAccountController::class, 'statement']);
-    Route::get('petty-cash-accounts/{id}/balance', [PettyCashAccountController::class, 'balance']);
-
-    // Petty Cash Transactions
-    Route::apiResource('petty-cash-transactions', PettyCashTransactionController::class);
-    Route::post('petty-cash-transactions/{id}/approve', [PettyCashTransactionController::class, 'approve']);
-    Route::post('petty-cash-transactions/{id}/reject', [PettyCashTransactionController::class, 'reject']);
-    Route::post('petty-cash-transactions/{id}/post', [PettyCashTransactionController::class, 'post']);
-
-    // Petty Cash Replenishments
-    Route::apiResource('petty-cash-replenishments', PettyCashReplenishmentController::class);
-    Route::post('petty-cash-replenishments/{id}/approve', [PettyCashReplenishmentController::class, 'approve']);
-    Route::post('petty-cash-replenishments/{id}/complete', [PettyCashReplenishmentController::class, 'complete']);
+    // Cost Reports
+    Route::get('reports/cost-analysis', [App\Http\Controllers\Api\CostReportController::class, 'costAnalysis']);
+    Route::get('reports/budget-variance', [App\Http\Controllers\Api\CostReportController::class, 'budgetVariance']);
+    Route::get('reports/cost-center-report', [App\Http\Controllers\Api\CostReportController::class, 'costCenterReport']);
+    Route::get('reports/project-cost-summary', [App\Http\Controllers\Api\CostReportController::class, 'projectCostSummary']);
 });
