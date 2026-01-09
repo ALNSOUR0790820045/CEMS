@@ -25,35 +25,33 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Price Lists Management
-    Route::resource('price-lists', PriceListController::class);
-    Route::get('price-lists/{priceList}/items', [PriceListController::class, 'items'])->name('price-lists.items');
+    // Contract Templates
+    Route::prefix('contract-templates')->name('contract-templates.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ContractTemplateController::class, 'index'])->name('index');
+        Route::post('/generate-contract', [\App\Http\Controllers\ContractTemplateController::class, 'storeGenerated'])->name('store-generated');
+        Route::get('/preview/{id}', [\App\Http\Controllers\ContractTemplateController::class, 'preview'])->name('preview');
+        Route::get('/jea-01', [\App\Http\Controllers\ContractTemplateController::class, 'jea01'])->name('jea-01');
+        Route::get('/jea-02', [\App\Http\Controllers\ContractTemplateController::class, 'jea02'])->name('jea-02');
+        Route::get('/{contractTemplate}', [\App\Http\Controllers\ContractTemplateController::class, 'show'])->name('show');
+        Route::get('/{contractTemplate}/clauses', [\App\Http\Controllers\ContractTemplateController::class, 'clauses'])->name('clauses');
+        Route::get('/{contractTemplate}/generate', [\App\Http\Controllers\ContractTemplateController::class, 'generate'])->name('generate');
+    });
     
-    // Price List Items
-    Route::get('price-lists/{priceList}/items/create', [PriceListItemController::class, 'create'])->name('price-list-items.create');
-    Route::post('price-lists/{priceList}/items', [PriceListItemController::class, 'store'])->name('price-list-items.store');
-    Route::put('price-list-items/{item}', [PriceListItemController::class, 'update'])->name('price-list-items.update');
-    Route::get('price-list-items/{item}/history', [PriceListItemController::class, 'history'])->name('price-list-items.history');
+    // Contracts Export
+    Route::get('/contracts/{id}/export-word', [\App\Http\Controllers\ContractTemplateController::class, 'exportWord'])->name('contracts.export-word');
+    Route::get('/contracts/{id}/export-pdf', [\App\Http\Controllers\ContractTemplateController::class, 'exportPdf'])->name('contracts.export-pdf');
     
-    // Price Search
-    Route::get('prices/search', [PriceSearchController::class, 'search'])->name('prices.search');
-    Route::get('prices/materials', [PriceSearchController::class, 'materials'])->name('prices.materials');
-    Route::get('prices/labor', [PriceSearchController::class, 'labor'])->name('prices.labor');
-    Route::get('prices/equipment', [PriceSearchController::class, 'equipment'])->name('prices.equipment');
-    Route::get('prices/compare', [PriceSearchController::class, 'compare'])->name('prices.compare');
-    
-    // Price Requests
-    Route::resource('price-requests', PriceRequestController::class);
-    Route::post('price-requests/{priceRequest}/send', [PriceRequestController::class, 'send'])->name('price-requests.send');
-    
-    // Price Quotations
-    Route::get('price-requests/{priceRequest}/quotations', [PriceQuotationController::class, 'index'])->name('price-requests.quotations');
-    Route::post('price-requests/{priceRequest}/quotations', [PriceQuotationController::class, 'store'])->name('price-quotations.store');
-    Route::get('price-quotations/{quotation}', [PriceQuotationController::class, 'show'])->name('price-quotations.show');
-    
-    // Price Comparisons
-    Route::get('price-requests/{priceRequest}/compare', [PriceComparisonController::class, 'create'])->name('price-comparisons.create');
-    Route::post('price-requests/{priceRequest}/compare', [PriceComparisonController::class, 'store'])->name('price-comparisons.store');
-    Route::get('price-comparisons/{comparison}', [PriceComparisonController::class, 'show'])->name('price-comparisons.show');
-    Route::post('price-comparisons/{comparison}/approve', [PriceComparisonController::class, 'approve'])->name('price-comparisons.approve');
+    // API Routes (JSON responses)
+    Route::prefix('api')->name('api.')->group(function () {
+        Route::get('/contract-templates', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'index']);
+        Route::post('/contract-templates', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'store']);
+        Route::get('/contract-templates/{id}', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'show']);
+        Route::put('/contract-templates/{id}', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'update']);
+        Route::get('/contract-templates/{id}/clauses', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'clauses']);
+        Route::get('/contract-templates/{id}/variables', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'variables']);
+        Route::post('/contract-templates/{id}/generate', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'generate']);
+        Route::post('/contracts/generate-from-template', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'generateFromTemplate']);
+        Route::get('/contracts/{id}/export-word', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'exportWord']);
+        Route::get('/contracts/{id}/export-pdf', [\App\Http\Controllers\Api\ContractTemplateApiController::class, 'exportPdf']);
+    });
 });
