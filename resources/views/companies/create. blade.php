@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 @section('content')
 <div style="padding: 40px;">
 <h1>إضافة شركة جديدة</h1>
