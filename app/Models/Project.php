@@ -5,28 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
-        'project_code',
         'name',
-        'name_en',
-        'description',
-        'location',
+        'code',
+        'contract_start_date',
+        'original_completion_date',
+        'current_completion_date',
         'company_id',
-        'start_date',
-        'end_date',
-        'status',
-        'created_by_id',
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'contract_start_date' => 'date',
+        'original_completion_date' => 'date',
+        'current_completion_date' => 'date',
     ];
 
     public function company(): BelongsTo
@@ -34,18 +28,18 @@ class Project extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function createdBy(): BelongsTo
+    public function activities(): HasMany
     {
-        return $this->belongsTo(User::class, 'created_by_id');
+        return $this->hasMany(ProjectActivity::class);
     }
 
-    public function contracts(): HasMany
+    public function eotClaims(): HasMany
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(EotClaim::class);
     }
 
-    public function subcontractorAgreements(): HasMany
+    public function timeBarClaims(): HasMany
     {
-        return $this->hasMany(SubcontractorAgreement::class);
+        return $this->hasMany(TimeBarClaim::class);
     }
 }

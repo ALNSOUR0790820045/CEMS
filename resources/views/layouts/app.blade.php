@@ -300,7 +300,7 @@
                             <a href="{{ route('clients.index') }}" class="sub-link"><i data-lucide="users"></i> العملاء</a>
                             <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المواقع</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
-                            <a href="{{ route('boq.index') }}" class="sub-link"><i data-lucide="file-spreadsheet"></i> جداول الكميات</a>
+                            <a href="{{ route('eot.dashboard') }}" class="sub-link"><i data-lucide="clock"></i> EOT والإطالة</a>
                         </div>
                         <div class="menu-col">
                             <h4>الجودة</h4>

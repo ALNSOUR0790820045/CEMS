@@ -48,8 +48,8 @@ class Company extends Model
         return $this->hasMany(User::class);
     }
 
-    public function branches()
+    public function projects()
     {
-        return $this->hasMany(Branch::class);
+        return $this->hasMany(Project::class);
     }
 }

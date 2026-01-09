@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\VendorController;
+use App\Http\Controllers\EotClaimController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -20,6 +20,11 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Departments Management
-    Route::resource('departments', \App\Http\Controllers\DepartmentController::class);
+    // EOT Claims Management
+    Route::get('/eot/dashboard', [EotClaimController::class, 'dashboard'])->name('eot.dashboard');
+    Route::get('/eot/report', [EotClaimController::class, 'report'])->name('eot.report');
+    Route::post('/eot/{eotClaim}/submit', [EotClaimController::class, 'submit'])->name('eot.submit');
+    Route::get('/eot/{eotClaim}/approve', [EotClaimController::class, 'approvalForm'])->name('eot.approval-form');
+    Route::post('/eot/{eotClaim}/approve', [EotClaimController::class, 'approve'])->name('eot.approve');
+    Route::resource('eot', EotClaimController::class);
 });
