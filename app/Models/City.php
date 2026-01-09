@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class City extends Model
 {
@@ -18,8 +17,15 @@ class City extends Model
         'is_active' => 'boolean',
     ];
 
-    public function country(): BelongsTo
+    // Relationships
+    public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }

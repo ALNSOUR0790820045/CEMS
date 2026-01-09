@@ -15,20 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed basic data first
+        // Seed countries first
         $this->call([
-            // Core system data
-            RolesAndPermissionsSeeder::class,
-            PermissionSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
-            
-            // Master data
-            CurrencySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
-            BranchSeeder::class,
         ]);
+        
+        // User::factory(10)->create();
 
         // Seed countries, cities, and currencies
         $this->call([

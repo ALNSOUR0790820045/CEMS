@@ -281,6 +281,7 @@
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>
+                            <a href="<?php echo e(route('cities.index')); ?>" class="sub-link"><i data-lucide="map-pin"></i> المدن</a>
                             <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
@@ -316,8 +317,7 @@
                         <div class="menu-col">
                             <h4>المحاسبة</h4>
                             <a href="#" class="sub-link"><i data-lucide="calculator"></i> المحاسبة</a>
-                            <a href="<?php echo e(route('main-ipcs.index')); ?>" class="sub-link"><i data-lucide="receipt"></i> المستخلصات الرئيسية</a>
-                            <a href="<?php echo e(route('main-ipcs.report')); ?>" class="sub-link"><i data-lucide="bar-chart"></i> تقرير المستخلصات</a>
+                            <a href="#" class="sub-link"><i data-lucide="receipt"></i> المستخلصات</a>
                         </div>
                         <div class="menu-col">
                             <h4>العقود</h4>

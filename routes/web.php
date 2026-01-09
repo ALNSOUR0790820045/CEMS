@@ -20,6 +20,6 @@ Route::middleware('auth')->group(function () {
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     
-    // Payment Terms Management
-    Route::resource('payment-terms', \App\Http\Controllers\PaymentTermController::class);
+    // Cities Management
+    Route::resource('cities', \App\Http\Controllers\CityController::class);
 });
