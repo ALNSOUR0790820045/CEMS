@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class VariationOrderTimeline extends Model
 {
     protected $table = 'variation_order_timeline';
-    
+
     protected $fillable = [
         'variation_order_id',
         'action',

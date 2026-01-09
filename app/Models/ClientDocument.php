@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 class ClientDocument extends Model
@@ -68,17 +68,19 @@ class ClientDocument extends Model
     // Accessors
     public function getIsExpiredAttribute(): bool
     {
-        if (!$this->expiry_date) {
+        if (! $this->expiry_date) {
             return false;
         }
+
         return $this->expiry_date->isPast();
     }
 
     public function getIsExpiringSoonAttribute(): bool
     {
-        if (!$this->expiry_date) {
+        if (! $this->expiry_date) {
             return false;
         }
+
         return $this->expiry_date->isFuture() && $this->expiry_date->diffInDays(now()) <= 30;
     }
 

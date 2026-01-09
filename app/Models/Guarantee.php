@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Guarantee extends Model
 {
@@ -59,7 +59,7 @@ class Guarantee extends Model
     // Relationships
     public function bank()
     {
-        return $this->belongsTo(Bank:: class);
+        return $this->belongsTo(Bank::class);
     }
 
     public function project()
@@ -89,7 +89,7 @@ class Guarantee extends Model
 
     public function renewals()
     {
-        return $this->hasMany(GuaranteeRenewal:: class);
+        return $this->hasMany(GuaranteeRenewal::class);
     }
 
     public function releases()
@@ -141,19 +141,22 @@ class Guarantee extends Model
         if (! $this->expiry_date) {
             return null;
         }
+
         return Carbon::now()->diffInDays($this->expiry_date, false);
     }
 
     public function getIsExpiringAttribute()
     {
         $days = $this->days_until_expiry;
-        $alertDays = $this->alert_days_before_expiry ??  30;
+        $alertDays = $this->alert_days_before_expiry ?? 30;
+
         return $days !== null && $days <= $alertDays && $days > 0;
     }
 
     public function getIsExpiredAttribute()
     {
         $days = $this->days_until_expiry;
+
         return $days !== null && $days < 0;
     }
 
@@ -166,7 +169,7 @@ class Guarantee extends Model
             'maintenance' => 'ضمان الصيانة',
             'retention' => 'ضمان الاحتجاز',
         ];
-        
+
         return $types[$this->type] ?? $this->type;
     }
 
@@ -181,7 +184,7 @@ class Guarantee extends Model
             'renewed' => 'مجدد',
             'cancelled' => 'ملغي',
         ];
-        
+
         return $statuses[$this->status] ?? $this->status;
     }
 
@@ -189,14 +192,14 @@ class Guarantee extends Model
     public static function generateGuaranteeNumber()
     {
         return \DB::transaction(function () {
-            $year = Carbon:: now()->year;
-            $lastGuarantee = self:: whereYear('created_at', $year)
+            $year = Carbon::now()->year;
+            $lastGuarantee = self::whereYear('created_at', $year)
                 ->latest('id')
                 ->lockForUpdate()
                 ->first();
-            
+
             $number = $lastGuarantee ? ((int) substr($lastGuarantee->guarantee_number, -4)) + 1 : 1;
-            
+
             return sprintf('LG-%d-%04d', $year, $number);
         });
     }
@@ -205,12 +208,13 @@ class Guarantee extends Model
     {
         if ($this->bank_commission_rate > 0 && $this->amount > 0) {
             $daysInYear = 365;
-            $issueDate = Carbon:: parse($this->issue_date);
+            $issueDate = Carbon::parse($this->issue_date);
             $expiryDate = Carbon::parse($this->expiry_date);
             $daysBetween = $issueDate->diffInDays($expiryDate);
+
             return ($this->amount * $this->bank_commission_rate / 100) * ($daysBetween / $daysInYear);
         }
-        
+
         return 0;
     }
 }

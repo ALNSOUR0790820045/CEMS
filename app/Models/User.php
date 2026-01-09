@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     protected $fillable = [
         'name',
@@ -55,12 +55,12 @@ class User extends Authenticatable
 
     public function employee()
     {
-        return $this->hasOne(Employee::   class);
+        return $this->hasOne(Employee::class);
     }
 
     public function attendanceRecords()
     {
-        return $this->hasManyThrough(AttendanceRecord::class, Employee:: class);
+        return $this->hasManyThrough(AttendanceRecord::class, Employee::class);
     }
 
     public function leaveRequests()
@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function bankAccounts()
     {
-        return $this->hasMany(BankAccount:: class);
+        return $this->hasMany(BankAccount::class);
     }
 
     public function primaryBankAccount()

@@ -49,14 +49,14 @@ class ARReceipt extends Model
         $lastReceipt = self::where('receipt_number', 'like', "ARR-{$year}-%")
             ->orderBy('receipt_number', 'desc')
             ->first();
-        
+
         if ($lastReceipt) {
             $lastNumber = intval(substr($lastReceipt->receipt_number, -4));
             $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
         } else {
             $newNumber = '0001';
         }
-        
+
         return "ARR-{$year}-{$newNumber}";
     }
 
@@ -93,6 +93,7 @@ class ARReceipt extends Model
     public function getUnallocatedAmountAttribute()
     {
         $allocated = $this->allocations()->sum('allocated_amount');
+
         return $this->amount - $allocated;
     }
 }

@@ -100,12 +100,13 @@ class VariationOrder extends Model
     // Helper methods
     public function generateVoNumber()
     {
-        if (!$this->project) {
+        if (! $this->project) {
             throw new \Exception('Project relationship is required to generate VO number');
         }
-        
+
         $project = $this->project;
         $sequence = $this->sequence_number ?? 1;
+
         return sprintf('VO-%s-%03d', $project->code, $sequence);
     }
 
