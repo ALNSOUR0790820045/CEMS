@@ -10,12 +10,12 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        :root {
+        : root {
             --apple-bg: #f5f5f7;
             --nav-bg: rgba(255, 255, 255, 0.9);
-            --text: #1d1d1f;
-            --accent:  #0071e3;
-            --border:  rgba(0,0,0,0.08);
+            --text:  #1d1d1f;
+            --accent: #0071e3;
+            --border: rgba(0,0,0,0.08);
         }
 
         * { 
@@ -39,9 +39,9 @@
             z-index: 2000;
             background: var(--nav-bg); 
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter:  blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            height:  44px; 
+            height: 44px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between;
@@ -56,7 +56,7 @@
 
         .logo {
             font-weight: 700;
-            font-size:  0.95rem;
+            font-size: 0.95rem;
             color: var(--text);
             margin-left: 20px;
         }
@@ -74,12 +74,12 @@
             font-size: 0.85rem;
             font-weight: 400; 
             cursor: pointer; 
-            transition:  0.2s;
+            transition: 0.2s;
             padding: 10px 0;
             white-space: nowrap;
         }
 
-        . nav-group:hover .nav-link { 
+        .nav-group:hover .nav-link { 
             color: var(--accent); 
         }
 
@@ -97,7 +97,7 @@
             gap: 40px;
             
             opacity: 0;
-            pointer-events:  none;
+            pointer-events: none;
             visibility: hidden;
             
             padding: 30px 10%;
@@ -105,7 +105,7 @@
             
             transition: opacity 0.25s ease, visibility 0.25s ease;
             
-            box-shadow:  0 20px 40px rgba(0,0,0,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
             max-height: 70vh;
             overflow-y:  auto;
         }
@@ -121,7 +121,7 @@
             position: absolute;
             top: -44px;
             left: 0;
-            right:  0;
+            right: 0;
             height: 44px;
         }
 
@@ -158,7 +158,7 @@
         .sub-link i { 
             width: 18px; 
             height: 18px; 
-            color:  var(--accent);
+            color: var(--accent);
             opacity: 0.8;
         }
 
@@ -179,12 +179,12 @@
             transition: all 0.2s;
         }
 
-        .search-icon:hover {
+        .search-icon: hover {
             background: rgba(0, 113, 227, 0.1);
         }
 
         .search-icon i {
-            width: 18px;
+            width:  18px;
             height: 18px;
             color: var(--text);
         }
@@ -211,12 +211,12 @@
             height: 28px;
             border-radius:  50%;
             background: linear-gradient(135deg, #0071e3, #00c4cc);
-            display:  flex;
-            align-items:  center;
-            justify-content:  center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight:  700;
             cursor: pointer;
             transition: transform 0.2s;
         }
@@ -233,7 +233,7 @@
             font-size: 0.85rem;
             padding: 6px 10px;
             border-radius:  6px;
-            transition:  all 0.2s;
+            transition: all 0.2s;
             font-family: 'Cairo', sans-serif;
             display: flex;
             align-items: center;
@@ -270,18 +270,19 @@
                         <div class="menu-col">
                             <h4>الهيكل التنظيمي</h4>
                             <a href="/" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة التحكم</a>
-                            <a href="#" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
-                            <a href="#" class="sub-link"><i data-lucide="map"></i> الفروع</a>
+                            <a href="{{ route('companies.index') }}" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
+                            <a href="{{ route('branches.index') }}" class="sub-link"><i data-lucide="map"></i> الفروع</a>
                         </div>
                         <div class="menu-col">
                             <h4>العمليات</h4>
                             <a href="#" class="sub-link"><i data-lucide="workflow"></i> سير العمل</a>
                             <a href="#" class="sub-link"><i data-lucide="settings"></i> الإعدادات</a>
-                            <a href="#" class="sub-link"><i data-lucide="shield-check"></i> الصلاحيات</a>
+                            <a href="{{ route('users.index') }}" class="sub-link"><i data-lucide="users"></i> إدارة المستخدمين</a>
+                            <a href="{{ route('roles.index') }}" class="sub-link"><i data-lucide="shield-check"></i> الأدوار والصلاحيات</a>
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
+                            <a href="{{ route('backups.index') }}" class="sub-link"><i data-lucide="shield-alt"></i> النسخ الاحتياطية</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
                         </div>
@@ -293,9 +294,11 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>إدارة المشاريع</h4>
-                            <a href="#" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع النشطة</a>
+                            <a href="{{ route('projects.index') }}" class="sub-link"><i data-lucide="folder-kanban"></i> المشاريع</a>
+                            <a href="{{ route('clients.index') }}" class="sub-link"><i data-lucide="users"></i> العملاء</a>
                             <a href="#" class="sub-link"><i data-lucide="map-pin"></i> المواقع</a>
                             <a href="#" class="sub-link"><i data-lucide="gantt-chart"></i> الجدول الزمني</a>
+                            <a href="{{ route('boq.index') }}" class="sub-link"><i data-lucide="file-spreadsheet"></i> جداول الكميات</a>
                         </div>
                         <div class="menu-col">
                             <h4>الجودة</h4>
@@ -320,13 +323,16 @@
                         </div>
                         <div class="menu-col">
                             <h4>العقود</h4>
-                            <a href="#" class="sub-link"><i data-lucide="file-text"></i> العقود</a>
+                            <a href="{{ route('contract-templates.index') }}" class="sub-link"><i data-lucide="file-text"></i> قوالب العقود</a>
+                            <a href="#" class="sub-link"><i data-lucide="file-check"></i> العقود</a>
                             <a href="#" class="sub-link"><i data-lucide="gavel"></i> المطالبات</a>
                         </div>
                         <div class="menu-col">
                             <h4>الضمانات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="landmark"></i> الكفالات</a>
-                            <a href="#" class="sub-link"><i data-lucide="piggy-bank"></i> المحبوسات</a>
+                            <a href="{{ route('guarantees.index') }}" class="sub-link"><i data-lucide="landmark"></i> خطابات الضمان</a>
+                            <a href="{{ route('guarantees.expiring') }}" class="sub-link"><i data-lucide="alert-circle"></i> قريبة من الانتهاء</a>
+                            <a href="{{ route('guarantees.statistics') }}" class="sub-link"><i data-lucide="bar-chart"></i> الإحصائيات</a>
+                            <a href="{{ route('banks.index') }}" class="sub-link"><i data-lucide="building"></i> البنوك</a>
                         </div>
                     </div>
                 </div>
@@ -353,7 +359,7 @@
                 </div>
 
                 <div class="nav-group">
-                    <a class="nav-link">العطاءات</a>
+                    <a class="nav-link">المناقصات</a>
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>إدارة العطاءات</h4>
@@ -401,7 +407,7 @@
                 <i data-lucide="search"></i>
             </div>
             <div id="clock">00:00:00</div>
-            <span class="user-name">{{ Auth::user()->name }}</span>
+            <span class="user-name">{{ Auth:: user()->name }}</span>
             <div class="user-avatar" title="{{ Auth::user()->email }}">
                 {{ Auth::user()->initials }}
             </div>
@@ -423,8 +429,8 @@
 
         function updateClock() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now. getMinutes()).padStart(2, '0');
+            const hours = String(now. getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             document.getElementById('clock').textContent = hours + ':' + minutes + ':' + seconds;
         }

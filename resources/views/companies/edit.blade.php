@@ -1,0 +1,122 @@
+@extends('layouts.app')
+
+@section('content')
+<div style="padding: 40px; max-width: 900px; margin: 0 auto;">
+    <div style="margin-bottom: 30px;">
+        <h1 style="font-size: 2rem; color: #1d1d1f; margin-bottom: 5px;">تعديل الشركة</h1>
+        <p style="color: #86868b;">تحديث بيانات الشركة</p>
+    </div>
+
+    @if($errors->any())
+    <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+        <ul style="list-style: none; margin: 0; padding: 0;">
+            @foreach($errors->all() as $error)
+            <li>• {{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form method="POST" action="{{ route('companies.update', $company) }}" style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        @csrf
+        @method('PUT')
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">
+                    اسم الشركة (عربي) <span style="color: #ff3b30;">*</span>
+                </label>
+                <input type="text" name="name" value="{{ old('name', $company->name) }}" required 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">
+                    اسم الشركة (English)
+                </label>
+                <input type="text" name="name_en" value="{{ old('name_en', $company->name_en) }}" 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">البريد الإلكتروني</label>
+                <input type="email" name="email" value="{{ old('email', $company->email) }}" 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">رقم الهاتف</label>
+                <input type="text" name="phone" value="{{ old('phone', $company->phone) }}" 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">العنوان</label>
+            <textarea name="address" rows="3" 
+                style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif; resize: vertical;">{{ old('address', $company->address) }}</textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">المدينة</label>
+                <input type="text" name="city" value="{{ old('city', $company->city) }}" 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">
+                    الدولة <span style="color: #ff3b30;">*</span>
+                </label>
+                <select name="country" required 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+                    <option value="">اختر الدولة</option>
+                    <option value="SA" {{ old('country', $company->country) == 'SA' ? 'selected' : '' }}>السعودية</option>
+                    <option value="AE" {{ old('country', $company->country) == 'AE' ? 'selected' : '' }}>الإمارات</option>
+                    <option value="KW" {{ old('country', $company->country) == 'KW' ? 'selected' : '' }}>الكويت</option>
+                    <option value="QA" {{ old('country', $company->country) == 'QA' ? 'selected' : '' }}>قطر</option>
+                    <option value="BH" {{ old('country', $company->country) == 'BH' ? 'selected' : '' }}>البحرين</option>
+                    <option value="OM" {{ old('country', $company->country) == 'OM' ? 'selected' : '' }}>عُمان</option>
+                    <option value="JO" {{ old('country', $company->country) == 'JO' ? 'selected' : '' }}>الأردن</option>
+                    <option value="EG" {{ old('country', $company->country) == 'EG' ? 'selected' : '' }}>مصر</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">السجل التجاري</label>
+                <input type="text" name="commercial_registration" value="{{ old('commercial_registration', $company->commercial_registration) }}" 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+
+            <div>
+                <label style="display: block; margin-bottom: 8px; color: #1d1d1f; font-weight: 600;">الرقم الضريبي</label>
+                <input type="text" name="tax_number" value="{{ old('tax_number', $company->tax_number) }}" 
+                    style="width: 100%; padding: 12px; border: 1px solid #d2d2d7; border-radius: 8px; font-size: 1rem; font-family: 'Cairo', sans-serif;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" name="is_active" value="1" {{ old('is_active', $company->is_active) ? 'checked' : '' }} 
+                    style="width: 18px; height: 18px; cursor: pointer;">
+                <span style="color: #1d1d1f; font-weight: 500;">الشركة نشطة</span>
+            </label>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <a href="{{ route('companies.index') }}" 
+                style="background: #f5f5f7; color: #1d1d1f; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                إلغاء
+            </a>
+            <button type="submit" 
+                style="background: linear-gradient(135deg, #0071e3 0%, #00c4cc 100%); color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-family: 'Cairo', sans-serif;">
+                تحديث
+            </button>
+        </div>
+    </form>
+</div>
+@endsection
