@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AttendanceRecord extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'employee_id',
         'attendance_date',
@@ -90,8 +91,8 @@ class AttendanceRecord extends Model
     {
         if ($this->check_in_time) {
             $checkIn = Carbon::parse($this->check_in_time);
-            $shiftStart = Carbon::parse($this->attendance_date->format('Y-m-d') . ' ' . $shiftStartTime);
-            
+            $shiftStart = Carbon::parse($this->attendance_date->format('Y-m-d').' '.$shiftStartTime);
+
             if ($checkIn->gt($shiftStart)) {
                 $this->late_minutes = $shiftStart->diffInMinutes($checkIn);
             } else {

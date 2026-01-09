@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContractChangeOrder extends Model
 {
@@ -46,18 +46,18 @@ class ContractChangeOrder extends Model
 
         static::creating(function ($changeOrder) {
             // Auto-generate change order code if not provided
-            if (!$changeOrder->change_order_code) {
+            if (! $changeOrder->change_order_code) {
                 $changeOrder->change_order_code = static::generateChangeOrderCode($changeOrder->contract_id);
             }
-            
+
             // Auto-generate change order number if not provided
-            if (!$changeOrder->change_order_number) {
+            if (! $changeOrder->change_order_number) {
                 $lastOrder = static::where('contract_id', $changeOrder->contract_id)
                     ->orderBy('change_order_number', 'desc')
                     ->first();
-                
+
                 $nextNumber = $lastOrder ? (intval(substr($lastOrder->change_order_number, 3)) + 1) : 1;
-                $changeOrder->change_order_number = 'CO-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+                $changeOrder->change_order_number = 'CO-'.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
             }
         });
     }
@@ -140,7 +140,7 @@ class ContractChangeOrder extends Model
         $contract = $this->contract;
         $contract->current_contract_value += $this->value_change;
         $contract->total_change_orders_value += $this->value_change;
-        
+
         // Update completion date if there's a time extension
         if ($this->time_impact === 'extension' && $this->days_change > 0) {
             $contract->completion_date = \Carbon\Carbon::parse($contract->completion_date)
@@ -149,7 +149,7 @@ class ContractChangeOrder extends Model
             $contract->completion_date = \Carbon\Carbon::parse($contract->completion_date)
                 ->subDays($this->days_change);
         }
-        
+
         $contract->save();
 
         // Update change order status
@@ -163,26 +163,26 @@ class ContractChangeOrder extends Model
     public static function generateChangeOrderCode($contractId)
     {
         $contract = Contract::find($contractId);
-        if (!$contract) {
+        if (! $contract) {
             return null;
         }
 
         $contractCode = str_replace('CNT-', '', $contract->contract_code);
         $prefix = "CO-CNT-{$contractCode}-";
-        
+
         // Get the last change order code for this contract
         $lastChangeOrder = static::where('contract_id', $contractId)
-            ->where('change_order_code', 'LIKE', $prefix . '%')
+            ->where('change_order_code', 'LIKE', $prefix.'%')
             ->orderBy('change_order_code', 'desc')
             ->first();
-        
+
         if ($lastChangeOrder) {
             $lastNumber = intval(substr($lastChangeOrder->change_order_code, -3));
             $newNumber = $lastNumber + 1;
         } else {
             $newNumber = 1;
         }
-        
-        return $prefix . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+
+        return $prefix.str_pad($newNumber, 3, '0', STR_PAD_LEFT);
     }
 }

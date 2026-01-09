@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PayrollPeriod extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'period_name',
         'period_type',
@@ -73,7 +74,7 @@ class PayrollPeriod extends Model
 
     public function calculate(User $calculatedBy): void
     {
-        if (!$this->canCalculate()) {
+        if (! $this->canCalculate()) {
             throw new \Exception('Payroll period cannot be calculated in current status');
         }
 
@@ -89,7 +90,7 @@ class PayrollPeriod extends Model
 
     public function approve(User $approvedBy): void
     {
-        if (!$this->canApprove()) {
+        if (! $this->canApprove()) {
             throw new \Exception('Payroll period cannot be approved in current status');
         }
 

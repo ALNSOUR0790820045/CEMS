@@ -138,13 +138,14 @@ class GLAccount extends Model
     public function getFullAccountCodeAttribute()
     {
         if ($this->parentAccount) {
-            return $this->parentAccount->full_account_code . '-' . $this->account_code;
+            return $this->parentAccount->full_account_code.'-'.$this->account_code;
         }
+
         return $this->account_code;
     }
 
     public function getBalanceAttribute()
     {
-        return $this->current_balance ??  $this->opening_balance ??  0;
+        return $this->current_balance ?? $this->opening_balance ?? 0;
     }
 }
