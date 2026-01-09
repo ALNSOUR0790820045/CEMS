@@ -6,12 +6,13 @@ use App\Http\Controllers\Api\EmployeeDependentController;
 use App\Http\Controllers\Api\EmployeeQualificationController;
 use App\Http\Controllers\Api\EmployeeWorkHistoryController;
 use App\Http\Controllers\Api\EmployeeSkillController;
-use App\Http\Controllers\Api\InspectionTypeController;
-use App\Http\Controllers\Api\InspectionRequestController;
-use App\Http\Controllers\Api\InspectionController;
-use App\Http\Controllers\Api\InspectionActionController;
-use App\Http\Controllers\Api\InspectionTemplateController;
-use App\Http\Controllers\Api\InspectionReportController;
+use App\Http\Controllers\Api\PhotoAlbumController;
+use App\Http\Controllers\Api\PhotoController;
+use App\Http\Controllers\Api\PhotoAnnotationController;
+use App\Http\Controllers\Api\PhotoComparisonController;
+use App\Http\Controllers\Api\PhotoReportController;
+use App\Http\Controllers\Api\PhotoTagController;
+use App\Http\Controllers\Api\PhotoLocationController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Employee Documents
@@ -26,42 +27,47 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('skills', EmployeeSkillController::class);
     });
 
-    // Inspection Types
-    Route::apiResource('inspection-types', InspectionTypeController::class);
+    // Photo Albums
+    Route::apiResource('photo-albums', PhotoAlbumController::class);
+    Route::get('photo-albums/project/{projectId}', [PhotoAlbumController::class, 'byProject']);
+    Route::post('photo-albums/{id}/set-cover', [PhotoAlbumController::class, 'setCover']);
 
-    // Inspection Requests
-    Route::apiResource('inspection-requests', InspectionRequestController::class);
-    Route::get('inspection-requests/project/{projectId}', [InspectionRequestController::class, 'byProject']);
-    Route::post('inspection-requests/{id}/schedule', [InspectionRequestController::class, 'schedule']);
-    Route::post('inspection-requests/{id}/cancel', [InspectionRequestController::class, 'cancel']);
-    Route::post('inspection-requests/{id}/reject', [InspectionRequestController::class, 'reject']);
+    // Photos
+    Route::apiResource('photos', PhotoController::class);
+    Route::get('photos/project/{projectId}', [PhotoController::class, 'byProject']);
+    Route::get('photos/album/{albumId}', [PhotoController::class, 'byAlbum']);
+    Route::post('photos/upload', [PhotoController::class, 'upload']);
+    Route::post('photos/bulk-upload', [PhotoController::class, 'bulkUpload']);
+    Route::post('photos/{id}/approve', [PhotoController::class, 'approve']);
+    Route::post('photos/{id}/feature', [PhotoController::class, 'toggleFeatured']);
+    Route::get('photos/search', [PhotoController::class, 'search']);
+    Route::get('photos/by-location', [PhotoController::class, 'byLocation']);
+    Route::get('photos/by-date-range', [PhotoController::class, 'byDateRange']);
+    Route::get('photos/by-tag/{tag}', [PhotoController::class, 'byTag']);
+    Route::post('photos/{id}/download', [PhotoController::class, 'download']);
+    Route::post('photos/bulk-download', [PhotoController::class, 'bulkDownload']);
 
-    // Inspections
-    Route::apiResource('inspections', InspectionController::class);
-    Route::get('inspections/project/{projectId}', [InspectionController::class, 'byProject']);
-    Route::get('inspections/{id}/items', [InspectionController::class, 'getItems']);
-    Route::post('inspections/{id}/items', [InspectionController::class, 'saveItems']);
-    Route::post('inspections/{id}/submit', [InspectionController::class, 'submit']);
-    Route::post('inspections/{id}/approve', [InspectionController::class, 'approve']);
-    Route::post('inspections/{id}/reject', [InspectionController::class, 'reject']);
-    Route::post('inspections/{id}/reinspect', [InspectionController::class, 'createReinspection']);
+    // Annotations
+    Route::get('photos/{photoId}/annotations', [PhotoAnnotationController::class, 'byPhoto']);
+    Route::post('photos/{photoId}/annotations', [PhotoAnnotationController::class, 'store']);
+    Route::put('photo-annotations/{id}', [PhotoAnnotationController::class, 'update']);
+    Route::delete('photo-annotations/{id}', [PhotoAnnotationController::class, 'destroy']);
 
-    // Inspection Actions
-    Route::get('inspections/{id}/actions', [InspectionActionController::class, 'byInspection']);
-    Route::post('inspections/{id}/actions', [InspectionActionController::class, 'store']);
-    Route::post('inspection-actions/{id}/complete', [InspectionActionController::class, 'complete']);
-    Route::post('inspection-actions/{id}/verify', [InspectionActionController::class, 'verify']);
+    // Comparisons
+    Route::apiResource('photo-comparisons', PhotoComparisonController::class);
+    Route::get('photo-comparisons/project/{projectId}', [PhotoComparisonController::class, 'byProject']);
 
-    // Inspection Templates
-    Route::apiResource('inspection-templates', InspectionTemplateController::class);
-    Route::post('inspection-templates/{id}/duplicate', [InspectionTemplateController::class, 'duplicate']);
-    Route::get('inspection-templates/{id}/items', [InspectionTemplateController::class, 'getItems']);
+    // Photo Reports
+    Route::apiResource('photo-reports', PhotoReportController::class);
+    Route::post('photo-reports/{id}/add-photos', [PhotoReportController::class, 'addPhotos']);
+    Route::post('photo-reports/{id}/generate-pdf', [PhotoReportController::class, 'generatePdf']);
+    Route::post('photo-reports/{id}/publish', [PhotoReportController::class, 'publish']);
 
-    // Inspection Reports
-    Route::get('reports/inspection-summary/{projectId}', [InspectionReportController::class, 'summary']);
-    Route::get('reports/inspection-log/{projectId}', [InspectionReportController::class, 'log']);
-    Route::get('reports/pass-rate/{projectId}', [InspectionReportController::class, 'passRate']);
-    Route::get('reports/pending-actions/{projectId}', [InspectionReportController::class, 'pendingActions']);
-    Route::get('reports/inspector-performance', [InspectionReportController::class, 'inspectorPerformance']);
-    Route::get('reports/defect-analysis/{projectId}', [InspectionReportController::class, 'defectAnalysis']);
+    // Tags
+    Route::apiResource('photo-tags', PhotoTagController::class);
+    Route::get('photo-tags/popular', [PhotoTagController::class, 'popular']);
+
+    // Locations
+    Route::apiResource('photo-locations', PhotoLocationController::class);
+    Route::get('photo-locations/project/{projectId}', [PhotoLocationController::class, 'byProject']);
 });
