@@ -2,29 +2,66 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Currency;
 
 class CurrencySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $currencies = [
-            ['code' => 'SAR', 'name' => 'ريال سعودي', 'name_en' => 'Saudi Riyal', 'symbol' => 'ر.س', 'is_active' => true],
-            ['code' => 'USD', 'name' => 'دولار أمريكي', 'name_en' => 'US Dollar', 'symbol' => '$', 'is_active' => true],
-            ['code' => 'EUR', 'name' => 'يورو', 'name_en' => 'Euro', 'symbol' => '€', 'is_active' => true],
-            ['code' => 'AED', 'name' => 'درهم إماراتي', 'name_en' => 'UAE Dirham', 'symbol' => 'د.إ', 'is_active' => true],
-            ['code' => 'KWD', 'name' => 'دينار كويتي', 'name_en' => 'Kuwaiti Dinar', 'symbol' => 'د.ك', 'is_active' => true],
-            ['code' => 'QAR', 'name' => 'ريال قطري', 'name_en' => 'Qatari Riyal', 'symbol' => 'ر.ق', 'is_active' => true],
-            ['code' => 'BHD', 'name' => 'دينار بحريني', 'name_en' => 'Bahraini Dinar', 'symbol' => 'د.ب', 'is_active' => true],
-            ['code' => 'OMR', 'name' => 'ريال عماني', 'name_en' => 'Omani Rial', 'symbol' => 'ر.ع', 'is_active' => true],
+            [
+                'name' => 'ريال سعودي',
+                'name_en' => 'Saudi Riyal',
+                'code' => 'SAR',
+                'symbol' => '﷼',
+            ],
+            [
+                'name' => 'درهم إماراتي',
+                'name_en' => 'UAE Dirham',
+                'code' => 'AED',
+                'symbol' => 'د.إ',
+            ],
+            [
+                'name' => 'دينار كويتي',
+                'name_en' => 'Kuwaiti Dinar',
+                'code' => 'KWD',
+                'symbol' => 'د.ك',
+            ],
+            [
+                'name' => 'ريال قطري',
+                'name_en' => 'Qatari Riyal',
+                'code' => 'QAR',
+                'symbol' => '﷼',
+            ],
+            [
+                'name' => 'دينار بحريني',
+                'name_en' => 'Bahraini Dinar',
+                'code' => 'BHD',
+                'symbol' => 'د.ب',
+            ],
+            [
+                'name' => 'ريال عماني',
+                'name_en' => 'Omani Rial',
+                'code' => 'OMR',
+                'symbol' => '﷼',
+            ],
+            [
+                'name' => 'دولار أمريكي',
+                'name_en' => 'US Dollar',
+                'code' => 'USD',
+                'symbol' => '$',
+            ],
+            [
+                'name' => 'يورو',
+                'name_en' => 'Euro',
+                'code' => 'EUR',
+                'symbol' => '€',
+            ],
         ];
 
         foreach ($currencies as $currency) {
-            \App\Models\Currency::create($currency);
+            Currency::create($currency);
         }
     }
 }

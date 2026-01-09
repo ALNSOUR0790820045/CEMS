@@ -2,297 +2,530 @@
 
 @section('content')
 <style>
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-    .header { margin-bottom: 30px; }
-    .header h1 { font-size: 1.8rem; font-weight: 700; margin: 0; }
-    .form-card { background: white; padding: 30px; border-radius: 12px; }
-    .form-section { margin-bottom: 30px; }
-    .form-section h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; color: #0071e3; border-bottom: 2px solid #0071e3; padding-bottom: 8px; }
-    .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px; }
-    .form-row-full { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 20px; }
-    .form-group { display: flex; flex-direction: column; gap: 5px; }
-    .form-group label { font-weight: 600; font-size: 0.9rem; color: #333; }
-    .form-group input, .form-group select, .form-group textarea { padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #0071e3; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-actions { display: flex; gap: 15px; justify-content: flex-end; padding-top: 20px; border-top: 1px solid #eee; }
-    .btn { padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 0.95rem; }
-    .btn-primary { background: #0071e3; color: white; }
-    .btn-primary:hover { background: #0077ed; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
-    .btn-secondary { background: #f5f5f7; color: #1d1d1f; }
-    .btn-secondary:hover { background: #e8e8ed; }
-    .required { color: #d32f2f; }
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 20px;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1d1d1f;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 2px;
+        border-bottom: 2px solid #e5e5e7;
+        margin-bottom: 30px;
+    }
+
+    .tab {
+        padding: 12px 24px;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #86868b;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    .tab.active {
+        color: #0071e3;
+        border-bottom-color: #0071e3;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1d1d1f;
+    }
+
+    .form-label.required::after {
+        content: ' *';
+        color: #ff3b30;
+    }
+
+    .form-control {
+        padding: 10px 12px;
+        border: 1px solid #d2d2d7;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #0071e3;
+        box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    .btn-primary {
+        background: #0071e3;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #0077ed;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    }
+
+    .btn-secondary {
+        background: #f5f5f7;
+        color: #1d1d1f;
+    }
+
+    .btn-secondary:hover {
+        background: #e5e5e7;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: flex-end;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #e5e5e7;
+    }
+
+    .help-text {
+        font-size: 0.75rem;
+        color: #86868b;
+        margin-top: 4px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
 </style>
 
-<div class="container">
-    <div class="header">
-        <h1>تعديل المناقصة: {{ $tender->name }}</h1>
-    </div>
-
-    <form method="POST" action="{{ route('tenders.update', $tender) }}" class="form-card">
-        @csrf
-        @method('PUT')
-
-        <div class="form-section">
-            <h3>المعلومات الأساسية</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>اسم المناقصة <span class="required">*</span></label>
-                    <input type="text" name="name" required value="{{ old('name', $tender->name) }}">
-                    @error('name')<small style="color: #d32f2f;">{{ $message }}</small>@enderror
-                </div>
-                <div class="form-group">
-                    <label>الاسم بالإنجليزية</label>
-                    <input type="text" name="name_en" value="{{ old('name_en', $tender->name_en) }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>رقم المناقصة المرجعي</label>
-                    <input type="text" name="reference_number" value="{{ old('reference_number', $tender->reference_number) }}">
-                </div>
-                <div class="form-group">
-                    <label>الأولوية</label>
-                    <select name="priority">
-                        <option value="medium" {{ old('priority', $tender->priority ?? 'medium') == 'medium' ? 'selected' : '' }}>متوسطة</option>
-                        <option value="low" {{ old('priority', $tender->priority ?? 'medium') == 'low' ? 'selected' : '' }}>منخفضة</option>
-                        <option value="high" {{ old('priority', $tender->priority ?? 'medium') == 'high' ? 'selected' : '' }}>عالية</option>
-                        <option value="critical" {{ old('priority', $tender->priority ?? 'medium') == 'critical' ? 'selected' : '' }}>حرجة</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row-full">
-                <div class="form-group">
-                    <label>الوصف</label>
-                    <textarea name="description">{{ old('description', $tender->description ?? '') }}</textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>الجهة المالكة</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>اختر العميل</label>
-                    <select name="client_id">
-                        <option value="">-- اختر --</option>
-                        @foreach($clients as $client)
-                        <option value="{{ $client->id }}" {{ old('client_id', $tender->client_id ?? '') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>أو اسم الجهة</label>
-                    <input type="text" name="client_name" value="{{ old('client_name', $tender->client_name ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>اسم جهة الاتصال</label>
-                    <input type="text" name="client_contact" value="{{ old('client_contact', $tender->client_contact ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>هاتف جهة الاتصال</label>
-                    <input type="text" name="client_phone" value="{{ old('client_phone', $tender->client_phone ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>بريد جهة الاتصال</label>
-                    <input type="email" name="client_email" value="{{ old('client_email', $tender->client_email ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>القطاع</label>
-                    <input type="text" name="sector" placeholder="حكومي، خاص، شبه حكومي" value="{{ old('sector', $tender->sector ?? '') }}">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>التصنيف والموقع</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>نوع المناقصة <span class="required">*</span></label>
-                    <select name="type" required>
-                        <option value="public" {{ old('type', $tender->type ?? 'public') == 'public' ? 'selected' : '' }}>عامة</option>
-                        <option value="private" {{ old('type', $tender->type ?? 'public') == 'private' ? 'selected' : '' }}>خاصة</option>
-                        <option value="limited" {{ old('type', $tender->type ?? 'public') == 'limited' ? 'selected' : '' }}>محدودة</option>
-                        <option value="direct_order" {{ old('type', $tender->type ?? 'public') == 'direct_order' ? 'selected' : '' }}>أمر مباشر</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>فئة المناقصة <span class="required">*</span></label>
-                    <select name="category" required>
-                        <option value="building" {{ old('category', $tender->category ?? 'building') == 'building' ? 'selected' : '' }}>مباني</option>
-                        <option value="infrastructure" {{ old('category', $tender->category ?? 'building') == 'infrastructure' ? 'selected' : '' }}>بنية تحتية</option>
-                        <option value="industrial" {{ old('category', $tender->category ?? 'building') == 'industrial' ? 'selected' : '' }}>صناعي</option>
-                        <option value="maintenance" {{ old('category', $tender->category ?? 'building') == 'maintenance' ? 'selected' : '' }}>صيانة</option>
-                        <option value="supply" {{ old('category', $tender->category ?? 'building') == 'supply' ? 'selected' : '' }}>توريدات</option>
-                        <option value="other" {{ old('category', $tender->category ?? 'building') == 'other' ? 'selected' : '' }}>أخرى</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>الموقع</label>
-                    <input type="text" name="location" value="{{ old('location', $tender->location ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>المدينة</label>
-                    <input type="text" name="city" value="{{ old('city', $tender->city ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>الدولة</label>
-                    <input type="text" name="country" value="{{ old('country', 'Saudi Arabia') }}">
-                </div>
-                <div class="form-group"></div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>التواريخ المهمة</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>تاريخ الإعلان</label>
-                    <input type="date" name="announcement_date" value="{{ old('announcement_date', $tender->announcement_date ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>آخر موعد لشراء الكراسة</label>
-                    <input type="date" name="documents_deadline" value="{{ old('documents_deadline', $tender->documents_deadline ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>آخر موعد للاستفسارات</label>
-                    <input type="date" name="questions_deadline" value="{{ old('questions_deadline', $tender->questions_deadline ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>آخر موعد للتقديم <span class="required">*</span></label>
-                    <input type="date" name="submission_deadline" required value="{{ old('submission_deadline', $tender->submission_deadline ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>وقت التقديم</label>
-                    <input type="time" name="submission_time" value="{{ old('submission_time', $tender->submission_time ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>تاريخ فتح المظاريف</label>
-                    <input type="date" name="opening_date" value="{{ old('opening_date', $tender->opening_date ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>تاريخ الترسية المتوقع</label>
-                    <input type="date" name="expected_award_date" value="{{ old('expected_award_date', $tender->expected_award_date ?? '') }}">
-                </div>
-                <div class="form-group"></div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>القيم المالية</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>القيمة المقدرة</label>
-                    <input type="number" step="0.01" name="estimated_value" value="{{ old('estimated_value', $tender->estimated_value ?? '') }}">
-                </div>
-                <div class="form-group">
-                    <label>العملة</label>
-                    <select name="currency">
-                        <option value="SAR" {{ old('currency', $tender->currency ?? 'SAR') == 'SAR' ? 'selected' : '' }}>ريال سعودي (SAR)</option>
-                        <option value="USD" {{ old('currency', $tender->currency ?? 'SAR') == 'USD' ? 'selected' : '' }}>دولار (USD)</option>
-                        <option value="EUR" {{ old('currency', $tender->currency ?? 'SAR') == 'EUR' ? 'selected' : '' }}>يورو (EUR)</option>
-                        <option value="AED" {{ old('currency', $tender->currency ?? 'SAR') == 'AED' ? 'selected' : '' }}>درهم إماراتي (AED)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>تكلفة شراء الكراسة</label>
-                    <input type="number" step="0.01" name="documents_cost" value="{{ old('documents_cost', 0) }}">
-                </div>
-                <div class="form-group">
-                    <label>قيمة الضمان الابتدائي</label>
-                    <input type="number" step="0.01" name="bid_bond_amount" value="{{ old('bid_bond_amount', $tender->bid_bond_amount ?? '') }}">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>نسبة الضمان الابتدائي (%)</label>
-                    <input type="number" step="0.01" name="bid_bond_percentage" value="{{ old('bid_bond_percentage', $tender->bid_bond_percentage ?? '') }}">
-                </div>
-                <div class="form-group"></div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>التكليف</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>المكلف بالمتابعة</label>
-                    <select name="assigned_to">
-                        <option value="">-- اختر --</option>
-                        @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ old('assigned_to', $tender->assigned_to ?? '') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>مسؤول التسعير</label>
-                    <select name="estimator_id">
-                        <option value="">-- اختر --</option>
-                        @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ old('estimator_id', $tender->estimator_id ?? '') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>ملاحظات</h3>
-            
-            <div class="form-row-full">
-                <div class="form-group">
-                    <label>ملاحظات إضافية</label>
-                    <textarea name="notes">{{ old('notes', $tender->notes ?? '') }}</textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-actions">
-            <a href="{{ route('tenders.index') }}" class="btn btn-secondary">إلغاء</a>
-            <button type="submit" class="btn btn-primary">
-                <i data-lucide="save" style="width: 18px; height: 18px;"></i>
-                حفظ المناقصة
-            </button>
-        </div>
-    </form>
+<div class="page-header">
+    <h1 class="page-title">تعديل العطاء</h1>
+    <a href="{{ route('tenders.show', $tender) }}" class="btn btn-secondary">
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+        رجوع
+    </a>
 </div>
 
-@push('scripts')
+<form method="POST" action="{{ route('tenders.update', $tender) }}" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+
+    <div class="card">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button type="button" class="tab active" data-tab="basic">معلومات أساسية</button>
+            <button type="button" class="tab" data-tab="classification">التصنيف</button>
+            <button type="button" class="tab" data-tab="location">الموقع</button>
+            <button type="button" class="tab" data-tab="dates">التواريخ المهمة</button>
+            <button type="button" class="tab" data-tab="bond">كفالة العطاء</button>
+            <button type="button" class="tab" data-tab="requirements">متطلبات التأهيل</button>
+        </div>
+
+        <!-- Tab 1: Basic Info -->
+        <div class="tab-content active" id="basic">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">الرقم المرجعي (الحكومي)</label>
+                    <input type="text" name="reference_number" class="form-control" value="{{ old('reference_number', $tender->reference_number) }}">
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label required">اسم العطاء (عربي)</label>
+                    <input type="text" name="tender_name" class="form-control" value="{{ old('tender_name', $tender->tender_name) }}" required>
+                    @error('tender_name')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label">اسم العطاء (English)</label>
+                    <input type="text" name="tender_name_en" class="form-control" value="{{ old('tender_name_en') }}">
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label required">الوصف</label>
+                    <textarea name="description" class="form-control" required>{{ old('description', $tender->description) }}</textarea>
+                    @error('description')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label">الوصف (English)</label>
+                    <textarea name="description_en" class="form-control">{{ old('description_en') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">الجهة المالكة</label>
+                    <input type="text" name="owner_name" class="form-control" value="{{ old('owner_name', $tender->owner_name) }}" required>
+                    @error('owner_name')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">جهة الاتصال</label>
+                    <input type="text" name="owner_contact" class="form-control" value="{{ old('owner_contact') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" name="owner_email" class="form-control" value="{{ old('owner_email') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">رقم الهاتف</label>
+                    <input type="text" name="owner_phone" class="form-control" value="{{ old('owner_phone') }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Classification -->
+        <div class="tab-content" id="classification">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label required">نوع العطاء</label>
+                    <select name="tender_type" class="form-control" required>
+                        <option value="">اختر نوع العطاء</option>
+                        <option value="construction" {{ old('tender_type') == 'construction' ? 'selected' : '' }}>إنشاءات</option>
+                        <option value="infrastructure" {{ old('tender_type') == 'infrastructure' ? 'selected' : '' }}>بنية تحتية</option>
+                        <option value="buildings" {{ old('tender_type') == 'buildings' ? 'selected' : '' }}>مباني</option>
+                        <option value="roads" {{ old('tender_type') == 'roads' ? 'selected' : '' }}>طرق</option>
+                        <option value="bridges" {{ old('tender_type') == 'bridges' ? 'selected' : '' }}>جسور</option>
+                        <option value="water" {{ old('tender_type') == 'water' ? 'selected' : '' }}>مياه وصرف صحي</option>
+                        <option value="electrical" {{ old('tender_type') == 'electrical' ? 'selected' : '' }}>كهرباء</option>
+                        <option value="mechanical" {{ old('tender_type') == 'mechanical' ? 'selected' : '' }}>ميكانيكا</option>
+                        <option value="maintenance" {{ old('tender_type') == 'maintenance' ? 'selected' : '' }}>صيانة</option>
+                        <option value="consultancy" {{ old('tender_type') == 'consultancy' ? 'selected' : '' }}>استشارات</option>
+                        <option value="other" {{ old('tender_type') == 'other' ? 'selected' : '' }}>أخرى</option>
+                    </select>
+                    @error('tender_type')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">نوع العقد</label>
+                    <select name="contract_type" class="form-control" required>
+                        <option value="">اختر نوع العقد</option>
+                        <option value="lump_sum" {{ old('contract_type') == 'lump_sum' ? 'selected' : '' }}>مقطوعية</option>
+                        <option value="unit_price" {{ old('contract_type') == 'unit_price' ? 'selected' : '' }}>أسعار وحدات</option>
+                        <option value="cost_plus" {{ old('contract_type') == 'cost_plus' ? 'selected' : '' }}>تكلفة + ربح</option>
+                        <option value="time_material" {{ old('contract_type') == 'time_material' ? 'selected' : '' }}>مياومة</option>
+                        <option value="design_build" {{ old('contract_type') == 'design_build' ? 'selected' : '' }}>تصميم وتنفيذ</option>
+                        <option value="epc" {{ old('contract_type') == 'epc' ? 'selected' : '' }}>EPC</option>
+                        <option value="bot" {{ old('contract_type') == 'bot' ? 'selected' : '' }}>BOT</option>
+                        <option value="other" {{ old('contract_type') == 'other' ? 'selected' : '' }}>أخرى</option>
+                    </select>
+                    @error('contract_type')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">القيمة التقديرية</label>
+                    <input type="number" name="estimated_value" class="form-control" step="0.01" value="{{ old('estimated_value') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">العملة</label>
+                    <select name="currency_id" class="form-control" required>
+                        <option value="">اختر العملة</option>
+                        @foreach($currencies as $currency)
+                            <option value="{{ $currency->id }}" {{ old('currency_id') == $currency->id ? 'selected' : '' }}>
+                                {{ $currency->name }} ({{ $currency->code }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('currency_id')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">المدة المقدرة (شهور)</label>
+                    <input type="number" name="estimated_duration_months" class="form-control" value="{{ old('estimated_duration_months') }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Location -->
+        <div class="tab-content" id="location">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label required">الدولة</label>
+                    <select name="country_id" id="country_id" class="form-control" required>
+                        <option value="">اختر الدولة</option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                {{ $country->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('country_id')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">المدينة</label>
+                    <select name="city_id" id="city_id" class="form-control">
+                        <option value="">اختر المدينة</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label">موقع المشروع</label>
+                    <textarea name="project_location" class="form-control">{{ old('project_location') }}</textarea>
+                    <span class="help-text">الموقع التفصيلي للمشروع</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Important Dates -->
+        <div class="tab-content" id="dates">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">تاريخ الإعلان</label>
+                    <input type="date" name="announcement_date" class="form-control" value="{{ old('announcement_date') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">بيع الوثائق من</label>
+                    <input type="date" name="document_sale_start" class="form-control" value="{{ old('document_sale_start') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">بيع الوثائق إلى</label>
+                    <input type="date" name="document_sale_end" class="form-control" value="{{ old('document_sale_end') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">سعر الوثائق</label>
+                    <input type="number" name="document_price" class="form-control" step="0.01" value="{{ old('document_price', 0) }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">تاريخ زيارة الموقع</label>
+                    <input type="date" name="site_visit_date" class="form-control" value="{{ old('site_visit_date') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">وقت زيارة الموقع</label>
+                    <input type="time" name="site_visit_time" class="form-control" value="{{ old('site_visit_time') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">آخر موعد للاستفسارات</label>
+                    <input type="date" name="questions_deadline" class="form-control" value="{{ old('questions_deadline') }}">
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1; background: #fff3cd; padding: 15px; border-radius: 8px;">
+                    <label class="form-label required" style="font-size: 1rem;">📅 آخر موعد للتقديم</label>
+                    <input type="date" name="submission_deadline" class="form-control" value="{{ old('submission_deadline') }}" required style="border: 2px solid #f57c00;">
+                    @error('submission_deadline')
+                        <span style="color: #ff3b30; font-size: 0.8rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">وقت التقديم</label>
+                    <input type="time" name="submission_time" class="form-control" value="{{ old('submission_time') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">تاريخ الفتح</label>
+                    <input type="date" name="opening_date" class="form-control" value="{{ old('opening_date') }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">وقت الفتح</label>
+                    <input type="time" name="opening_time" class="form-control" value="{{ old('opening_time') }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Bid Bond -->
+        <div class="tab-content" id="bond">
+            <div class="form-grid">
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="requires_bid_bond" id="requires_bid_bond" value="1" {{ old('requires_bid_bond', true) ? 'checked' : '' }}>
+                        <label class="form-label" for="requires_bid_bond" style="cursor: pointer;">كفالة العطاء مطلوبة</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">نسبة الكفالة (%)</label>
+                    <input type="number" name="bid_bond_percentage" class="form-control" step="0.01" value="{{ old('bid_bond_percentage', 1.00) }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">مبلغ الكفالة</label>
+                    <input type="number" name="bid_bond_amount" class="form-control" step="0.01" value="{{ old('bid_bond_amount') }}">
+                    <span class="help-text">يتم حسابه تلقائياً من القيمة التقديرية</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">مدة صلاحية الكفالة (أيام)</label>
+                    <input type="number" name="bid_bond_validity_days" class="form-control" value="{{ old('bid_bond_validity_days', 90) }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 6: Requirements -->
+        <div class="tab-content" id="requirements">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label class="form-label">معايير الأهلية</label>
+                    <textarea name="eligibility_criteria" class="form-control" style="min-height: 150px;">{{ old('eligibility_criteria') }}</textarea>
+                    <span class="help-text">اذكر شروط ومتطلبات التأهيل</span>
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label">الملاحظات</label>
+                    <textarea name="notes" class="form-control" style="min-height: 150px;">{{ old('notes') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">تعيين إلى</label>
+                    <select name="assigned_to" class="form-control">
+                        <option value="">اختر المسؤول</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" {{ old('assigned_to') == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="prevTab" style="display: none;">
+                السابق
+            </button>
+            <button type="button" class="btn btn-primary" id="nextTab">
+                التالي
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">
+                <i data-lucide="save" style="width: 18px; height: 18px;"></i>
+                تحديث العطاء
+            </button>
+            <a href="{{ route('tenders.show', $tender) }}" class="btn btn-secondary">
+                إلغاء
+            </a>
+        </div>
+    </div>
+</form>
+
 <script>
     lucide.createIcons();
+
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const nextBtn = document.getElementById('nextTab');
+    const prevBtn = document.getElementById('prevTab');
+    const submitBtn = document.getElementById('submitBtn');
+    let currentTab = 0;
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            showTab(index);
+        });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentTab < tabs.length - 1) {
+            showTab(currentTab + 1);
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentTab > 0) {
+            showTab(currentTab - 1);
+        }
+    });
+
+    function showTab(index) {
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        
+        tabs[index].classList.add('active');
+        tabContents[index].classList.add('active');
+        
+        currentTab = index;
+
+        // Show/hide navigation buttons
+        prevBtn.style.display = currentTab > 0 ? 'block' : 'none';
+        nextBtn.style.display = currentTab < tabs.length - 1 ? 'block' : 'none';
+        submitBtn.style.display = currentTab === tabs.length - 1 ? 'block' : 'none';
+    }
 </script>
-@endpush
 @endsection

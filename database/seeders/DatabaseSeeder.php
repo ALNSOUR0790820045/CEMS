@@ -29,15 +29,12 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             BranchSeeder::class,
         ]);
-        
-        // User::factory(10)->create();
-        
-        // Optional: Create test user if UserSeeder doesn't exist
-        if (!class_exists(UserSeeder::class)) {
-            User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-            ]);
-        }
+
+        // Seed countries, cities, and currencies
+        $this->call([
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            TenderSeeder::class,
+        ]);
     }
 }

@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
     protected $fillable = [
-        'code',
         'name',
         'name_en',
+        'code',
+        'code3',
+        'currency_code',
         'phone_code',
         'is_active',
     ];
@@ -18,25 +21,13 @@ class Country extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function cities()
+    public function cities(): HasMany
     {
         return $this->hasMany(City::class);
     }
 
-    public function clients()
+    public function tenders(): HasMany
     {
-        return $this->hasMany(Client::class);
-    }
-
-    public function projects()
-    {
-        return $this->hasMany(Project::class);
-    }
-
-    // Scopes
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
+        return $this->hasMany(Tender::class);
     }
 }

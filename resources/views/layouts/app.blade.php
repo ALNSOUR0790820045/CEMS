@@ -362,19 +362,21 @@
                     <a class="nav-link">المناقصات</a>
                     <div class="mega-menu">
                         <div class="menu-col">
-                            <h4>إدارة المناقصات</h4>
-                            <a href="{{ route('tenders.index') }}" class="sub-link"><i data-lucide="list"></i> جميع المناقصات</a>
-                            <a href="{{ route('tenders.create') }}" class="sub-link"><i data-lucide="plus-circle"></i> إضافة مناقصة</a>
-                            <a href="{{ route('tenders.pipeline') }}" class="sub-link"><i data-lucide="kanban-square"></i> Pipeline</a>
+                            <h4>إدارة العطاءات</h4>
+                            <a href="{{ route('tenders.dashboard') }}" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة العطاءات</a>
+                            <a href="{{ route('tenders.index') }}" class="sub-link"><i data-lucide="megaphone"></i> جميع العطاءات</a>
+                            <a href="{{ route('tenders.create') }}" class="sub-link"><i data-lucide="plus-circle"></i> إضافة عطاء جديد</a>
                         </div>
                         <div class="menu-col">
-                            <h4>التقارير والإحصائيات</h4>
-                            <a href="{{ route('tenders.statistics') }}" class="sub-link"><i data-lucide="bar-chart-3"></i> الإحصائيات</a>
-                            <a href="{{ route('tenders.calendar') }}" class="sub-link"><i data-lucide="calendar"></i> التقويم</a>
+                            <h4>التقييم والمتابعة</h4>
+                            <a href="{{ route('tenders.index', ['status' => 'announced']) }}" class="sub-link"><i data-lucide="bell"></i> العطاءات المعلنة</a>
+                            <a href="{{ route('tenders.index', ['status' => 'preparing']) }}" class="sub-link"><i data-lucide="file-edit"></i> قيد التحضير</a>
+                            <a href="{{ route('tenders.index', ['status' => 'submitted']) }}" class="sub-link"><i data-lucide="send"></i> المقدمة</a>
                         </div>
                         <div class="menu-col">
-                            <h4>المتابعة</h4>
-                            <a href="{{ route('tenders.expiring') }}" class="sub-link"><i data-lucide="alert-triangle"></i> المناقصات القريبة</a>
+                            <h4>النتائج</h4>
+                            <a href="{{ route('tenders.index', ['status' => 'awarded']) }}" class="sub-link"><i data-lucide="trophy"></i> الفائزة</a>
+                            <a href="{{ route('tenders.index', ['status' => 'lost']) }}" class="sub-link"><i data-lucide="x-circle"></i> الخاسرة</a>
                         </div>
                     </div>
                 </div>

@@ -2,283 +2,242 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
-use App\Models\Company;
-use App\Models\Project;
 use App\Models\Tender;
-use App\Models\TenderTimeline;
+use App\Models\Country;
+use App\Models\City;
+use App\Models\Currency;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class TenderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $query = Tender::with(['company']);
+        $query = Tender::with(['country', 'city', 'currency', 'assignedUser']);
 
-        // Check if Client model exists
-        if (class_exists('\App\Models\Client')) {
-            $query->with(['client', 'assignedTo', 'createdBy']);
-        }
-
-        // Filter by status
-        if ($request->has('status') && $request->status != '') {
+        // Filters
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // Filter by priority
-        if ($request->has('priority') && $request->priority != '') {
-            $query->where('priority', $request->priority);
+        if ($request->filled('tender_type')) {
+            $query->where('tender_type', $request->tender_type);
         }
 
-        // Search
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('tender_number', 'like', "%{$search}%")
-                    ->orWhere('tender_code', 'like', "%{$search}%")
-                    ->orWhere('reference_number', 'like', "%{$search}%");
-            });
+        if ($request->filled('date_from')) {
+            $query->where('submission_deadline', '>=', $request->date_from);
         }
 
-        $tenders = $query->latest()->paginate(20);
+        if ($request->filled('date_to')) {
+            $query->where('submission_deadline', '<=', $request->date_to);
+        }
+
+        $tenders = $query->orderBy('submission_deadline', 'asc')->paginate(15);
 
         return view('tenders.index', compact('tenders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function dashboard()
     {
-        $data = [];
+        $activeTenders = Tender::whereIn('status', ['announced', 'evaluating', 'decision_pending', 'preparing'])->count();
+        $preparingTenders = Tender::where('status', 'preparing')->count();
+        $wonTenders = Tender::where('status', 'awarded')->count();
+        $lostTenders = Tender::where('status', 'lost')->count();
         
-        if (class_exists('\App\Models\Client')) {
-            $data['clients'] = Client::where('is_active', true)->get();
-        }
+        $totalParticipated = $wonTenders + $lostTenders;
+        $winRate = $totalParticipated > 0 ? round(($wonTenders / $totalParticipated) * 100, 1) : 0;
         
-        if (class_exists('\App\Models\User')) {
-            $data['users'] = User::where('is_active', true)->get();
-        }
+        $pipelineValue = Tender::whereIn('status', ['announced', 'evaluating', 'decision_pending', 'preparing'])
+            ->sum('estimated_value');
 
-        return view('tenders.create', $data);
+        // Upcoming deadlines
+        $upcomingTenders = Tender::whereIn('status', ['announced', 'evaluating', 'decision_pending', 'preparing'])
+            ->where('submission_deadline', '>=', Carbon::now())
+            ->orderBy('submission_deadline', 'asc')
+            ->take(10)
+            ->get();
+
+        // Tenders by type
+        $tendersByType = Tender::selectRaw('tender_type, count(*) as count')
+            ->groupBy('tender_type')
+            ->get();
+
+        // Recent tenders
+        $recentTenders = Tender::with(['country', 'currency', 'assignedUser'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('tenders.dashboard', compact(
+            'activeTenders',
+            'preparingTenders',
+            'winRate',
+            'pipelineValue',
+            'upcomingTenders',
+            'tendersByType',
+            'recentTenders'
+        ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function create()
+    {
+        $countries = Country::where('is_active', true)->get();
+        $currencies = Currency::where('is_active', true)->get();
+        $users = User::all();
+
+        return view('tenders.create', compact('countries', 'currencies', 'users'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
-            'tender_code' => 'nullable|unique:tenders,tender_code',
-            'reference_number' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'client_id' => 'nullable|exists: clients,id',
-            'client_name' => 'nullable|string|max:255',
-            'type' => 'nullable|in: public,private,limited,direct_order',
-            'category' => 'nullable|in: building,infrastructure,industrial,maintenance,supply,other',
-            'sector' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
-            'submission_deadline' => 'nullable|date',
-            'submission_date' => 'nullable|date',
-            'submission_time' => 'nullable',
-            'announcement_date' => 'nullable|date',
-            'documents_deadline' => 'nullable|date',
-            'questions_deadline' => 'nullable|date',
-            'opening_date' => 'nullable|date',
-            'expected_award_date' => 'nullable|date',
-            'project_start_date' => 'nullable|date',
-            'project_duration_days' => 'nullable|integer|min:1',
-            'estimated_value' => 'nullable|numeric',
-            'documents_cost' => 'nullable|numeric',
-            'bid_bond_amount' => 'nullable|numeric',
-            'bid_bond_percentage' => 'nullable|numeric',
-            'currency' => 'nullable|string|max: 3',
-            'priority' => 'nullable|in: low,medium,high,critical',
-            'assigned_to' => 'nullable|exists:users,id',
-            'estimator_id' => 'nullable|exists:users,id',
-            'notes' => 'nullable|string',
-            'status' => 'nullable|in:draft,identified,studying,go,no_go,documents_purchased,pricing,submitted,opened,negotiating,won,lost,cancelled,converted',
+            'tender_name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'owner_name' => 'required|string|max:255',
+            'country_id' => 'required|exists:countries,id',
+            'tender_type' => 'required|in:construction,infrastructure,buildings,roads,bridges,water,electrical,mechanical,maintenance,consultancy,other',
+            'contract_type' => 'required|in:lump_sum,unit_price,cost_plus,time_material,design_build,epc,bot,other',
+            'currency_id' => 'required|exists:currencies,id',
+            'submission_deadline' => 'required|date',
         ]);
-
-        // Generate tender number if not provided
-        if (empty($validated['tender_code'])) {
-            $year = now()->year;
-            $lastTender = Tender::whereYear('created_at', $year)->latest('id')->first();
-            $nextNumber = $lastTender ? intval(substr($lastTender->tender_number ??  $lastTender->tender_code ??  '0000', -4)) + 1 : 1;
-            $validated['tender_number'] = 'TND-'.$year.'-'.str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-            
-            if (! isset($validated['tender_code'])) {
-                $validated['tender_code'] = $validated['tender_number'];
-            }
-        }
-
-        if (Auth::check()) {
-            $validated['created_by'] = Auth:: id();
-        }
-        
-        if (! isset($validated['status'])) {
-            $validated['status'] = 'identified';
-        }
 
         $tender = Tender::create($validated);
 
-        // Add timeline entry if model exists
-        if (class_exists('\App\Models\TenderTimeline') && Auth::check()) {
-            TenderTimeline::create([
-                'tender_id' => $tender->id,
-                'action' => 'created',
-                'description' => 'تم إنشاء المناقصة',
-                'performed_by' => Auth::id(),
-            ]);
-        }
-
         return redirect()->route('tenders.show', $tender)
-            ->with('success', 'تم إضافة المناقصة بنجاح');
+            ->with('success', 'تم إنشاء العطاء بنجاح');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function show(Tender $tender)
     {
-        $tender = Tender::with(['wbsItems', 'activities', 'milestones', 'company'])
-            ->findOrFail($id);
-
-        // Load additional relationships if models exist
-        if (class_exists('\App\Models\Client')) {
-            $tender->load([
-                'client',
-                'assignedTo',
-                'estimator',
-                'createdBy',
-            ]);
-        }
-
-        if (class_exists('\App\Models\TenderDocument')) {
-            $tender->load('documents. uploadedBy');
-        }
-
-        if (class_exists('\App\Models\TenderCompetitor')) {
-            $tender->load('competitors');
-        }
-
-        if (class_exists('\App\Models\TenderTimeline')) {
-            $tender->load('timeline. performedBy');
-        }
-
-        if (class_exists('\App\Models\TenderQuestion')) {
-            $tender->load('questions');
-        }
+        $tender->load([
+            'country',
+            'city',
+            'currency',
+            'decider',
+            'assignedUser',
+            'siteVisits.reporter',
+            'clarifications.asker',
+            'competitors',
+            'committeeDecisions.chairman'
+        ]);
 
         return view('tenders.show', compact('tender'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function edit(Tender $tender)
     {
-        $tender = Tender::findOrFail($id);
-        
-        $data = ['tender' => $tender];
-        
-        if (class_exists('\App\Models\Client')) {
-            $data['clients'] = Client::where('is_active', true)->get();
-        }
-        
-        if (class_exists('\App\Models\User')) {
-            $data['users'] = User::where('is_active', true)->get();
-        }
+        $countries = Country::where('is_active', true)->get();
+        $currencies = Currency::where('is_active', true)->get();
+        $users = User::all();
 
-        return view('tenders.edit', $data);
+        return view('tenders.edit', compact('tender', 'countries', 'currencies', 'users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tender $tender)
     {
-        $tender = Tender::findOrFail($id);
-
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
-            'tender_code' => 'nullable|unique:tenders,tender_code,' . $id,
-            'reference_number' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'client_id' => 'nullable|exists:clients,id',
-            'client_name' => 'nullable|string|max:255',
-            'type' => 'nullable|in:public,private,limited,direct_order',
-            'category' => 'nullable|in:building,infrastructure,industrial,maintenance,supply,other',
-            'sector' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
-            'submission_deadline' => 'nullable|date',
-            'submission_date' => 'nullable|date',
-            'submission_time' => 'nullable',
-            'announcement_date' => 'nullable|date',
-            'documents_deadline' => 'nullable|date',
-            'questions_deadline' => 'nullable|date',
-            'opening_date' => 'nullable|date',
-            'expected_award_date' => 'nullable|date',
-            'project_start_date' => 'nullable|date',
-            'project_duration_days' => 'nullable|integer|min:1',
-            'estimated_value' => 'nullable|numeric',
-            'documents_cost' => 'nullable|numeric',
-            'bid_bond_amount' => 'nullable|numeric',
-            'bid_bond_percentage' => 'nullable|numeric',
-            'currency' => 'nullable|string|max:3',
-            'priority' => 'nullable|in:low,medium,high,critical',
-            'assigned_to' => 'nullable|exists:users,id',
-            'estimator_id' => 'nullable|exists:users,id',
-            'notes' => 'nullable|string',
-            'status' => 'nullable|in:draft,identified,studying,go,no_go,documents_purchased,pricing,submitted,opened,negotiating,won,lost,cancelled,converted',
+            'tender_name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'owner_name' => 'required|string|max:255',
+            'country_id' => 'required|exists:countries,id',
+            'tender_type' => 'required',
+            'contract_type' => 'required',
+            'currency_id' => 'required|exists:currencies,id',
+            'submission_deadline' => 'required|date',
         ]);
 
-        $oldStatus = $tender->status;
         $tender->update($validated);
 
-        // Add timeline if status changed
-        if (class_exists('\App\Models\TenderTimeline') && Auth::check() && isset($validated['status']) && $oldStatus !== $validated['status']) {
-            TenderTimeline::create([
-                'tender_id' => $tender->id,
-                'action' => 'status_change',
-                'from_status' => $oldStatus,
-                'to_status' => $validated['status'],
-                'description' => 'تم تغيير حالة المناقصة',
-                'performed_by' => Auth::id(),
-            ]);
-        }
-
         return redirect()->route('tenders.show', $tender)
-            ->with('success', 'تم تحديث المناقصة بنجاح');
+            ->with('success', 'تم تحديث العطاء بنجاح');
     }
 
-    /**
-     * Remove the specified resource from storage. 
-     */
-    public function destroy($id)
+    public function destroy(Tender $tender)
     {
-        try {
-            $tender = Tender::findOrFail($id);
-            $tender->delete();
+        $tender->delete();
 
-            return redirect()->route('tenders.index')
-                ->with('success', 'تم حذف المناقصة بنجاح');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Failed to delete tender: ' . $e->getMessage());
+        return redirect()->route('tenders.index')
+            ->with('success', 'تم حذف العطاء بنجاح');
+    }
+
+    public function decision(Tender $tender)
+    {
+        return view('tenders.decision', compact('tender'));
+    }
+
+    public function storeDecision(Request $request, Tender $tender)
+    {
+        $validated = $request->validate([
+            'participate' => 'required|boolean',
+            'participation_decision_notes' => 'nullable|string',
+        ]);
+
+        $tender->update([
+            'participate' => $validated['participate'],
+            'participation_decision_notes' => $validated['participation_decision_notes'] ?? null,
+            'decided_by' => Auth::id(),
+            'decision_date' => Carbon::now(),
+            'status' => $validated['participate'] ? 'preparing' : 'passed',
+        ]);
+
+        return redirect()->route('tenders.show', $tender)
+            ->with('success', 'تم حفظ القرار بنجاح');
+    }
+
+    public function siteVisit(Tender $tender)
+    {
+        return view('tenders.site-visit', compact('tender'));
+    }
+
+    public function storeSiteVisit(Request $request, Tender $tender)
+    {
+        $validated = $request->validate([
+            'visit_date' => 'required|date',
+            'visit_time' => 'nullable',
+            'attendees' => 'nullable|string',
+            'observations' => 'nullable|string',
+        ]);
+
+        // Convert attendees string to array
+        $attendees = [];
+        if ($request->filled('attendees')) {
+            $attendees = array_filter(array_map('trim', explode("\n", $request->attendees)));
         }
+
+        $tender->siteVisits()->create([
+            'visit_date' => $validated['visit_date'],
+            'visit_time' => $validated['visit_time'],
+            'attendees' => $attendees,
+            'observations' => $validated['observations'],
+            'reported_by' => Auth::id(),
+        ]);
+
+        return redirect()->route('tenders.show', $tender)
+            ->with('success', 'تم تسجيل زيارة الموقع بنجاح');
+    }
+
+    public function competitors(Tender $tender)
+    {
+        $tender->load('competitors');
+        return view('tenders.competitors', compact('tender'));
+    }
+
+    public function storeCompetitor(Request $request, Tender $tender)
+    {
+        $validated = $request->validate([
+            'company_name' => 'required|string|max:255',
+            'classification' => 'required|in:strong,medium,weak',
+            'estimated_price' => 'nullable|numeric',
+            'strengths' => 'nullable|string',
+            'weaknesses' => 'nullable|string',
+            'notes' => 'nullable|string',
+        ]);
+
+        $tender->competitors()->create($validated);
+
+        return redirect()->route('tenders.competitors', $tender)
+            ->with('success', 'تم إضافة المنافس بنجاح');
     }
 }

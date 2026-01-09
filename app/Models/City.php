@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class City extends Model
 {
@@ -17,30 +19,13 @@ class City extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function country()
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
 
-    public function clients()
+    public function tenders(): HasMany
     {
-        return $this->hasMany(Client::class);
-    }
-
-    public function projects()
-    {
-        return $this->hasMany(Project::class);
-    }
-
-    // Scopes
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    public function scopeByCountry($query, $countryId)
-    {
-        return $query->where('country_id', $countryId);
+        return $this->hasMany(Tender::class);
     }
 }

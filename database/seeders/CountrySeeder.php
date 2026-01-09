@@ -2,29 +2,85 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Country;
+use App\Models\City;
 
 class CountrySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $countries = [
-            ['code' => 'SA', 'name' => 'السعودية', 'name_en' => 'Saudi Arabia', 'phone_code' => '+966', 'is_active' => true],
-            ['code' => 'AE', 'name' => 'الإمارات', 'name_en' => 'United Arab Emirates', 'phone_code' => '+971', 'is_active' => true],
-            ['code' => 'KW', 'name' => 'الكويت', 'name_en' => 'Kuwait', 'phone_code' => '+965', 'is_active' => true],
-            ['code' => 'QA', 'name' => 'قطر', 'name_en' => 'Qatar', 'phone_code' => '+974', 'is_active' => true],
-            ['code' => 'BH', 'name' => 'البحرين', 'name_en' => 'Bahrain', 'phone_code' => '+973', 'is_active' => true],
-            ['code' => 'OM', 'name' => 'عمان', 'name_en' => 'Oman', 'phone_code' => '+968', 'is_active' => true],
-            ['code' => 'EG', 'name' => 'مصر', 'name_en' => 'Egypt', 'phone_code' => '+20', 'is_active' => true],
-            ['code' => 'JO', 'name' => 'الأردن', 'name_en' => 'Jordan', 'phone_code' => '+962', 'is_active' => true],
+            [
+                'name' => 'المملكة العربية السعودية',
+                'name_en' => 'Saudi Arabia',
+                'code' => 'SA',
+                'code3' => 'SAU',
+                'currency_code' => 'SAR',
+                'phone_code' => '+966',
+                'cities' => ['الرياض', 'جدة', 'الدمام', 'مكة المكرمة', 'المدينة المنورة']
+            ],
+            [
+                'name' => 'الإمارات العربية المتحدة',
+                'name_en' => 'United Arab Emirates',
+                'code' => 'AE',
+                'code3' => 'ARE',
+                'currency_code' => 'AED',
+                'phone_code' => '+971',
+                'cities' => ['دبي', 'أبوظبي', 'الشارقة', 'عجمان', 'رأس الخيمة']
+            ],
+            [
+                'name' => 'الكويت',
+                'name_en' => 'Kuwait',
+                'code' => 'KW',
+                'code3' => 'KWT',
+                'currency_code' => 'KWD',
+                'phone_code' => '+965',
+                'cities' => ['مدينة الكويت', 'الأحمدي', 'حولي', 'الفروانية', 'الجهراء']
+            ],
+            [
+                'name' => 'قطر',
+                'name_en' => 'Qatar',
+                'code' => 'QA',
+                'code3' => 'QAT',
+                'currency_code' => 'QAR',
+                'phone_code' => '+974',
+                'cities' => ['الدوحة', 'الريان', 'الوكرة', 'الخور', 'مسيعيد']
+            ],
+            [
+                'name' => 'البحرين',
+                'name_en' => 'Bahrain',
+                'code' => 'BH',
+                'code3' => 'BHR',
+                'currency_code' => 'BHD',
+                'phone_code' => '+973',
+                'cities' => ['المنامة', 'المحرق', 'الرفاع', 'مدينة حمد', 'مدينة عيسى']
+            ],
+            [
+                'name' => 'عُمان',
+                'name_en' => 'Oman',
+                'code' => 'OM',
+                'code3' => 'OMN',
+                'currency_code' => 'OMR',
+                'phone_code' => '+968',
+                'cities' => ['مسقط', 'صلالة', 'صحار', 'نزوى', 'البريمي']
+            ],
         ];
 
-        foreach ($countries as $country) {
-            \App\Models\Country::create($country);
+        foreach ($countries as $countryData) {
+            $cities = $countryData['cities'];
+            unset($countryData['cities']);
+            
+            $country = Country::create($countryData);
+
+            foreach ($cities as $cityName) {
+                City::create([
+                    'country_id' => $country->id,
+                    'name' => $cityName,
+                    'name_en' => $cityName,
+                    'is_active' => true,
+                ]);
+            }
         }
     }
 }

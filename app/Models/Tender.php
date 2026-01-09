@@ -5,166 +5,111 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Tender extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
-        'company_id',
         'tender_number',
-        'tender_code',
         'reference_number',
-        'name',
-        'name_en',
-        'code',
-        'title',
+        'tender_name',
+        'tender_name_en',
         'description',
-        'client_id',
-        'client_name',
-        'client_contact',
-        'client_phone',
-        'client_email',
-        'type',
-        'category',
-        'sector',
-        'location',
-        'city',
-        'country',
+        'description_en',
+        'owner_name',
+        'owner_contact',
+        'owner_email',
+        'owner_phone',
+        'country_id',
+        'city_id',
+        'project_location',
+        'tender_type',
+        'contract_type',
+        'estimated_value',
+        'currency_id',
+        'estimated_duration_months',
         'announcement_date',
-        'documents_deadline',
+        'document_sale_start',
+        'document_sale_end',
+        'document_price',
+        'site_visit_date',
+        'site_visit_time',
         'questions_deadline',
         'submission_deadline',
-        'submission_date',
         'submission_time',
         'opening_date',
-        'expected_award_date',
-        'project_start_date',
-        'project_duration_days',
-        'estimated_value',
-        'budget',
-        'our_offer_value',
-        'winning_value',
-        'currency',
-        'documents_cost',
-        'bid_bond_amount',
+        'opening_time',
+        'requires_bid_bond',
         'bid_bond_percentage',
+        'bid_bond_amount',
+        'bid_bond_validity_days',
+        'prequalification_requirements',
+        'eligibility_criteria',
         'status',
-        'priority',
-        'go_decision',
-        'go_decision_notes',
-        'go_decided_by',
-        'go_decided_at',
-        'winner_name',
-        'winner_value',
-        'loss_reason',
-        'project_id',
-        'bid_bond_id',
-        'assigned_to',
-        'estimator_id',
-        'created_by',
+        'participate',
+        'participation_decision_notes',
+        'decided_by',
+        'decision_date',
+        'tender_documents',
+        'our_documents',
         'notes',
-        'is_active',
+        'assigned_to',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'estimated_value' => 'decimal:2',
+        'document_price' => 'decimal:2',
+        'bid_bond_percentage' => 'decimal:2',
+        'bid_bond_amount' => 'decimal:2',
         'announcement_date' => 'date',
-        'documents_deadline' => 'date',
+        'document_sale_start' => 'date',
+        'document_sale_end' => 'date',
+        'site_visit_date' => 'date',
         'questions_deadline' => 'date',
         'submission_deadline' => 'date',
-        'submission_date' => 'date',
         'opening_date' => 'date',
-        'expected_award_date' => 'date',
-        'project_start_date' => 'date',
-        'estimated_value' => 'decimal: 2',
-        'budget' => 'decimal: 2',
-        'our_offer_value' => 'decimal: 2',
-        'winning_value' => 'decimal:2',
-        'winner_value' => 'decimal:2',
-        'documents_cost' => 'decimal:2',
-        'bid_bond_amount' => 'decimal:2',
-        'bid_bond_percentage' => 'decimal:2',
-        'go_decision' => 'boolean',
-        'go_decided_at' => 'datetime',
+        'decision_date' => 'date',
+        'prequalification_requirements' => 'array',
+        'tender_documents' => 'array',
+        'our_documents' => 'array',
+        'requires_bid_bond' => 'boolean',
+        'participate' => 'boolean',
     ];
 
     // Relationships
-    public function company(): BelongsTo
+    public function country(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Country::class);
     }
 
-    public function client(): BelongsTo
+    public function city(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(City::class);
     }
 
-    public function project(): BelongsTo
+    public function currency(): BelongsTo
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Currency::class);
     }
 
-    public function contract(): HasOne
+    public function decider(): BelongsTo
     {
-        return $this->hasOne(Contract::class);
+        return $this->belongsTo(User::class, 'decided_by');
     }
 
-    public function bidBond(): BelongsTo
-    {
-        return $this->belongsTo(Guarantee::class, 'bid_bond_id');
-    }
-
-    public function assignedTo(): BelongsTo
+    public function assignedUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
-    public function estimator(): BelongsTo
+    public function siteVisits(): HasMany
     {
-        return $this->belongsTo(User::class, 'estimator_id');
+        return $this->hasMany(TenderSiteVisit::class);
     }
 
-    public function createdBy(): BelongsTo
+    public function clarifications(): HasMany
     {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function goDecidedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'go_decided_by');
-    }
-
-    public function activities(): HasMany
-    {
-        return $this->hasMany(TenderActivity::class);
-    }
-
-    public function wbsItems(): HasMany
-    {
-        return $this->hasMany(TenderWbs::class, 'tender_id');
-    }
-
-    public function milestones(): HasMany
-    {
-        return $this->hasMany(TenderMilestone::class);
-    }
-
-    public function guarantees(): HasMany
-    {
-        return $this->hasMany(Guarantee::class);
-    }
-
-    public function warehouses(): HasMany
-    {
-        return $this->hasMany(Warehouse::class);
-    }
-
-    public function documents(): HasMany
-    {
-        return $this->hasMany(TenderDocument::class);
+        return $this->hasMany(TenderClarification::class);
     }
 
     public function competitors(): HasMany
@@ -172,40 +117,52 @@ class Tender extends Model
         return $this->hasMany(TenderCompetitor::class);
     }
 
-    public function timeline(): HasMany
+    public function committeeDecisions(): HasMany
     {
-        return $this->hasMany(TenderTimeline::class);
-    }
-
-    public function questions(): HasMany
-    {
-        return $this->hasMany(TenderQuestion::class);
+        return $this->hasMany(TenderCommitteeDecision::class);
     }
 
     // Helper methods
-    public function isExpiringSoon(int $days = 7): bool
+    public function getDaysUntilSubmission(): int
     {
-        if (! $this->submission_deadline) {
-            return false;
-        }
-
-        return $this->submission_deadline->diffInDays(now()) <= $days &&
-               $this->submission_deadline >= now();
+        return Carbon::now()->diffInDays($this->submission_deadline, false);
     }
 
-    public function canConvertToProject(): bool
+    public function getDeadlineUrgency(): string
     {
-        return $this->status === 'won' && $this->project_id === null;
+        $days = $this->getDaysUntilSubmission();
+        
+        if ($days < 0) return 'expired';
+        if ($days <= 15) return 'critical';
+        if ($days <= 30) return 'warning';
+        return 'safe';
     }
 
-    public function getDaysUntilDeadline(): ?int
+    public function getDeadlineColor(): string
     {
-        if (! $this->submission_deadline) {
-            return null;
-        }
+        return match($this->getDeadlineUrgency()) {
+            'critical' => 'red',
+            'warning' => 'yellow',
+            'safe' => 'green',
+            default => 'gray',
+        };
+    }
 
-        $diff = $this->submission_deadline->diffInDays(now(), false);
+    // Auto-generate tender number
+    protected static function boot()
+    {
+        parent::boot();
 
-        return (int) $diff;
+        static::creating(function ($tender) {
+            if (!$tender->tender_number) {
+                $year = date('Y');
+                $lastTender = static::whereYear('created_at', $year)
+                    ->orderBy('id', 'desc')
+                    ->first();
+                
+                $number = $lastTender ? (int) substr($lastTender->tender_number, -3) + 1 : 1;
+                $tender->tender_number = sprintf('TND-%s-%03d', $year, $number);
+            }
+        });
     }
 }

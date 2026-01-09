@@ -2,404 +2,616 @@
 
 @section('content')
 <style>
-    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-    .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
-    .header-content h1 { font-size: 1.8rem; font-weight: 700; margin: 0 0 10px 0; }
-    .tender-number { color: #666; font-size: 0.9rem; }
-    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-    .btn { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 0.9rem; }
-    .btn-primary { background: #0071e3; color: white; }
-    .btn-secondary { background: #f5f5f7; color: #1d1d1f; }
-    .btn-success { background: #34c759; color: white; }
-    .btn-danger { background: #ff3b30; color: white; }
-    .btn-warning { background: #ff9500; color: white; }
-    .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-    .card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; }
-    .card h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
-    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .info-item { display: flex; flex-direction: column; gap: 5px; }
-    .info-label { font-size: 0.85rem; color: #666; font-weight: 600; }
-    .info-value { font-size: 0.95rem; color: #1d1d1f; }
-    .status-badge { display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; }
-    .status-identified { background: #e3f2fd; color: #1976d2; }
-    .status-studying { background: #fff3e0; color: #f57c00; }
-    .status-go { background: #e8f5e9; color: #388e3c; }
-    .status-no_go { background: #ffebee; color: #d32f2f; }
-    .status-pricing { background: #f3e5f5; color: #7b1fa2; }
-    .status-submitted { background: #e1f5fe; color: #0288d1; }
-    .status-won { background: #c8e6c9; color: #2e7d32; }
-    .status-lost { background: #ffcdd2; color: #c62828; }
-    .timeline { display: flex; flex-direction: column; gap: 15px; }
-    .timeline-item { display: flex; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-right: 3px solid #0071e3; }
-    .timeline-icon { width: 40px; height: 40px; background: #0071e3; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .timeline-content { flex: 1; }
-    .timeline-title { font-weight: 600; margin-bottom: 5px; }
-    .timeline-desc { font-size: 0.9rem; color: #666; }
-    .timeline-date { font-size: 0.8rem; color: #999; margin-top: 5px; }
-    .empty-state { text-align: center; padding: 40px; color: #999; }
-    .sidebar .card { position: sticky; top: 80px; }
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 20px;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1d1d1f;
+    }
+
+    .tender-number {
+        font-size: 1rem;
+        color: #86868b;
+        font-weight: 400;
+        margin-top: 5px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .badge-status {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background: #0071e3;
+        color: white;
+    }
+
+    .btn-success {
+        background: #34c759;
+        color: white;
+    }
+
+    .btn-warning {
+        background: #ff9500;
+        color: white;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .info-label {
+        font-size: 0.75rem;
+        color: #86868b;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .info-value {
+        font-size: 1rem;
+        color: #1d1d1f;
+        font-weight: 500;
+    }
+
+    .timeline {
+        border-right: 3px solid #e5e5e7;
+        padding-right: 20px;
+        margin-right: 20px;
+    }
+
+    .timeline-item {
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        right: -31px;
+        top: 5px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #0071e3;
+        border: 3px solid white;
+        box-shadow: 0 0 0 2px #e5e5e7;
+    }
+
+    .timeline-date {
+        font-size: 0.85rem;
+        color: #1d1d1f;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .timeline-label {
+        font-size: 0.8rem;
+        color: #86868b;
+    }
+
+    .timeline-days {
+        font-size: 0.75rem;
+        color: #ff3b30;
+        font-weight: 600;
+        margin-top: 3px;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th {
+        background: #f5f5f7;
+        padding: 12px;
+        text-align: right;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-bottom: 2px solid #e5e5e7;
+    }
+
+    .table td {
+        padding: 12px;
+        border-bottom: 1px solid #e5e5e7;
+        font-size: 0.9rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #86868b;
+    }
+
+    .description-box {
+        background: #f5f5f7;
+        padding: 20px;
+        border-radius: 8px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .deadline-warning {
+        background: #fff3cd;
+        border: 2px solid #ff9500;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .deadline-critical {
+        background: #fee;
+        border-color: #ff3b30;
+    }
 </style>
 
-<div class="container">
-    <div class="header">
-        <div class="header-content">
-            <h1>{{ $tender->name }}</h1>
-            <div class="tender-number">{{ $tender->tender_number }} @if($tender->reference_number)| {{ $tender->reference_number }}@endif</div>
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{{ $tender->tender_name }}</h1>
+        <div class="tender-number">{{ $tender->tender_number }}</div>
+        @if($tender->reference_number)
+            <div class="tender-number">الرقم المرجعي: {{ $tender->reference_number }}</div>
+        @endif
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <span class="badge badge-status">
+            @switch($tender->status)
+                @case('announced') معلن @break
+                @case('evaluating') قيد التقييم @break
+                @case('decision_pending') قيد اتخاذ القرار @break
+                @case('preparing') قيد التحضير @break
+                @case('submitted') تم التقديم @break
+                @case('awarded') تمت الترسية @break
+                @case('lost') خسرنا @break
+                @case('cancelled') ألغي @break
+                @case('passed') لم نتقدم @break
+            @endswitch
+        </span>
+    </div>
+</div>
+
+@php
+    $days = $tender->getDaysUntilSubmission();
+    $urgency = $tender->getDeadlineUrgency();
+@endphp
+
+@if($days >= 0 && $days <= 30)
+<div class="deadline-warning {{ $days <= 15 ? 'deadline-critical' : '' }}">
+    <i data-lucide="alert-triangle" style="width: 32px; height: 32px; color: {{ $days <= 15 ? '#ff3b30' : '#ff9500' }};"></i>
+    <div>
+        <strong style="font-size: 1.1rem;">تنبيه موعد التقديم</strong>
+        <p style="margin: 5px 0 0 0;">باقي <strong>{{ $days }}</strong> {{ $days == 1 ? 'يوم' : 'أيام' }} على آخر موعد للتقديم ({{ $tender->submission_deadline->format('Y-m-d') }})</p>
+    </div>
+</div>
+@endif
+
+<!-- Overview Section -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="info"></i>
+        نظرة عامة
+    </h2>
+
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="info-label">الجهة المالكة</span>
+            <span class="info-value">{{ $tender->owner_name }}</span>
         </div>
-        <div class="actions">
-            <a href="{{ route('tenders.edit', $tender) }}" class="btn btn-secondary">
-                <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
-                تعديل
+
+        <div class="info-item">
+            <span class="info-label">نوع العطاء</span>
+            <span class="info-value">
+                @switch($tender->tender_type)
+                    @case('construction') إنشاءات @break
+                    @case('infrastructure') بنية تحتية @break
+                    @case('buildings') مباني @break
+                    @case('roads') طرق @break
+                    @case('bridges') جسور @break
+                    @case('water') مياه وصرف صحي @break
+                    @case('electrical') كهرباء @break
+                    @case('mechanical') ميكانيكا @break
+                    @case('maintenance') صيانة @break
+                    @case('consultancy') استشارات @break
+                    @default {{ $tender->tender_type }}
+                @endswitch
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">نوع العقد</span>
+            <span class="info-value">
+                @switch($tender->contract_type)
+                    @case('lump_sum') مقطوعية @break
+                    @case('unit_price') أسعار وحدات @break
+                    @case('cost_plus') تكلفة + ربح @break
+                    @case('time_material') مياومة @break
+                    @case('design_build') تصميم وتنفيذ @break
+                    @case('epc') EPC @break
+                    @case('bot') BOT @break
+                    @default {{ $tender->contract_type }}
+                @endswitch
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">القيمة التقديرية</span>
+            <span class="info-value">{{ number_format($tender->estimated_value ?? 0, 2) }} {{ $tender->currency->code ?? '' }}</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">المدة المقدرة</span>
+            <span class="info-value">{{ $tender->estimated_duration_months ?? '-' }} شهر</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">الموقع</span>
+            <span class="info-value">{{ $tender->country->name ?? '' }}{{ $tender->city ? ', ' . $tender->city->name : '' }}</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">المسؤول</span>
+            <span class="info-value">{{ $tender->assignedUser->name ?? '-' }}</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <span class="info-label">الوصف</span>
+        <div class="description-box">{{ $tender->description }}</div>
+    </div>
+</div>
+
+<!-- Timeline Section -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="calendar"></i>
+        الجدول الزمني
+    </h2>
+
+    <div class="timeline">
+        @if($tender->announcement_date)
+        <div class="timeline-item">
+            <div class="timeline-date">📅 {{ $tender->announcement_date->format('Y-m-d') }}</div>
+            <div class="timeline-label">الإعلان</div>
+        </div>
+        @endif
+
+        @if($tender->site_visit_date)
+        <div class="timeline-item">
+            <div class="timeline-date">📅 {{ $tender->site_visit_date->format('Y-m-d') }}</div>
+            <div class="timeline-label">زيارة الموقع</div>
+        </div>
+        @endif
+
+        @if($tender->questions_deadline)
+        <div class="timeline-item">
+            <div class="timeline-date">📅 {{ $tender->questions_deadline->format('Y-m-d') }}</div>
+            <div class="timeline-label">آخر موعد للاستفسارات</div>
+        </div>
+        @endif
+
+        <div class="timeline-item">
+            <div class="timeline-date" style="color: #ff3b30; font-size: 1.1rem;">📅 {{ $tender->submission_deadline->format('Y-m-d') }}</div>
+            <div class="timeline-label" style="font-weight: 700;">آخر موعد للتقديم</div>
+            @if($days >= 0)
+                <div class="timeline-days">⏰ باقي {{ $days }} {{ $days == 1 ? 'يوم' : 'أيام' }}</div>
+            @endif
+        </div>
+
+        @if($tender->opening_date)
+        <div class="timeline-item">
+            <div class="timeline-date">📅 {{ $tender->opening_date->format('Y-m-d') }}</div>
+            <div class="timeline-label">موعد الفتح</div>
+        </div>
+        @endif
+    </div>
+</div>
+
+<!-- Decision Section -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="target"></i>
+        قرار المشاركة
+    </h2>
+
+    @if($tender->participate !== null)
+        <div style="padding: 20px; background: {{ $tender->participate ? '#e8f5e9' : '#ffebee' }}; border-radius: 8px;">
+            <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;">
+                القرار: <strong>{{ $tender->participate ? 'المشاركة في العطاء' : 'عدم المشاركة' }}</strong>
+            </div>
+            @if($tender->participation_decision_notes)
+                <div style="margin-top: 10px;">
+                    <strong>الأسباب:</strong>
+                    <p style="margin-top: 5px;">{{ $tender->participation_decision_notes }}</p>
+                </div>
+            @endif
+            @if($tender->decider)
+                <div style="margin-top: 10px; font-size: 0.9rem; color: #86868b;">
+                    تم اتخاذ القرار بواسطة: {{ $tender->decider->name }} في {{ $tender->decision_date->format('Y-m-d') }}
+                </div>
+            @endif
+        </div>
+    @else
+        <div class="empty-state">
+            <p>لم يتم اتخاذ قرار بعد</p>
+            <a href="{{ route('tenders.decision', $tender) }}" class="btn btn-primary" style="margin-top: 15px;">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                اتخاذ القرار (Go/No-Go)
             </a>
-            @if($tender->status === 'studying' || $tender->status === 'identified')
-            <button onclick="showGoDecisionModal()" class="btn btn-primary">
-                <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
-                قرار GO/NO-GO
-            </button>
-            @endif
-            @if($tender->status === 'pricing' || $tender->status === 'documents_purchased')
-            <button onclick="showSubmitModal()" class="btn btn-success">
-                <i data-lucide="send" style="width: 16px; height: 16px;"></i>
-                تسجيل التقديم
-            </button>
-            @endif
-            @if($tender->status === 'submitted' || $tender->status === 'opened')
-            <button onclick="showResultModal()" class="btn btn-warning">
-                <i data-lucide="trophy" style="width: 16px; height: 16px;"></i>
-                تسجيل النتيجة
-            </button>
-            @endif
-            @if($tender->canConvertToProject())
-            <button onclick="showConvertModal()" class="btn btn-success">
-                <i data-lucide="folder-plus" style="width: 16px; height: 16px;"></i>
-                تحويل لمشروع
-            </button>
-            @endif
         </div>
-    </div>
+    @endif
 
-    <div class="grid">
-        <div class="main-content">
-            <!-- Basic Information -->
-            <div class="card">
-                <h3>المعلومات الأساسية</h3>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">الحالة</div>
-                        <div class="info-value">
-                            @php
-                                $statusLabels = [
-                                    'identified' => 'تم اكتشافها',
-                                    'studying' => 'قيد الدراسة',
-                                    'go' => 'قرار المشاركة',
-                                    'no_go' => 'قرار عدم المشاركة',
-                                    'documents_purchased' => 'تم شراء الكراسة',
-                                    'pricing' => 'قيد التسعير',
-                                    'submitted' => 'تم التقديم',
-                                    'opened' => 'تم فتح المظاريف',
-                                    'negotiating' => 'قيد التفاوض',
-                                    'won' => 'فوز',
-                                    'lost' => 'خسارة',
-                                    'cancelled' => 'ملغاة',
-                                    'converted' => 'تم التحويل',
-                                ];
-                            @endphp
-                            <span class="status-badge status-{{ $tender->status }}">
-                                {{ $statusLabels[$tender->status] ?? $tender->status }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">الأولوية</div>
-                        <div class="info-value">
-                            @php
-                                $priorityLabels = ['critical' => 'حرجة', 'high' => 'عالية', 'medium' => 'متوسطة', 'low' => 'منخفضة'];
-                            @endphp
-                            {{ $priorityLabels[$tender->priority] ?? $tender->priority }}
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">نوع المناقصة</div>
-                        <div class="info-value">
-                            @php
-                                $typeLabels = ['public' => 'عامة', 'private' => 'خاصة', 'limited' => 'محدودة', 'direct_order' => 'أمر مباشر'];
-                            @endphp
-                            {{ $typeLabels[$tender->type] ?? $tender->type }}
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">الفئة</div>
-                        <div class="info-value">
-                            @php
-                                $categoryLabels = ['building' => 'مباني', 'infrastructure' => 'بنية تحتية', 'industrial' => 'صناعي', 'maintenance' => 'صيانة', 'supply' => 'توريدات', 'other' => 'أخرى'];
-                            @endphp
-                            {{ $categoryLabels[$tender->category] ?? $tender->category }}
-                        </div>
-                    </div>
-                    @if($tender->description)
-                    <div class="info-item" style="grid-column: span 2;">
-                        <div class="info-label">الوصف</div>
-                        <div class="info-value">{{ $tender->description }}</div>
-                    </div>
-                    @endif
-                </div>
-            </div>
+    @if($tender->committeeDecisions->count() > 0)
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 30px 0 15px 0;">قرارات اللجنة</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>تاريخ الاجتماع</th>
+                    <th>القرار</th>
+                    <th>الميزانية المعتمدة</th>
+                    <th>رئيس اللجنة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tender->committeeDecisions as $decision)
+                <tr>
+                    <td>{{ $decision->meeting_date->format('Y-m-d') }}</td>
+                    <td>
+                        @switch($decision->decision)
+                            @case('go') المضي قدماً @break
+                            @case('no_go') عدم المشاركة @break
+                            @case('pending') قيد الدراسة @break
+                        @endswitch
+                    </td>
+                    <td>{{ number_format($decision->approved_budget ?? 0, 2) }}</td>
+                    <td>{{ $decision->chairman->name ?? '' }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+</div>
 
-            <!-- Client Information -->
-            <div class="card">
-                <h3>معلومات الجهة المالكة</h3>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">اسم الجهة</div>
-                        <div class="info-value">{{ $tender->client?->name ?? $tender->client_name ?? '-' }}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">القطاع</div>
-                        <div class="info-value">{{ $tender->sector ?? '-' }}</div>
-                    </div>
-                    @if($tender->client_contact)
-                    <div class="info-item">
-                        <div class="info-label">جهة الاتصال</div>
-                        <div class="info-value">{{ $tender->client_contact }}</div>
-                    </div>
-                    @endif
-                    @if($tender->client_phone)
-                    <div class="info-item">
-                        <div class="info-label">الهاتف</div>
-                        <div class="info-value">{{ $tender->client_phone }}</div>
-                    </div>
-                    @endif
-                </div>
-            </div>
+<!-- Site Visits Section -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="map-pin"></i>
+        زيارات الموقع
+    </h2>
 
-            <!-- Dates -->
-            <div class="card">
-                <h3>التواريخ المهمة</h3>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">آخر موعد للتقديم</div>
-                        <div class="info-value">{{ $tender->submission_deadline?->format('Y-m-d') ?? '-' }}</div>
-                    </div>
-                    @if($tender->submission_time)
-                    <div class="info-item">
-                        <div class="info-label">وقت التقديم</div>
-                        <div class="info-value">{{ $tender->submission_time }}</div>
-                    </div>
-                    @endif
-                    @if($tender->opening_date)
-                    <div class="info-item">
-                        <div class="info-label">تاريخ فتح المظاريف</div>
-                        <div class="info-value">{{ $tender->opening_date->format('Y-m-d') }}</div>
-                    </div>
-                    @endif
-                    @if($tender->expected_award_date)
-                    <div class="info-item">
-                        <div class="info-label">تاريخ الترسية المتوقع</div>
-                        <div class="info-value">{{ $tender->expected_award_date->format('Y-m-d') }}</div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Financial Information -->
-            <div class="card">
-                <h3>القيم المالية</h3>
-                <div class="info-grid">
-                    @if($tender->estimated_value)
-                    <div class="info-item">
-                        <div class="info-label">القيمة المقدرة</div>
-                        <div class="info-value">{{ number_format($tender->estimated_value, 2) }} {{ $tender->currency }}</div>
-                    </div>
-                    @endif
-                    @if($tender->our_offer_value)
-                    <div class="info-item">
-                        <div class="info-label">قيمة عرضنا</div>
-                        <div class="info-value" style="color: #0071e3; font-weight: 700;">{{ number_format($tender->our_offer_value, 2) }} {{ $tender->currency }}</div>
-                    </div>
-                    @endif
-                    @if($tender->winning_value)
-                    <div class="info-item">
-                        <div class="info-label">قيمة الفوز</div>
-                        <div class="info-value">{{ number_format($tender->winning_value, 2) }} {{ $tender->currency }}</div>
-                    </div>
-                    @endif
-                    @if($tender->bid_bond_amount)
-                    <div class="info-item">
-                        <div class="info-label">قيمة الضمان الابتدائي</div>
-                        <div class="info-value">{{ number_format($tender->bid_bond_amount, 2) }} {{ $tender->currency }}</div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Timeline -->
-            <div class="card">
-                <h3>التسلسل الزمني</h3>
-                @if($tender->timeline->count() > 0)
-                <div class="timeline">
-                    @foreach($tender->timeline->sortByDesc('created_at') as $event)
-                    <div class="timeline-item">
-                        <div class="timeline-icon">
-                            <i data-lucide="activity" style="width: 20px; height: 20px; color: white;"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">{{ $event->description }}</div>
-                            <div class="timeline-desc">بواسطة: {{ $event->performedBy->name }}</div>
-                            <div class="timeline-date">{{ $event->created_at->diffForHumans() }}</div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-                @else
-                <div class="empty-state">
-                    <i data-lucide="clock" style="width: 40px; height: 40px;"></i>
-                    <p>لا توجد أحداث بعد</p>
-                </div>
-                @endif
-            </div>
+    @if($tender->siteVisits->count() > 0)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>التاريخ</th>
+                    <th>الوقت</th>
+                    <th>الملاحظات</th>
+                    <th>المقرر</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tender->siteVisits as $visit)
+                <tr>
+                    <td>{{ $visit->visit_date->format('Y-m-d') }}</td>
+                    <td>{{ $visit->visit_time ?? '-' }}</td>
+                    <td>{{ Str::limit($visit->observations ?? '', 100) }}</td>
+                    <td>{{ $visit->reporter->name ?? '' }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <div class="empty-state">
+            <p>لم يتم تسجيل زيارات موقع بعد</p>
         </div>
+    @endif
 
-        <div class="sidebar">
-            <!-- Quick Info -->
-            <div class="card">
-                <h3>معلومات سريعة</h3>
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div class="info-item">
-                        <div class="info-label">المكلف بالمتابعة</div>
-                        <div class="info-value">{{ $tender->assignedTo?->name ?? '-' }}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">مسؤول التسعير</div>
-                        <div class="info-value">{{ $tender->estimator?->name ?? '-' }}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">أنشئت بواسطة</div>
-                        <div class="info-value">{{ $tender->createdBy->name }}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">تاريخ الإنشاء</div>
-                        <div class="info-value">{{ $tender->created_at->format('Y-m-d') }}</div>
-                    </div>
-                    @if($tender->go_decision !== null)
-                    <div class="info-item">
-                        <div class="info-label">قرار GO/NO-GO</div>
-                        <div class="info-value">
-                            <span class="status-badge status-{{ $tender->go_decision ? 'go' : 'no_go' }}">
-                                {{ $tender->go_decision ? 'GO - المشاركة' : 'NO-GO - عدم المشاركة' }}
-                            </span>
-                        </div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Documents -->
-            <div class="card">
-                <h3>المستندات ({{ $tender->documents->count() }})</h3>
-                @if($tender->documents->count() > 0)
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    @foreach($tender->documents as $doc)
-                    <div style="padding: 10px; background: #f8f9fa; border-radius: 6px;">
-                        <div style="font-weight: 600; font-size: 0.9rem;">{{ $doc->name }}</div>
-                        <div style="font-size: 0.8rem; color: #666;">{{ $doc->type }}</div>
-                    </div>
-                    @endforeach
-                </div>
-                @else
-                <div class="empty-state" style="padding: 20px;">
-                    <i data-lucide="file" style="width: 30px; height: 30px;"></i>
-                    <p>لا توجد مستندات</p>
-                </div>
-                @endif
-            </div>
-
-            <!-- Competitors -->
-            <div class="card">
-                <h3>المنافسون ({{ $tender->competitors->count() }})</h3>
-                @if($tender->competitors->count() > 0)
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    @foreach($tender->competitors as $comp)
-                    <div style="padding: 10px; background: #f8f9fa; border-radius: 6px;">
-                        <div style="font-weight: 600; font-size: 0.9rem;">{{ $comp->company_name }}</div>
-                        @if($comp->offer_value)
-                        <div style="font-size: 0.85rem; color: #666;">{{ number_format($comp->offer_value, 2) }} {{ $tender->currency }}</div>
-                        @endif
-                        @if($comp->is_winner)
-                        <span style="display: inline-block; margin-top: 5px; padding: 3px 8px; background: #c8e6c9; color: #2e7d32; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">فائز</span>
-                        @endif
-                    </div>
-                    @endforeach
-                </div>
-                @else
-                <div class="empty-state" style="padding: 20px;">
-                    <i data-lucide="users" style="width: 30px; height: 30px;"></i>
-                    <p>لا توجد بيانات منافسين</p>
-                </div>
-                @endif
-            </div>
-        </div>
+    <div style="margin-top: 20px;">
+        <a href="{{ route('tenders.site-visit', $tender) }}" class="btn btn-primary">
+            <i data-lucide="map" style="width: 18px; height: 18px;"></i>
+            تسجيل زيارة موقع
+        </a>
     </div>
 </div>
 
-<!-- Modals would go here - simplified for now -->
-<div id="goDecisionModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
-    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%;">
-        <h3 style="margin: 0 0 20px 0;">قرار GO/NO-GO</h3>
-        <form method="POST" action="{{ route('tenders.go-decision', $tender) }}">
-            @csrf
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 10px; font-weight: 600;">القرار</label>
-                <select name="go_decision" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Cairo', sans-serif;">
-                    <option value="1">GO - المشاركة</option>
-                    <option value="0">NO-GO - عدم المشاركة</option>
-                </select>
-            </div>
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 10px; font-weight: 600;">ملاحظات</label>
-                <textarea name="go_decision_notes" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Cairo', sans-serif; min-height: 100px;"></textarea>
-            </div>
-            <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button type="button" onclick="hideGoDecisionModal()" class="btn btn-secondary">إلغاء</button>
-                <button type="submit" class="btn btn-primary">حفظ القرار</button>
-            </div>
-        </form>
+<!-- Clarifications Section -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="message-circle"></i>
+        الاستفسارات
+    </h2>
+
+    @if($tender->clarifications->count() > 0)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>التاريخ</th>
+                    <th>السؤال</th>
+                    <th>الإجابة</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tender->clarifications as $clarification)
+                <tr>
+                    <td>{{ $clarification->question_date->format('Y-m-d') }}</td>
+                    <td>{{ Str::limit($clarification->question, 100) }}</td>
+                    <td>{{ $clarification->answer ? Str::limit($clarification->answer, 100) : '-' }}</td>
+                    <td>
+                        <span class="badge" style="background: {{ $clarification->status == 'answered' ? '#e8f5e9' : '#fff3e0' }}; color: {{ $clarification->status == 'answered' ? '#388e3c' : '#f57c00' }};">
+                            {{ $clarification->status == 'answered' ? 'تمت الإجابة' : 'معلق' }}
+                        </span>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <div class="empty-state">
+            <p>لا توجد استفسارات</p>
+        </div>
+    @endif
+</div>
+
+<!-- Competitors Section -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="users"></i>
+        تحليل المنافسين
+    </h2>
+
+    @if($tender->competitors->count() > 0)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>الشركة</th>
+                    <th>التصنيف</th>
+                    <th>السعر المتوقع</th>
+                    <th>نقاط القوة</th>
+                    <th>نقاط الضعف</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tender->competitors as $competitor)
+                <tr>
+                    <td><strong>{{ $competitor->company_name }}</strong></td>
+                    <td>
+                        <span class="badge" style="background: 
+                            {{ $competitor->classification == 'strong' ? '#ffebee' : ($competitor->classification == 'medium' ? '#fff3e0' : '#e8f5e9') }};
+                            color: {{ $competitor->classification == 'strong' ? '#d32f2f' : ($competitor->classification == 'medium' ? '#f57c00' : '#388e3c') }};">
+                            {{ $competitor->classification == 'strong' ? 'قوي' : ($competitor->classification == 'medium' ? 'متوسط' : 'ضعيف') }}
+                        </span>
+                    </td>
+                    <td>{{ number_format($competitor->estimated_price ?? 0, 2) }}</td>
+                    <td>{{ Str::limit($competitor->strengths ?? '', 50) }}</td>
+                    <td>{{ Str::limit($competitor->weaknesses ?? '', 50) }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <div class="empty-state">
+            <p>لم يتم إضافة منافسين بعد</p>
+        </div>
+    @endif
+
+    <div style="margin-top: 20px;">
+        <a href="{{ route('tenders.competitors', $tender) }}" class="btn btn-primary">
+            <i data-lucide="user-plus" style="width: 18px; height: 18px;"></i>
+            إضافة / إدارة المنافسين
+        </a>
     </div>
 </div>
 
-@push('scripts')
+<!-- Actions -->
+<div class="card">
+    <h2 class="section-title">
+        <i data-lucide="zap"></i>
+        الإجراءات
+    </h2>
+
+    <div class="action-buttons">
+        <a href="{{ route('tenders.edit', $tender) }}" class="btn btn-primary">
+            <i data-lucide="edit" style="width: 18px; height: 18px;"></i>
+            تعديل العطاء
+        </a>
+
+        @if($tender->participate === null)
+            <a href="{{ route('tenders.decision', $tender) }}" class="btn btn-warning">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                اتخاذ قرار المشاركة
+            </a>
+        @endif
+
+        @if($tender->status == 'preparing')
+            <button class="btn btn-success">
+                <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+                تحضير العرض الفني
+            </button>
+
+            <button class="btn btn-success">
+                <i data-lucide="dollar-sign" style="width: 18px; height: 18px;"></i>
+                تحضير العرض المالي
+            </button>
+        @endif
+
+        @if($tender->status == 'awarded')
+            <button class="btn btn-success">
+                <i data-lucide="folder-plus" style="width: 18px; height: 18px;"></i>
+                إنشاء مشروع
+            </button>
+        @endif
+
+        <a href="{{ route('tenders.index') }}" class="btn" style="background: #f5f5f7; color: #1d1d1f;">
+            <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            رجوع للقائمة
+        </a>
+    </div>
+</div>
+
 <script>
     lucide.createIcons();
-    
-    function showGoDecisionModal() {
-        document.getElementById('goDecisionModal').style.display = 'flex';
-    }
-    
-    function hideGoDecisionModal() {
-        document.getElementById('goDecisionModal').style.display = 'none';
-    }
-    
-    function showSubmitModal() {
-        // Create a safer modal instead of prompt
-        const modal = document.createElement('div');
-        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
-        modal.innerHTML = '<div style="background:white;padding:30px;border-radius:12px;max-width:500px;width:90%;"><h3 style="margin:0 0 20px 0;">تسجيل قيمة العرض</h3><form method="POST" action="{{ route("tenders.submit", $tender) }}">@csrf<div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">قيمة عرضنا</label><input type="number" step="0.01" name="our_offer_value" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="display:flex;gap:10px;justify-content:flex-end;"><button type="button" onclick="this.closest(\'div\').parentElement.remove()" class="btn btn-secondary">إلغاء</button><button type="submit" class="btn btn-primary">حفظ</button></div></form></div>';
-        document.body.appendChild(modal);
-    }
-    
-    function showResultModal() {
-        // Create a safer modal instead of confirm
-        const modal = document.createElement('div');
-        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
-        modal.innerHTML = '<div style="background:white;padding:30px;border-radius:12px;max-width:500px;width:90%;"><h3 style="margin:0 0 20px 0;">تسجيل نتيجة المناقصة</h3><form method="POST" action="{{ route("tenders.result", $tender) }}">@csrf<div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">النتيجة</label><select name="status" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"><option value="won">فوز</option><option value="lost">خسارة</option></select></div><div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">اسم الفائز (إذا خسرنا)</label><input type="text" name="winner_name" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="display:flex;gap:10px;justify-content:flex-end;"><button type="button" onclick="this.closest(\'div\').parentElement.remove()" class="btn btn-secondary">إلغاء</button><button type="submit" class="btn btn-primary">حفظ</button></div></form></div>';
-        document.body.appendChild(modal);
-    }
-    
-    function showConvertModal() {
-        const modal = document.createElement('div');
-        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
-        modal.innerHTML = '<div style="background:white;padding:30px;border-radius:12px;max-width:500px;width:90%;"><h3 style="margin:0 0 20px 0;">تحويل إلى مشروع</h3><form method="POST" action="{{ route("tenders.convert", $tender) }}">@csrf<div style="margin-bottom:20px;"><p>هل تريد تحويل هذه المناقصة إلى مشروع؟</p></div><div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">اسم المشروع (اختياري)</label><input type="text" name="project_name" value="{{ $tender->name }}" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="margin-bottom:20px;"><label style="display:block;margin-bottom:10px;font-weight:600;">تاريخ البدء</label><input type="date" name="start_date" value="{{ date(\'Y-m-d\') }}" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-family:\'Cairo\',sans-serif;"></div><div style="display:flex;gap:10px;justify-content:flex-end;"><button type="button" onclick="this.closest(\'div\').parentElement.remove()" class="btn btn-secondary">إلغاء</button><button type="submit" class="btn btn-primary">تحويل</button></div></form></div>';
-        document.body.appendChild(modal);
-    }
 </script>
-@endpush
 @endsection

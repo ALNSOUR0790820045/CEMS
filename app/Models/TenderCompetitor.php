@@ -10,15 +10,15 @@ class TenderCompetitor extends Model
     protected $fillable = [
         'tender_id',
         'company_name',
-        'offer_value',
-        'rank',
-        'is_winner',
+        'classification',
+        'estimated_price',
+        'strengths',
+        'weaknesses',
         'notes',
     ];
 
     protected $casts = [
-        'offer_value' => 'decimal:2',
-        'is_winner' => 'boolean',
+        'estimated_price' => 'decimal:2',
     ];
 
     public function tender(): BelongsTo

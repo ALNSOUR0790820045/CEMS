@@ -2,201 +2,360 @@
 
 @section('content')
 <style>
-    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-    .header h1 { font-size: 1.8rem; font-weight: 700; margin: 0; }
-    .btn { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; }
-    .btn-primary { background: #0071e3; color: white; }
-    .btn-primary:hover { background: #0077ed; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
-    .btn-secondary { background: #f5f5f7; color: #1d1d1f; }
-    .btn-secondary:hover { background: #e8e8ed; }
-    .filters { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; }
-    .filter-group { display: flex; flex-direction: column; gap: 5px; }
-    .filter-group label { font-size: 0.85rem; font-weight: 600; color: #666; }
-    .filter-group select, .filter-group input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Cairo', sans-serif; }
-    .table-container { background: white; border-radius: 12px; overflow: hidden; }
-    table { width: 100%; border-collapse: collapse; }
-    thead { background: #f5f5f7; }
-    th { padding: 15px; text-align: right; font-weight: 600; font-size: 0.9rem; color: #666; border-bottom: 1px solid #ddd; }
-    td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
-    .status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-    .status-identified { background: #e3f2fd; color: #1976d2; }
-    .status-studying { background: #fff3e0; color: #f57c00; }
-    .status-go { background: #e8f5e9; color: #388e3c; }
-    .status-no_go { background: #ffebee; color: #d32f2f; }
-    .status-pricing { background: #f3e5f5; color: #7b1fa2; }
-    .status-submitted { background: #e1f5fe; color: #0288d1; }
-    .status-won { background: #c8e6c9; color: #2e7d32; }
-    .status-lost { background: #ffcdd2; color: #c62828; }
-    .priority-critical { color: #d32f2f; font-weight: 700; }
-    .priority-high { color: #f57c00; font-weight: 600; }
-    .priority-medium { color: #1976d2; }
-    .priority-low { color: #757575; }
-    .actions { display: flex; gap: 10px; }
-    .action-btn { padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; transition: all 0.2s; }
-    .action-view { background: #e3f2fd; color: #1976d2; }
-    .action-view:hover { background: #bbdefb; }
-    .action-edit { background: #fff3e0; color: #f57c00; }
-    .action-edit:hover { background: #ffe0b2; }
-    .action-delete { background: #ffebee; color: #d32f2f; }
-    .action-delete:hover { background: #ffcdd2; }
-    .view-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .view-tab { padding: 10px 20px; border-radius: 8px; text-decoration: none; color: #666; font-weight: 600; transition: all 0.2s; }
-    .view-tab.active { background: #0071e3; color: white; }
-    .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1d1d1f;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background: #0071e3;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #0077ed;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    }
+
+    .filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1d1d1f;
+    }
+
+    .form-control {
+        padding: 10px 12px;
+        border: 1px solid #d2d2d7;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #0071e3;
+        box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table th {
+        background: #f5f5f7;
+        padding: 12px;
+        text-align: right;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-bottom: 2px solid #e5e5e7;
+    }
+
+    .table td {
+        padding: 12px;
+        border-bottom: 1px solid #e5e5e7;
+        font-size: 0.9rem;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .badge-critical {
+        background: #fee;
+        color: #c00;
+    }
+
+    .badge-warning {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-safe {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .badge-status {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .status-announced {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .status-preparing {
+        background: #fff3e0;
+        color: #f57c00;
+    }
+
+    .status-submitted {
+        background: #f3e5f5;
+        color: #7b1fa2;
+    }
+
+    .status-awarded {
+        background: #e8f5e9;
+        color: #388e3c;
+    }
+
+    .status-lost {
+        background: #ffebee;
+        color: #d32f2f;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+        padding: 20px 0;
+    }
+
+    .pagination a, .pagination span {
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #1d1d1f;
+        background: #f5f5f7;
+        font-size: 0.85rem;
+    }
+
+    .pagination a:hover {
+        background: #0071e3;
+        color: white;
+    }
+
+    .pagination .active {
+        background: #0071e3;
+        color: white;
+    }
 </style>
 
-<div class="container">
-    <div class="header">
-        <h1>إدارة المناقصات</h1>
-        <div style="display: flex; gap: 10px;">
-            <a href="{{ route('tenders.pipeline') }}" class="btn btn-secondary">
-                <i data-lucide="kanban-square" style="width: 18px; height: 18px;"></i>
-                عرض Pipeline
-            </a>
-            <a href="{{ route('tenders.statistics') }}" class="btn btn-secondary">
-                <i data-lucide="bar-chart-3" style="width: 18px; height: 18px;"></i>
-                الإحصائيات
-            </a>
-            <a href="{{ route('tenders.calendar') }}" class="btn btn-secondary">
-                <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
-                التقويم
-            </a>
-            <a href="{{ route('tenders.create') }}" class="btn btn-primary">
-                <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-                إضافة مناقصة
-            </a>
-        </div>
-    </div>
-
-    <form method="GET" class="filters">
-        <div class="filter-group">
-            <label>البحث</label>
-            <input type="text" name="search" placeholder="اسم المناقصة أو الرقم" value="{{ request('search') }}">
-        </div>
-        <div class="filter-group">
-            <label>الحالة</label>
-            <select name="status">
-                <option value="">جميع الحالات</option>
-                <option value="identified" {{ request('status') == 'identified' ? 'selected' : '' }}>تم اكتشافها</option>
-                <option value="studying" {{ request('status') == 'studying' ? 'selected' : '' }}>قيد الدراسة</option>
-                <option value="go" {{ request('status') == 'go' ? 'selected' : '' }}>قرار المشاركة</option>
-                <option value="no_go" {{ request('status') == 'no_go' ? 'selected' : '' }}>قرار عدم المشاركة</option>
-                <option value="pricing" {{ request('status') == 'pricing' ? 'selected' : '' }}>قيد التسعير</option>
-                <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>تم التقديم</option>
-                <option value="won" {{ request('status') == 'won' ? 'selected' : '' }}>فوز</option>
-                <option value="lost" {{ request('status') == 'lost' ? 'selected' : '' }}>خسارة</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>الأولوية</label>
-            <select name="priority">
-                <option value="">جميع الأولويات</option>
-                <option value="critical" {{ request('priority') == 'critical' ? 'selected' : '' }}>حرجة</option>
-                <option value="high" {{ request('priority') == 'high' ? 'selected' : '' }}>عالية</option>
-                <option value="medium" {{ request('priority') == 'medium' ? 'selected' : '' }}>متوسطة</option>
-                <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>منخفضة</option>
-            </select>
-        </div>
-        <div class="filter-group" style="justify-content: flex-end;">
-            <label>&nbsp;</label>
-            <button type="submit" class="btn btn-primary">بحث</button>
-        </div>
-    </form>
-
-    <div class="table-container">
-        @if($tenders->count() > 0)
-        <table>
-            <thead>
-                <tr>
-                    <th>رقم المناقصة</th>
-                    <th>اسم المناقصة</th>
-                    <th>الجهة</th>
-                    <th>الحالة</th>
-                    <th>الأولوية</th>
-                    <th>آخر موعد للتقديم</th>
-                    <th>القيمة المقدرة</th>
-                    <th>الإجراءات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($tenders as $tender)
-                <tr>
-                    <td><strong>{{ $tender->tender_number }}</strong></td>
-                    <td>{{ $tender->name }}</td>
-                    <td>{{ $tender->client?->name ?? $tender->client_name ?? '-' }}</td>
-                    <td>
-                        @php
-                            $statusLabels = [
-                                'identified' => 'تم اكتشافها',
-                                'studying' => 'قيد الدراسة',
-                                'go' => 'قرار المشاركة',
-                                'no_go' => 'قرار عدم المشاركة',
-                                'documents_purchased' => 'تم شراء الكراسة',
-                                'pricing' => 'قيد التسعير',
-                                'submitted' => 'تم التقديم',
-                                'opened' => 'تم فتح المظاريف',
-                                'negotiating' => 'قيد التفاوض',
-                                'won' => 'فوز',
-                                'lost' => 'خسارة',
-                                'cancelled' => 'ملغاة',
-                                'converted' => 'تم التحويل',
-                            ];
-                        @endphp
-                        <span class="status-badge status-{{ $tender->status }}">
-                            {{ $statusLabels[$tender->status] ?? $tender->status }}
-                        </span>
-                    </td>
-                    <td>
-                        @php
-                            $priorityLabels = [
-                                'critical' => 'حرجة',
-                                'high' => 'عالية',
-                                'medium' => 'متوسطة',
-                                'low' => 'منخفضة',
-                            ];
-                        @endphp
-                        <span class="priority-{{ $tender->priority }}">
-                            {{ $priorityLabels[$tender->priority] ?? $tender->priority }}
-                        </span>
-                    </td>
-                    <td>{{ $tender->submission_deadline ? $tender->submission_deadline->format('Y-m-d') : '-' }}</td>
-                    <td>{{ $tender->estimated_value ? number_format($tender->estimated_value, 0) . ' ' . $tender->currency : '-' }}</td>
-                    <td>
-                        <div class="actions">
-                            <a href="{{ route('tenders.show', $tender) }}" class="action-btn action-view">عرض</a>
-                            <a href="{{ route('tenders.edit', $tender) }}" class="action-btn action-edit">تعديل</a>
-                            <form method="POST" action="{{ route('tenders.destroy', $tender) }}" style="display: inline;" onsubmit="return confirm('هل أنت متأكد من حذف هذه المناقصة؟')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="action-btn action-delete" style="border: none; cursor: pointer; font-family: 'Cairo', sans-serif;">حذف</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
-        <div style="padding: 20px;">
-            {{ $tenders->links() }}
-        </div>
-        @else
-        <div class="empty-state">
-            <i data-lucide="inbox" style="width: 48px; height: 48px; margin-bottom: 10px;"></i>
-            <p>لا توجد مناقصات</p>
-            <a href="{{ route('tenders.create') }}" class="btn btn-primary" style="margin-top: 15px;">
-                <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-                إضافة مناقصة جديدة
-            </a>
-        </div>
-        @endif
+<div class="page-header">
+    <h1 class="page-title">العطاءات</h1>
+    <div style="display: flex; gap: 10px;">
+        <a href="{{ route('tenders.dashboard') }}" class="btn" style="background: #f5f5f7; color: #1d1d1f;">
+            <i data-lucide="layout-dashboard" style="width: 18px; height: 18px;"></i>
+            لوحة التحكم
+        </a>
+        <a href="{{ route('tenders.create') }}" class="btn btn-primary">
+            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+            إضافة عطاء جديد
+        </a>
     </div>
 </div>
 
-@push('scripts')
+<div class="card">
+    <!-- Filters -->
+    <form method="GET" action="{{ route('tenders.index') }}">
+        <div class="filters">
+            <div class="form-group">
+                <label class="form-label">الحالة</label>
+                <select name="status" class="form-control">
+                    <option value="">الكل</option>
+                    <option value="announced" {{ request('status') == 'announced' ? 'selected' : '' }}>معلن</option>
+                    <option value="evaluating" {{ request('status') == 'evaluating' ? 'selected' : '' }}>قيد التقييم</option>
+                    <option value="decision_pending" {{ request('status') == 'decision_pending' ? 'selected' : '' }}>قيد اتخاذ القرار</option>
+                    <option value="preparing" {{ request('status') == 'preparing' ? 'selected' : '' }}>قيد التحضير</option>
+                    <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>تم التقديم</option>
+                    <option value="awarded" {{ request('status') == 'awarded' ? 'selected' : '' }}>تمت الترسية</option>
+                    <option value="lost" {{ request('status') == 'lost' ? 'selected' : '' }}>خسرنا</option>
+                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>ألغي</option>
+                    <option value="passed" {{ request('status') == 'passed' ? 'selected' : '' }}>لم نتقدم</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">نوع العطاء</label>
+                <select name="tender_type" class="form-control">
+                    <option value="">الكل</option>
+                    <option value="construction" {{ request('tender_type') == 'construction' ? 'selected' : '' }}>إنشاءات</option>
+                    <option value="infrastructure" {{ request('tender_type') == 'infrastructure' ? 'selected' : '' }}>بنية تحتية</option>
+                    <option value="buildings" {{ request('tender_type') == 'buildings' ? 'selected' : '' }}>مباني</option>
+                    <option value="roads" {{ request('tender_type') == 'roads' ? 'selected' : '' }}>طرق</option>
+                    <option value="bridges" {{ request('tender_type') == 'bridges' ? 'selected' : '' }}>جسور</option>
+                    <option value="water" {{ request('tender_type') == 'water' ? 'selected' : '' }}>مياه وصرف صحي</option>
+                    <option value="electrical" {{ request('tender_type') == 'electrical' ? 'selected' : '' }}>كهرباء</option>
+                    <option value="mechanical" {{ request('tender_type') == 'mechanical' ? 'selected' : '' }}>ميكانيكا</option>
+                    <option value="maintenance" {{ request('tender_type') == 'maintenance' ? 'selected' : '' }}>صيانة</option>
+                    <option value="consultancy" {{ request('tender_type') == 'consultancy' ? 'selected' : '' }}>استشارات</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">من تاريخ</label>
+                <input type="date" name="date_from" class="form-control" value="{{ request('date_from') }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">إلى تاريخ</label>
+                <input type="date" name="date_to" class="form-control" value="{{ request('date_to') }}">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button type="submit" class="btn btn-primary">
+                <i data-lucide="filter" style="width: 18px; height: 18px;"></i>
+                تطبيق الفلاتر
+            </button>
+            <a href="{{ route('tenders.index') }}" class="btn" style="background: #f5f5f7; color: #1d1d1f;">
+                إلغاء الفلاتر
+            </a>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>الرقم</th>
+                <th>الاسم</th>
+                <th>الجهة المالكة</th>
+                <th>النوع</th>
+                <th>القيمة التقديرية</th>
+                <th>موعد التقديم</th>
+                <th>الحالة</th>
+                <th>المسؤول</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($tenders as $tender)
+            <tr>
+                <td><strong>{{ $tender->tender_number }}</strong></td>
+                <td>{{ $tender->tender_name }}</td>
+                <td>{{ $tender->owner_name }}</td>
+                <td>
+                    @switch($tender->tender_type)
+                        @case('construction') إنشاءات @break
+                        @case('infrastructure') بنية تحتية @break
+                        @case('buildings') مباني @break
+                        @case('roads') طرق @break
+                        @case('bridges') جسور @break
+                        @case('water') مياه وصرف @break
+                        @case('electrical') كهرباء @break
+                        @case('mechanical') ميكانيكا @break
+                        @case('maintenance') صيانة @break
+                        @case('consultancy') استشارات @break
+                        @default {{ $tender->tender_type }}
+                    @endswitch
+                </td>
+                <td>
+                    {{ number_format($tender->estimated_value ?? 0, 0) }}
+                    {{ $tender->currency->code ?? '' }}
+                </td>
+                <td>
+                    {{ $tender->submission_deadline->format('Y-m-d') }}
+                    @php
+                        $days = $tender->getDaysUntilSubmission();
+                        $urgency = $tender->getDeadlineUrgency();
+                    @endphp
+                    @if($days >= 0)
+                        <br><span class="badge badge-{{ $urgency }}">
+                            ⏰ {{ $days }} {{ $days == 1 ? 'يوم' : 'أيام' }}
+                        </span>
+                    @else
+                        <br><span class="badge badge-critical">منتهي</span>
+                    @endif
+                </td>
+                <td>
+                    <span class="badge-status status-{{ $tender->status }}">
+                        @switch($tender->status)
+                            @case('announced') معلن @break
+                            @case('evaluating') قيد التقييم @break
+                            @case('decision_pending') قيد اتخاذ القرار @break
+                            @case('preparing') قيد التحضير @break
+                            @case('submitted') تم التقديم @break
+                            @case('awarded') تمت الترسية @break
+                            @case('lost') خسرنا @break
+                            @case('cancelled') ألغي @break
+                            @case('passed') لم نتقدم @break
+                            @default {{ $tender->status }}
+                        @endswitch
+                    </span>
+                </td>
+                <td>{{ $tender->assignedUser->name ?? '-' }}</td>
+                <td>
+                    <a href="{{ route('tenders.show', $tender) }}" style="color: #0071e3; text-decoration: none; margin-left: 10px;">
+                        عرض
+                    </a>
+                    <a href="{{ route('tenders.edit', $tender) }}" style="color: #f57c00; text-decoration: none;">
+                        تعديل
+                    </a>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="9" style="text-align: center; padding: 60px 20px; color: #86868b;">
+                    <i data-lucide="inbox" style="width: 64px; height: 64px; margin-bottom: 20px; color: #d2d2d7;"></i>
+                    <p>لا توجد عطاءات</p>
+                </td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {{ $tenders->links() }}
+    </div>
+</div>
+
 <script>
     lucide.createIcons();
 </script>
-@endpush
 @endsection
