@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
@@ -10,7 +12,7 @@ class Project extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'project_number',
+        'project_code',
         'name',
         'name_en',
         'description',
@@ -19,54 +21,31 @@ class Project extends Model
         'start_date',
         'end_date',
         'status',
-        'budget',
-        'is_active',
+        'created_by_id',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
-        'budget' => 'decimal:2',
-        'is_active' => 'boolean',
     ];
 
-    public function company()
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function laborers()
+    public function createdBy(): BelongsTo
     {
-        return $this->hasMany(Laborer::class, 'current_project_id');
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
-    public function boqItems()
+    public function contracts(): HasMany
     {
-        return $this->hasMany(BoqItem::class);
+        return $this->hasMany(Contract::class);
     }
 
-    public function laborAssignments()
+    public function subcontractorAgreements(): HasMany
     {
-        return $this->hasMany(LaborAssignment::class);
-    }
-
-    public function laborAttendance()
-    {
-        return $this->hasMany(LaborDailyAttendance::class);
-    }
-
-    public function laborProductivity()
-    {
-        return $this->hasMany(LaborProductivity::class);
-    }
-
-    public function laborTimesheets()
-    {
-        return $this->hasMany(LaborTimesheet::class);
-    }
-
-    public function laborCamps()
-    {
-        return $this->hasMany(LaborCamp::class);
+        return $this->hasMany(SubcontractorAgreement::class);
     }
 }

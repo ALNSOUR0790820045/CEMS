@@ -3,35 +3,34 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GlAccount extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'account_code',
-        'name',
+        'account_name',
+        'account_name_en',
         'account_type',
-        'description',
-        'is_active',
+        'parent_id',
         'company_id',
+        'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function company()
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(GlAccount::class, 'parent_id');
+    }
+
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
-    }
-
-    public function apInvoices()
-    {
-        return $this->hasMany(ApInvoice::class);
-    }
-
-    public function apInvoiceItems()
-    {
-        return $this->hasMany(ApInvoiceItem::class);
     }
 }

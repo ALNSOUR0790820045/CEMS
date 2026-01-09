@@ -4,22 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contract extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
-        'company_id',
-        'project_id',
         'contract_number',
-        'contract_name',
-        'contract_type',
+        'title',
+        'project_id',
         'contract_value',
-        'currency',
+        'currency_id',
         'start_date',
         'end_date',
         'status',
-        'description',
+        'company_id',
+        'created_by_id',
     ];
 
     protected $casts = [
@@ -28,18 +29,23 @@ class Contract extends Model
         'end_date' => 'date',
     ];
 
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(Company::class);
-    }
-
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function costPlusContract(): HasOne
+    public function currency(): BelongsTo
     {
-        return $this->hasOne(CostPlusContract::class);
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 }

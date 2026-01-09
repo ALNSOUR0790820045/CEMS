@@ -11,9 +11,8 @@ class Country extends Model
         'name',
         'name_en',
         'code',
-        'code3',
-        'currency_code',
         'phone_code',
+        'currency_code',
         'is_active',
     ];
 
@@ -24,10 +23,5 @@ class Country extends Model
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
-    }
-
-    public function tenders(): HasMany
-    {
-        return $this->hasMany(Tender::class);
     }
 }
