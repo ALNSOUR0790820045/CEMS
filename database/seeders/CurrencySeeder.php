@@ -2,15 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Currency;
+use Illuminate\Database\Seeder;
 
 class CurrencySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $currencies = [
@@ -95,6 +91,15 @@ class CurrencySeeder extends Seeder
                 'is_base' => false,
                 'is_active' => true,
             ],
+            [
+                'name' => 'يورو',
+                'name_en' => 'Euro',
+                'code' => 'EUR',
+                'symbol' => '€',
+                'exchange_rate' => 4.100000,
+                'is_base' => false,
+                'is_active' => true,
+            ],
         ];
 
         foreach ($currencies as $currency) {
@@ -102,4 +107,3 @@ class CurrencySeeder extends Seeder
         }
     }
 }
-

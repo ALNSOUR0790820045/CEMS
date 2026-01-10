@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Currency extends Model
 {
@@ -37,5 +38,11 @@ class Currency extends Model
     public function getFormattedExchangeRate()
     {
         return number_format($this->exchange_rate, 6);
+    }
+
+    // Relations
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
     }
 }
