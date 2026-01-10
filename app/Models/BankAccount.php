@@ -22,6 +22,7 @@ class BankAccount extends Model
         'swift_code',
         'iban',
         'currency_id',
+        'check_template_id',
         'balance',
         'current_balance',
         'bank_balance',
@@ -57,6 +58,16 @@ class BankAccount extends Model
     public function glAccount(): BelongsTo
     {
         return $this->belongsTo(GLAccount::class);
+    }
+
+    public function checkTemplate(): BelongsTo
+    {
+        return $this->belongsTo(PaymentTemplate::class, 'check_template_id');
+    }
+
+    public function checks(): HasMany
+    {
+        return $this->hasMany(Check::class);
     }
 
     public function apPayments(): HasMany
