@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+=======
+>>>>>>> origin/main
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Claim extends Model
 {
     use SoftDeletes;
 
+<<<<<<< HEAD
     protected $fillable = [
         'claim_number',
         'project_id',
@@ -45,4 +49,7 @@ class Claim extends Model
     {
         return $this->belongsTo(User::class, 'submitted_by');
     }
+=======
+    protected $fillable = ['claim_number', 'title'];
+>>>>>>> origin/main
 }

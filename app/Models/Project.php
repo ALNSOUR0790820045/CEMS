@@ -3,33 +3,38 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'project_number',
+        'company_id',
         'name',
         'name_en',
+        'code',
         'description',
-        'company_id',
+        'location',
+        'latitude',
+        'longitude',
         'start_date',
         'end_date',
         'status',
         'budget',
-        'currency',
-        'location',
-        'project_manager_id',
+        'manager_id',
+        'is_active',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
         'budget' => 'decimal:2',
+        'latitude' => 'decimal:8',
+        'longitude' => 'decimal:8',
+        'is_active' => 'boolean',
     ];
 
     public function company(): BelongsTo
@@ -37,38 +42,23 @@ class Project extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function projectManager(): BelongsTo
+    public function manager(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'project_manager_id');
+        return $this->belongsTo(User::class, 'manager_id');
     }
 
-    public function contracts(): HasMany
+    public function siteReceipts(): HasMany
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(SiteReceipt::class);
     }
 
-    public function correspondence(): HasMany
+    public function purchaseOrders(): HasMany
     {
-        return $this->hasMany(Correspondence::class);
+        return $this->hasMany(PurchaseOrder::class);
     }
 
-    public function claims(): HasMany
+    public function siteDiaries(): HasMany
     {
-        return $this->hasMany(Claim::class);
-    }
-
-    public function variationOrders(): HasMany
-    {
-        return $this->hasMany(VariationOrder::class);
-    }
-
-    public function timeBarEvents(): HasMany
-    {
-        return $this->hasMany(TimeBarEvent::class);
-    }
-
-    public function timeBarSettings(): HasMany
-    {
-        return $this->hasMany(TimeBarSetting::class);
+        return $this->hasMany(SiteDiary::class);
     }
 }
