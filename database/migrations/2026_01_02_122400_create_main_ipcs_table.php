@@ -109,6 +109,13 @@ return new class extends Migration
             $table->timestamps();
             
             $table->unique(['project_id', 'ipc_sequence']);
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('period_from');
+            $table->index('period_to');
+            $table->index('submission_date');
+            $table->index('created_at');
         });
     }
 

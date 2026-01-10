@@ -27,6 +27,13 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('order_date');
+            $table->index('expected_date');
+            $table->index(['supplier_id', 'status']);
+            $table->index('created_at');
         });
     }
 

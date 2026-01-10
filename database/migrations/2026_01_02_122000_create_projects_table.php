@@ -26,6 +26,13 @@ return new class extends Migration
             $table->foreignId('project_manager_id')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('start_date');
+            $table->index('end_date');
+            $table->index(['company_id', 'status']);
+            $table->index('created_at');
         });
     }
 

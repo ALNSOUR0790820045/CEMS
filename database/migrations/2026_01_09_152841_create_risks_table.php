@@ -60,6 +60,12 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('risk_level');
+            $table->index(['project_id', 'status']);
+            $table->index('identification_date');
         });
     }
 
