@@ -39,19 +39,53 @@ foreach ($files as $file) {
     preg_match_all('/->constrained\([\'"]([a-z_]+)[\'"]\)/i', $content, $fkMatches1);
     
     // Pattern 2: ->constrained() without parameter (uses convention)
-    preg_match_all('/foreignId\([\'"]([a-z_]+)_id[\'"]\)->constrained\(\)/i', $content, $fkMatches2);
+    // Extract the field name from foreignId('field_name') when followed by constrained()
+    preg_match_all('/foreignId\([\'"]([a-z_]+)[\'"]\)\s*->\s*constrained\(\)/i', $content, $fkMatches2);
     
-    $singularDeps = $fkMatches2[1] ?? [];
+    $singularDeps = [];
+    foreach ($fkMatches2[1] ?? [] as $field) {
+        // Remove _id suffix to get the singular table name
+        $singular = preg_replace('/_id$/', '', $field);
+        $singularDeps[] = $singular;
+    }
     
-    // Pluralize singular dependencies using simple rules
-    $pluralDeps = array_map(function($singular) {
-        // Simple English pluralization rules
+    // Irregular plurals mapping
+    $irregularPlurals = [
+        'person' => 'people',
+        'child' => 'children',
+        'tooth' => 'teeth',
+        'foot' => 'feet',
+        'mouse' => 'mice',
+        'goose' => 'geese',
+        'man' => 'men',
+        'woman' => 'women',
+        'ox' => 'oxen',
+        'staff' => 'staff',
+        'deer' => 'deer',
+        'sheep' => 'sheep',
+        'fish' => 'fish',
+        'series' => 'series',
+        'species' => 'species',
+        'photo' => 'photos',  // photo -> photos (not photoes)
+    ];
+    
+    // Pluralize singular dependencies
+    $pluralDeps = array_map(function($singular) use ($irregularPlurals) {
+        // Check irregular plurals first
+        if (isset($irregularPlurals[$singular])) {
+            return $irregularPlurals[$singular];
+        }
+        
+        // Standard English pluralization rules
         if (substr($singular, -1) === 'y' && !in_array(substr($singular, -2, 1), ['a', 'e', 'i', 'o', 'u'])) {
             // company -> companies, category -> categories
             return substr($singular, 0, -1) . 'ies';
-        } elseif (in_array(substr($singular, -2), ['ch', 'sh', 'ss']) || substr($singular, -1) === 's') {
-            // address -> addresses, class -> classes
+        } elseif (preg_match('/(ch|sh|ss|x|z|o)$/', $singular)) {
+            // address -> addresses, class -> classes, box -> boxes
             return $singular . 'es';
+        } elseif (preg_match('/(f|fe)$/', $singular)) {
+            // leaf -> leaves, knife -> knives
+            return preg_replace('/(f|fe)$/', 'ves', $singular);
         } else {
             // Most cases: project -> projects
             return $singular . 's';
