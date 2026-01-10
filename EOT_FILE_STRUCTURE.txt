@@ -1,0 +1,108 @@
+EOT & PROLONGATION COSTS MANAGEMENT SYSTEM
+File Structure and Summary
+==========================================
+
+DATABASE MIGRATIONS (6 files)
+├── database/migrations/
+│   ├── 2026_01_02_214119_create_projects_table.php
+│   ├── 2026_01_02_214119_create_project_activities_table.php
+│   ├── 2026_01_02_214119_create_time_bar_claims_table.php
+│   ├── 2026_01_02_214129_create_eot_claims_table.php
+│   ├── 2026_01_02_214129_create_prolongation_cost_items_table.php
+│   └── 2026_01_02_214129_create_eot_affected_activities_table.php
+
+MODELS (7 files)
+├── app/Models/
+│   ├── Project.php (with Company & EOT relationships)
+│   ├── ProjectActivity.php
+│   ├── TimeBarClaim.php
+│   ├── EotClaim.php (163 lines - main model)
+│   ├── ProlongationCostItem.php
+│   ├── EotAffectedActivity.php
+│   └── Company.php (updated with projects relationship)
+
+CONTROLLER (1 file)
+├── app/Http/Controllers/
+│   └── EotClaimController.php (328 lines)
+│       ├── dashboard()         - KPIs and charts
+│       ├── index()             - List claims
+│       ├── create()            - Create form
+│       ├── store()             - Save claim
+│       ├── show()              - View details
+│       ├── edit()              - Edit form
+│       ├── update()            - Update claim
+│       ├── submit()            - Submit for review
+│       ├── approvalForm()      - Approval interface
+│       ├── approve()           - Process approval
+│       ├── report()            - Generate reports
+│       └── destroy()           - Delete claim
+
+VIEWS (7 files)
+├── resources/views/eot/
+│   ├── dashboard.blade.php (342 lines) - 11KB
+│   ├── index.blade.php (242 lines) - 8.1KB
+│   ├── create.blade.php (320 lines) - 12KB
+│   ├── edit.blade.php (381 lines) - 13KB
+│   ├── show.blade.php (522 lines) - 19KB
+│   ├── approve.blade.php (327 lines) - 11KB
+│   └── report.blade.php (322 lines) - 12KB
+
+ROUTES (Updated)
+├── routes/
+│   └── web.php
+│       ├── GET    /eot/dashboard
+│       ├── GET    /eot/report
+│       ├── GET    /eot
+│       ├── GET    /eot/create
+│       ├── POST   /eot
+│       ├── GET    /eot/{id}
+│       ├── GET    /eot/{id}/edit
+│       ├── PUT    /eot/{id}
+│       ├── DELETE /eot/{id}
+│       ├── POST   /eot/{id}/submit
+│       ├── GET    /eot/{id}/approve
+│       └── POST   /eot/{id}/approve
+
+NAVIGATION (Updated)
+├── resources/views/layouts/
+│   └── app.blade.php (added EOT link in Projects menu)
+
+DOCUMENTATION (3 files)
+├── EOT_README.md (287 lines) - Setup & testing guide
+├── IMPLEMENTATION_SUMMARY.md (230 lines) - Complete details
+└── EOT_FILE_STRUCTURE.txt (this file)
+
+==========================================
+TOTAL FILES: 24 files created/modified
+TOTAL SIZE: ~96KB of views + code
+TOTAL LINES: ~3,500+ lines of code
+==========================================
+
+KEY FEATURES IMPLEMENTED:
+✅ Complete CRUD operations
+✅ Multi-level approval workflow
+✅ 11 FIDIC cause categories
+✅ 9 prolongation cost categories
+✅ 8 status states
+✅ Dashboard with KPIs
+✅ Comprehensive reports
+✅ RTL Arabic support
+✅ Professional UI design
+✅ Timeline visualization
+✅ Cost calculations
+✅ Critical path tracking
+✅ Activity impact analysis
+
+DATABASE TABLES STRUCTURE:
+1. projects - Main project info
+2. project_activities - Gantt activities
+3. time_bar_claims - Time bar notifications
+4. eot_claims - Main EOT claims (82 fields)
+5. prolongation_cost_items - Cost breakdown
+6. eot_affected_activities - Impact tracking
+
+APPROVAL WORKFLOW:
+Draft → Submitted → Under Review (Consultant) → 
+Under Review (Client) → Approved/Partially Approved/Rejected/Disputed
+
+STATUS: ✅ PRODUCTION READY

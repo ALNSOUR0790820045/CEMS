@@ -274,17 +274,29 @@
                             <a href="#" class="sub-link"><i data-lucide="map"></i> الفروع</a>
                         </div>
                         <div class="menu-col">
+<<<<<<< HEAD
+=======
+                            <h4>البيانات الأساسية</h4>
+                            <a href="<?php echo e(route('currencies.index')); ?>" class="sub-link"><i data-lucide="coins"></i> العملات</a>
+                            <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
+                            <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
+                        </div>
+                        <div class="menu-col">
+>>>>>>> main
                             <h4>العمليات</h4>
                             <a href="#" class="sub-link"><i data-lucide="workflow"></i> سير العمل</a>
                             <a href="#" class="sub-link"><i data-lucide="settings"></i> الإعدادات</a>
                             <a href="#" class="sub-link"><i data-lucide="shield-check"></i> الصلاحيات</a>
                         </div>
+<<<<<<< HEAD
                         <div class="menu-col">
                             <h4>البيانات</h4>
                             <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>
                         </div>
+=======
+>>>>>>> main
                     </div>
                 </div>
 
@@ -336,7 +348,11 @@
                     <div class="mega-menu">
                         <div class="menu-col">
                             <h4>المشتريات</h4>
+<<<<<<< HEAD
                             <a href="<?php echo e(route('purchase-orders.index')); ?>" class="sub-link"><i data-lucide="shopping-cart"></i> أوامر الشراء</a>
+=======
+                            <a href="#" class="sub-link"><i data-lucide="shopping-cart"></i> المشتريات</a>
+>>>>>>> main
                             <a href="#" class="sub-link"><i data-lucide="package"></i> المستودعات</a>
                         </div>
                         <div class="menu-col">
