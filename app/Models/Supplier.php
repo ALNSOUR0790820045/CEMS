@@ -25,22 +25,23 @@ class Supplier extends Model
         'type',
         'payment_terms',
         'credit_limit',
+        'contact_person',
         'notes',
         'is_active',
     ];
 
     protected $casts = [
-        'credit_limit' => 'decimal:2',
+        'credit_limit' => 'decimal: 2',
         'is_active' => 'boolean',
     ];
-
-    public function siteReceipts(): HasMany
-    {
-        return $this->hasMany(SiteReceipt::class);
-    }
 
     public function purchaseOrders(): HasMany
     {
         return $this->hasMany(PurchaseOrder::class);
+    }
+
+    public function siteReceipts(): HasMany
+    {
+        return $this->hasMany(SiteReceipt:: class);
     }
 }
