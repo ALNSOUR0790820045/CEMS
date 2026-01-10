@@ -1,134 +1,13 @@
 {
     "version": "1.0",
-    "generated_at": "2026-01-10 21:11:04",
+    "generated_at": "2026-01-10 21:20:03",
     "summary": {
-        "total_errors": 12,
-        "total_warnings": 57,
+        "total_errors": 0,
+        "total_warnings": 63,
         "circular_dependencies": 0,
         "tables_analyzed": 350
     },
-    "critical_errors": [
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_205740_create_equipment_assignments_table.php",
-            "timestamp": "2026_01_04_205740",
-            "table": "equipment_assignments",
-            "column": "equipment_id",
-            "references": "equipments",
-            "message": "Table 'equipment_assignments' references 'equipments' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
-            "timestamp": "2026_01_04_205751",
-            "table": "equipment_fuel_logs",
-            "column": "equipment_id",
-            "references": "equipments",
-            "message": "Table 'equipment_fuel_logs' references 'equipments' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_205751_create_equipment_maintenance_table.php",
-            "timestamp": "2026_01_04_205751",
-            "table": "equipment_maintenance",
-            "column": "equipment_id",
-            "references": "equipments",
-            "message": "Table 'equipment_maintenance' references 'equipments' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_205751_create_equipment_transfers_table.php",
-            "timestamp": "2026_01_04_205751",
-            "table": "equipment_transfers",
-            "column": "equipment_id",
-            "references": "equipments",
-            "message": "Table 'equipment_transfers' references 'equipments' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_205751_create_equipment_usage_table.php",
-            "timestamp": "2026_01_04_205751",
-            "table": "equipment_usage",
-            "column": "equipment_id",
-            "references": "equipments",
-            "message": "Table 'equipment_usage' references 'equipments' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_211830_create_correspondence_tables.php",
-            "timestamp": "2026_01_04_211830",
-            "table": "correspondence",
-            "column": "correspondence_id",
-            "references": "correspondences",
-            "message": "Table 'correspondence' references 'correspondences' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_211830_create_correspondence_tables.php",
-            "timestamp": "2026_01_04_211830",
-            "table": "correspondence_attachments",
-            "column": "correspondence_id",
-            "references": "correspondences",
-            "message": "Table 'correspondence_attachments' references 'correspondences' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_211830_create_correspondence_tables.php",
-            "timestamp": "2026_01_04_211830",
-            "table": "correspondence_distribution",
-            "column": "correspondence_id",
-            "references": "correspondences",
-            "message": "Table 'correspondence_distribution' references 'correspondences' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_211830_create_correspondence_tables.php",
-            "timestamp": "2026_01_04_211830",
-            "table": "correspondence_actions",
-            "column": "correspondence_id",
-            "references": "correspondences",
-            "message": "Table 'correspondence_actions' references 'correspondences' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_211830_create_correspondence_tables.php",
-            "timestamp": "2026_01_04_211830",
-            "table": "correspondence_templates",
-            "column": "correspondence_id",
-            "references": "correspondences",
-            "message": "Table 'correspondence_templates' references 'correspondences' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_04_211830_create_correspondence_tables.php",
-            "timestamp": "2026_01_04_211830",
-            "table": "correspondence_registers",
-            "column": "correspondence_id",
-            "references": "correspondences",
-            "message": "Table 'correspondence_registers' references 'correspondences' which is never created"
-        },
-        {
-            "severity": "critical",
-            "type": "missing_parent_table",
-            "file": "2026_01_09_150007_create_defect_notifications_table.php",
-            "timestamp": "2026_01_09_150007",
-            "table": "defect_notifications",
-            "column": "defects_liability_id",
-            "references": "defects_liabilities",
-            "message": "Table 'defect_notifications' references 'defects_liabilities' which is never created"
-        }
-    ],
+    "critical_errors": [],
     "warnings": [
         {
             "severity": "warning",
@@ -452,6 +331,17 @@
         {
             "severity": "warning",
             "type": "same_timestamp",
+            "file": "2026_01_04_205740_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205740",
+            "table": "equipment_assignments",
+            "column": "equipment_id",
+            "references": "equipment",
+            "parent_file": "2026_01_04_205740_create_equipment_table.php",
+            "message": "Table 'equipment_assignments' and its parent 'equipment' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
             "file": "2026_01_04_205740_create_equipment_table.php",
             "timestamp": "2026_01_04_205740",
             "table": "equipment",
@@ -514,6 +404,61 @@
             "references": "cost_plus_contracts",
             "parent_file": "2026_01_04_211131_create_cost_plus_contracts_table.php",
             "message": "Table 'cost_plus_transactions' and its parent 'cost_plus_contracts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_attachments",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_attachments' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_distribution",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_distribution' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_actions",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_actions' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_templates",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_templates' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_registers",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_registers' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
         },
         {
             "severity": "warning",
@@ -2744,27 +2689,27 @@
             "users"
         ],
         "equipment_assignments": [
+            "equipment",
             "users",
-            "equipments",
             "projects"
         ],
         "equipment": [
             "equipment_categories"
         ],
         "equipment_fuel_logs": [
-            "users",
-            "equipments"
+            "equipment",
+            "users"
         ],
         "equipment_maintenance": [
-            "equipments"
+            "equipment"
         ],
         "equipment_transfers": [
-            "users",
-            "equipments"
+            "equipment",
+            "users"
         ],
         "equipment_usage": [
-            "users",
-            "equipments"
+            "equipment",
+            "users"
         ],
         "variation_orders": [
             "projects"
@@ -2816,37 +2761,36 @@
         "correspondence": [
             "users",
             "users",
-            "correspondences",
             "users"
         ],
         "correspondence_attachments": [
             "users",
+            "correspondence",
             "users",
-            "correspondences",
             "users"
         ],
         "correspondence_distribution": [
             "users",
+            "correspondence",
             "users",
-            "correspondences",
             "users"
         ],
         "correspondence_actions": [
             "users",
+            "correspondence",
             "users",
-            "correspondences",
             "users"
         ],
         "correspondence_templates": [
             "users",
+            "correspondence",
             "users",
-            "correspondences",
             "users"
         ],
         "correspondence_registers": [
             "users",
+            "correspondence",
             "users",
-            "correspondences",
             "users"
         ],
         "contract_template_clauses": [
@@ -3180,7 +3124,7 @@
             "companies"
         ],
         "defect_notifications": [
-            "defects_liabilities"
+            "defects_liability"
         ],
         "cost_codes": [
             "companies"
