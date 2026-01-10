@@ -42,7 +42,6 @@ return new class extends Migration
             // Indexes for performance
             $table->index('diary_date');
             $table->index('status');
-            $table->index(['project_id', 'diary_date']);
         });
     }
 

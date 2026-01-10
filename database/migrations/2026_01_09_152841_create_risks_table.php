@@ -65,6 +65,7 @@ return new class extends Migration
             $table->index('status');
             $table->index('risk_level');
             $table->index(['project_id', 'status']);
+            $table->index(['project_id', 'risk_level']);
             $table->index('identification_date');
         });
     }
