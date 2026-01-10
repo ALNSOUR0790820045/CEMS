@@ -3,45 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Supplier extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
         'name',
-        'name_en',
-        'code',
         'email',
         'phone',
-        'mobile',
         'address',
-        'city',
-        'country',
         'tax_number',
         'commercial_registration',
-        'type',
-        'payment_terms',
-        'credit_limit',
-        'contact_person',
-        'notes',
+        'rating',
         'is_active',
     ];
 
     protected $casts = [
-        'credit_limit' => 'decimal: 2',
         'is_active' => 'boolean',
     ];
 
-    public function purchaseOrders(): HasMany
+    // Relationships
+    public function procurementPackages()
     {
-        return $this->hasMany(PurchaseOrder::class);
-    }
-
-    public function siteReceipts(): HasMany
-    {
-        return $this->hasMany(SiteReceipt:: class);
+        return $this->belongsToMany(TenderProcurementPackage::class, 'tender_procurement_suppliers')
+            ->withPivot(['quoted_price', 'delivery_days', 'payment_terms', 'technical_compliance', 'score', 'is_recommended'])
+            ->withTimestamps();
     }
 }
