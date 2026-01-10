@@ -1,0 +1,4954 @@
+{
+    "version": "1.0",
+    "generated_at": "2026-01-10 21:10:58",
+    "statistics": {
+        "total_files": 349,
+        "total_tables": 350,
+        "total_foreign_keys": 573,
+        "files_with_issues": 1
+    },
+    "migrations": [
+        {
+            "file": "0001_01_01_000000_create_users_table.php",
+            "timestamp": "0001_01_01_000000",
+            "table": "users",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000000_create_users_table.php",
+            "timestamp": "0001_01_01_000000",
+            "table": "password_reset_tokens",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000000_create_users_table.php",
+            "timestamp": "0001_01_01_000000",
+            "table": "sessions",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000001_create_cache_table.php",
+            "timestamp": "0001_01_01_000001",
+            "table": "cache",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000001_create_cache_table.php",
+            "timestamp": "0001_01_01_000001",
+            "table": "cache_locks",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000002_create_jobs_table.php",
+            "timestamp": "0001_01_01_000002",
+            "table": "jobs",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000002_create_jobs_table.php",
+            "timestamp": "0001_01_01_000002",
+            "table": "job_batches",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "0001_01_01_000002_create_jobs_table.php",
+            "timestamp": "0001_01_01_000002",
+            "table": "failed_jobs",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2019_09_15_000010_create_tenants_table.php",
+            "timestamp": "2019_09_15_000010",
+            "table": "tenants",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2019_09_15_000020_create_domains_table.php",
+            "timestamp": "2019_09_15_000020",
+            "table": "domains",
+            "type": "create",
+            "foreign_keys": {
+                "tenant_id": "tenants"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2020_05_15_000010_create_tenant_user_impersonation_tokens_table.php",
+            "timestamp": "2020_05_15_000010",
+            "table": "tenant_user_impersonation_tokens",
+            "type": "create",
+            "foreign_keys": {
+                "tenant_id": "tenants"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_114921_create_permission_tables.php",
+            "timestamp": "2026_01_02_114921",
+            "table": null,
+            "type": "unknown",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": [
+                "No table creation or alteration found"
+            ]
+        },
+        {
+            "file": "2026_01_02_121900_create_companies_table.php",
+            "timestamp": "2026_01_02_121900",
+            "table": "companies",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_121950_add_fields_to_users_table.php",
+            "timestamp": "2026_01_02_121950",
+            "table": "users",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_121950_add_fields_to_users_table.php",
+            "timestamp": "2026_01_02_121950",
+            "table": "users",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_122000_create_projects_table.php",
+            "timestamp": "2026_01_02_122000",
+            "table": "projects",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_122100_create_project_wbs_table.php",
+            "timestamp": "2026_01_02_122100",
+            "table": "project_wbs",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_122200_create_boq_items_table.php",
+            "timestamp": "2026_01_02_122200",
+            "table": "boq_items",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_122400_create_main_ipcs_table.php",
+            "timestamp": "2026_01_02_122400",
+            "table": "main_ipcs",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_122500_create_main_ipc_items_table.php",
+            "timestamp": "2026_01_02_122500",
+            "table": "main_ipc_items",
+            "type": "create",
+            "foreign_keys": {
+                "main_ipc_id": "main_ipcs",
+                "boq_item_id": "boq_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_140100_create_tenders_table.php",
+            "timestamp": "2026_01_02_140100",
+            "table": "tenders",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_140200_create_contracts_table.php",
+            "timestamp": "2026_01_02_140200",
+            "table": "contracts",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_140400_create_change_orders_table.php",
+            "timestamp": "2026_01_02_140400",
+            "table": "change_orders",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_140500_create_change_order_items_table.php",
+            "timestamp": "2026_01_02_140500",
+            "table": "change_order_items",
+            "type": "create",
+            "foreign_keys": {
+                "change_order_id": "change_orders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_143849_create_currencies_table.php",
+            "timestamp": "2026_01_02_143849",
+            "table": "currencies",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_144005_create_units_table.php",
+            "timestamp": "2026_01_02_144005",
+            "table": "units",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_145000_create_branches_table.php",
+            "timestamp": "2026_01_02_145000",
+            "table": "branches",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_145100_create_departments_table.php",
+            "timestamp": "2026_01_02_145100",
+            "table": "departments",
+            "type": "create",
+            "foreign_keys": {
+                "branch_id": "branches"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_145149_create_payment_terms_table.php",
+            "timestamp": "2026_01_02_145149",
+            "table": "payment_terms",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_151035_create_countries_table.php",
+            "timestamp": "2026_01_02_151035",
+            "table": "countries",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_151224_create_cities_table.php",
+            "timestamp": "2026_01_02_151224",
+            "table": "cities",
+            "type": "create",
+            "foreign_keys": {
+                "country_id": "countries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_194432_create_warehouses_table.php",
+            "timestamp": "2026_01_02_194432",
+            "table": "warehouses",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_194433_create_stock_movements_table.php",
+            "timestamp": "2026_01_02_194433",
+            "table": "stock_movements",
+            "type": "create",
+            "foreign_keys": {
+                "warehouse_id": "warehouses"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204719_create_products_table.php",
+            "timestamp": "2026_01_02_204719",
+            "table": "products",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204719_create_suppliers_table.php",
+            "timestamp": "2026_01_02_204719",
+            "table": "suppliers",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204728_create_purchase_orders_table.php",
+            "timestamp": "2026_01_02_204728",
+            "table": "purchase_orders",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "supplier_id": "suppliers",
+                "warehouse_id": "warehouses",
+                "payment_term_id": "payment_terms"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204729_create_purchase_order_items_table.php",
+            "timestamp": "2026_01_02_204729",
+            "table": "purchase_order_items",
+            "type": "create",
+            "foreign_keys": {
+                "purchase_order_id": "purchase_orders",
+                "product_id": "products"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204833_create_customers_table.php",
+            "timestamp": "2026_01_02_204833",
+            "table": "customers",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204839_create_sales_quotations_table.php",
+            "timestamp": "2026_01_02_204839",
+            "table": "sales_quotations",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "customer_id": "customers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204840_create_sales_quotation_items_table.php",
+            "timestamp": "2026_01_02_204840",
+            "table": "sales_quotation_items",
+            "type": "create",
+            "foreign_keys": {
+                "sales_quotation_id": "sales_quotations",
+                "product_id": "products"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_204943_create_accounts_table.php",
+            "timestamp": "2026_01_02_204943",
+            "table": "accounts",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_211654_create_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_211654",
+            "table": "activity_dependencies",
+            "type": "create",
+            "foreign_keys": {
+                "predecessor_id": "project_activities",
+                "successor_id": "project_activities"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_211654_create_project_activities_table.php",
+            "timestamp": "2026_01_02_211654",
+            "table": "project_activities",
+            "type": "create",
+            "foreign_keys": {
+                "wbs_id": "project_wbs",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_211654_create_project_milestones_table.php",
+            "timestamp": "2026_01_02_211654",
+            "table": "project_milestones",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_211857_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211857",
+            "table": "daily_report_photos",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by": "users",
+                "daily_report_id": "daily_reports"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_211857_create_daily_reports_table.php",
+            "timestamp": "2026_01_02_211857",
+            "table": "daily_reports",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_212443_create_employees_table.php",
+            "timestamp": "2026_01_02_212443",
+            "table": "employees",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_212443_create_project_baselines_table.php",
+            "timestamp": "2026_01_02_212443",
+            "table": "project_baselines",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_212443_create_project_progress_snapshots_table.php",
+            "timestamp": "2026_01_02_212443",
+            "table": "project_progress_snapshots",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_212443_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212443",
+            "table": "project_timesheets",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214119_create_time_bar_claims_table.php",
+            "timestamp": "2026_01_02_214119",
+            "table": "time_bar_claims",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214129_create_eot_affected_activities_table.php",
+            "timestamp": "2026_01_02_214129",
+            "table": "eot_affected_activities",
+            "type": "create",
+            "foreign_keys": {
+                "activity_id": "project_activities",
+                "eot_claim_id": "eot_claims"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214129_create_eot_claims_table.php",
+            "timestamp": "2026_01_02_214129",
+            "table": "eot_claims",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214129_create_prolongation_cost_items_table.php",
+            "timestamp": "2026_01_02_214129",
+            "table": "prolongation_cost_items",
+            "type": "create",
+            "foreign_keys": {
+                "eot_claim_id": "eot_claims"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "table": "tender_site_visits",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "asked_by": "users",
+                "chairman_id": "users",
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "table": "tender_clarifications",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "asked_by": "users",
+                "chairman_id": "users",
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "table": "tender_competitors",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "asked_by": "users",
+                "chairman_id": "users",
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "table": "tender_committee_decisions",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "asked_by": "users",
+                "chairman_id": "users",
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214414_create_tender_boq_items_table.php",
+            "timestamp": "2026_01_02_214414",
+            "table": "tender_boq_items",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214414",
+            "table": "tender_wbs_boq_mapping",
+            "type": "create",
+            "foreign_keys": {
+                "tender_wbs_id": "tender_wbs",
+                "tender_boq_item_id": "tender_boq_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_214414_create_tender_wbs_table.php",
+            "timestamp": "2026_01_02_214414",
+            "table": "tender_wbs",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "table": "tender_procurement_packages",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders",
+                "tender_procurement_package_id": "tender_procurement_packages",
+                "supplier_id": "suppliers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "table": "tender_procurement_suppliers",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders",
+                "tender_procurement_package_id": "tender_procurement_packages",
+                "supplier_id": "suppliers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "table": "tender_long_lead_items",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders",
+                "tender_procurement_package_id": "tender_procurement_packages",
+                "supplier_id": "suppliers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220302_create_dsi_indices_table.php",
+            "timestamp": "2026_01_02_220302",
+            "table": "dsi_indices",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220303_create_price_escalation_contracts_table.php",
+            "timestamp": "2026_01_02_220303",
+            "table": "price_escalation_contracts",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220304_create_price_escalation_calculations_table.php",
+            "timestamp": "2026_01_02_220304",
+            "table": "price_escalation_calculations",
+            "type": "create",
+            "foreign_keys": {
+                "price_escalation_contract_id": "price_escalation_contracts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_220305_create_dsi_import_logs_table.php",
+            "timestamp": "2026_01_02_220305",
+            "table": "dsi_import_logs",
+            "type": "create",
+            "foreign_keys": {
+                "imported_by": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221007_create_goods_receipt_notes_table.php",
+            "timestamp": "2026_01_02_221007",
+            "table": "goods_receipt_notes",
+            "type": "create",
+            "foreign_keys": {
+                "received_by": "users",
+                "project_id": "projects",
+                "supplier_id": "suppliers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221014_create_site_receipts_table.php",
+            "timestamp": "2026_01_02_221014",
+            "table": "site_receipts",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "supplier_id": "suppliers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221015_create_site_receipt_items_table.php",
+            "timestamp": "2026_01_02_221015",
+            "table": "site_receipt_items",
+            "type": "create",
+            "foreign_keys": {
+                "site_receipt_id": "site_receipts",
+                "product_id": "products"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221015_create_site_receipt_photos_table.php",
+            "timestamp": "2026_01_02_221015",
+            "table": "site_receipt_photos",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by": "users",
+                "site_receipt_id": "site_receipts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221401_create_tender_risks_table.php",
+            "timestamp": "2026_01_02_221401",
+            "table": "tender_risks",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221402_create_tender_risk_events_table.php",
+            "timestamp": "2026_01_02_221402",
+            "table": "tender_risk_events",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "tender_risk_id": "tender_risks"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_221403_create_tender_contingency_reserves_table.php",
+            "timestamp": "2026_01_02_221403",
+            "table": "tender_contingency_reserves",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_222220_create_tender_activities_table.php",
+            "timestamp": "2026_01_02_222220",
+            "table": "tender_activities",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_222220_create_tender_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_222220",
+            "table": "tender_activity_dependencies",
+            "type": "create",
+            "foreign_keys": {
+                "predecessor_id": "tender_activities",
+                "successor_id": "tender_activities"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_222220_create_tender_milestones_table.php",
+            "timestamp": "2026_01_02_222220",
+            "table": "tender_milestones",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_222740_create_tender_resources_table.php",
+            "timestamp": "2026_01_02_222740",
+            "table": "tender_resources",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_222749_create_tender_resource_assignments_table.php",
+            "timestamp": "2026_01_02_222749",
+            "table": "tender_resource_assignments",
+            "type": "create",
+            "foreign_keys": {
+                "tender_resource_id": "tender_resources",
+                "tender_activity_id": "tender_activities"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_222749_create_tender_resource_histogram_table.php",
+            "timestamp": "2026_01_02_222749",
+            "table": "tender_resource_histogram",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders",
+                "tender_resource_id": "tender_resources"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_02_223544_create_time_bar_protection_settings_table.php",
+            "timestamp": "2026_01_02_223544",
+            "table": "time_bar_protection_settings",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114219_create_clients_table.php",
+            "timestamp": "2026_01_03_114219",
+            "table": "clients",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114911_create_cost_centers_table.php",
+            "timestamp": "2026_01_03_114911",
+            "table": "cost_centers",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114925_create_gl_accounts_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_accounts",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114925_create_gl_fiscal_years_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_fiscal_years",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114925_create_gl_journal_entries_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_journal_entries",
+            "type": "create",
+            "foreign_keys": {
+                "currency_id": "currencies",
+                "created_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_journal_entry_lines",
+            "type": "create",
+            "foreign_keys": {
+                "journal_entry_id": "gl_journal_entries",
+                "gl_account_id": "gl_accounts",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_114925_create_gl_periods_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_periods",
+            "type": "create",
+            "foreign_keys": {
+                "fiscal_year_id": "gl_fiscal_years",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115015_create_client_bank_accounts_table.php",
+            "timestamp": "2026_01_03_115015",
+            "table": "client_bank_accounts",
+            "type": "create",
+            "foreign_keys": {
+                "client_id": "clients"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115015_create_client_contacts_table.php",
+            "timestamp": "2026_01_03_115015",
+            "table": "client_contacts",
+            "type": "create",
+            "foreign_keys": {
+                "client_id": "clients"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115015_create_client_documents_table.php",
+            "timestamp": "2026_01_03_115015",
+            "table": "client_documents",
+            "type": "create",
+            "foreign_keys": {
+                "client_id": "clients"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115030_create_g_l_accounts_table.php",
+            "timestamp": "2026_01_03_115030",
+            "table": "g_l_accounts",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115038_create_contract_amendments_table.php",
+            "timestamp": "2026_01_03_115038",
+            "table": "contract_amendments",
+            "type": "create",
+            "foreign_keys": {
+                "contract_id": "contracts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115038_create_contract_change_orders_table.php",
+            "timestamp": "2026_01_03_115038",
+            "table": "contract_change_orders",
+            "type": "create",
+            "foreign_keys": {
+                "submitted_by_id": "users",
+                "contract_id": "contracts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115038_create_contract_clauses_table.php",
+            "timestamp": "2026_01_03_115038",
+            "table": "contract_clauses",
+            "type": "create",
+            "foreign_keys": {
+                "contract_id": "contracts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_115039_create_contract_milestones_table.php",
+            "timestamp": "2026_01_03_115039",
+            "table": "contract_milestones",
+            "type": "create",
+            "foreign_keys": {
+                "contract_id": "contracts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_120934_create_vendor_bank_accounts_table.php",
+            "timestamp": "2026_01_03_120934",
+            "table": "vendor_bank_accounts",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_120934_create_vendor_contacts_table.php",
+            "timestamp": "2026_01_03_120934",
+            "table": "vendor_contacts",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_120934_create_vendor_documents_table.php",
+            "timestamp": "2026_01_03_120934",
+            "table": "vendor_documents",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_120934_create_vendor_materials_table.php",
+            "timestamp": "2026_01_03_120934",
+            "table": "vendor_materials",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_120934_create_vendors_table.php",
+            "timestamp": "2026_01_03_120934",
+            "table": "vendors",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_120935_create_vendor_evaluations_table.php",
+            "timestamp": "2026_01_03_120935",
+            "table": "vendor_evaluations",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121337_create_employee_dependents_table.php",
+            "timestamp": "2026_01_03_121337",
+            "table": "employee_dependents",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121337_create_employee_documents_table.php",
+            "timestamp": "2026_01_03_121337",
+            "table": "employee_documents",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "uploaded_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121337_create_employee_qualifications_table.php",
+            "timestamp": "2026_01_03_121337",
+            "table": "employee_qualifications",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121337_create_employee_skills_table.php",
+            "timestamp": "2026_01_03_121337",
+            "table": "employee_skills",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121337_create_employee_work_history_table.php",
+            "timestamp": "2026_01_03_121337",
+            "table": "employee_work_history",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121536_create_banks_table.php",
+            "timestamp": "2026_01_03_121536",
+            "table": "banks",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_121536_create_positions_table.php",
+            "timestamp": "2026_01_03_121536",
+            "table": "positions",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182250_create_financial_report_configs_table.php",
+            "timestamp": "2026_01_03_182250",
+            "table": "financial_report_configs",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182250_create_report_history_table.php",
+            "timestamp": "2026_01_03_182250",
+            "table": "report_history",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182250_create_report_schedules_table.php",
+            "timestamp": "2026_01_03_182250",
+            "table": "report_schedules",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182426_create_ap_payments_table.php",
+            "timestamp": "2026_01_03_182426",
+            "table": "ap_payments",
+            "type": "create",
+            "foreign_keys": {
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182434_create_subcontractor_contacts_table.php",
+            "timestamp": "2026_01_03_182434",
+            "table": "subcontractor_contacts",
+            "type": "create",
+            "foreign_keys": {
+                "subcontractor_id": "subcontractors",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182434_create_subcontractors_table.php",
+            "timestamp": "2026_01_03_182434",
+            "table": "subcontractors",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_agreements",
+            "type": "create",
+            "foreign_keys": {
+                "subcontractor_id": "subcontractors",
+                "project_id": "projects",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182435_create_subcontractor_evaluations_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_evaluations",
+            "type": "create",
+            "foreign_keys": {
+                "evaluated_by_id": "users",
+                "subcontractor_id": "subcontractors",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182435_create_subcontractor_ipc_items_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_ipc_items",
+            "type": "create",
+            "foreign_keys": {
+                "subcontractor_ipc_id": "subcontractor_ipcs",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182435_create_subcontractor_ipcs_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_ipcs",
+            "type": "create",
+            "foreign_keys": {
+                "subcontractor_agreement_id": "subcontractor_agreements",
+                "subcontractor_id": "subcontractors",
+                "project_id": "projects",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182435_create_subcontractor_work_orders_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_work_orders",
+            "type": "create",
+            "foreign_keys": {
+                "subcontractor_agreement_id": "subcontractor_agreements",
+                "subcontractor_id": "subcontractors",
+                "project_id": "projects",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_182710_create_personal_access_tokens_table.php",
+            "timestamp": "2026_01_03_182710",
+            "table": "personal_access_tokens",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200000_create_bank_accounts_table.php",
+            "timestamp": "2026_01_03_200000",
+            "table": "bank_accounts",
+            "type": "create",
+            "foreign_keys": {
+                "user_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200000_create_materials_table.php",
+            "timestamp": "2026_01_03_200000",
+            "table": "materials",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200001_create_payroll_periods_table.php",
+            "timestamp": "2026_01_03_200001",
+            "table": "payroll_periods",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200002_create_payroll_entries_table.php",
+            "timestamp": "2026_01_03_200002",
+            "table": "payroll_entries",
+            "type": "create",
+            "foreign_keys": {
+                "payroll_period_id": "payroll_periods",
+                "employee_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200003_create_payroll_allowances_table.php",
+            "timestamp": "2026_01_03_200003",
+            "table": "payroll_allowances",
+            "type": "create",
+            "foreign_keys": {
+                "payroll_entry_id": "payroll_entries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200004_create_payroll_deductions_table.php",
+            "timestamp": "2026_01_03_200004",
+            "table": "payroll_deductions",
+            "type": "create",
+            "foreign_keys": {
+                "payroll_entry_id": "payroll_entries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200005_create_employee_loans_table.php",
+            "timestamp": "2026_01_03_200005",
+            "table": "employee_loans",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200030_create_inventory_transactions_table.php",
+            "timestamp": "2026_01_03_200030",
+            "table": "inventory_transactions",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "material_id": "materials",
+                "warehouse_id": "warehouses",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200040_create_inventory_balances_table.php",
+            "timestamp": "2026_01_03_200040",
+            "table": "inventory_balances",
+            "type": "create",
+            "foreign_keys": {
+                "material_id": "materials",
+                "warehouse_id": "warehouses",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200050_create_stock_transfers_table.php",
+            "timestamp": "2026_01_03_200050",
+            "table": "stock_transfers",
+            "type": "create",
+            "foreign_keys": {
+                "from_warehouse_id": "warehouses",
+                "to_warehouse_id": "warehouses",
+                "created_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200060_create_stock_transfer_items_table.php",
+            "timestamp": "2026_01_03_200060",
+            "table": "stock_transfer_items",
+            "type": "create",
+            "foreign_keys": {
+                "stock_transfer_id": "stock_transfers",
+                "material_id": "materials"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200814_create_ap_invoice_items_table.php",
+            "timestamp": "2026_01_03_200814",
+            "table": "ap_invoice_items",
+            "type": "create",
+            "foreign_keys": {
+                "ap_invoice_id": "ap_invoices"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200814_create_ap_invoices_table.php",
+            "timestamp": "2026_01_03_200814",
+            "table": "ap_invoices",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "vendor_id": "vendors",
+                "currency_id": "currencies",
+                "gl_account_id": "gl_accounts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200814_create_ap_payment_allocations_table.php",
+            "timestamp": "2026_01_03_200814",
+            "table": "ap_payment_allocations",
+            "type": "create",
+            "foreign_keys": {
+                "ap_payment_id": "ap_payments",
+                "ap_invoice_id": "ap_invoices"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200910_create_i_p_c_s_table.php",
+            "timestamp": "2026_01_03_200910",
+            "table": "i_p_c_s",
+            "type": "create",
+            "foreign_keys": {
+                "contract_id": "contracts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200917_create_a_r_invoice_items_table.php",
+            "timestamp": "2026_01_03_200917",
+            "table": "a_r_invoice_items",
+            "type": "create",
+            "foreign_keys": {
+                "a_r_invoice_id": "a_r_invoices"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200917_create_a_r_invoices_table.php",
+            "timestamp": "2026_01_03_200917",
+            "table": "a_r_invoices",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "client_id": "clients",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+            "timestamp": "2026_01_03_200918",
+            "table": "a_r_receipt_allocations",
+            "type": "create",
+            "foreign_keys": {
+                "a_r_receipt_id": "a_r_receipts",
+                "a_r_invoice_id": "a_r_invoices"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_200918_create_a_r_receipts_table.php",
+            "timestamp": "2026_01_03_200918",
+            "table": "a_r_receipts",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "client_id": "clients",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_201050_create_material_categories_table.php",
+            "timestamp": "2026_01_03_201050",
+            "table": "material_categories",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_201050_create_material_specifications_table.php",
+            "timestamp": "2026_01_03_201050",
+            "table": "material_specifications",
+            "type": "create",
+            "foreign_keys": {
+                "material_id": "materials"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_201050_create_material_vendors_table.php",
+            "timestamp": "2026_01_03_201050",
+            "table": "material_vendors",
+            "type": "create",
+            "foreign_keys": {
+                "material_id": "materials",
+                "vendor_id": "vendors"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_202342_add_indexes_to_materials_table.php",
+            "timestamp": "2026_01_03_202342",
+            "table": "materials",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_202342_add_indexes_to_materials_table.php",
+            "timestamp": "2026_01_03_202342",
+            "table": "materials",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_202710_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202710",
+            "table": "grn_items",
+            "type": "create",
+            "foreign_keys": {
+                "grn_id": "grns",
+                "material_id": "materials"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_202710_create_g_r_n_s_table.php",
+            "timestamp": "2026_01_03_202710",
+            "table": "grns",
+            "type": "create",
+            "foreign_keys": {
+                "received_by_id": "users",
+                "vendor_id": "vendors",
+                "warehouse_id": "warehouses",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_203714_create_journal_entries_table.php",
+            "timestamp": "2026_01_03_203714",
+            "table": "journal_entries",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_03_203715_create_transactions_table.php",
+            "timestamp": "2026_01_03_203715",
+            "table": "transactions",
+            "type": "create",
+            "foreign_keys": {
+                "journal_entry_id": "journal_entries",
+                "account_id": "accounts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000003_create_financial_regret_analyses_table.php",
+            "timestamp": "2026_01_04_000003",
+            "table": "financial_regret_analyses",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "project_id": "projects",
+                "contract_id": "contracts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000004_create_regret_index_scenarios_table.php",
+            "timestamp": "2026_01_04_000004",
+            "table": "regret_index_scenarios",
+            "type": "create",
+            "foreign_keys": {
+                "analysis_id": "financial_regret_analyses"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000010_create_labor_categories_table.php",
+            "timestamp": "2026_01_04_000010",
+            "table": "labor_categories",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000011_create_laborers_table.php",
+            "timestamp": "2026_01_04_000011",
+            "table": "laborers",
+            "type": "create",
+            "foreign_keys": {
+                "category_id": "labor_categories"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000012_create_labor_assignments_table.php",
+            "timestamp": "2026_01_04_000012",
+            "table": "labor_assignments",
+            "type": "create",
+            "foreign_keys": {
+                "assigned_by": "users",
+                "laborer_id": "laborers",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000013_create_labor_daily_attendance_table.php",
+            "timestamp": "2026_01_04_000013",
+            "table": "labor_daily_attendance",
+            "type": "create",
+            "foreign_keys": {
+                "recorded_by": "users",
+                "laborer_id": "laborers",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000014_create_labor_productivity_table.php",
+            "timestamp": "2026_01_04_000014",
+            "table": "labor_productivity",
+            "type": "create",
+            "foreign_keys": {
+                "recorded_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000015_create_labor_timesheets_table.php",
+            "timestamp": "2026_01_04_000015",
+            "table": "labor_timesheets",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000016_create_labor_timesheet_entries_table.php",
+            "timestamp": "2026_01_04_000016",
+            "table": "labor_timesheet_entries",
+            "type": "create",
+            "foreign_keys": {
+                "timesheet_id": "labor_timesheets",
+                "laborer_id": "laborers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_000017_create_labor_camps_table.php",
+            "timestamp": "2026_01_04_000017",
+            "table": "labor_camps",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_075218_create_documents_table.php",
+            "timestamp": "2026_01_04_075218",
+            "table": "documents",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_075224_create_document_access_table.php",
+            "timestamp": "2026_01_04_075224",
+            "table": "document_access",
+            "type": "create",
+            "foreign_keys": {
+                "document_id": "documents",
+                "granted_by_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_075224_create_document_versions_table.php",
+            "timestamp": "2026_01_04_075224",
+            "table": "document_versions",
+            "type": "create",
+            "foreign_keys": {
+                "document_id": "documents",
+                "uploaded_by_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_075917_create_warehouse_locations_table.php",
+            "timestamp": "2026_01_04_075917",
+            "table": "warehouse_locations",
+            "type": "create",
+            "foreign_keys": {
+                "warehouse_id": "warehouses"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_075917_create_warehouse_stock_table.php",
+            "timestamp": "2026_01_04_075917",
+            "table": "warehouse_stock",
+            "type": "create",
+            "foreign_keys": {
+                "warehouse_id": "warehouses",
+                "material_id": "materials"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_103300_create_shift_schedules_table.php",
+            "timestamp": "2026_01_04_103300",
+            "table": "shift_schedules",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_103400_create_attendance_records_table.php",
+            "timestamp": "2026_01_04_103400",
+            "table": "attendance_records",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_103500_create_leave_requests_table.php",
+            "timestamp": "2026_01_04_103500",
+            "table": "leave_requests",
+            "type": "create",
+            "foreign_keys": {
+                "employee_id": "employees",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_104459_add_branch_id_to_users_table.php",
+            "timestamp": "2026_01_04_104459",
+            "table": "users",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_104459_add_branch_id_to_users_table.php",
+            "timestamp": "2026_01_04_104459",
+            "table": "users",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_110224_add_company_id_to_roles_table.php",
+            "timestamp": "2026_01_04_110224",
+            "table": "roles",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_110224_add_company_id_to_roles_table.php",
+            "timestamp": "2026_01_04_110224",
+            "table": "roles",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_110457_add_module_to_permissions_table.php",
+            "timestamp": "2026_01_04_110457",
+            "table": "permissions",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_110457_add_module_to_permissions_table.php",
+            "timestamp": "2026_01_04_110457",
+            "table": "permissions",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_200200_create_claims_table.php",
+            "timestamp": "2026_01_04_200200",
+            "table": "claims",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_200300_create_claim_events_table.php",
+            "timestamp": "2026_01_04_200300",
+            "table": "claim_events",
+            "type": "create",
+            "foreign_keys": {
+                "claim_id": "claims"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_200400_create_claim_documents_table.php",
+            "timestamp": "2026_01_04_200400",
+            "table": "claim_documents",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by": "users",
+                "claim_id": "claims"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_200500_create_claim_timeline_table.php",
+            "timestamp": "2026_01_04_200500",
+            "table": "claim_timeline",
+            "type": "create",
+            "foreign_keys": {
+                "performed_by": "users",
+                "claim_id": "claims"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_200600_create_claim_correspondence_table.php",
+            "timestamp": "2026_01_04_200600",
+            "table": "claim_correspondence",
+            "type": "create",
+            "foreign_keys": {
+                "claim_id": "claims"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_202928_create_guarantee_claims_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantee_claims",
+            "type": "create",
+            "foreign_keys": {
+                "guarantee_id": "guarantees"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_202928_create_guarantee_releases_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantee_releases",
+            "type": "create",
+            "foreign_keys": {
+                "released_by": "users",
+                "guarantee_id": "guarantees"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_202928_create_guarantee_renewals_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantee_renewals",
+            "type": "create",
+            "foreign_keys": {
+                "renewed_by": "users",
+                "guarantee_id": "guarantees"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_202928_create_guarantees_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantees",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "bank_id": "banks"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203002_create_tender_documents_table.php",
+            "timestamp": "2026_01_04_203002",
+            "table": "tender_documents",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by": "users",
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203003_create_tender_questions_table.php",
+            "timestamp": "2026_01_04_203003",
+            "table": "tender_questions",
+            "type": "create",
+            "foreign_keys": {
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203003_create_tender_timeline_table.php",
+            "timestamp": "2026_01_04_203003",
+            "table": "tender_timeline",
+            "type": "create",
+            "foreign_keys": {
+                "performed_by": "users",
+                "tender_id": "tenders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203018_create_boq_headers_table.php",
+            "timestamp": "2026_01_04_203018",
+            "table": "boq_headers",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203018_create_boq_item_resources_table.php",
+            "timestamp": "2026_01_04_203018",
+            "table": "boq_item_resources",
+            "type": "create",
+            "foreign_keys": {
+                "boq_item_id": "boq_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203018_create_boq_revisions_table.php",
+            "timestamp": "2026_01_04_203018",
+            "table": "boq_revisions",
+            "type": "create",
+            "foreign_keys": {
+                "revised_by": "users",
+                "boq_header_id": "boq_headers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203018_create_boq_sections_table.php",
+            "timestamp": "2026_01_04_203018",
+            "table": "boq_sections",
+            "type": "create",
+            "foreign_keys": {
+                "boq_header_id": "boq_headers"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203117_create_project_issues_table.php",
+            "timestamp": "2026_01_04_203117",
+            "table": "project_issues",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203117_create_project_phases_table.php",
+            "timestamp": "2026_01_04_203117",
+            "table": "project_phases",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203117_create_project_progress_reports_table.php",
+            "timestamp": "2026_01_04_203117",
+            "table": "project_progress_reports",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_203117_create_project_team_table.php",
+            "timestamp": "2026_01_04_203117",
+            "table": "project_team",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205740_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205740",
+            "table": "equipment_assignments",
+            "type": "create",
+            "foreign_keys": {
+                "assigned_by": "users",
+                "equipment_id": "equipments",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205740_create_equipment_categories_table.php",
+            "timestamp": "2026_01_04_205740",
+            "table": "equipment_categories",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205740_create_equipment_table.php",
+            "timestamp": "2026_01_04_205740",
+            "table": "equipment",
+            "type": "create",
+            "foreign_keys": {
+                "category_id": "equipment_categories"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
+            "timestamp": "2026_01_04_205751",
+            "table": "equipment_fuel_logs",
+            "type": "create",
+            "foreign_keys": {
+                "recorded_by": "users",
+                "equipment_id": "equipments"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205751_create_equipment_maintenance_table.php",
+            "timestamp": "2026_01_04_205751",
+            "table": "equipment_maintenance",
+            "type": "create",
+            "foreign_keys": {
+                "equipment_id": "equipments"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205751_create_equipment_transfers_table.php",
+            "timestamp": "2026_01_04_205751",
+            "table": "equipment_transfers",
+            "type": "create",
+            "foreign_keys": {
+                "approved_by": "users",
+                "equipment_id": "equipments"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_205751_create_equipment_usage_table.php",
+            "timestamp": "2026_01_04_205751",
+            "table": "equipment_usage",
+            "type": "create",
+            "foreign_keys": {
+                "recorded_by": "users",
+                "equipment_id": "equipments"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_210004_create_variation_orders_table.php",
+            "timestamp": "2026_01_04_210004",
+            "table": "variation_orders",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_210005_create_time_bar_events_table.php",
+            "timestamp": "2026_01_04_210005",
+            "table": "time_bar_events",
+            "type": "create",
+            "foreign_keys": {
+                "identified_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_210006_create_time_bar_alerts_table.php",
+            "timestamp": "2026_01_04_210006",
+            "table": "time_bar_alerts",
+            "type": "create",
+            "foreign_keys": {
+                "event_id": "time_bar_events"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_210007_create_time_bar_settings_table.php",
+            "timestamp": "2026_01_04_210007",
+            "table": "time_bar_settings",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_210008_create_time_bar_contractual_clauses_table.php",
+            "timestamp": "2026_01_04_210008",
+            "table": "time_bar_contractual_clauses",
+            "type": "create",
+            "foreign_keys": {
+                "contract_id": "contracts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211131_create_cost_plus_contracts_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_contracts",
+            "type": "create",
+            "foreign_keys": {
+                "contract_id": "contracts",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211131_create_cost_plus_invoice_items_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_invoice_items",
+            "type": "create",
+            "foreign_keys": {
+                "invoice_id": "cost_plus_invoices",
+                "transaction_id": "cost_plus_transactions"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211131_create_cost_plus_invoices_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_invoices",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "cost_plus_contract_id": "cost_plus_contracts",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211131_create_cost_plus_overhead_allocations_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_overhead_allocations",
+            "type": "create",
+            "foreign_keys": {
+                "allocated_by": "users",
+                "cost_plus_contract_id": "cost_plus_contracts",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211131_create_cost_plus_transactions_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_transactions",
+            "type": "create",
+            "foreign_keys": {
+                "recorded_by": "users",
+                "cost_plus_contract_id": "cost_plus_contracts",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211225_create_variation_order_attachments_table.php",
+            "timestamp": "2026_01_04_211225",
+            "table": "variation_order_attachments",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by": "users",
+                "variation_order_id": "variation_orders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211225_create_variation_order_items_table.php",
+            "timestamp": "2026_01_04_211225",
+            "table": "variation_order_items",
+            "type": "create",
+            "foreign_keys": {
+                "variation_order_id": "variation_orders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211225_create_variation_order_timeline_table.php",
+            "timestamp": "2026_01_04_211225",
+            "table": "variation_order_timeline",
+            "type": "create",
+            "foreign_keys": {
+                "performed_by": "users",
+                "variation_order_id": "variation_orders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "uploaded_by": "users",
+                "correspondence_id": "correspondences",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_attachments",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "uploaded_by": "users",
+                "correspondence_id": "correspondences",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_distribution",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "uploaded_by": "users",
+                "correspondence_id": "correspondences",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_actions",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "uploaded_by": "users",
+                "correspondence_id": "correspondences",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_templates",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "uploaded_by": "users",
+                "correspondence_id": "correspondences",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_registers",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users",
+                "uploaded_by": "users",
+                "correspondence_id": "correspondences",
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211920_create_contract_templates_table.php",
+            "timestamp": "2026_01_04_211920",
+            "table": "contract_templates",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211921_create_contract_template_clauses_table.php",
+            "timestamp": "2026_01_04_211921",
+            "table": "contract_template_clauses",
+            "type": "create",
+            "foreign_keys": {
+                "template_id": "contract_templates"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211922_create_contract_template_special_conditions_table.php",
+            "timestamp": "2026_01_04_211922",
+            "table": "contract_template_special_conditions",
+            "type": "create",
+            "foreign_keys": {
+                "template_id": "contract_templates"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211923_create_contract_template_variables_table.php",
+            "timestamp": "2026_01_04_211923",
+            "table": "contract_template_variables",
+            "type": "create",
+            "foreign_keys": {
+                "template_id": "contract_templates"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_211924_create_contract_generated_table.php",
+            "timestamp": "2026_01_04_211924",
+            "table": "contract_generated",
+            "type": "create",
+            "foreign_keys": {
+                "template_id": "contract_templates",
+                "generated_by": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_213658_create_eot_requests_table.php",
+            "timestamp": "2026_01_04_213658",
+            "table": "eot_requests",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
+            "timestamp": "2026_01_04_213708",
+            "table": "unforeseeable_conditions_evidence",
+            "type": "create",
+            "foreign_keys": {
+                "condition_id": "unforeseeable_conditions",
+                "uploaded_by": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_table.php",
+            "timestamp": "2026_01_04_213708",
+            "table": "unforeseeable_conditions",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214201_create_regions_table.php",
+            "timestamp": "2026_01_04_214201",
+            "table": "regions",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214214_create_price_list_items_table.php",
+            "timestamp": "2026_01_04_214214",
+            "table": "price_list_items",
+            "type": "create",
+            "foreign_keys": {
+                "price_list_id": "price_lists"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214214_create_price_lists_table.php",
+            "timestamp": "2026_01_04_214214",
+            "table": "price_lists",
+            "type": "create",
+            "foreign_keys": {
+                "created_by": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214215_create_price_history_table.php",
+            "timestamp": "2026_01_04_214215",
+            "table": "price_history",
+            "type": "create",
+            "foreign_keys": {
+                "updated_by": "users",
+                "price_list_item_id": "price_list_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214215_create_price_request_items_table.php",
+            "timestamp": "2026_01_04_214215",
+            "table": "price_request_items",
+            "type": "create",
+            "foreign_keys": {
+                "price_request_id": "price_requests"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214215_create_price_requests_table.php",
+            "timestamp": "2026_01_04_214215",
+            "table": "price_requests",
+            "type": "create",
+            "foreign_keys": {
+                "requested_by": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214221_create_price_quotations_table.php",
+            "timestamp": "2026_01_04_214221",
+            "table": "price_quotations",
+            "type": "create",
+            "foreign_keys": {
+                "vendor_id": "vendors",
+                "price_request_id": "price_requests"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214222_create_price_comparisons_table.php",
+            "timestamp": "2026_01_04_214222",
+            "table": "price_comparisons",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by": "users",
+                "price_request_id": "price_requests"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_04_214222_create_price_quotation_items_table.php",
+            "timestamp": "2026_01_04_214222",
+            "table": "price_quotation_items",
+            "type": "create",
+            "foreign_keys": {
+                "quotation_id": "price_quotations",
+                "request_item_id": "price_request_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_05_000001_create_backups_table.php",
+            "timestamp": "2026_01_05_000001",
+            "table": "backups",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_000001_create_notifications_table.php",
+            "timestamp": "2026_01_07_000001",
+            "table": "notifications",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_000002_create_notification_preferences_table.php",
+            "timestamp": "2026_01_07_000002",
+            "table": "notification_preferences",
+            "type": "create",
+            "foreign_keys": {
+                "user_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_000003_create_alert_rules_table.php",
+            "timestamp": "2026_01_07_000003",
+            "table": "alert_rules",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_000004_create_notification_logs_table.php",
+            "timestamp": "2026_01_07_000004",
+            "table": "notification_logs",
+            "type": "create",
+            "foreign_keys": {
+                "notification_id": "notifications"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_000005_create_scheduled_notifications_table.php",
+            "timestamp": "2026_01_07_000005",
+            "table": "scheduled_notifications",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_183818_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183818",
+            "table": "material_request_items",
+            "type": "create",
+            "foreign_keys": {
+                "material_request_id": "material_requests",
+                "material_id": "materials"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_183818_create_material_requests_table.php",
+            "timestamp": "2026_01_07_183818",
+            "table": "material_requests",
+            "type": "create",
+            "foreign_keys": {
+                "requested_by_id": "users",
+                "project_id": "projects",
+                "department_id": "departments",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_184855_create_budget_items_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "budget_items",
+            "type": "create",
+            "foreign_keys": {
+                "budget_id": "budgets",
+                "cost_category_id": "cost_categories"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_184855_create_budgets_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "budgets",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_184855_create_cost_allocations_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "cost_allocations",
+            "type": "create",
+            "foreign_keys": {
+                "cost_center_id": "cost_centers",
+                "cost_category_id": "cost_categories",
+                "gl_account_id": "gl_accounts",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_184855_create_cost_categories_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "cost_categories",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185045_create_expense_categories_table.php",
+            "timestamp": "2026_01_07_185045",
+            "table": "expense_categories",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185054_create_petty_cash_accounts_table.php",
+            "timestamp": "2026_01_07_185054",
+            "table": "petty_cash_accounts",
+            "type": "create",
+            "foreign_keys": {
+                "custodian_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185055_create_petty_cash_replenishments_table.php",
+            "timestamp": "2026_01_07_185055",
+            "table": "petty_cash_replenishments",
+            "type": "create",
+            "foreign_keys": {
+                "petty_cash_account_id": "petty_cash_accounts",
+                "requested_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185055_create_petty_cash_transactions_table.php",
+            "timestamp": "2026_01_07_185055",
+            "table": "petty_cash_transactions",
+            "type": "create",
+            "foreign_keys": {
+                "petty_cash_account_id": "petty_cash_accounts",
+                "requested_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185437_add_bank_reconciliation_fields_to_bank_accounts_table.php",
+            "timestamp": "2026_01_07_185437",
+            "table": "bank_accounts",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185437_add_bank_reconciliation_fields_to_bank_accounts_table.php",
+            "timestamp": "2026_01_07_185437",
+            "table": "bank_accounts",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185447_create_bank_reconciliations_table.php",
+            "timestamp": "2026_01_07_185447",
+            "table": "bank_reconciliations",
+            "type": "create",
+            "foreign_keys": {
+                "bank_account_id": "bank_accounts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185447_create_bank_statement_lines_table.php",
+            "timestamp": "2026_01_07_185447",
+            "table": "bank_statement_lines",
+            "type": "create",
+            "foreign_keys": {
+                "bank_statement_id": "bank_statements"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185447_create_bank_statements_table.php",
+            "timestamp": "2026_01_07_185447",
+            "table": "bank_statements",
+            "type": "create",
+            "foreign_keys": {
+                "bank_account_id": "bank_accounts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_185447_create_reconciliation_items_table.php",
+            "timestamp": "2026_01_07_185447",
+            "table": "reconciliation_items",
+            "type": "create",
+            "foreign_keys": {
+                "bank_reconciliation_id": "bank_reconciliations"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190600_create_certifications_table.php",
+            "timestamp": "2026_01_07_190600",
+            "table": "certifications",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190601_create_compliance_requirements_table.php",
+            "timestamp": "2026_01_07_190601",
+            "table": "compliance_requirements",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190602_create_compliance_checks_table.php",
+            "timestamp": "2026_01_07_190602",
+            "table": "compliance_checks",
+            "type": "create",
+            "foreign_keys": {
+                "compliance_requirement_id": "compliance_requirements",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190603_create_certification_renewals_table.php",
+            "timestamp": "2026_01_07_190603",
+            "table": "certification_renewals",
+            "type": "create",
+            "foreign_keys": {
+                "certification_id": "certifications"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190641_create_dashboards_table.php",
+            "timestamp": "2026_01_07_190641",
+            "table": "dashboards",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190647_create_dashboard_widgets_table.php",
+            "timestamp": "2026_01_07_190647",
+            "table": "dashboard_widgets",
+            "type": "create",
+            "foreign_keys": {
+                "dashboard_id": "dashboards"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190647_create_kpi_definitions_table.php",
+            "timestamp": "2026_01_07_190647",
+            "table": "kpi_definitions",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_190647_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190647",
+            "table": "kpi_values",
+            "type": "create",
+            "foreign_keys": {
+                "kpi_definition_id": "kpi_definitions",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_191107_create_purchase_requisitions_table.php",
+            "timestamp": "2026_01_07_191107",
+            "table": "purchase_requisitions",
+            "type": "create",
+            "foreign_keys": {
+                "requested_by_id": "users",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_191114_create_pr_approval_workflows_table.php",
+            "timestamp": "2026_01_07_191114",
+            "table": "pr_approval_workflows",
+            "type": "create",
+            "foreign_keys": {
+                "approver_id": "users",
+                "purchase_requisition_id": "purchase_requisitions"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_191114_create_pr_quotes_table.php",
+            "timestamp": "2026_01_07_191114",
+            "table": "pr_quotes",
+            "type": "create",
+            "foreign_keys": {
+                "purchase_requisition_id": "purchase_requisitions",
+                "vendor_id": "vendors",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_191114_create_purchase_requisition_items_table.php",
+            "timestamp": "2026_01_07_191114",
+            "table": "purchase_requisition_items",
+            "type": "create",
+            "foreign_keys": {
+                "purchase_requisition_id": "purchase_requisitions",
+                "unit_id": "units"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_191115_create_pr_quote_items_table.php",
+            "timestamp": "2026_01_07_191115",
+            "table": "pr_quote_items",
+            "type": "create",
+            "foreign_keys": {
+                "pr_item_id": "purchase_requisition_items",
+                "pr_quote_id": "pr_quotes"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192300_create_asset_categories_table.php",
+            "timestamp": "2026_01_07_192300",
+            "table": "asset_categories",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192301_create_fixed_assets_table.php",
+            "timestamp": "2026_01_07_192301",
+            "table": "fixed_assets",
+            "type": "create",
+            "foreign_keys": {
+                "category_id": "asset_categories",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192302_create_asset_depreciations_table.php",
+            "timestamp": "2026_01_07_192302",
+            "table": "asset_depreciations",
+            "type": "create",
+            "foreign_keys": {
+                "fixed_asset_id": "fixed_assets",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192303_create_asset_disposals_table.php",
+            "timestamp": "2026_01_07_192303",
+            "table": "asset_disposals",
+            "type": "create",
+            "foreign_keys": {
+                "fixed_asset_id": "fixed_assets",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192304_create_asset_maintenances_table.php",
+            "timestamp": "2026_01_07_192304",
+            "table": "asset_maintenances",
+            "type": "create",
+            "foreign_keys": {
+                "fixed_asset_id": "fixed_assets",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192305_create_asset_transfers_table.php",
+            "timestamp": "2026_01_07_192305",
+            "table": "asset_transfers",
+            "type": "create",
+            "foreign_keys": {
+                "requested_by_id": "users",
+                "fixed_asset_id": "fixed_assets",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192306_create_asset_revaluations_table.php",
+            "timestamp": "2026_01_07_192306",
+            "table": "asset_revaluations",
+            "type": "create",
+            "foreign_keys": {
+                "fixed_asset_id": "fixed_assets",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192808_create_cash_accounts_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_accounts",
+            "type": "create",
+            "foreign_keys": {
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192808_create_cash_forecasts_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_forecasts",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192808_create_cash_transactions_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_transactions",
+            "type": "create",
+            "foreign_keys": {
+                "cash_account_id": "cash_accounts",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192808_create_cash_transfers_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_transfers",
+            "type": "create",
+            "foreign_keys": {
+                "from_account_id": "cash_accounts",
+                "to_account_id": "cash_accounts",
+                "from_currency_id": "currencies",
+                "to_currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_192808_create_daily_cash_positions_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "daily_cash_positions",
+            "type": "create",
+            "foreign_keys": {
+                "cash_account_id": "cash_accounts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193159_update_purchase_orders_table.php",
+            "timestamp": "2026_01_07_193159",
+            "table": "purchase_orders",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193159_update_purchase_orders_table.php",
+            "timestamp": "2026_01_07_193159",
+            "table": "purchase_orders",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193207_create_po_amendments_table.php",
+            "timestamp": "2026_01_07_193207",
+            "table": "po_amendments",
+            "type": "create",
+            "foreign_keys": {
+                "requested_by_id": "users",
+                "purchase_order_id": "purchase_orders"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193207_create_po_receipt_items_table.php",
+            "timestamp": "2026_01_07_193207",
+            "table": "po_receipt_items",
+            "type": "create",
+            "foreign_keys": {
+                "po_item_id": "purchase_order_items",
+                "po_receipt_id": "po_receipts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193207_create_po_receipts_table.php",
+            "timestamp": "2026_01_07_193207",
+            "table": "po_receipts",
+            "type": "create",
+            "foreign_keys": {
+                "received_by_id": "users",
+                "purchase_order_id": "purchase_orders",
+                "warehouse_id": "warehouses",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193207_update_purchase_order_items_table.php",
+            "timestamp": "2026_01_07_193207",
+            "table": "purchase_order_items",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_07_193207_update_purchase_order_items_table.php",
+            "timestamp": "2026_01_07_193207",
+            "table": "purchase_order_items",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000001_create_schedule_calendars_table.php",
+            "timestamp": "2026_01_09_000001",
+            "table": "schedule_calendars",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000002_create_calendar_exceptions_table.php",
+            "timestamp": "2026_01_09_000002",
+            "table": "calendar_exceptions",
+            "type": "create",
+            "foreign_keys": {
+                "schedule_calendar_id": "schedule_calendars"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000003_create_project_schedules_table.php",
+            "timestamp": "2026_01_09_000003",
+            "table": "project_schedules",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "prepared_by_id": "users",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000004_create_schedule_activities_table.php",
+            "timestamp": "2026_01_09_000004",
+            "table": "schedule_activities",
+            "type": "create",
+            "foreign_keys": {
+                "project_schedule_id": "project_schedules"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000006_create_schedule_resources_table.php",
+            "timestamp": "2026_01_09_000006",
+            "table": "schedule_resources",
+            "type": "create",
+            "foreign_keys": {
+                "schedule_activity_id": "schedule_activities"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000007_create_schedule_baselines_table.php",
+            "timestamp": "2026_01_09_000007",
+            "table": "schedule_baselines",
+            "type": "create",
+            "foreign_keys": {
+                "project_schedule_id": "project_schedules",
+                "created_by_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000008_create_baseline_activities_table.php",
+            "timestamp": "2026_01_09_000008",
+            "table": "baseline_activities",
+            "type": "create",
+            "foreign_keys": {
+                "schedule_baseline_id": "schedule_baselines",
+                "schedule_activity_id": "schedule_activities"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_000009_create_schedule_updates_table.php",
+            "timestamp": "2026_01_09_000009",
+            "table": "schedule_updates",
+            "type": "create",
+            "foreign_keys": {
+                "project_schedule_id": "project_schedules",
+                "updated_by_id": "users"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150000_create_progress_bills_table.php",
+            "timestamp": "2026_01_09_150000",
+            "table": "progress_bills",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "contract_id": "contracts",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150000_create_project_budgets_table.php",
+            "timestamp": "2026_01_09_150000",
+            "table": "project_budgets",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by_id": "users",
+                "project_id": "projects",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150000_create_retentions_table.php",
+            "timestamp": "2026_01_09_150000",
+            "table": "retentions",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "contract_id": "contracts",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150001_create_progress_bill_items_table.php",
+            "timestamp": "2026_01_09_150001",
+            "table": "progress_bill_items",
+            "type": "create",
+            "foreign_keys": {
+                "progress_bill_id": "progress_bills"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150001_create_retention_accumulations_table.php",
+            "timestamp": "2026_01_09_150001",
+            "table": "retention_accumulations",
+            "type": "create",
+            "foreign_keys": {
+                "retention_id": "retentions"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150002_create_progress_bill_variations_table.php",
+            "timestamp": "2026_01_09_150002",
+            "table": "progress_bill_variations",
+            "type": "create",
+            "foreign_keys": {
+                "progress_bill_id": "progress_bills"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150002_create_retention_releases_table.php",
+            "timestamp": "2026_01_09_150002",
+            "table": "retention_releases",
+            "type": "create",
+            "foreign_keys": {
+                "retention_id": "retentions",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150003_create_progress_bill_deductions_table.php",
+            "timestamp": "2026_01_09_150003",
+            "table": "progress_bill_deductions",
+            "type": "create",
+            "foreign_keys": {
+                "progress_bill_id": "progress_bills"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150003_create_retention_guarantees_table.php",
+            "timestamp": "2026_01_09_150003",
+            "table": "retention_guarantees",
+            "type": "create",
+            "foreign_keys": {
+                "retention_id": "retentions",
+                "currency_id": "currencies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150004_create_advance_payments_table.php",
+            "timestamp": "2026_01_09_150004",
+            "table": "advance_payments",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "contract_id": "contracts",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150004_create_progress_bill_attachments_table.php",
+            "timestamp": "2026_01_09_150004",
+            "table": "progress_bill_attachments",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by_id": "users",
+                "progress_bill_id": "progress_bills"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150005_create_advance_recoveries_table.php",
+            "timestamp": "2026_01_09_150005",
+            "table": "advance_recoveries",
+            "type": "create",
+            "foreign_keys": {
+                "advance_payment_id": "advance_payments"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150005_create_measurement_sheets_table.php",
+            "timestamp": "2026_01_09_150005",
+            "table": "measurement_sheets",
+            "type": "create",
+            "foreign_keys": {
+                "progress_bill_id": "progress_bills"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150006_create_bill_approval_workflow_table.php",
+            "timestamp": "2026_01_09_150006",
+            "table": "bill_approval_workflow",
+            "type": "create",
+            "foreign_keys": {
+                "approver_id": "users",
+                "progress_bill_id": "progress_bills"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150006_create_defects_liability_table.php",
+            "timestamp": "2026_01_09_150006",
+            "table": "defects_liability",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "contract_id": "contracts",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150007_create_defect_notifications_table.php",
+            "timestamp": "2026_01_09_150007",
+            "table": "defect_notifications",
+            "type": "create",
+            "foreign_keys": {
+                "defects_liability_id": "defects_liabilities"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150100_create_cost_codes_table.php",
+            "timestamp": "2026_01_09_150100",
+            "table": "cost_codes",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150200_create_project_budget_items_table.php",
+            "timestamp": "2026_01_09_150200",
+            "table": "project_budget_items",
+            "type": "create",
+            "foreign_keys": {
+                "project_budget_id": "project_budgets",
+                "cost_code_id": "cost_codes"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150300_create_actual_costs_table.php",
+            "timestamp": "2026_01_09_150300",
+            "table": "actual_costs",
+            "type": "create",
+            "foreign_keys": {
+                "posted_by_id": "users",
+                "project_id": "projects",
+                "cost_code_id": "cost_codes",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150300_create_site_diaries_table.php",
+            "timestamp": "2026_01_09_150300",
+            "table": "site_diaries",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150301_create_diary_manpower_table.php",
+            "timestamp": "2026_01_09_150301",
+            "table": "diary_manpower",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150302_create_diary_equipment_table.php",
+            "timestamp": "2026_01_09_150302",
+            "table": "diary_equipment",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150303_create_diary_activities_table.php",
+            "timestamp": "2026_01_09_150303",
+            "table": "diary_activities",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150304_create_diary_materials_table.php",
+            "timestamp": "2026_01_09_150304",
+            "table": "diary_materials",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150305_create_diary_visitors_table.php",
+            "timestamp": "2026_01_09_150305",
+            "table": "diary_visitors",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150306_create_diary_incidents_table.php",
+            "timestamp": "2026_01_09_150306",
+            "table": "diary_incidents",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150307_create_diary_instructions_table.php",
+            "timestamp": "2026_01_09_150307",
+            "table": "diary_instructions",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150308_create_diary_photos_table.php",
+            "timestamp": "2026_01_09_150308",
+            "table": "diary_photos",
+            "type": "create",
+            "foreign_keys": {
+                "site_diary_id": "site_diaries"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150400_create_committed_costs_table.php",
+            "timestamp": "2026_01_09_150400",
+            "table": "committed_costs",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "cost_code_id": "cost_codes",
+                "vendor_id": "vendors",
+                "currency_id": "currencies",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150500_create_cost_forecasts_table.php",
+            "timestamp": "2026_01_09_150500",
+            "table": "cost_forecasts",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by_id": "users",
+                "project_id": "projects",
+                "cost_code_id": "cost_codes"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150600_create_variance_analysis_table.php",
+            "timestamp": "2026_01_09_150600",
+            "table": "variance_analysis",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects",
+                "cost_code_id": "cost_codes"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_150700_create_cost_reports_table.php",
+            "timestamp": "2026_01_09_150700",
+            "table": "cost_reports",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by_id": "users",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151800_create_inspection_types_table.php",
+            "timestamp": "2026_01_09_151800",
+            "table": "inspection_types",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151801_create_inspection_templates_table.php",
+            "timestamp": "2026_01_09_151801",
+            "table": "inspection_templates",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151802_create_template_items_table.php",
+            "timestamp": "2026_01_09_151802",
+            "table": "template_items",
+            "type": "create",
+            "foreign_keys": {
+                "inspection_template_id": "inspection_templates"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151803_create_inspection_requests_table.php",
+            "timestamp": "2026_01_09_151803",
+            "table": "inspection_requests",
+            "type": "create",
+            "foreign_keys": {
+                "requested_by_id": "users",
+                "project_id": "projects",
+                "inspection_type_id": "inspection_types",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151804_create_inspections_table.php",
+            "timestamp": "2026_01_09_151804",
+            "table": "inspections",
+            "type": "create",
+            "foreign_keys": {
+                "inspector_id": "users",
+                "project_id": "projects",
+                "inspection_type_id": "inspection_types",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151805_create_inspection_items_table.php",
+            "timestamp": "2026_01_09_151805",
+            "table": "inspection_items",
+            "type": "create",
+            "foreign_keys": {
+                "inspection_id": "inspections"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151806_create_inspection_actions_table.php",
+            "timestamp": "2026_01_09_151806",
+            "table": "inspection_actions",
+            "type": "create",
+            "foreign_keys": {
+                "assigned_to_id": "users",
+                "inspection_id": "inspections"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151807_create_inspection_photos_table.php",
+            "timestamp": "2026_01_09_151807",
+            "table": "inspection_photos",
+            "type": "create",
+            "foreign_keys": {
+                "taken_by_id": "users",
+                "inspection_id": "inspections"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151808_add_foreign_key_to_inspection_types.php",
+            "timestamp": "2026_01_09_151808",
+            "table": "inspection_types",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_151808_add_foreign_key_to_inspection_types.php",
+            "timestamp": "2026_01_09_151808",
+            "table": "inspection_types",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152024_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152024",
+            "table": "photo_albums",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152031_create_photo_annotations_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photo_annotations",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "photo_id": "photos"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152031_create_photo_comparisons_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photo_comparisons",
+            "type": "create",
+            "foreign_keys": {
+                "before_photo_id": "photos",
+                "after_photo_id": "photos",
+                "created_by_id": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152031_create_photo_reports_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photo_reports",
+            "type": "create",
+            "foreign_keys": {
+                "created_by_id": "users",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152031_create_photos_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photos",
+            "type": "create",
+            "foreign_keys": {
+                "uploaded_by_id": "users",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152032_create_photo_locations_table.php",
+            "timestamp": "2026_01_09_152032",
+            "table": "photo_locations",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152032_create_photo_report_items_table.php",
+            "timestamp": "2026_01_09_152032",
+            "table": "photo_report_items",
+            "type": "create",
+            "foreign_keys": {
+                "photo_report_id": "photo_reports",
+                "photo_id": "photos"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152032_create_photo_tags_table.php",
+            "timestamp": "2026_01_09_152032",
+            "table": "photo_tags",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152700_create_punch_lists_table.php",
+            "timestamp": "2026_01_09_152700",
+            "table": "punch_lists",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152701_create_punch_items_table.php",
+            "timestamp": "2026_01_09_152701",
+            "table": "punch_items",
+            "type": "create",
+            "foreign_keys": {
+                "punch_list_id": "punch_lists"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152702_create_punch_item_comments_table.php",
+            "timestamp": "2026_01_09_152702",
+            "table": "punch_item_comments",
+            "type": "create",
+            "foreign_keys": {
+                "commented_by_id": "users",
+                "punch_item_id": "punch_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152703_create_punch_item_history_table.php",
+            "timestamp": "2026_01_09_152703",
+            "table": "punch_item_history",
+            "type": "create",
+            "foreign_keys": {
+                "performed_by_id": "users",
+                "punch_item_id": "punch_items"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152704_create_punch_templates_table.php",
+            "timestamp": "2026_01_09_152704",
+            "table": "punch_templates",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152705_create_punch_categories_table.php",
+            "timestamp": "2026_01_09_152705",
+            "table": "punch_categories",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152706_create_punch_reports_table.php",
+            "timestamp": "2026_01_09_152706",
+            "table": "punch_reports",
+            "type": "create",
+            "foreign_keys": {
+                "generated_by_id": "users",
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152707_create_punch_statistics_table.php",
+            "timestamp": "2026_01_09_152707",
+            "table": "punch_statistics",
+            "type": "create",
+            "foreign_keys": {
+                "project_id": "projects"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_assessments_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_assessments",
+            "type": "create",
+            "foreign_keys": {
+                "assessed_by_id": "users",
+                "risk_id": "risks"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_categories_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_categories",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_incidents_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_incidents",
+            "type": "create",
+            "foreign_keys": {
+                "reported_by_id": "users",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_matrix_settings_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_matrix_settings",
+            "type": "create",
+            "foreign_keys": {
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_monitoring_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_monitoring",
+            "type": "create",
+            "foreign_keys": {
+                "monitored_by_id": "users",
+                "risk_id": "risks"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_registers_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_registers",
+            "type": "create",
+            "foreign_keys": {
+                "prepared_by_id": "users",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risk_responses_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_responses",
+            "type": "create",
+            "foreign_keys": {
+                "risk_id": "risks"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_09_152841_create_risks_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risks",
+            "type": "create",
+            "foreign_keys": {
+                "identified_by_id": "users",
+                "risk_register_id": "risk_registers",
+                "project_id": "projects",
+                "company_id": "companies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170000_enhance_currencies_table.php",
+            "timestamp": "2026_01_10_170000",
+            "table": "currencies",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170001_create_exchange_rates_table.php",
+            "timestamp": "2026_01_10_170001",
+            "table": "exchange_rates",
+            "type": "create",
+            "foreign_keys": {
+                "from_currency_id": "currencies",
+                "to_currency_id": "currencies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170002_create_checks_table.php",
+            "timestamp": "2026_01_10_170002",
+            "table": "checks",
+            "type": "create",
+            "foreign_keys": {
+                "currency_id": "currencies",
+                "bank_account_id": "bank_accounts"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170003_create_promissory_notes_table.php",
+            "timestamp": "2026_01_10_170003",
+            "table": "promissory_notes",
+            "type": "create",
+            "foreign_keys": {
+                "currency_id": "currencies"
+            },
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170004_create_payment_templates_table.php",
+            "timestamp": "2026_01_10_170004",
+            "table": "payment_templates",
+            "type": "create",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170005_add_currency_to_branches_table.php",
+            "timestamp": "2026_01_10_170005",
+            "table": "branches",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170005_add_currency_to_branches_table.php",
+            "timestamp": "2026_01_10_170005",
+            "table": "branches",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170005_add_currency_to_branches_table.php",
+            "timestamp": "2026_01_10_170005",
+            "table": "branches",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170006_add_template_to_bank_accounts_table.php",
+            "timestamp": "2026_01_10_170006",
+            "table": "bank_accounts",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170006_add_template_to_bank_accounts_table.php",
+            "timestamp": "2026_01_10_170006",
+            "table": "bank_accounts",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        },
+        {
+            "file": "2026_01_10_170007_enhance_guarantees_table.php",
+            "timestamp": "2026_01_10_170007",
+            "table": "guarantees",
+            "type": "alter",
+            "foreign_keys": [],
+            "indexes": [],
+            "uniques": [],
+            "issues": []
+        }
+    ]
+}
