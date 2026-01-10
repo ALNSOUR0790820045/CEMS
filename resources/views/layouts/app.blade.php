@@ -270,7 +270,7 @@
                         <div class="menu-col">
                             <h4>الهيكل التنظيمي</h4>
                             <a href="/" class="sub-link"><i data-lucide="layout-dashboard"></i> لوحة التحكم</a>
-                            <a href="{{ route('companies.index') }}" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
+                            <a href="#" class="sub-link"><i data-lucide="building-2"></i> إدارة الشركات</a>
                             <a href="#" class="sub-link"><i data-lucide="map"></i> الفروع</a>
                             <a href="{{ route('departments.index') }}" class="sub-link"><i data-lucide="git-branch"></i> الأقسام</a>
                         </div>
@@ -283,7 +283,6 @@
                         </div>
                         <div class="menu-col">
                             <h4>البيانات</h4>
-                            <a href="{{ route('cities.index') }}" class="sub-link"><i data-lucide="map-pin"></i> المدن</a>
                             <a href="#" class="sub-link"><i data-lucide="database"></i> النسخ الاحتياطي</a>
                             <a href="#" class="sub-link"><i data-lucide="bar-chart-3"></i> التقارير</a>
                             <a href="#" class="sub-link"><i data-lucide="activity"></i> المؤشرات</a>

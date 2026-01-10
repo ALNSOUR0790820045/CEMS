@@ -18,10 +18,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Companies Management
-    Route::resource('companies', CompanyController::class);
-    
-    // Employees Management
-    Route::get('employees/generate-code', [EmployeeController::class, 'generateCode'])->name('employees.generate-code');
-    Route::post('employees/{id}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
-    Route::resource('employees', EmployeeController::class);
+    Route:: resource('companies', \App\Http\Controllers\CompanyController::class);
 });

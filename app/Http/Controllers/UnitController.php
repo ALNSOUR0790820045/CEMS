@@ -8,12 +8,37 @@ use Illuminate\Http\Request;
 class UnitController extends Controller
 {
     /**
-     * Display a listing of the resource (API).
+     * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $units = Unit::where('is_active', true)->get();
-        return response()->json($units);
+        $query = Unit::query();
+
+        // Filter by type
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        // Search by name
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('name_en', 'like', '%' . $request->search . '%')
+                  ->orWhere('code', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $units = $query->latest()->get();
+        
+        return view('units.index', compact('units'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('units.create');
     }
 
     /**
@@ -22,18 +47,18 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'code' => 'required|string|unique:units,code|max:50',
             'name' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
-            'category' => 'required|in:length,area,volume,weight,count,time,other',
+            'code' => 'required|string|max:10|unique:units,code',
+            'type' => 'required|in:weight,length,volume,quantity',
         ]);
 
-        $unit = Unit::create($validated);
+        $validated['is_active'] = $request->has('is_active') ? 1 : 0;
 
-        return response()->json([
-            'success' => true,
-            'unit' => $unit,
-        ]);
+        Unit::create($validated);
+
+        return redirect()->route('units.index')
+            ->with('success', 'تم إضافة الوحدة بنجاح');
     }
 
     /**
@@ -41,7 +66,15 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        return response()->json($unit);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Unit $unit)
+    {
+        return view('units.edit', compact('unit'));
     }
 
     /**
@@ -50,19 +83,18 @@ class UnitController extends Controller
     public function update(Request $request, Unit $unit)
     {
         $validated = $request->validate([
-            'code' => 'required|string|max:50|unique:units,code,' . $unit->id,
             'name' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
-            'category' => 'required|in:length,area,volume,weight,count,time,other',
-            'is_active' => 'boolean',
+            'code' => 'required|string|max:10|unique:units,code,' . $unit->id,
+            'type' => 'required|in:weight,length,volume,quantity',
         ]);
+
+        $validated['is_active'] = $request->has('is_active') ? 1 : 0;
 
         $unit->update($validated);
 
-        return response()->json([
-            'success' => true,
-            'unit' => $unit,
-        ]);
+        return redirect()->route('units.index')
+            ->with('success', 'تم تحديث الوحدة بنجاح');
     }
 
     /**
@@ -71,9 +103,8 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         $unit->delete();
-
-        return response()->json([
-            'success' => true,
-        ]);
+        
+        return redirect()->route('units.index')
+            ->with('success', 'تم حذف الوحدة بنجاح');
     }
 }
