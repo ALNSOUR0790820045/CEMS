@@ -206,10 +206,13 @@ class SubcontractorIpcController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        // TODO: Implement PDF generation using DomPDF
-        return response()->json([
-            'message' => 'PDF generation will be implemented',
-            'ipc' => $ipc
+        // Generate PDF using DomPDF
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('subcontractor-ipc.pdf', [
+            'ipc' => $ipc,
         ]);
+        
+        $filename = 'subcontractor_ipc_' . $ipc->ipc_number . '_' . time() . '.pdf';
+        
+        return $pdf->download($filename);
     }
 }

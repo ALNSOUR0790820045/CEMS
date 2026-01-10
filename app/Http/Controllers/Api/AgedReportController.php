@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApInvoice;
+use App\Models\ARInvoice;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -119,31 +121,84 @@ class AgedReportController extends Controller
 
     /**
      * Helper: Calculate aging buckets
-     *
-     * TODO: This is a placeholder implementation that returns an empty array.
-     * A complete implementation requires:
-     * 1. Invoice/Bill models and tables
-     * 2. Query unpaid invoices/bills based on type (payable/receivable)
-     * 3. Calculate days outstanding: (as_of_date - invoice_date)
-     * 4. Categorize into aging buckets: current (0-30), 30-60, 60-90, 90-120, 120+
-     * 5. Group and sum by vendor/customer
      */
     private function calculateAging(string $type, $asOfDate): array
     {
-        // TODO: Implement actual aging calculations
-        // This requires invoice/bill tracking which is not yet implemented
-
-        return [
-            // Example structure for reference:
-            // [
-            //     'entity_name' => 'Vendor/Customer Name',
-            //     'current' => 0,      // 0-30 days
-            //     '30_days' => 0,      // 31-60 days
-            //     '60_days' => 0,      // 61-90 days
-            //     '90_days' => 0,      // 91-120 days
-            //     'over_120' => 0,     // 120+ days
-            //     'total' => 0,
-            // ]
-        ];
+        $companyId = auth()->user()->company_id ?? null;
+        
+        if ($type === 'payable') {
+            $query = ApInvoice::with('vendor')
+                ->where('status', '!=', 'paid');
+            
+            if ($companyId) {
+                $query->where('company_id', $companyId);
+            }
+            
+            $invoices = $query->get();
+            $entityKey = 'vendor';
+        } else {
+            $query = ARInvoice::with('client')
+                ->where('status', '!=', 'paid');
+            
+            if ($companyId) {
+                $query->where('company_id', $companyId);
+            }
+            
+            $invoices = $query->get();
+            $entityKey = 'client';
+        }
+        
+        $aging = [];
+        $asOfDate = Carbon::parse($asOfDate);
+        
+        foreach ($invoices as $invoice) {
+            $entityId = $invoice->{$entityKey . '_id'};
+            $entity = $invoice->{$entityKey};
+            
+            if (!$entity) {
+                continue;
+            }
+            
+            $entityName = $entity->name;
+            
+            if (!isset($aging[$entityId])) {
+                $aging[$entityId] = [
+                    'entity_id' => $entityId,
+                    'entity_name' => $entityName,
+                    'current' => 0,
+                    '30_days' => 0,
+                    '60_days' => 0,
+                    '90_days' => 0,
+                    'over_120' => 0,
+                    'total' => 0,
+                ];
+            }
+            
+            // Calculate days overdue (negative means overdue)
+            $daysOverdue = $asOfDate->diffInDays(Carbon::parse($invoice->due_date), false);
+            $balance = $invoice->balance ?? 0;
+            
+            // Categorize into aging buckets
+            if ($daysOverdue >= 0) {
+                // Not yet due
+                $aging[$entityId]['current'] += $balance;
+            } elseif ($daysOverdue > -30) {
+                // 1-30 days overdue
+                $aging[$entityId]['30_days'] += $balance;
+            } elseif ($daysOverdue > -60) {
+                // 31-60 days overdue
+                $aging[$entityId]['60_days'] += $balance;
+            } elseif ($daysOverdue > -90) {
+                // 61-90 days overdue
+                $aging[$entityId]['90_days'] += $balance;
+            } else {
+                // Over 90 days overdue
+                $aging[$entityId]['over_120'] += $balance;
+            }
+            
+            $aging[$entityId]['total'] += $balance;
+        }
+        
+        return array_values($aging);
     }
 }

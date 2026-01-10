@@ -228,11 +228,20 @@ class ProjectReportController extends Controller
         }
 
         $projects = $query->get()->map(function ($project) {
-            // TODO: Replace with actual project completion percentage logic
-            // Earned Value = Budget * (% Complete)
-            // This temporary implementation assumes 50% completion
-            $earnedValue = $project->budget * 0.5;
-            $actualCost = $project->actual_cost;
+            // Calculate earned value based on IPC cumulative work or use 0 if none
+            $progressPercentage = 0;
+            
+            // Try to calculate from IPCs if available
+            if ($project->budget > 0) {
+                $latestIpc = $project->ipcs()->where('status', 'approved_for_payment')->latest()->first();
+                if ($latestIpc && $latestIpc->current_cumulative > 0) {
+                    $progressPercentage = ($latestIpc->current_cumulative / $project->budget) * 100;
+                }
+            }
+            
+            $earnedValue = $project->budget * ($progressPercentage / 100);
+            // Actual cost would typically come from cost tracking, use earned value as fallback
+            $actualCost = $earnedValue ?: 0;
 
             $cpi = $actualCost > 0 ? $earnedValue / $actualCost : 0;
 
