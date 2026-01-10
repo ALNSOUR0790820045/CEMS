@@ -90,7 +90,7 @@ class ChangeOrderUnitTest extends TestCase
             'created_by' => $user->id,
         ]);
 
-        $this->assertInstanceOf(Contract::class, $co->originalContract);
+        $this->assertInstanceOf(Contract::class, $co->contract);
         $this->assertEquals($contract->id, $co->original_contract_id);
     }
 
