@@ -3,116 +3,79 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tender;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class TenderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $tenders = Tender::with('company')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
-
+        $tenders = Tender::with('company')->orderBy('created_at', 'desc')->paginate(20);
         return view('tenders.index', compact('tenders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('tenders.create');
+        $companies = Company::where('is_active', true)->get();
+        return view('tenders.create', compact('companies'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'tender_code' => 'required|unique:tenders,tender_code',
-            'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
+            'company_id' => 'required|exists:companies,id',
+            'code' => 'required|unique:tenders,code',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'client_name' => 'nullable|string|max:255',
-            'estimated_value' => 'nullable|numeric|min:0',
             'submission_date' => 'nullable|date',
-            'opening_date' => 'nullable|date',
-            'project_start_date' => 'nullable|date',
-            'project_duration_days' => 'nullable|integer|min:1',
-            'status' => 'required|in:draft,submitted,won,lost,cancelled',
+            'estimated_value' => 'nullable|numeric|min:0',
         ]);
 
         $tender = Tender::create($validated);
 
-        return redirect()->route('tenders.show', $tender)
-            ->with('success', 'Tender created successfully');
+        return redirect()->route('tender-risks.dashboard', $tender->id)
+            ->with('success', 'تم إنشاء العطاء بنجاح');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
-        $tender = Tender::with(['wbsItems', 'activities', 'milestones'])
-            ->findOrFail($id);
-
+        $tender = Tender::with('company', 'risks')->findOrFail($id);
         return view('tenders.show', compact('tender'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $tender = Tender::findOrFail($id);
-
-        return view('tenders.edit', compact('tender'));
+        $companies = Company::where('is_active', true)->get();
+        return view('tenders.edit', compact('tender', 'companies'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $tender = Tender::findOrFail($id);
 
         $validated = $request->validate([
-            'tender_code' => 'required|unique:tenders,tender_code,' . $id,
-            'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
+            'company_id' => 'required|exists:companies,id',
+            'code' => 'required|unique:tenders,code,' . $id,
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'client_name' => 'nullable|string|max:255',
-            'estimated_value' => 'nullable|numeric|min:0',
             'submission_date' => 'nullable|date',
-            'opening_date' => 'nullable|date',
-            'project_start_date' => 'nullable|date',
-            'project_duration_days' => 'nullable|integer|min:1',
-            'status' => 'required|in:draft,submitted,won,lost,cancelled',
+            'estimated_value' => 'nullable|numeric|min:0',
+            'status' => 'required|in:draft,submitted,won,lost',
         ]);
 
         $tender->update($validated);
 
-        return redirect()->route('tenders.show', $tender)
-            ->with('success', 'Tender updated successfully');
+        return redirect()->route('tenders.show', $tender->id)
+            ->with('success', 'تم تحديث العطاء بنجاح');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        try {
-            $tender = Tender::findOrFail($id);
-            $tender->delete();
+        $tender = Tender::findOrFail($id);
+        $tender->delete();
 
-            return redirect()->route('tenders.index')
-                ->with('success', 'Tender deleted successfully');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Failed to delete tender: ' . $e->getMessage());
-        }
+        return redirect()->route('tenders.index')
+            ->with('success', 'تم حذف العطاء بنجاح');
     }
 }

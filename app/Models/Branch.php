@@ -12,15 +12,12 @@ class Branch extends Model
         'name_en',
         'code',
         'phone',
-        'email',
         'address',
         'city_id',
-        'is_main',
         'is_active',
     ];
 
     protected $casts = [
-        'is_main' => 'boolean',
         'is_active' => 'boolean',
     ];
 
@@ -35,19 +32,14 @@ class Branch extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function departments()
+    public function warehouses()
     {
-        return $this->hasMany(Department::class);
+        return $this->hasMany(Warehouse::class);
     }
 
     // Scopes
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function scopeMain($query)
-    {
-        return $query->where('is_main', true);
     }
 }

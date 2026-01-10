@@ -15,10 +15,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed countries first
         $this->call([
-            PermissionSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
+            CountrySeeder::class,
+            CitySeeder::class,
+        ]);
+        
+        // User::factory(10)->create();
+
+        // Seed countries, cities, and currencies
+        $this->call([
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            TenderSeeder::class,
+        ]);
+
+        // Seed sample data for sales quotations
+        $this->call([
+            CustomerSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

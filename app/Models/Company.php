@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -22,20 +24,33 @@ class Company extends Model
         'tax_number',
         'logo',
         'is_active',
+        'established_date',
+        'license_number',
+        'license_expiry',
+        'settings',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'established_date' => 'date',
+        'license_expiry' => 'date',
+        'settings' => 'array',
     ];
 
+    // Accessors
+    public function getLogoUrlAttribute()
+    {
+        return $this->logo ? asset('storage/' . $this->logo) : asset('images/default-company.png');
+    }
+
     // Relationships
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    public function branches()
+    public function timeBarProtectionSettings(): HasMany
     {
-        return $this->hasMany(Branch::class);
+        return $this->hasMany(TimeBarProtectionSetting::class);
     }
 }
