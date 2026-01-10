@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,34 +11,6 @@ class MainIpc extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
-        'project_id',
-        'ipc_number',
-        'ipc_date',
-        'period_from',
-        'period_to',
-        'amount',
-        'previous_total',
-        'current_total',
-        'status',
-        'notes',
-    ];
-
-    protected $casts = [
-        'ipc_date' => 'date',
-        'period_from' => 'date',
-        'period_to' => 'date',
-        'amount' => 'decimal:2',
-        'previous_total' => 'decimal:2',
-        'current_total' => 'decimal:2',
-    ];
-
-    // Relationships
-    public function project(): BelongsTo
-=======
-
-class MainIpc extends Model
-{
     protected $fillable = [
         'project_id',
         'ipc_number',
@@ -127,49 +98,66 @@ class MainIpc extends Model
         'attachments' => 'array',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($model) {
+            // Set default retention_percent from project contract or system default
+            if (is_null($model->retention_percent)) {
+                $model->retention_percent = $model->project->contract->retention_percentage 
+                    ?? config('ipc.default_retention_percent', 10);
+            }
+            
+            // Set default tax_rate from system settings
+            if (is_null($model->tax_rate)) {
+                $model->tax_rate = config('ipc.default_tax_rate', 15);
+            }
+        });
+    }
+
     // Relationships
-    public function project()
->>>>>>> origin/main
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-<<<<<<< HEAD
-    public function priceEscalationCalculations(): HasMany
-    {
-        return $this->hasMany(PriceEscalationCalculation::class);
-=======
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(MainIpcItem::class);
     }
 
-    public function pmPreparer()
+    public function priceEscalationCalculations(): HasMany
+    {
+        return $this->hasMany(PriceEscalationCalculation::class);
+    }
+
+    public function pmPreparer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'pm_prepared_by');
     }
 
-    public function technicalReviewer()
+    public function technicalReviewer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'technical_reviewed_by');
     }
 
-    public function consultantReviewer()
+    public function consultantReviewer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'consultant_reviewed_by');
     }
 
-    public function clientApprover()
+    public function clientApprover(): BelongsTo
     {
         return $this->belongsTo(User::class, 'client_approved_by');
     }
 
-    public function financeReviewer()
+    public function financeReviewer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'finance_reviewed_by');
     }
 
-    public function paidByUser()
+    public function paidByUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'paid_by');
     }
@@ -299,6 +287,5 @@ class MainIpc extends Model
     public function scopeApproved($query)
     {
         return $query->whereIn('status', ['approved_for_payment', 'paid']);
->>>>>>> origin/main
     }
 }

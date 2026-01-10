@@ -326,15 +326,22 @@ class ChangeOrderController extends Controller
             return back()->with('error', 'تم إرسال أمر التغيير بالفعل');
         }
 
-        // TODO: Assign PM user based on project configuration or user roles
-        // This is a placeholder implementation - replace with actual logic
-        // Examples:
-        // - Get PM from project: $changeOrder->pm_user_id = $changeOrder->project->pm_user_id;
-        // - Get PM from role: $changeOrder->pm_user_id = User::role('project-manager')->first()->id;
-        // - Get PM from assignment: $changeOrder->pm_user_id = ProjectAssignment::where('project_id', ...)->first()->user_id;
+        // Assign PM user based on project configuration
         if (!$changeOrder->pm_user_id) {
-            // Temporary fallback: use current user (should be replaced)
-            $changeOrder->pm_user_id = Auth::id();
+            // Try to get PM from project team
+            $pmUser = $changeOrder->project->load('company')->company
+                ->users()
+                ->whereHas('roles', function($q) {
+                    $q->where('name', 'project-manager');
+                })
+                ->first();
+
+            if ($pmUser) {
+                $changeOrder->pm_user_id = $pmUser->id;
+            } else {
+                // Fallback to current user if no PM found
+                $changeOrder->pm_user_id = Auth::id();
+            }
         }
 
         $changeOrder->update(['status' => 'pending_pm']);

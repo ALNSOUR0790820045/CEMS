@@ -31,14 +31,14 @@ return new class extends Migration
             $table->decimal('approved_change_orders', 15, 2)->default(0);
             
             // الخصومات
-            $table->decimal('retention_percent', 5, 2)->default(10.00); // 10%
+            $table->decimal('retention_percent', 5, 2)->nullable();
             $table->decimal('retention_amount', 15, 2)->default(0);
             $table->decimal('advance_payment_deduction', 15, 2)->default(0);
             $table->decimal('other_deductions', 15, 2)->default(0);
             $table->text('deductions_notes')->nullable();
             
             // الضرائب
-            $table->decimal('tax_rate', 5, 2)->default(16.00); // 16%
+            $table->decimal('tax_rate', 5, 2)->nullable();
             $table->decimal('tax_amount', 15, 2)->default(0);
             
             // المبلغ الصافي
