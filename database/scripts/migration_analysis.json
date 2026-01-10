@@ -1,6 +1,6 @@
 {
     "version": "1.0",
-    "generated_at": "2026-01-10 21:10:58",
+    "generated_at": "2026-01-10 21:12:40",
     "statistics": {
         "total_files": 349,
         "total_tables": 350,
@@ -2390,8 +2390,8 @@
             "table": "equipment_assignments",
             "type": "create",
             "foreign_keys": {
+                "equipment_id": "equipment",
                 "assigned_by": "users",
-                "equipment_id": "equipments",
                 "project_id": "projects"
             },
             "indexes": [],
@@ -2426,8 +2426,8 @@
             "table": "equipment_fuel_logs",
             "type": "create",
             "foreign_keys": {
-                "recorded_by": "users",
-                "equipment_id": "equipments"
+                "equipment_id": "equipment",
+                "recorded_by": "users"
             },
             "indexes": [],
             "uniques": [],
@@ -2439,7 +2439,7 @@
             "table": "equipment_maintenance",
             "type": "create",
             "foreign_keys": {
-                "equipment_id": "equipments"
+                "equipment_id": "equipment"
             },
             "indexes": [],
             "uniques": [],
@@ -2451,8 +2451,8 @@
             "table": "equipment_transfers",
             "type": "create",
             "foreign_keys": {
-                "approved_by": "users",
-                "equipment_id": "equipments"
+                "equipment_id": "equipment",
+                "approved_by": "users"
             },
             "indexes": [],
             "uniques": [],
@@ -2464,8 +2464,8 @@
             "table": "equipment_usage",
             "type": "create",
             "foreign_keys": {
-                "recorded_by": "users",
-                "equipment_id": "equipments"
+                "equipment_id": "equipment",
+                "recorded_by": "users"
             },
             "indexes": [],
             "uniques": [],
@@ -2643,8 +2643,8 @@
             "type": "create",
             "foreign_keys": {
                 "created_by": "users",
+                "correspondence_id": "correspondence",
                 "uploaded_by": "users",
-                "correspondence_id": "correspondences",
                 "user_id": "users"
             },
             "indexes": [],
@@ -2658,8 +2658,8 @@
             "type": "create",
             "foreign_keys": {
                 "created_by": "users",
+                "correspondence_id": "correspondence",
                 "uploaded_by": "users",
-                "correspondence_id": "correspondences",
                 "user_id": "users"
             },
             "indexes": [],
@@ -2673,8 +2673,8 @@
             "type": "create",
             "foreign_keys": {
                 "created_by": "users",
+                "correspondence_id": "correspondence",
                 "uploaded_by": "users",
-                "correspondence_id": "correspondences",
                 "user_id": "users"
             },
             "indexes": [],
@@ -2688,8 +2688,8 @@
             "type": "create",
             "foreign_keys": {
                 "created_by": "users",
+                "correspondence_id": "correspondence",
                 "uploaded_by": "users",
-                "correspondence_id": "correspondences",
                 "user_id": "users"
             },
             "indexes": [],
@@ -2703,8 +2703,8 @@
             "type": "create",
             "foreign_keys": {
                 "created_by": "users",
+                "correspondence_id": "correspondence",
                 "uploaded_by": "users",
-                "correspondence_id": "correspondences",
                 "user_id": "users"
             },
             "indexes": [],
@@ -2718,8 +2718,8 @@
             "type": "create",
             "foreign_keys": {
                 "created_by": "users",
+                "correspondence_id": "correspondence",
                 "uploaded_by": "users",
-                "correspondence_id": "correspondences",
                 "user_id": "users"
             },
             "indexes": [],
@@ -3918,7 +3918,7 @@
             "table": "defect_notifications",
             "type": "create",
             "foreign_keys": {
-                "defects_liability_id": "defects_liabilities"
+                "defects_liability_id": "defects_liability"
             },
             "indexes": [],
             "uniques": [],
