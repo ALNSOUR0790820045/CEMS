@@ -1,105 +1,17 @@
 {
-    "generated_at": "2026-01-10 21:12:51",
+    "generated_at": "2026-01-10 21:16:10",
     "total_migrations": 349,
     "statistics": {
         "total_migrations": 349,
         "total_tables": 335,
         "total_foreign_keys": 939,
-        "critical_issues": 29,
+        "critical_issues": 5,
         "high_issues": 0,
         "medium_issues": 51,
         "low_issues": 11
     },
     "issues": {
         "critical": [
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_02_211857_create_daily_report_photos_table.php",
-                "table": "daily_report_photos",
-                "column": "daily_report_id",
-                "references": "daily_reports",
-                "issue": "Table 'daily_report_photos' references 'daily_reports' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'daily_reports' is created first in the file",
-                "table_timestamp": "2026_01_02_211857",
-                "referenced_timestamp": "2026_01_02_211857"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_02_212443_create_project_timesheets_table.php",
-                "table": "project_timesheets",
-                "column": "employee_id",
-                "references": "employees",
-                "issue": "Table 'project_timesheets' references 'employees' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'employees' is created first in the file",
-                "table_timestamp": "2026_01_02_212443",
-                "referenced_timestamp": "2026_01_02_212443"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-                "table": "tender_wbs_boq_mapping",
-                "column": "tender_wbs_id",
-                "references": "tender_wbs",
-                "issue": "Table 'tender_wbs_boq_mapping' references 'tender_wbs' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'tender_wbs' is created first in the file",
-                "table_timestamp": "2026_01_02_214414",
-                "referenced_timestamp": "2026_01_02_214414"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-                "table": "tender_wbs_boq_mapping",
-                "column": "tender_boq_item_id",
-                "references": "tender_boq_items",
-                "issue": "Table 'tender_wbs_boq_mapping' references 'tender_boq_items' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'tender_boq_items' is created first in the file",
-                "table_timestamp": "2026_01_02_214414",
-                "referenced_timestamp": "2026_01_02_214414"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_03_182434_create_subcontractor_contacts_table.php",
-                "table": "subcontractor_contacts",
-                "column": "subcontractor_id",
-                "references": "subcontractors",
-                "issue": "Table 'subcontractor_contacts' references 'subcontractors' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'subcontractors' is created first in the file",
-                "table_timestamp": "2026_01_03_182434",
-                "referenced_timestamp": "2026_01_03_182434"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_03_200917_create_a_r_invoice_items_table.php",
-                "table": "a_r_invoice_items",
-                "column": "a_r_invoice_id",
-                "references": "a_r_invoices",
-                "issue": "Table 'a_r_invoice_items' references 'a_r_invoices' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'a_r_invoices' is created first in the file",
-                "table_timestamp": "2026_01_03_200917",
-                "referenced_timestamp": "2026_01_03_200917"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
-                "table": "a_r_receipt_allocations",
-                "column": "a_r_receipt_id",
-                "references": "a_r_receipts",
-                "issue": "Table 'a_r_receipt_allocations' references 'a_r_receipts' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'a_r_receipts' is created first in the file",
-                "table_timestamp": "2026_01_03_200918",
-                "referenced_timestamp": "2026_01_03_200918"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_03_202710_create_g_r_n_items_table.php",
-                "table": "grn_items",
-                "column": "grn_id",
-                "references": "grns",
-                "issue": "Table 'grn_items' references 'grns' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'grns' is created first in the file",
-                "table_timestamp": "2026_01_03_202710",
-                "referenced_timestamp": "2026_01_03_202710"
-            },
             {
                 "type": "missing_referenced_table",
                 "file": "2026_01_04_075224_create_document_access_table.php",
@@ -110,84 +22,6 @@
                 "fix": "Create migration for 'roles' table or fix the reference"
             },
             {
-                "type": "foreign_key_order",
-                "file": "2026_01_04_075917_create_warehouse_stock_table.php",
-                "table": "warehouse_stock",
-                "column": "location_id",
-                "references": "warehouse_locations",
-                "issue": "Table 'warehouse_stock' references 'warehouse_locations' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'warehouse_locations' is created first in the file",
-                "table_timestamp": "2026_01_04_075917",
-                "referenced_timestamp": "2026_01_04_075917"
-            },
-            {
-                "type": "missing_referenced_table",
-                "file": "2026_01_04_205740_create_equipment_assignments_table.php",
-                "table": "equipment_assignments",
-                "column": "equipment_id",
-                "references": "equipments",
-                "issue": "References table 'equipments' which doesn't exist in migrations",
-                "fix": "Create migration for 'equipments' table or fix the reference"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_04_205740_create_equipment_table.php",
-                "table": "equipment",
-                "column": "category_id",
-                "references": "equipment_categories",
-                "issue": "Table 'equipment' references 'equipment_categories' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'equipment_categories' is created first in the file",
-                "table_timestamp": "2026_01_04_205740",
-                "referenced_timestamp": "2026_01_04_205740"
-            },
-            {
-                "type": "missing_referenced_table",
-                "file": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
-                "table": "equipment_fuel_logs",
-                "column": "equipment_id",
-                "references": "equipments",
-                "issue": "References table 'equipments' which doesn't exist in migrations",
-                "fix": "Create migration for 'equipments' table or fix the reference"
-            },
-            {
-                "type": "missing_referenced_table",
-                "file": "2026_01_04_205751_create_equipment_maintenance_table.php",
-                "table": "equipment_maintenance",
-                "column": "equipment_id",
-                "references": "equipments",
-                "issue": "References table 'equipments' which doesn't exist in migrations",
-                "fix": "Create migration for 'equipments' table or fix the reference"
-            },
-            {
-                "type": "missing_referenced_table",
-                "file": "2026_01_04_205751_create_equipment_transfers_table.php",
-                "table": "equipment_transfers",
-                "column": "equipment_id",
-                "references": "equipments",
-                "issue": "References table 'equipments' which doesn't exist in migrations",
-                "fix": "Create migration for 'equipments' table or fix the reference"
-            },
-            {
-                "type": "missing_referenced_table",
-                "file": "2026_01_04_205751_create_equipment_usage_table.php",
-                "table": "equipment_usage",
-                "column": "equipment_id",
-                "references": "equipments",
-                "issue": "References table 'equipments' which doesn't exist in migrations",
-                "fix": "Create migration for 'equipments' table or fix the reference"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_04_210006_create_time_bar_alerts_table.php",
-                "table": "time_bar_alerts",
-                "column": "event_id",
-                "references": "time_bar_events",
-                "issue": "Table 'time_bar_alerts' is created before 'time_bar_events' but references it",
-                "fix": "Rename migration file to run after '2026_01_04_211831_create_time_bar_events_table.php'",
-                "table_timestamp": "2026_01_04_210006",
-                "referenced_timestamp": "2026_01_04_211831"
-            },
-            {
                 "type": "missing_referenced_table",
                 "file": "2026_01_04_211830_create_correspondence_tables.php",
                 "table": "correspondence",
@@ -216,106 +50,20 @@
             },
             {
                 "type": "foreign_key_order",
-                "file": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
-                "table": "unforeseeable_conditions_evidence",
-                "column": "condition_id",
-                "references": "unforeseeable_conditions",
-                "issue": "Table 'unforeseeable_conditions_evidence' references 'unforeseeable_conditions' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'unforeseeable_conditions' is created first in the file",
-                "table_timestamp": "2026_01_04_213708",
-                "referenced_timestamp": "2026_01_04_213708"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_04_214214_create_price_list_items_table.php",
-                "table": "price_list_items",
-                "column": "price_list_id",
-                "references": "price_lists",
-                "issue": "Table 'price_list_items' references 'price_lists' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'price_lists' is created first in the file",
-                "table_timestamp": "2026_01_04_214214",
-                "referenced_timestamp": "2026_01_04_214214"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_04_214215_create_price_request_items_table.php",
-                "table": "price_request_items",
-                "column": "price_request_id",
-                "references": "price_requests",
-                "issue": "Table 'price_request_items' references 'price_requests' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'price_requests' is created first in the file",
-                "table_timestamp": "2026_01_04_214215",
-                "referenced_timestamp": "2026_01_04_214215"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_07_183818_create_material_request_items_table.php",
-                "table": "material_request_items",
-                "column": "material_request_id",
-                "references": "material_requests",
-                "issue": "Table 'material_request_items' references 'material_requests' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'material_requests' is created first in the file",
-                "table_timestamp": "2026_01_07_183818",
-                "referenced_timestamp": "2026_01_07_183818"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_07_190647_create_kpi_values_table.php",
-                "table": "kpi_values",
-                "column": "kpi_definition_id",
-                "references": "kpi_definitions",
-                "issue": "Table 'kpi_values' references 'kpi_definitions' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'kpi_definitions' is created first in the file",
-                "table_timestamp": "2026_01_07_190647",
-                "referenced_timestamp": "2026_01_07_190647"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_07_193207_create_po_receipt_items_table.php",
-                "table": "po_receipt_items",
-                "column": "po_receipt_id",
-                "references": "po_receipts",
-                "issue": "Table 'po_receipt_items' references 'po_receipts' but they are created in the same migration file",
-                "fix": "Split into separate migration files or ensure 'po_receipts' is created first in the file",
-                "table_timestamp": "2026_01_07_193207",
-                "referenced_timestamp": "2026_01_07_193207"
-            },
-            {
-                "type": "missing_referenced_table",
-                "file": "2026_01_09_150007_create_defect_notifications_table.php",
-                "table": "defect_notifications",
-                "column": "defects_liability_id",
-                "references": "defects_liabilities",
-                "issue": "References table 'defects_liabilities' which doesn't exist in migrations",
-                "fix": "Create migration for 'defects_liabilities' table or fix the reference"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_09_152031_create_photos_table.php",
-                "table": "photos",
-                "column": "album_id",
-                "references": "photo_albums",
-                "issue": "Table 'photos' is created before 'photo_albums' but references it",
-                "fix": "Rename migration file to run after '2026_01_09_152032_create_photo_albums_table.php'",
-                "table_timestamp": "2026_01_09_152031",
-                "referenced_timestamp": "2026_01_09_152032"
-            },
-            {
-                "type": "foreign_key_order",
-                "file": "2026_01_09_152032_create_photo_report_items_table.php",
-                "table": "photo_report_items",
-                "column": "photo_report_id",
-                "references": "photo_reports",
-                "issue": "Table 'photo_report_items' is created before 'photo_reports' but references it",
-                "fix": "Rename migration file to run after '2026_01_09_152035_create_photo_reports_table.php'",
-                "table_timestamp": "2026_01_09_152032",
-                "referenced_timestamp": "2026_01_09_152035"
+                "file": "2026_01_09_152030_create_photo_albums_table.php",
+                "table": "photo_albums",
+                "column": "cover_photo_id",
+                "references": "photos",
+                "issue": "Table 'photo_albums' is created before 'photos' but references it",
+                "fix": "Rename migration file to run after '2026_01_09_152031_create_photos_table.php'",
+                "table_timestamp": "2026_01_09_152030",
+                "referenced_timestamp": "2026_01_09_152031"
             }
         ],
         "medium": [
             {
                 "type": "no_columns_extracted",
-                "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+                "file": "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
                 "table": "tender_wbs_boq_mapping",
                 "issue": "No columns could be extracted (may be a parsing limitation)"
             },
@@ -408,13 +156,13 @@
                         "table": "a_r_invoice_items",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php"
+                        "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php"
                     },
                     {
                         "table": "warehouse_stock",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_04_075917_create_warehouse_stock_table.php"
+                        "migration": "2026_01_04_075918_create_warehouse_stock_table.php"
                     },
                     {
                         "table": "equipment_fuel_logs",
@@ -432,7 +180,7 @@
                         "table": "price_request_items",
                         "precision": "15",
                         "scale": "4",
-                        "migration": "2026_01_04_214215_create_price_request_items_table.php"
+                        "migration": "2026_01_04_214216_create_price_request_items_table.php"
                     },
                     {
                         "table": "pr_quote_items",
@@ -524,7 +272,7 @@
                         "table": "a_r_invoice_items",
                         "precision": "12",
                         "scale": "2",
-                        "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php"
+                        "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php"
                     },
                     {
                         "table": "material_vendors",
@@ -536,7 +284,7 @@
                         "table": "grn_items",
                         "precision": "12",
                         "scale": "2",
-                        "migration": "2026_01_03_202710_create_g_r_n_items_table.php"
+                        "migration": "2026_01_03_202711_create_g_r_n_items_table.php"
                     },
                     {
                         "table": "equipment_fuel_logs",
@@ -548,7 +296,7 @@
                         "table": "price_list_items",
                         "precision": "15",
                         "scale": "4",
-                        "migration": "2026_01_04_214214_create_price_list_items_table.php"
+                        "migration": "2026_01_04_214215_create_price_list_items_table.php"
                     },
                     {
                         "table": "price_quotation_items",
@@ -560,7 +308,7 @@
                         "table": "material_request_items",
                         "precision": "15",
                         "scale": "2",
-                        "migration": "2026_01_07_183818_create_material_request_items_table.php"
+                        "migration": "2026_01_07_183819_create_material_request_items_table.php"
                     },
                     {
                         "table": "pr_quote_items",
@@ -598,7 +346,7 @@
                         "table": "material_request_items",
                         "precision": "15",
                         "scale": "2",
-                        "migration": "2026_01_07_183818_create_material_request_items_table.php"
+                        "migration": "2026_01_07_183819_create_material_request_items_table.php"
                     },
                     {
                         "table": "pr_quote_items",
@@ -824,7 +572,7 @@
                         "table": "grn_items",
                         "precision": "15",
                         "scale": "2",
-                        "migration": "2026_01_03_202710_create_g_r_n_items_table.php"
+                        "migration": "2026_01_03_202711_create_g_r_n_items_table.php"
                     },
                     {
                         "table": "labor_timesheets",
@@ -916,7 +664,7 @@
                         "table": "a_r_invoice_items",
                         "precision": "15",
                         "scale": "2",
-                        "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php"
+                        "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php"
                     },
                     {
                         "table": "a_r_receipts",
@@ -1252,7 +1000,7 @@
                         "table": "project_timesheets",
                         "precision": "5",
                         "scale": "2",
-                        "migration": "2026_01_02_212443_create_project_timesheets_table.php"
+                        "migration": "2026_01_02_212444_create_project_timesheets_table.php"
                     },
                     {
                         "table": "labor_daily_attendance",
@@ -1272,7 +1020,7 @@
                         "table": "project_timesheets",
                         "precision": "5",
                         "scale": "2",
-                        "migration": "2026_01_02_212443_create_project_timesheets_table.php"
+                        "migration": "2026_01_02_212444_create_project_timesheets_table.php"
                     },
                     {
                         "table": "payroll_entries",
@@ -1310,7 +1058,7 @@
                         "table": "project_timesheets",
                         "precision": "5",
                         "scale": "2",
-                        "migration": "2026_01_02_212443_create_project_timesheets_table.php"
+                        "migration": "2026_01_02_212444_create_project_timesheets_table.php"
                     },
                     {
                         "table": "labor_daily_attendance",
@@ -1336,7 +1084,7 @@
                         "table": "project_timesheets",
                         "precision": "15",
                         "scale": "2",
-                        "migration": "2026_01_02_212443_create_project_timesheets_table.php"
+                        "migration": "2026_01_02_212444_create_project_timesheets_table.php"
                     },
                     {
                         "table": "tender_resource_assignments",
@@ -1432,7 +1180,7 @@
                         "table": "equipment",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_04_205740_create_equipment_table.php"
+                        "migration": "2026_01_04_205741_create_equipment_table.php"
                     }
                 ],
                 "fix": "Standardize decimal precision across all tables"
@@ -1510,7 +1258,7 @@
                         "table": "grn_items",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_03_202710_create_g_r_n_items_table.php"
+                        "migration": "2026_01_03_202711_create_g_r_n_items_table.php"
                     }
                 ],
                 "fix": "Standardize decimal precision across all tables"
@@ -1536,7 +1284,7 @@
                         "table": "grn_items",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_03_202710_create_g_r_n_items_table.php"
+                        "migration": "2026_01_03_202711_create_g_r_n_items_table.php"
                     }
                 ],
                 "fix": "Standardize decimal precision across all tables"
@@ -1556,7 +1304,7 @@
                         "table": "grn_items",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_03_202710_create_g_r_n_items_table.php"
+                        "migration": "2026_01_03_202711_create_g_r_n_items_table.php"
                     }
                 ],
                 "fix": "Standardize decimal precision across all tables"
@@ -1576,7 +1324,7 @@
                         "table": "grn_items",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_03_202710_create_g_r_n_items_table.php"
+                        "migration": "2026_01_03_202711_create_g_r_n_items_table.php"
                     }
                 ],
                 "fix": "Standardize decimal precision across all tables"
@@ -1740,7 +1488,7 @@
                         "table": "a_r_receipt_allocations",
                         "precision": "15",
                         "scale": "2",
-                        "migration": "2026_01_03_200918_create_a_r_receipt_allocations_table.php"
+                        "migration": "2026_01_03_200919_create_a_r_receipt_allocations_table.php"
                     },
                     {
                         "table": "cost_plus_overhead_allocations",
@@ -1858,7 +1606,7 @@
                         "table": "kpi_values",
                         "precision": "18",
                         "scale": "2",
-                        "migration": "2026_01_07_190647_create_kpi_values_table.php"
+                        "migration": "2026_01_07_190648_create_kpi_values_table.php"
                     },
                     {
                         "table": "cash_forecasts",
@@ -1898,7 +1646,7 @@
                         "table": "kpi_values",
                         "precision": "8",
                         "scale": "2",
-                        "migration": "2026_01_07_190647_create_kpi_values_table.php"
+                        "migration": "2026_01_07_190648_create_kpi_values_table.php"
                     },
                     {
                         "table": "project_budget_items",
@@ -1924,7 +1672,7 @@
                         "table": "po_receipt_items",
                         "precision": "10",
                         "scale": "2",
-                        "migration": "2026_01_07_193207_create_po_receipt_items_table.php"
+                        "migration": "2026_01_07_193208_create_po_receipt_items_table.php"
                     },
                     {
                         "table": "diary_materials",
@@ -2362,18 +2110,18 @@
             },
             {
                 "type": "naming_convention",
-                "file": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
-                "table": "a_r_receipt_allocations",
-                "issue": "Table name uses inconsistent underscore pattern",
-                "suggestion": "ar_receipt_allocations",
-                "fix": "Rename table to follow consistent naming convention"
-            },
-            {
-                "type": "naming_convention",
                 "file": "2026_01_03_200918_create_a_r_receipts_table.php",
                 "table": "a_r_receipts",
                 "issue": "Table name uses inconsistent underscore pattern",
                 "suggestion": "ar_receipts or accounts_receivable_receipts",
+                "fix": "Rename table to follow consistent naming convention"
+            },
+            {
+                "type": "naming_convention",
+                "file": "2026_01_03_200919_create_a_r_receipt_allocations_table.php",
+                "table": "a_r_receipt_allocations",
+                "issue": "Table name uses inconsistent underscore pattern",
+                "suggestion": "ar_receipt_allocations",
                 "fix": "Rename table to follow consistent naming convention"
             }
         ]
@@ -4362,78 +4110,6 @@
                 }
             ]
         },
-        "daily_report_photos": {
-            "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-            "timestamp": "2026_01_02_211857",
-            "foreign_keys": [
-                {
-                    "table": "daily_report_photos",
-                    "column": "daily_report_id",
-                    "references": "daily_reports",
-                    "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-                    "timestamp": "2026_01_02_211857",
-                    "is_modification": false
-                },
-                {
-                    "table": "daily_report_photos",
-                    "column": "activity_id",
-                    "references": "project_activities",
-                    "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-                    "timestamp": "2026_01_02_211857",
-                    "is_modification": false
-                },
-                {
-                    "table": "daily_report_photos",
-                    "column": "uploaded_by",
-                    "references": "users",
-                    "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-                    "timestamp": "2026_01_02_211857",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "latitude",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "8"
-                },
-                {
-                    "name": "longitude",
-                    "type": "decimal",
-                    "precision": "11",
-                    "scale": "8"
-                },
-                {
-                    "name": "photo_path",
-                    "type": "string"
-                },
-                {
-                    "name": "photo_title",
-                    "type": "string"
-                },
-                {
-                    "name": "device_info",
-                    "type": "string"
-                },
-                {
-                    "name": "location_name",
-                    "type": "string"
-                },
-                {
-                    "name": "hash",
-                    "type": "string"
-                },
-                {
-                    "name": "category",
-                    "type": "enum"
-                },
-                {
-                    "name": "description",
-                    "type": "text"
-                }
-            ]
-        },
         "daily_reports": {
             "migration": "2026_01_02_211857_create_daily_reports_table.php",
             "timestamp": "2026_01_02_211857",
@@ -4561,6 +4237,78 @@
                 {
                     "name": "workers_count",
                     "type": "integer"
+                }
+            ]
+        },
+        "daily_report_photos": {
+            "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211858",
+            "foreign_keys": [
+                {
+                    "table": "daily_report_photos",
+                    "column": "daily_report_id",
+                    "references": "daily_reports",
+                    "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+                    "timestamp": "2026_01_02_211858",
+                    "is_modification": false
+                },
+                {
+                    "table": "daily_report_photos",
+                    "column": "activity_id",
+                    "references": "project_activities",
+                    "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+                    "timestamp": "2026_01_02_211858",
+                    "is_modification": false
+                },
+                {
+                    "table": "daily_report_photos",
+                    "column": "uploaded_by",
+                    "references": "users",
+                    "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+                    "timestamp": "2026_01_02_211858",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "latitude",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "8"
+                },
+                {
+                    "name": "longitude",
+                    "type": "decimal",
+                    "precision": "11",
+                    "scale": "8"
+                },
+                {
+                    "name": "photo_path",
+                    "type": "string"
+                },
+                {
+                    "name": "photo_title",
+                    "type": "string"
+                },
+                {
+                    "name": "device_info",
+                    "type": "string"
+                },
+                {
+                    "name": "location_name",
+                    "type": "string"
+                },
+                {
+                    "name": "hash",
+                    "type": "string"
+                },
+                {
+                    "name": "category",
+                    "type": "enum"
+                },
+                {
+                    "name": "description",
+                    "type": "text"
                 }
             ]
         },
@@ -4779,39 +4527,39 @@
             ]
         },
         "project_timesheets": {
-            "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-            "timestamp": "2026_01_02_212443",
+            "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212444",
             "foreign_keys": [
                 {
                     "table": "project_timesheets",
                     "column": "project_id",
                     "references": "projects",
-                    "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-                    "timestamp": "2026_01_02_212443",
+                    "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+                    "timestamp": "2026_01_02_212444",
                     "is_modification": false
                 },
                 {
                     "table": "project_timesheets",
                     "column": "activity_id",
                     "references": "project_activities",
-                    "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-                    "timestamp": "2026_01_02_212443",
+                    "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+                    "timestamp": "2026_01_02_212444",
                     "is_modification": false
                 },
                 {
                     "table": "project_timesheets",
                     "column": "employee_id",
                     "references": "employees",
-                    "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-                    "timestamp": "2026_01_02_212443",
+                    "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+                    "timestamp": "2026_01_02_212444",
                     "is_modification": false
                 },
                 {
                     "table": "project_timesheets",
                     "column": "approved_by",
                     "references": "users",
-                    "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-                    "timestamp": "2026_01_02_212443",
+                    "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+                    "timestamp": "2026_01_02_212444",
                     "is_modification": false
                 }
             ],
@@ -5278,29 +5026,6 @@
                 }
             ]
         },
-        "tender_wbs_boq_mapping": {
-            "migration": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-            "timestamp": "2026_01_02_214414",
-            "foreign_keys": [
-                {
-                    "table": "tender_wbs_boq_mapping",
-                    "column": "tender_wbs_id",
-                    "references": "tender_wbs",
-                    "migration": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-                    "timestamp": "2026_01_02_214414",
-                    "is_modification": false
-                },
-                {
-                    "table": "tender_wbs_boq_mapping",
-                    "column": "tender_boq_item_id",
-                    "references": "tender_boq_items",
-                    "migration": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-                    "timestamp": "2026_01_02_214414",
-                    "is_modification": false
-                }
-            ],
-            "columns": []
-        },
         "tender_wbs": {
             "migration": "2026_01_02_214414_create_tender_wbs_table.php",
             "timestamp": "2026_01_02_214414",
@@ -5388,6 +5113,29 @@
                     "type": "integer"
                 }
             ]
+        },
+        "tender_wbs_boq_mapping": {
+            "migration": "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214415",
+            "foreign_keys": [
+                {
+                    "table": "tender_wbs_boq_mapping",
+                    "column": "tender_wbs_id",
+                    "references": "tender_wbs",
+                    "migration": "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
+                    "timestamp": "2026_01_02_214415",
+                    "is_modification": false
+                },
+                {
+                    "table": "tender_wbs_boq_mapping",
+                    "column": "tender_boq_item_id",
+                    "references": "tender_boq_items",
+                    "migration": "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
+                    "timestamp": "2026_01_02_214415",
+                    "is_modification": false
+                }
+            ],
+            "columns": []
         },
         "tender_procurement_packages": {
             "migration": "2026_01_02_220200_create_tender_procurement_tables.php",
@@ -8414,54 +8162,6 @@
                 }
             ]
         },
-        "subcontractor_contacts": {
-            "migration": "2026_01_03_182434_create_subcontractor_contacts_table.php",
-            "timestamp": "2026_01_03_182434",
-            "foreign_keys": [
-                {
-                    "table": "subcontractor_contacts",
-                    "column": "subcontractor_id",
-                    "references": "subcontractors",
-                    "migration": "2026_01_03_182434_create_subcontractor_contacts_table.php",
-                    "timestamp": "2026_01_03_182434",
-                    "is_modification": false
-                },
-                {
-                    "table": "subcontractor_contacts",
-                    "column": "company_id",
-                    "references": "companies",
-                    "migration": "2026_01_03_182434_create_subcontractor_contacts_table.php",
-                    "timestamp": "2026_01_03_182434",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "full_name",
-                    "type": "string"
-                },
-                {
-                    "name": "job_title",
-                    "type": "string"
-                },
-                {
-                    "name": "department",
-                    "type": "string"
-                },
-                {
-                    "name": "phone",
-                    "type": "string"
-                },
-                {
-                    "name": "mobile",
-                    "type": "string"
-                },
-                {
-                    "name": "email",
-                    "type": "string"
-                }
-            ]
-        },
         "subcontractors": {
             "migration": "2026_01_03_182434_create_subcontractors_table.php",
             "timestamp": "2026_01_03_182434",
@@ -8781,6 +8481,54 @@
                 {
                     "name": "notes",
                     "type": "text"
+                }
+            ]
+        },
+        "subcontractor_contacts": {
+            "migration": "2026_01_03_182435_create_subcontractor_contacts_table.php",
+            "timestamp": "2026_01_03_182435",
+            "foreign_keys": [
+                {
+                    "table": "subcontractor_contacts",
+                    "column": "subcontractor_id",
+                    "references": "subcontractors",
+                    "migration": "2026_01_03_182435_create_subcontractor_contacts_table.php",
+                    "timestamp": "2026_01_03_182435",
+                    "is_modification": false
+                },
+                {
+                    "table": "subcontractor_contacts",
+                    "column": "company_id",
+                    "references": "companies",
+                    "migration": "2026_01_03_182435_create_subcontractor_contacts_table.php",
+                    "timestamp": "2026_01_03_182435",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "full_name",
+                    "type": "string"
+                },
+                {
+                    "name": "job_title",
+                    "type": "string"
+                },
+                {
+                    "name": "department",
+                    "type": "string"
+                },
+                {
+                    "name": "phone",
+                    "type": "string"
+                },
+                {
+                    "name": "mobile",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
                 }
             ]
         },
@@ -10114,52 +9862,6 @@
                 }
             ]
         },
-        "a_r_invoice_items": {
-            "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php",
-            "timestamp": "2026_01_03_200917",
-            "foreign_keys": [
-                {
-                    "table": "a_r_invoice_items",
-                    "column": "a_r_invoice_id",
-                    "references": "a_r_invoices",
-                    "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php",
-                    "timestamp": "2026_01_03_200917",
-                    "is_modification": false
-                },
-                {
-                    "table": "a_r_invoice_items",
-                    "column": "gl_account_id",
-                    "references": "g_l_accounts",
-                    "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php",
-                    "timestamp": "2026_01_03_200917",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "quantity",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "unit_price",
-                    "type": "decimal",
-                    "precision": "12",
-                    "scale": "2"
-                },
-                {
-                    "name": "amount",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "description",
-                    "type": "text"
-                }
-            ]
-        },
         "a_r_invoices": {
             "migration": "2026_01_03_200917_create_a_r_invoices_table.php",
             "timestamp": "2026_01_03_200917",
@@ -10294,33 +9996,49 @@
                 }
             ]
         },
-        "a_r_receipt_allocations": {
-            "migration": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+        "a_r_invoice_items": {
+            "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php",
             "timestamp": "2026_01_03_200918",
             "foreign_keys": [
                 {
-                    "table": "a_r_receipt_allocations",
-                    "column": "a_r_receipt_id",
-                    "references": "a_r_receipts",
-                    "migration": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+                    "table": "a_r_invoice_items",
+                    "column": "a_r_invoice_id",
+                    "references": "a_r_invoices",
+                    "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php",
                     "timestamp": "2026_01_03_200918",
                     "is_modification": false
                 },
                 {
-                    "table": "a_r_receipt_allocations",
-                    "column": "a_r_invoice_id",
-                    "references": "a_r_invoices",
-                    "migration": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+                    "table": "a_r_invoice_items",
+                    "column": "gl_account_id",
+                    "references": "g_l_accounts",
+                    "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php",
                     "timestamp": "2026_01_03_200918",
                     "is_modification": false
                 }
             ],
             "columns": [
                 {
-                    "name": "allocated_amount",
+                    "name": "quantity",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "unit_price",
+                    "type": "decimal",
+                    "precision": "12",
+                    "scale": "2"
+                },
+                {
+                    "name": "amount",
                     "type": "decimal",
                     "precision": "15",
                     "scale": "2"
+                },
+                {
+                    "name": "description",
+                    "type": "text"
                 }
             ]
         },
@@ -10409,6 +10127,36 @@
                 {
                     "name": "gl_journal_entry_id",
                     "type": "integer"
+                }
+            ]
+        },
+        "a_r_receipt_allocations": {
+            "migration": "2026_01_03_200919_create_a_r_receipt_allocations_table.php",
+            "timestamp": "2026_01_03_200919",
+            "foreign_keys": [
+                {
+                    "table": "a_r_receipt_allocations",
+                    "column": "a_r_receipt_id",
+                    "references": "a_r_receipts",
+                    "migration": "2026_01_03_200919_create_a_r_receipt_allocations_table.php",
+                    "timestamp": "2026_01_03_200919",
+                    "is_modification": false
+                },
+                {
+                    "table": "a_r_receipt_allocations",
+                    "column": "a_r_invoice_id",
+                    "references": "a_r_invoices",
+                    "migration": "2026_01_03_200919_create_a_r_receipt_allocations_table.php",
+                    "timestamp": "2026_01_03_200919",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "allocated_amount",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
                 }
             ]
         },
@@ -10532,90 +10280,6 @@
                 }
             ]
         },
-        "grn_items": {
-            "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-            "timestamp": "2026_01_03_202710",
-            "foreign_keys": [
-                {
-                    "table": "grn_items",
-                    "column": "grn_id",
-                    "references": "grns",
-                    "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-                    "timestamp": "2026_01_03_202710",
-                    "is_modification": false
-                },
-                {
-                    "table": "grn_items",
-                    "column": "purchase_order_item_id",
-                    "references": "purchase_order_items",
-                    "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-                    "timestamp": "2026_01_03_202710",
-                    "is_modification": false
-                },
-                {
-                    "table": "grn_items",
-                    "column": "material_id",
-                    "references": "materials",
-                    "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-                    "timestamp": "2026_01_03_202710",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "ordered_quantity",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "received_quantity",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "accepted_quantity",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "rejected_quantity",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "unit_price",
-                    "type": "decimal",
-                    "precision": "12",
-                    "scale": "2"
-                },
-                {
-                    "name": "total_amount",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "batch_number",
-                    "type": "string"
-                },
-                {
-                    "name": "inspection_status",
-                    "type": "string"
-                },
-                {
-                    "name": "rejection_reason",
-                    "type": "text"
-                },
-                {
-                    "name": "notes",
-                    "type": "text"
-                }
-            ]
-        },
         "grns": {
             "migration": "2026_01_03_202710_create_g_r_n_s_table.php",
             "timestamp": "2026_01_03_202710",
@@ -10706,6 +10370,90 @@
                 },
                 {
                     "name": "inspection_notes",
+                    "type": "text"
+                },
+                {
+                    "name": "notes",
+                    "type": "text"
+                }
+            ]
+        },
+        "grn_items": {
+            "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202711",
+            "foreign_keys": [
+                {
+                    "table": "grn_items",
+                    "column": "grn_id",
+                    "references": "grns",
+                    "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+                    "timestamp": "2026_01_03_202711",
+                    "is_modification": false
+                },
+                {
+                    "table": "grn_items",
+                    "column": "purchase_order_item_id",
+                    "references": "purchase_order_items",
+                    "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+                    "timestamp": "2026_01_03_202711",
+                    "is_modification": false
+                },
+                {
+                    "table": "grn_items",
+                    "column": "material_id",
+                    "references": "materials",
+                    "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+                    "timestamp": "2026_01_03_202711",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "ordered_quantity",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "received_quantity",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "accepted_quantity",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "rejected_quantity",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "unit_price",
+                    "type": "decimal",
+                    "precision": "12",
+                    "scale": "2"
+                },
+                {
+                    "name": "total_amount",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
+                },
+                {
+                    "name": "batch_number",
+                    "type": "string"
+                },
+                {
+                    "name": "inspection_status",
+                    "type": "string"
+                },
+                {
+                    "name": "rejection_reason",
                     "type": "text"
                 },
                 {
@@ -11784,31 +11532,31 @@
             ]
         },
         "warehouse_stock": {
-            "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-            "timestamp": "2026_01_04_075917",
+            "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+            "timestamp": "2026_01_04_075918",
             "foreign_keys": [
                 {
                     "table": "warehouse_stock",
                     "column": "warehouse_id",
                     "references": "warehouses",
-                    "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-                    "timestamp": "2026_01_04_075917",
+                    "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+                    "timestamp": "2026_01_04_075918",
                     "is_modification": false
                 },
                 {
                     "table": "warehouse_stock",
                     "column": "location_id",
                     "references": "warehouse_locations",
-                    "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-                    "timestamp": "2026_01_04_075917",
+                    "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+                    "timestamp": "2026_01_04_075918",
                     "is_modification": false
                 },
                 {
                     "table": "warehouse_stock",
                     "column": "material_id",
                     "references": "materials",
-                    "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-                    "timestamp": "2026_01_04_075917",
+                    "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+                    "timestamp": "2026_01_04_075918",
                     "is_modification": false
                 }
             ],
@@ -13114,54 +12862,6 @@
                 }
             ]
         },
-        "equipment_assignments": {
-            "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-            "timestamp": "2026_01_04_205740",
-            "foreign_keys": [
-                {
-                    "table": "equipment_assignments",
-                    "column": "equipment_id",
-                    "references": "equipments",
-                    "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-                    "timestamp": "2026_01_04_205740",
-                    "is_modification": false
-                },
-                {
-                    "table": "equipment_assignments",
-                    "column": "project_id",
-                    "references": "projects",
-                    "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-                    "timestamp": "2026_01_04_205740",
-                    "is_modification": false
-                },
-                {
-                    "table": "equipment_assignments",
-                    "column": "operator_id",
-                    "references": "employees",
-                    "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-                    "timestamp": "2026_01_04_205740",
-                    "is_modification": false
-                },
-                {
-                    "table": "equipment_assignments",
-                    "column": "assigned_by",
-                    "references": "users",
-                    "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-                    "timestamp": "2026_01_04_205740",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "status",
-                    "type": "enum"
-                },
-                {
-                    "name": "purpose",
-                    "type": "text"
-                }
-            ]
-        },
         "equipment_categories": {
             "migration": "2026_01_04_205740_create_equipment_categories_table.php",
             "timestamp": "2026_01_04_205740",
@@ -13195,31 +12895,31 @@
             ]
         },
         "equipment": {
-            "migration": "2026_01_04_205740_create_equipment_table.php",
-            "timestamp": "2026_01_04_205740",
+            "migration": "2026_01_04_205741_create_equipment_table.php",
+            "timestamp": "2026_01_04_205741",
             "foreign_keys": [
                 {
                     "table": "equipment",
                     "column": "category_id",
                     "references": "equipment_categories",
-                    "migration": "2026_01_04_205740_create_equipment_table.php",
-                    "timestamp": "2026_01_04_205740",
+                    "migration": "2026_01_04_205741_create_equipment_table.php",
+                    "timestamp": "2026_01_04_205741",
                     "is_modification": false
                 },
                 {
                     "table": "equipment",
                     "column": "current_project_id",
                     "references": "projects",
-                    "migration": "2026_01_04_205740_create_equipment_table.php",
-                    "timestamp": "2026_01_04_205740",
+                    "migration": "2026_01_04_205741_create_equipment_table.php",
+                    "timestamp": "2026_01_04_205741",
                     "is_modification": false
                 },
                 {
                     "table": "equipment",
                     "column": "assigned_operator_id",
                     "references": "employees",
-                    "migration": "2026_01_04_205740_create_equipment_table.php",
-                    "timestamp": "2026_01_04_205740",
+                    "migration": "2026_01_04_205741_create_equipment_table.php",
+                    "timestamp": "2026_01_04_205741",
                     "is_modification": false
                 }
             ],
@@ -13368,6 +13068,54 @@
                 }
             ]
         },
+        "equipment_assignments": {
+            "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205742",
+            "foreign_keys": [
+                {
+                    "table": "equipment_assignments",
+                    "column": "equipment_id",
+                    "references": "equipment",
+                    "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+                    "timestamp": "2026_01_04_205742",
+                    "is_modification": false
+                },
+                {
+                    "table": "equipment_assignments",
+                    "column": "project_id",
+                    "references": "projects",
+                    "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+                    "timestamp": "2026_01_04_205742",
+                    "is_modification": false
+                },
+                {
+                    "table": "equipment_assignments",
+                    "column": "operator_id",
+                    "references": "employees",
+                    "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+                    "timestamp": "2026_01_04_205742",
+                    "is_modification": false
+                },
+                {
+                    "table": "equipment_assignments",
+                    "column": "assigned_by",
+                    "references": "users",
+                    "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+                    "timestamp": "2026_01_04_205742",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "status",
+                    "type": "enum"
+                },
+                {
+                    "name": "purpose",
+                    "type": "text"
+                }
+            ]
+        },
         "equipment_fuel_logs": {
             "migration": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
             "timestamp": "2026_01_04_205751",
@@ -13375,7 +13123,7 @@
                 {
                     "table": "equipment_fuel_logs",
                     "column": "equipment_id",
-                    "references": "equipments",
+                    "references": "equipment",
                     "migration": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
                     "timestamp": "2026_01_04_205751",
                     "is_modification": false
@@ -13439,7 +13187,7 @@
                 {
                     "table": "equipment_maintenance",
                     "column": "equipment_id",
-                    "references": "equipments",
+                    "references": "equipment",
                     "migration": "2026_01_04_205751_create_equipment_maintenance_table.php",
                     "timestamp": "2026_01_04_205751",
                     "is_modification": false
@@ -13519,7 +13267,7 @@
                 {
                     "table": "equipment_transfers",
                     "column": "equipment_id",
-                    "references": "equipments",
+                    "references": "equipment",
                     "migration": "2026_01_04_205751_create_equipment_transfers_table.php",
                     "timestamp": "2026_01_04_205751",
                     "is_modification": false
@@ -13573,7 +13321,7 @@
                 {
                     "table": "equipment_usage",
                     "column": "equipment_id",
-                    "references": "equipments",
+                    "references": "equipment",
                     "migration": "2026_01_04_205751_create_equipment_usage_table.php",
                     "timestamp": "2026_01_04_205751",
                     "is_modification": false
@@ -13709,42 +13457,6 @@
                 },
                 {
                     "name": "time_impact_days",
-                    "type": "integer"
-                }
-            ]
-        },
-        "time_bar_alerts": {
-            "migration": "2026_01_04_210006_create_time_bar_alerts_table.php",
-            "timestamp": "2026_01_04_210006",
-            "foreign_keys": [
-                {
-                    "table": "time_bar_alerts",
-                    "column": "event_id",
-                    "references": "time_bar_events",
-                    "migration": "2026_01_04_210006_create_time_bar_alerts_table.php",
-                    "timestamp": "2026_01_04_210006",
-                    "is_modification": false
-                },
-                {
-                    "table": "time_bar_alerts",
-                    "column": "acknowledged_by",
-                    "references": "users",
-                    "migration": "2026_01_04_210006_create_time_bar_alerts_table.php",
-                    "timestamp": "2026_01_04_210006",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "alert_type",
-                    "type": "enum"
-                },
-                {
-                    "name": "channel",
-                    "type": "enum"
-                },
-                {
-                    "name": "days_remaining",
                     "type": "integer"
                 }
             ]
@@ -14819,6 +14531,42 @@
                 }
             ]
         },
+        "time_bar_alerts": {
+            "migration": "2026_01_04_211832_create_time_bar_alerts_table.php",
+            "timestamp": "2026_01_04_211832",
+            "foreign_keys": [
+                {
+                    "table": "time_bar_alerts",
+                    "column": "event_id",
+                    "references": "time_bar_events",
+                    "migration": "2026_01_04_211832_create_time_bar_alerts_table.php",
+                    "timestamp": "2026_01_04_211832",
+                    "is_modification": false
+                },
+                {
+                    "table": "time_bar_alerts",
+                    "column": "acknowledged_by",
+                    "references": "users",
+                    "migration": "2026_01_04_211832_create_time_bar_alerts_table.php",
+                    "timestamp": "2026_01_04_211832",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "alert_type",
+                    "type": "enum"
+                },
+                {
+                    "name": "channel",
+                    "type": "enum"
+                },
+                {
+                    "name": "days_remaining",
+                    "type": "integer"
+                }
+            ]
+        },
         "contract_templates": {
             "migration": "2026_01_04_211920_create_contract_templates_table.php",
             "timestamp": "2026_01_04_211920",
@@ -15053,62 +14801,6 @@
                 }
             ]
         },
-        "unforeseeable_conditions_evidence": {
-            "migration": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
-            "timestamp": "2026_01_04_213708",
-            "foreign_keys": [
-                {
-                    "table": "unforeseeable_conditions_evidence",
-                    "column": "condition_id",
-                    "references": "unforeseeable_conditions",
-                    "migration": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
-                    "timestamp": "2026_01_04_213708",
-                    "is_modification": false
-                },
-                {
-                    "table": "unforeseeable_conditions_evidence",
-                    "column": "uploaded_by",
-                    "references": "users",
-                    "migration": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
-                    "timestamp": "2026_01_04_213708",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "latitude",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "8"
-                },
-                {
-                    "name": "longitude",
-                    "type": "decimal",
-                    "precision": "11",
-                    "scale": "8"
-                },
-                {
-                    "name": "title",
-                    "type": "string"
-                },
-                {
-                    "name": "file_path",
-                    "type": "string"
-                },
-                {
-                    "name": "file_name",
-                    "type": "string"
-                },
-                {
-                    "name": "evidence_type",
-                    "type": "enum"
-                },
-                {
-                    "name": "description",
-                    "type": "text"
-                }
-            ]
-        },
         "unforeseeable_conditions": {
             "migration": "2026_01_04_213708_create_unforeseeable_conditions_table.php",
             "timestamp": "2026_01_04_213708",
@@ -15260,6 +14952,62 @@
                 }
             ]
         },
+        "unforeseeable_conditions_evidence": {
+            "migration": "2026_01_04_213709_create_unforeseeable_conditions_evidence_table.php",
+            "timestamp": "2026_01_04_213709",
+            "foreign_keys": [
+                {
+                    "table": "unforeseeable_conditions_evidence",
+                    "column": "condition_id",
+                    "references": "unforeseeable_conditions",
+                    "migration": "2026_01_04_213709_create_unforeseeable_conditions_evidence_table.php",
+                    "timestamp": "2026_01_04_213709",
+                    "is_modification": false
+                },
+                {
+                    "table": "unforeseeable_conditions_evidence",
+                    "column": "uploaded_by",
+                    "references": "users",
+                    "migration": "2026_01_04_213709_create_unforeseeable_conditions_evidence_table.php",
+                    "timestamp": "2026_01_04_213709",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "latitude",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "8"
+                },
+                {
+                    "name": "longitude",
+                    "type": "decimal",
+                    "precision": "11",
+                    "scale": "8"
+                },
+                {
+                    "name": "title",
+                    "type": "string"
+                },
+                {
+                    "name": "file_path",
+                    "type": "string"
+                },
+                {
+                    "name": "file_name",
+                    "type": "string"
+                },
+                {
+                    "name": "evidence_type",
+                    "type": "enum"
+                },
+                {
+                    "name": "description",
+                    "type": "text"
+                }
+            ]
+        },
         "regions": {
             "migration": "2026_01_04_214201_create_regions_table.php",
             "timestamp": "2026_01_04_214201",
@@ -15279,40 +15027,93 @@
                 }
             ]
         },
-        "price_list_items": {
-            "migration": "2026_01_04_214214_create_price_list_items_table.php",
+        "price_lists": {
+            "migration": "2026_01_04_214214_create_price_lists_table.php",
             "timestamp": "2026_01_04_214214",
+            "foreign_keys": [
+                {
+                    "table": "price_lists",
+                    "column": "region_id",
+                    "references": "regions",
+                    "migration": "2026_01_04_214214_create_price_lists_table.php",
+                    "timestamp": "2026_01_04_214214",
+                    "is_modification": false
+                },
+                {
+                    "table": "price_lists",
+                    "column": "created_by",
+                    "references": "users",
+                    "migration": "2026_01_04_214214_create_price_lists_table.php",
+                    "timestamp": "2026_01_04_214214",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "code",
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "name_en",
+                    "type": "string"
+                },
+                {
+                    "name": "currency",
+                    "type": "string",
+                    "length": "3"
+                },
+                {
+                    "name": "type",
+                    "type": "enum"
+                },
+                {
+                    "name": "source",
+                    "type": "enum"
+                },
+                {
+                    "name": "notes",
+                    "type": "text"
+                }
+            ]
+        },
+        "price_list_items": {
+            "migration": "2026_01_04_214215_create_price_list_items_table.php",
+            "timestamp": "2026_01_04_214215",
             "foreign_keys": [
                 {
                     "table": "price_list_items",
                     "column": "price_list_id",
                     "references": "price_lists",
-                    "migration": "2026_01_04_214214_create_price_list_items_table.php",
-                    "timestamp": "2026_01_04_214214",
+                    "migration": "2026_01_04_214215_create_price_list_items_table.php",
+                    "timestamp": "2026_01_04_214215",
                     "is_modification": false
                 },
                 {
                     "table": "price_list_items",
                     "column": "material_id",
                     "references": "materials",
-                    "migration": "2026_01_04_214214_create_price_list_items_table.php",
-                    "timestamp": "2026_01_04_214214",
+                    "migration": "2026_01_04_214215_create_price_list_items_table.php",
+                    "timestamp": "2026_01_04_214215",
                     "is_modification": false
                 },
                 {
                     "table": "price_list_items",
                     "column": "labor_category_id",
                     "references": "labor_categories",
-                    "migration": "2026_01_04_214214_create_price_list_items_table.php",
-                    "timestamp": "2026_01_04_214214",
+                    "migration": "2026_01_04_214215_create_price_list_items_table.php",
+                    "timestamp": "2026_01_04_214215",
                     "is_modification": false
                 },
                 {
                     "table": "price_list_items",
                     "column": "equipment_category_id",
                     "references": "equipment_categories",
-                    "migration": "2026_01_04_214214_create_price_list_items_table.php",
-                    "timestamp": "2026_01_04_214214",
+                    "migration": "2026_01_04_214215_create_price_list_items_table.php",
+                    "timestamp": "2026_01_04_214215",
                     "is_modification": false
                 }
             ],
@@ -15377,143 +15178,6 @@
                 }
             ]
         },
-        "price_lists": {
-            "migration": "2026_01_04_214214_create_price_lists_table.php",
-            "timestamp": "2026_01_04_214214",
-            "foreign_keys": [
-                {
-                    "table": "price_lists",
-                    "column": "region_id",
-                    "references": "regions",
-                    "migration": "2026_01_04_214214_create_price_lists_table.php",
-                    "timestamp": "2026_01_04_214214",
-                    "is_modification": false
-                },
-                {
-                    "table": "price_lists",
-                    "column": "created_by",
-                    "references": "users",
-                    "migration": "2026_01_04_214214_create_price_lists_table.php",
-                    "timestamp": "2026_01_04_214214",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "code",
-                    "type": "string"
-                },
-                {
-                    "name": "name",
-                    "type": "string"
-                },
-                {
-                    "name": "name_en",
-                    "type": "string"
-                },
-                {
-                    "name": "currency",
-                    "type": "string",
-                    "length": "3"
-                },
-                {
-                    "name": "type",
-                    "type": "enum"
-                },
-                {
-                    "name": "source",
-                    "type": "enum"
-                },
-                {
-                    "name": "notes",
-                    "type": "text"
-                }
-            ]
-        },
-        "price_history": {
-            "migration": "2026_01_04_214215_create_price_history_table.php",
-            "timestamp": "2026_01_04_214215",
-            "foreign_keys": [
-                {
-                    "table": "price_history",
-                    "column": "price_list_item_id",
-                    "references": "price_list_items",
-                    "migration": "2026_01_04_214215_create_price_history_table.php",
-                    "timestamp": "2026_01_04_214215",
-                    "is_modification": false
-                },
-                {
-                    "table": "price_history",
-                    "column": "updated_by",
-                    "references": "users",
-                    "migration": "2026_01_04_214215_create_price_history_table.php",
-                    "timestamp": "2026_01_04_214215",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "old_price",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "4"
-                },
-                {
-                    "name": "new_price",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "4"
-                },
-                {
-                    "name": "change_percentage",
-                    "type": "decimal",
-                    "precision": "8",
-                    "scale": "4"
-                },
-                {
-                    "name": "change_reason",
-                    "type": "enum"
-                },
-                {
-                    "name": "notes",
-                    "type": "text"
-                }
-            ]
-        },
-        "price_request_items": {
-            "migration": "2026_01_04_214215_create_price_request_items_table.php",
-            "timestamp": "2026_01_04_214215",
-            "foreign_keys": [
-                {
-                    "table": "price_request_items",
-                    "column": "price_request_id",
-                    "references": "price_requests",
-                    "migration": "2026_01_04_214215_create_price_request_items_table.php",
-                    "timestamp": "2026_01_04_214215",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "quantity",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "4"
-                },
-                {
-                    "name": "item_description",
-                    "type": "string"
-                },
-                {
-                    "name": "unit",
-                    "type": "string"
-                },
-                {
-                    "name": "specifications",
-                    "type": "text"
-                }
-            ]
-        },
         "price_requests": {
             "migration": "2026_01_04_214215_create_price_requests_table.php",
             "timestamp": "2026_01_04_214215",
@@ -15542,6 +15206,90 @@
                 },
                 {
                     "name": "status",
+                    "type": "enum"
+                },
+                {
+                    "name": "notes",
+                    "type": "text"
+                }
+            ]
+        },
+        "price_request_items": {
+            "migration": "2026_01_04_214216_create_price_request_items_table.php",
+            "timestamp": "2026_01_04_214216",
+            "foreign_keys": [
+                {
+                    "table": "price_request_items",
+                    "column": "price_request_id",
+                    "references": "price_requests",
+                    "migration": "2026_01_04_214216_create_price_request_items_table.php",
+                    "timestamp": "2026_01_04_214216",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "quantity",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "4"
+                },
+                {
+                    "name": "item_description",
+                    "type": "string"
+                },
+                {
+                    "name": "unit",
+                    "type": "string"
+                },
+                {
+                    "name": "specifications",
+                    "type": "text"
+                }
+            ]
+        },
+        "price_history": {
+            "migration": "2026_01_04_214217_create_price_history_table.php",
+            "timestamp": "2026_01_04_214217",
+            "foreign_keys": [
+                {
+                    "table": "price_history",
+                    "column": "price_list_item_id",
+                    "references": "price_list_items",
+                    "migration": "2026_01_04_214217_create_price_history_table.php",
+                    "timestamp": "2026_01_04_214217",
+                    "is_modification": false
+                },
+                {
+                    "table": "price_history",
+                    "column": "updated_by",
+                    "references": "users",
+                    "migration": "2026_01_04_214217_create_price_history_table.php",
+                    "timestamp": "2026_01_04_214217",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "old_price",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "4"
+                },
+                {
+                    "name": "new_price",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "4"
+                },
+                {
+                    "name": "change_percentage",
+                    "type": "decimal",
+                    "precision": "8",
+                    "scale": "4"
+                },
+                {
+                    "name": "change_reason",
                     "type": "enum"
                 },
                 {
@@ -15945,76 +15693,6 @@
                 }
             ]
         },
-        "material_request_items": {
-            "migration": "2026_01_07_183818_create_material_request_items_table.php",
-            "timestamp": "2026_01_07_183818",
-            "foreign_keys": [
-                {
-                    "table": "material_request_items",
-                    "column": "material_request_id",
-                    "references": "material_requests",
-                    "migration": "2026_01_07_183818_create_material_request_items_table.php",
-                    "timestamp": "2026_01_07_183818",
-                    "is_modification": false
-                },
-                {
-                    "table": "material_request_items",
-                    "column": "material_id",
-                    "references": "materials",
-                    "migration": "2026_01_07_183818_create_material_request_items_table.php",
-                    "timestamp": "2026_01_07_183818",
-                    "is_modification": false
-                },
-                {
-                    "table": "material_request_items",
-                    "column": "unit_id",
-                    "references": "units",
-                    "migration": "2026_01_07_183818_create_material_request_items_table.php",
-                    "timestamp": "2026_01_07_183818",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "quantity_requested",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "quantity_approved",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "quantity_issued",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "unit_price",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "total_price",
-                    "type": "decimal",
-                    "precision": "15",
-                    "scale": "2"
-                },
-                {
-                    "name": "description",
-                    "type": "text"
-                },
-                {
-                    "name": "notes",
-                    "type": "text"
-                }
-            ]
-        },
         "material_requests": {
             "migration": "2026_01_07_183818_create_material_requests_table.php",
             "timestamp": "2026_01_07_183818",
@@ -16075,6 +15753,76 @@
                 },
                 {
                     "name": "rejection_reason",
+                    "type": "text"
+                },
+                {
+                    "name": "notes",
+                    "type": "text"
+                }
+            ]
+        },
+        "material_request_items": {
+            "migration": "2026_01_07_183819_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183819",
+            "foreign_keys": [
+                {
+                    "table": "material_request_items",
+                    "column": "material_request_id",
+                    "references": "material_requests",
+                    "migration": "2026_01_07_183819_create_material_request_items_table.php",
+                    "timestamp": "2026_01_07_183819",
+                    "is_modification": false
+                },
+                {
+                    "table": "material_request_items",
+                    "column": "material_id",
+                    "references": "materials",
+                    "migration": "2026_01_07_183819_create_material_request_items_table.php",
+                    "timestamp": "2026_01_07_183819",
+                    "is_modification": false
+                },
+                {
+                    "table": "material_request_items",
+                    "column": "unit_id",
+                    "references": "units",
+                    "migration": "2026_01_07_183819_create_material_request_items_table.php",
+                    "timestamp": "2026_01_07_183819",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "quantity_requested",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
+                },
+                {
+                    "name": "quantity_approved",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
+                },
+                {
+                    "name": "quantity_issued",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
+                },
+                {
+                    "name": "unit_price",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
+                },
+                {
+                    "name": "total_price",
+                    "type": "decimal",
+                    "precision": "15",
+                    "scale": "2"
+                },
+                {
+                    "name": "description",
                     "type": "text"
                 },
                 {
@@ -17252,39 +17000,39 @@
             ]
         },
         "kpi_values": {
-            "migration": "2026_01_07_190647_create_kpi_values_table.php",
-            "timestamp": "2026_01_07_190647",
+            "migration": "2026_01_07_190648_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190648",
             "foreign_keys": [
                 {
                     "table": "kpi_values",
                     "column": "kpi_definition_id",
                     "references": "kpi_definitions",
-                    "migration": "2026_01_07_190647_create_kpi_values_table.php",
-                    "timestamp": "2026_01_07_190647",
+                    "migration": "2026_01_07_190648_create_kpi_values_table.php",
+                    "timestamp": "2026_01_07_190648",
                     "is_modification": false
                 },
                 {
                     "table": "kpi_values",
                     "column": "project_id",
                     "references": "projects",
-                    "migration": "2026_01_07_190647_create_kpi_values_table.php",
-                    "timestamp": "2026_01_07_190647",
+                    "migration": "2026_01_07_190648_create_kpi_values_table.php",
+                    "timestamp": "2026_01_07_190648",
                     "is_modification": false
                 },
                 {
                     "table": "kpi_values",
                     "column": "department_id",
                     "references": "departments",
-                    "migration": "2026_01_07_190647_create_kpi_values_table.php",
-                    "timestamp": "2026_01_07_190647",
+                    "migration": "2026_01_07_190648_create_kpi_values_table.php",
+                    "timestamp": "2026_01_07_190648",
                     "is_modification": false
                 },
                 {
                     "table": "kpi_values",
                     "column": "company_id",
                     "references": "companies",
-                    "migration": "2026_01_07_190647_create_kpi_values_table.php",
-                    "timestamp": "2026_01_07_190647",
+                    "migration": "2026_01_07_190648_create_kpi_values_table.php",
+                    "timestamp": "2026_01_07_190648",
                     "is_modification": false
                 }
             ],
@@ -18749,60 +18497,6 @@
                 }
             ]
         },
-        "po_receipt_items": {
-            "migration": "2026_01_07_193207_create_po_receipt_items_table.php",
-            "timestamp": "2026_01_07_193207",
-            "foreign_keys": [
-                {
-                    "table": "po_receipt_items",
-                    "column": "po_receipt_id",
-                    "references": "po_receipts",
-                    "migration": "2026_01_07_193207_create_po_receipt_items_table.php",
-                    "timestamp": "2026_01_07_193207",
-                    "is_modification": false
-                },
-                {
-                    "table": "po_receipt_items",
-                    "column": "po_item_id",
-                    "references": "purchase_order_items",
-                    "migration": "2026_01_07_193207_create_po_receipt_items_table.php",
-                    "timestamp": "2026_01_07_193207",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "quantity_received",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "quantity_accepted",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "quantity_rejected",
-                    "type": "decimal",
-                    "precision": "10",
-                    "scale": "2"
-                },
-                {
-                    "name": "batch_number",
-                    "type": "string"
-                },
-                {
-                    "name": "rejection_reason",
-                    "type": "text"
-                },
-                {
-                    "name": "inspection_notes",
-                    "type": "text"
-                }
-            ]
-        },
         "po_receipts": {
             "migration": "2026_01_07_193207_create_po_receipts_table.php",
             "timestamp": "2026_01_07_193207",
@@ -18855,6 +18549,60 @@
                 },
                 {
                     "name": "notes",
+                    "type": "text"
+                }
+            ]
+        },
+        "po_receipt_items": {
+            "migration": "2026_01_07_193208_create_po_receipt_items_table.php",
+            "timestamp": "2026_01_07_193208",
+            "foreign_keys": [
+                {
+                    "table": "po_receipt_items",
+                    "column": "po_receipt_id",
+                    "references": "po_receipts",
+                    "migration": "2026_01_07_193208_create_po_receipt_items_table.php",
+                    "timestamp": "2026_01_07_193208",
+                    "is_modification": false
+                },
+                {
+                    "table": "po_receipt_items",
+                    "column": "po_item_id",
+                    "references": "purchase_order_items",
+                    "migration": "2026_01_07_193208_create_po_receipt_items_table.php",
+                    "timestamp": "2026_01_07_193208",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "quantity_received",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "quantity_accepted",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "quantity_rejected",
+                    "type": "decimal",
+                    "precision": "10",
+                    "scale": "2"
+                },
+                {
+                    "name": "batch_number",
+                    "type": "string"
+                },
+                {
+                    "name": "rejection_reason",
+                    "type": "text"
+                },
+                {
+                    "name": "inspection_notes",
                     "type": "text"
                 }
             ]
@@ -20596,7 +20344,7 @@
                 {
                     "table": "defect_notifications",
                     "column": "defects_liability_id",
-                    "references": "defects_liabilities",
+                    "references": "defects_liability",
                     "migration": "2026_01_09_150007_create_defect_notifications_table.php",
                     "timestamp": "2026_01_09_150007",
                     "is_modification": false
@@ -22346,6 +22094,74 @@
                 }
             ]
         },
+        "photo_albums": {
+            "migration": "2026_01_09_152030_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152030",
+            "foreign_keys": [
+                {
+                    "table": "photo_albums",
+                    "column": "project_id",
+                    "references": "projects",
+                    "migration": "2026_01_09_152030_create_photo_albums_table.php",
+                    "timestamp": "2026_01_09_152030",
+                    "is_modification": false
+                },
+                {
+                    "table": "photo_albums",
+                    "column": "cover_photo_id",
+                    "references": "photos",
+                    "migration": "2026_01_09_152030_create_photo_albums_table.php",
+                    "timestamp": "2026_01_09_152030",
+                    "is_modification": false
+                },
+                {
+                    "table": "photo_albums",
+                    "column": "created_by_id",
+                    "references": "users",
+                    "migration": "2026_01_09_152030_create_photo_albums_table.php",
+                    "timestamp": "2026_01_09_152030",
+                    "is_modification": false
+                },
+                {
+                    "table": "photo_albums",
+                    "column": "company_id",
+                    "references": "companies",
+                    "migration": "2026_01_09_152030_create_photo_albums_table.php",
+                    "timestamp": "2026_01_09_152030",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "album_number",
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "name_en",
+                    "type": "string"
+                },
+                {
+                    "name": "album_type",
+                    "type": "enum"
+                },
+                {
+                    "name": "status",
+                    "type": "enum"
+                },
+                {
+                    "name": "description",
+                    "type": "text"
+                },
+                {
+                    "name": "photos_count",
+                    "type": "integer"
+                }
+            ]
+        },
         "photos": {
             "migration": "2026_01_09_152031_create_photos_table.php",
             "timestamp": "2026_01_09_152031",
@@ -22512,74 +22328,6 @@
                 }
             ]
         },
-        "photo_albums": {
-            "migration": "2026_01_09_152032_create_photo_albums_table.php",
-            "timestamp": "2026_01_09_152032",
-            "foreign_keys": [
-                {
-                    "table": "photo_albums",
-                    "column": "project_id",
-                    "references": "projects",
-                    "migration": "2026_01_09_152032_create_photo_albums_table.php",
-                    "timestamp": "2026_01_09_152032",
-                    "is_modification": false
-                },
-                {
-                    "table": "photo_albums",
-                    "column": "cover_photo_id",
-                    "references": "photos",
-                    "migration": "2026_01_09_152032_create_photo_albums_table.php",
-                    "timestamp": "2026_01_09_152032",
-                    "is_modification": false
-                },
-                {
-                    "table": "photo_albums",
-                    "column": "created_by_id",
-                    "references": "users",
-                    "migration": "2026_01_09_152032_create_photo_albums_table.php",
-                    "timestamp": "2026_01_09_152032",
-                    "is_modification": false
-                },
-                {
-                    "table": "photo_albums",
-                    "column": "company_id",
-                    "references": "companies",
-                    "migration": "2026_01_09_152032_create_photo_albums_table.php",
-                    "timestamp": "2026_01_09_152032",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "album_number",
-                    "type": "string"
-                },
-                {
-                    "name": "name",
-                    "type": "string"
-                },
-                {
-                    "name": "name_en",
-                    "type": "string"
-                },
-                {
-                    "name": "album_type",
-                    "type": "enum"
-                },
-                {
-                    "name": "status",
-                    "type": "enum"
-                },
-                {
-                    "name": "description",
-                    "type": "text"
-                },
-                {
-                    "name": "photos_count",
-                    "type": "integer"
-                }
-            ]
-        },
         "photo_locations": {
             "migration": "2026_01_09_152032_create_photo_locations_table.php",
             "timestamp": "2026_01_09_152032",
@@ -22624,46 +22372,6 @@
                 },
                 {
                     "name": "photos_count",
-                    "type": "integer"
-                }
-            ]
-        },
-        "photo_report_items": {
-            "migration": "2026_01_09_152032_create_photo_report_items_table.php",
-            "timestamp": "2026_01_09_152032",
-            "foreign_keys": [
-                {
-                    "table": "photo_report_items",
-                    "column": "photo_report_id",
-                    "references": "photo_reports",
-                    "migration": "2026_01_09_152032_create_photo_report_items_table.php",
-                    "timestamp": "2026_01_09_152032",
-                    "is_modification": false
-                },
-                {
-                    "table": "photo_report_items",
-                    "column": "photo_id",
-                    "references": "photos",
-                    "migration": "2026_01_09_152032_create_photo_report_items_table.php",
-                    "timestamp": "2026_01_09_152032",
-                    "is_modification": false
-                }
-            ],
-            "columns": [
-                {
-                    "name": "caption",
-                    "type": "string"
-                },
-                {
-                    "name": "description",
-                    "type": "text"
-                },
-                {
-                    "name": "page_number",
-                    "type": "integer"
-                },
-                {
-                    "name": "sort_order",
                     "type": "integer"
                 }
             ]
@@ -22853,6 +22561,46 @@
                 {
                     "name": "cover_page_text",
                     "type": "text"
+                }
+            ]
+        },
+        "photo_report_items": {
+            "migration": "2026_01_09_152036_create_photo_report_items_table.php",
+            "timestamp": "2026_01_09_152036",
+            "foreign_keys": [
+                {
+                    "table": "photo_report_items",
+                    "column": "photo_report_id",
+                    "references": "photo_reports",
+                    "migration": "2026_01_09_152036_create_photo_report_items_table.php",
+                    "timestamp": "2026_01_09_152036",
+                    "is_modification": false
+                },
+                {
+                    "table": "photo_report_items",
+                    "column": "photo_id",
+                    "references": "photos",
+                    "migration": "2026_01_09_152036_create_photo_report_items_table.php",
+                    "timestamp": "2026_01_09_152036",
+                    "is_modification": false
+                }
+            ],
+            "columns": [
+                {
+                    "name": "caption",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "text"
+                },
+                {
+                    "name": "page_number",
+                    "type": "integer"
+                },
+                {
+                    "name": "sort_order",
+                    "type": "integer"
                 }
             ]
         },
@@ -24755,30 +24503,6 @@
             "is_modification": false
         },
         {
-            "table": "daily_report_photos",
-            "column": "daily_report_id",
-            "references": "daily_reports",
-            "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-            "timestamp": "2026_01_02_211857",
-            "is_modification": false
-        },
-        {
-            "table": "daily_report_photos",
-            "column": "activity_id",
-            "references": "project_activities",
-            "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-            "timestamp": "2026_01_02_211857",
-            "is_modification": false
-        },
-        {
-            "table": "daily_report_photos",
-            "column": "uploaded_by",
-            "references": "users",
-            "migration": "2026_01_02_211857_create_daily_report_photos_table.php",
-            "timestamp": "2026_01_02_211857",
-            "is_modification": false
-        },
-        {
             "table": "daily_reports",
             "column": "project_id",
             "references": "projects",
@@ -24816,6 +24540,30 @@
             "references": "users",
             "migration": "2026_01_02_211857_create_daily_reports_table.php",
             "timestamp": "2026_01_02_211857",
+            "is_modification": false
+        },
+        {
+            "table": "daily_report_photos",
+            "column": "daily_report_id",
+            "references": "daily_reports",
+            "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211858",
+            "is_modification": false
+        },
+        {
+            "table": "daily_report_photos",
+            "column": "activity_id",
+            "references": "project_activities",
+            "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211858",
+            "is_modification": false
+        },
+        {
+            "table": "daily_report_photos",
+            "column": "uploaded_by",
+            "references": "users",
+            "migration": "2026_01_02_211858_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211858",
             "is_modification": false
         },
         {
@@ -24870,32 +24618,32 @@
             "table": "project_timesheets",
             "column": "project_id",
             "references": "projects",
-            "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-            "timestamp": "2026_01_02_212443",
+            "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212444",
             "is_modification": false
         },
         {
             "table": "project_timesheets",
             "column": "activity_id",
             "references": "project_activities",
-            "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-            "timestamp": "2026_01_02_212443",
+            "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212444",
             "is_modification": false
         },
         {
             "table": "project_timesheets",
             "column": "employee_id",
             "references": "employees",
-            "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-            "timestamp": "2026_01_02_212443",
+            "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212444",
             "is_modification": false
         },
         {
             "table": "project_timesheets",
             "column": "approved_by",
             "references": "users",
-            "migration": "2026_01_02_212443_create_project_timesheets_table.php",
-            "timestamp": "2026_01_02_212443",
+            "migration": "2026_01_02_212444_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212444",
             "is_modification": false
         },
         {
@@ -25035,22 +24783,6 @@
             "is_modification": false
         },
         {
-            "table": "tender_wbs_boq_mapping",
-            "column": "tender_wbs_id",
-            "references": "tender_wbs",
-            "migration": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-            "timestamp": "2026_01_02_214414",
-            "is_modification": false
-        },
-        {
-            "table": "tender_wbs_boq_mapping",
-            "column": "tender_boq_item_id",
-            "references": "tender_boq_items",
-            "migration": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
-            "timestamp": "2026_01_02_214414",
-            "is_modification": false
-        },
-        {
             "table": "tender_wbs",
             "column": "tender_id",
             "references": "tenders",
@@ -25064,6 +24796,22 @@
             "references": "tender_wbs",
             "migration": "2026_01_02_214414_create_tender_wbs_table.php",
             "timestamp": "2026_01_02_214414",
+            "is_modification": false
+        },
+        {
+            "table": "tender_wbs_boq_mapping",
+            "column": "tender_wbs_id",
+            "references": "tender_wbs",
+            "migration": "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214415",
+            "is_modification": false
+        },
+        {
+            "table": "tender_wbs_boq_mapping",
+            "column": "tender_boq_item_id",
+            "references": "tender_boq_items",
+            "migration": "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214415",
             "is_modification": false
         },
         {
@@ -25971,22 +25719,6 @@
             "is_modification": false
         },
         {
-            "table": "subcontractor_contacts",
-            "column": "subcontractor_id",
-            "references": "subcontractors",
-            "migration": "2026_01_03_182434_create_subcontractor_contacts_table.php",
-            "timestamp": "2026_01_03_182434",
-            "is_modification": false
-        },
-        {
-            "table": "subcontractor_contacts",
-            "column": "company_id",
-            "references": "companies",
-            "migration": "2026_01_03_182434_create_subcontractor_contacts_table.php",
-            "timestamp": "2026_01_03_182434",
-            "is_modification": false
-        },
-        {
             "table": "subcontractors",
             "column": "country_id",
             "references": "countries",
@@ -26095,6 +25827,22 @@
             "column": "created_by_id",
             "references": "users",
             "migration": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "timestamp": "2026_01_03_182435",
+            "is_modification": false
+        },
+        {
+            "table": "subcontractor_contacts",
+            "column": "subcontractor_id",
+            "references": "subcontractors",
+            "migration": "2026_01_03_182435_create_subcontractor_contacts_table.php",
+            "timestamp": "2026_01_03_182435",
+            "is_modification": false
+        },
+        {
+            "table": "subcontractor_contacts",
+            "column": "company_id",
+            "references": "companies",
+            "migration": "2026_01_03_182435_create_subcontractor_contacts_table.php",
             "timestamp": "2026_01_03_182435",
             "is_modification": false
         },
@@ -26675,22 +26423,6 @@
             "is_modification": false
         },
         {
-            "table": "a_r_invoice_items",
-            "column": "a_r_invoice_id",
-            "references": "a_r_invoices",
-            "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php",
-            "timestamp": "2026_01_03_200917",
-            "is_modification": false
-        },
-        {
-            "table": "a_r_invoice_items",
-            "column": "gl_account_id",
-            "references": "g_l_accounts",
-            "migration": "2026_01_03_200917_create_a_r_invoice_items_table.php",
-            "timestamp": "2026_01_03_200917",
-            "is_modification": false
-        },
-        {
             "table": "a_r_invoices",
             "column": "client_id",
             "references": "clients",
@@ -26755,18 +26487,18 @@
             "is_modification": false
         },
         {
-            "table": "a_r_receipt_allocations",
-            "column": "a_r_receipt_id",
-            "references": "a_r_receipts",
-            "migration": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+            "table": "a_r_invoice_items",
+            "column": "a_r_invoice_id",
+            "references": "a_r_invoices",
+            "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php",
             "timestamp": "2026_01_03_200918",
             "is_modification": false
         },
         {
-            "table": "a_r_receipt_allocations",
-            "column": "a_r_invoice_id",
-            "references": "a_r_invoices",
-            "migration": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+            "table": "a_r_invoice_items",
+            "column": "gl_account_id",
+            "references": "g_l_accounts",
+            "migration": "2026_01_03_200918_create_a_r_invoice_items_table.php",
             "timestamp": "2026_01_03_200918",
             "is_modification": false
         },
@@ -26808,6 +26540,22 @@
             "references": "users",
             "migration": "2026_01_03_200918_create_a_r_receipts_table.php",
             "timestamp": "2026_01_03_200918",
+            "is_modification": false
+        },
+        {
+            "table": "a_r_receipt_allocations",
+            "column": "a_r_receipt_id",
+            "references": "a_r_receipts",
+            "migration": "2026_01_03_200919_create_a_r_receipt_allocations_table.php",
+            "timestamp": "2026_01_03_200919",
+            "is_modification": false
+        },
+        {
+            "table": "a_r_receipt_allocations",
+            "column": "a_r_invoice_id",
+            "references": "a_r_invoices",
+            "migration": "2026_01_03_200919_create_a_r_receipt_allocations_table.php",
+            "timestamp": "2026_01_03_200919",
             "is_modification": false
         },
         {
@@ -26867,30 +26615,6 @@
             "is_modification": false
         },
         {
-            "table": "grn_items",
-            "column": "grn_id",
-            "references": "grns",
-            "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-            "timestamp": "2026_01_03_202710",
-            "is_modification": false
-        },
-        {
-            "table": "grn_items",
-            "column": "purchase_order_item_id",
-            "references": "purchase_order_items",
-            "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-            "timestamp": "2026_01_03_202710",
-            "is_modification": false
-        },
-        {
-            "table": "grn_items",
-            "column": "material_id",
-            "references": "materials",
-            "migration": "2026_01_03_202710_create_g_r_n_items_table.php",
-            "timestamp": "2026_01_03_202710",
-            "is_modification": false
-        },
-        {
             "table": "grns",
             "column": "purchase_order_id",
             "references": "purchase_orders",
@@ -26944,6 +26668,30 @@
             "references": "companies",
             "migration": "2026_01_03_202710_create_g_r_n_s_table.php",
             "timestamp": "2026_01_03_202710",
+            "is_modification": false
+        },
+        {
+            "table": "grn_items",
+            "column": "grn_id",
+            "references": "grns",
+            "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202711",
+            "is_modification": false
+        },
+        {
+            "table": "grn_items",
+            "column": "purchase_order_item_id",
+            "references": "purchase_order_items",
+            "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202711",
+            "is_modification": false
+        },
+        {
+            "table": "grn_items",
+            "column": "material_id",
+            "references": "materials",
+            "migration": "2026_01_03_202711_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202711",
             "is_modification": false
         },
         {
@@ -27294,24 +27042,24 @@
             "table": "warehouse_stock",
             "column": "warehouse_id",
             "references": "warehouses",
-            "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-            "timestamp": "2026_01_04_075917",
+            "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+            "timestamp": "2026_01_04_075918",
             "is_modification": false
         },
         {
             "table": "warehouse_stock",
             "column": "location_id",
             "references": "warehouse_locations",
-            "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-            "timestamp": "2026_01_04_075917",
+            "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+            "timestamp": "2026_01_04_075918",
             "is_modification": false
         },
         {
             "table": "warehouse_stock",
             "column": "material_id",
             "references": "materials",
-            "migration": "2026_01_04_075917_create_warehouse_stock_table.php",
-            "timestamp": "2026_01_04_075917",
+            "migration": "2026_01_04_075918_create_warehouse_stock_table.php",
+            "timestamp": "2026_01_04_075918",
             "is_modification": false
         },
         {
@@ -27699,38 +27447,6 @@
             "is_modification": false
         },
         {
-            "table": "equipment_assignments",
-            "column": "equipment_id",
-            "references": "equipments",
-            "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-            "timestamp": "2026_01_04_205740",
-            "is_modification": false
-        },
-        {
-            "table": "equipment_assignments",
-            "column": "project_id",
-            "references": "projects",
-            "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-            "timestamp": "2026_01_04_205740",
-            "is_modification": false
-        },
-        {
-            "table": "equipment_assignments",
-            "column": "operator_id",
-            "references": "employees",
-            "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-            "timestamp": "2026_01_04_205740",
-            "is_modification": false
-        },
-        {
-            "table": "equipment_assignments",
-            "column": "assigned_by",
-            "references": "users",
-            "migration": "2026_01_04_205740_create_equipment_assignments_table.php",
-            "timestamp": "2026_01_04_205740",
-            "is_modification": false
-        },
-        {
             "table": "equipment_categories",
             "column": "parent_id",
             "references": "equipment_categories",
@@ -27742,30 +27458,62 @@
             "table": "equipment",
             "column": "category_id",
             "references": "equipment_categories",
-            "migration": "2026_01_04_205740_create_equipment_table.php",
-            "timestamp": "2026_01_04_205740",
+            "migration": "2026_01_04_205741_create_equipment_table.php",
+            "timestamp": "2026_01_04_205741",
             "is_modification": false
         },
         {
             "table": "equipment",
             "column": "current_project_id",
             "references": "projects",
-            "migration": "2026_01_04_205740_create_equipment_table.php",
-            "timestamp": "2026_01_04_205740",
+            "migration": "2026_01_04_205741_create_equipment_table.php",
+            "timestamp": "2026_01_04_205741",
             "is_modification": false
         },
         {
             "table": "equipment",
             "column": "assigned_operator_id",
             "references": "employees",
-            "migration": "2026_01_04_205740_create_equipment_table.php",
-            "timestamp": "2026_01_04_205740",
+            "migration": "2026_01_04_205741_create_equipment_table.php",
+            "timestamp": "2026_01_04_205741",
+            "is_modification": false
+        },
+        {
+            "table": "equipment_assignments",
+            "column": "equipment_id",
+            "references": "equipment",
+            "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205742",
+            "is_modification": false
+        },
+        {
+            "table": "equipment_assignments",
+            "column": "project_id",
+            "references": "projects",
+            "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205742",
+            "is_modification": false
+        },
+        {
+            "table": "equipment_assignments",
+            "column": "operator_id",
+            "references": "employees",
+            "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205742",
+            "is_modification": false
+        },
+        {
+            "table": "equipment_assignments",
+            "column": "assigned_by",
+            "references": "users",
+            "migration": "2026_01_04_205742_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205742",
             "is_modification": false
         },
         {
             "table": "equipment_fuel_logs",
             "column": "equipment_id",
-            "references": "equipments",
+            "references": "equipment",
             "migration": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
             "timestamp": "2026_01_04_205751",
             "is_modification": false
@@ -27789,7 +27537,7 @@
         {
             "table": "equipment_maintenance",
             "column": "equipment_id",
-            "references": "equipments",
+            "references": "equipment",
             "migration": "2026_01_04_205751_create_equipment_maintenance_table.php",
             "timestamp": "2026_01_04_205751",
             "is_modification": false
@@ -27805,7 +27553,7 @@
         {
             "table": "equipment_transfers",
             "column": "equipment_id",
-            "references": "equipments",
+            "references": "equipment",
             "migration": "2026_01_04_205751_create_equipment_transfers_table.php",
             "timestamp": "2026_01_04_205751",
             "is_modification": false
@@ -27837,7 +27585,7 @@
         {
             "table": "equipment_usage",
             "column": "equipment_id",
-            "references": "equipments",
+            "references": "equipment",
             "migration": "2026_01_04_205751_create_equipment_usage_table.php",
             "timestamp": "2026_01_04_205751",
             "is_modification": false
@@ -27896,22 +27644,6 @@
             "references": "users",
             "migration": "2026_01_04_210004_create_variation_orders_table.php",
             "timestamp": "2026_01_04_210004",
-            "is_modification": false
-        },
-        {
-            "table": "time_bar_alerts",
-            "column": "event_id",
-            "references": "time_bar_events",
-            "migration": "2026_01_04_210006_create_time_bar_alerts_table.php",
-            "timestamp": "2026_01_04_210006",
-            "is_modification": false
-        },
-        {
-            "table": "time_bar_alerts",
-            "column": "acknowledged_by",
-            "references": "users",
-            "migration": "2026_01_04_210006_create_time_bar_alerts_table.php",
-            "timestamp": "2026_01_04_210006",
             "is_modification": false
         },
         {
@@ -28267,6 +27999,22 @@
             "is_modification": false
         },
         {
+            "table": "time_bar_alerts",
+            "column": "event_id",
+            "references": "time_bar_events",
+            "migration": "2026_01_04_211832_create_time_bar_alerts_table.php",
+            "timestamp": "2026_01_04_211832",
+            "is_modification": false
+        },
+        {
+            "table": "time_bar_alerts",
+            "column": "acknowledged_by",
+            "references": "users",
+            "migration": "2026_01_04_211832_create_time_bar_alerts_table.php",
+            "timestamp": "2026_01_04_211832",
+            "is_modification": false
+        },
+        {
             "table": "contract_template_clauses",
             "column": "template_id",
             "references": "contract_templates",
@@ -28312,22 +28060,6 @@
             "references": "users",
             "migration": "2026_01_04_211924_create_contract_generated_table.php",
             "timestamp": "2026_01_04_211924",
-            "is_modification": false
-        },
-        {
-            "table": "unforeseeable_conditions_evidence",
-            "column": "condition_id",
-            "references": "unforeseeable_conditions",
-            "migration": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
-            "timestamp": "2026_01_04_213708",
-            "is_modification": false
-        },
-        {
-            "table": "unforeseeable_conditions_evidence",
-            "column": "uploaded_by",
-            "references": "users",
-            "migration": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
-            "timestamp": "2026_01_04_213708",
             "is_modification": false
         },
         {
@@ -28387,35 +28119,19 @@
             "is_modification": false
         },
         {
-            "table": "price_list_items",
-            "column": "price_list_id",
-            "references": "price_lists",
-            "migration": "2026_01_04_214214_create_price_list_items_table.php",
-            "timestamp": "2026_01_04_214214",
+            "table": "unforeseeable_conditions_evidence",
+            "column": "condition_id",
+            "references": "unforeseeable_conditions",
+            "migration": "2026_01_04_213709_create_unforeseeable_conditions_evidence_table.php",
+            "timestamp": "2026_01_04_213709",
             "is_modification": false
         },
         {
-            "table": "price_list_items",
-            "column": "material_id",
-            "references": "materials",
-            "migration": "2026_01_04_214214_create_price_list_items_table.php",
-            "timestamp": "2026_01_04_214214",
-            "is_modification": false
-        },
-        {
-            "table": "price_list_items",
-            "column": "labor_category_id",
-            "references": "labor_categories",
-            "migration": "2026_01_04_214214_create_price_list_items_table.php",
-            "timestamp": "2026_01_04_214214",
-            "is_modification": false
-        },
-        {
-            "table": "price_list_items",
-            "column": "equipment_category_id",
-            "references": "equipment_categories",
-            "migration": "2026_01_04_214214_create_price_list_items_table.php",
-            "timestamp": "2026_01_04_214214",
+            "table": "unforeseeable_conditions_evidence",
+            "column": "uploaded_by",
+            "references": "users",
+            "migration": "2026_01_04_213709_create_unforeseeable_conditions_evidence_table.php",
+            "timestamp": "2026_01_04_213709",
             "is_modification": false
         },
         {
@@ -28435,26 +28151,34 @@
             "is_modification": false
         },
         {
-            "table": "price_history",
-            "column": "price_list_item_id",
-            "references": "price_list_items",
-            "migration": "2026_01_04_214215_create_price_history_table.php",
+            "table": "price_list_items",
+            "column": "price_list_id",
+            "references": "price_lists",
+            "migration": "2026_01_04_214215_create_price_list_items_table.php",
             "timestamp": "2026_01_04_214215",
             "is_modification": false
         },
         {
-            "table": "price_history",
-            "column": "updated_by",
-            "references": "users",
-            "migration": "2026_01_04_214215_create_price_history_table.php",
+            "table": "price_list_items",
+            "column": "material_id",
+            "references": "materials",
+            "migration": "2026_01_04_214215_create_price_list_items_table.php",
             "timestamp": "2026_01_04_214215",
             "is_modification": false
         },
         {
-            "table": "price_request_items",
-            "column": "price_request_id",
-            "references": "price_requests",
-            "migration": "2026_01_04_214215_create_price_request_items_table.php",
+            "table": "price_list_items",
+            "column": "labor_category_id",
+            "references": "labor_categories",
+            "migration": "2026_01_04_214215_create_price_list_items_table.php",
+            "timestamp": "2026_01_04_214215",
+            "is_modification": false
+        },
+        {
+            "table": "price_list_items",
+            "column": "equipment_category_id",
+            "references": "equipment_categories",
+            "migration": "2026_01_04_214215_create_price_list_items_table.php",
             "timestamp": "2026_01_04_214215",
             "is_modification": false
         },
@@ -28472,6 +28196,30 @@
             "references": "users",
             "migration": "2026_01_04_214215_create_price_requests_table.php",
             "timestamp": "2026_01_04_214215",
+            "is_modification": false
+        },
+        {
+            "table": "price_request_items",
+            "column": "price_request_id",
+            "references": "price_requests",
+            "migration": "2026_01_04_214216_create_price_request_items_table.php",
+            "timestamp": "2026_01_04_214216",
+            "is_modification": false
+        },
+        {
+            "table": "price_history",
+            "column": "price_list_item_id",
+            "references": "price_list_items",
+            "migration": "2026_01_04_214217_create_price_history_table.php",
+            "timestamp": "2026_01_04_214217",
+            "is_modification": false
+        },
+        {
+            "table": "price_history",
+            "column": "updated_by",
+            "references": "users",
+            "migration": "2026_01_04_214217_create_price_history_table.php",
+            "timestamp": "2026_01_04_214217",
             "is_modification": false
         },
         {
@@ -28603,30 +28351,6 @@
             "is_modification": false
         },
         {
-            "table": "material_request_items",
-            "column": "material_request_id",
-            "references": "material_requests",
-            "migration": "2026_01_07_183818_create_material_request_items_table.php",
-            "timestamp": "2026_01_07_183818",
-            "is_modification": false
-        },
-        {
-            "table": "material_request_items",
-            "column": "material_id",
-            "references": "materials",
-            "migration": "2026_01_07_183818_create_material_request_items_table.php",
-            "timestamp": "2026_01_07_183818",
-            "is_modification": false
-        },
-        {
-            "table": "material_request_items",
-            "column": "unit_id",
-            "references": "units",
-            "migration": "2026_01_07_183818_create_material_request_items_table.php",
-            "timestamp": "2026_01_07_183818",
-            "is_modification": false
-        },
-        {
             "table": "material_requests",
             "column": "project_id",
             "references": "projects",
@@ -28664,6 +28388,30 @@
             "references": "companies",
             "migration": "2026_01_07_183818_create_material_requests_table.php",
             "timestamp": "2026_01_07_183818",
+            "is_modification": false
+        },
+        {
+            "table": "material_request_items",
+            "column": "material_request_id",
+            "references": "material_requests",
+            "migration": "2026_01_07_183819_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183819",
+            "is_modification": false
+        },
+        {
+            "table": "material_request_items",
+            "column": "material_id",
+            "references": "materials",
+            "migration": "2026_01_07_183819_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183819",
+            "is_modification": false
+        },
+        {
+            "table": "material_request_items",
+            "column": "unit_id",
+            "references": "units",
+            "migration": "2026_01_07_183819_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183819",
             "is_modification": false
         },
         {
@@ -29126,32 +28874,32 @@
             "table": "kpi_values",
             "column": "kpi_definition_id",
             "references": "kpi_definitions",
-            "migration": "2026_01_07_190647_create_kpi_values_table.php",
-            "timestamp": "2026_01_07_190647",
+            "migration": "2026_01_07_190648_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190648",
             "is_modification": false
         },
         {
             "table": "kpi_values",
             "column": "project_id",
             "references": "projects",
-            "migration": "2026_01_07_190647_create_kpi_values_table.php",
-            "timestamp": "2026_01_07_190647",
+            "migration": "2026_01_07_190648_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190648",
             "is_modification": false
         },
         {
             "table": "kpi_values",
             "column": "department_id",
             "references": "departments",
-            "migration": "2026_01_07_190647_create_kpi_values_table.php",
-            "timestamp": "2026_01_07_190647",
+            "migration": "2026_01_07_190648_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190648",
             "is_modification": false
         },
         {
             "table": "kpi_values",
             "column": "company_id",
             "references": "companies",
-            "migration": "2026_01_07_190647_create_kpi_values_table.php",
-            "timestamp": "2026_01_07_190647",
+            "migration": "2026_01_07_190648_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190648",
             "is_modification": false
         },
         {
@@ -29827,22 +29575,6 @@
             "is_modification": false
         },
         {
-            "table": "po_receipt_items",
-            "column": "po_receipt_id",
-            "references": "po_receipts",
-            "migration": "2026_01_07_193207_create_po_receipt_items_table.php",
-            "timestamp": "2026_01_07_193207",
-            "is_modification": false
-        },
-        {
-            "table": "po_receipt_items",
-            "column": "po_item_id",
-            "references": "purchase_order_items",
-            "migration": "2026_01_07_193207_create_po_receipt_items_table.php",
-            "timestamp": "2026_01_07_193207",
-            "is_modification": false
-        },
-        {
             "table": "po_receipts",
             "column": "purchase_order_id",
             "references": "purchase_orders",
@@ -29872,6 +29604,22 @@
             "references": "companies",
             "migration": "2026_01_07_193207_create_po_receipts_table.php",
             "timestamp": "2026_01_07_193207",
+            "is_modification": false
+        },
+        {
+            "table": "po_receipt_items",
+            "column": "po_receipt_id",
+            "references": "po_receipts",
+            "migration": "2026_01_07_193208_create_po_receipt_items_table.php",
+            "timestamp": "2026_01_07_193208",
+            "is_modification": false
+        },
+        {
+            "table": "po_receipt_items",
+            "column": "po_item_id",
+            "references": "purchase_order_items",
+            "migration": "2026_01_07_193208_create_po_receipt_items_table.php",
+            "timestamp": "2026_01_07_193208",
             "is_modification": false
         },
         {
@@ -30461,7 +30209,7 @@
         {
             "table": "defect_notifications",
             "column": "defects_liability_id",
-            "references": "defects_liabilities",
+            "references": "defects_liability",
             "migration": "2026_01_09_150007_create_defect_notifications_table.php",
             "timestamp": "2026_01_09_150007",
             "is_modification": false
@@ -31075,6 +30823,38 @@
             "is_modification": false
         },
         {
+            "table": "photo_albums",
+            "column": "project_id",
+            "references": "projects",
+            "migration": "2026_01_09_152030_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152030",
+            "is_modification": false
+        },
+        {
+            "table": "photo_albums",
+            "column": "cover_photo_id",
+            "references": "photos",
+            "migration": "2026_01_09_152030_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152030",
+            "is_modification": false
+        },
+        {
+            "table": "photo_albums",
+            "column": "created_by_id",
+            "references": "users",
+            "migration": "2026_01_09_152030_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152030",
+            "is_modification": false
+        },
+        {
+            "table": "photo_albums",
+            "column": "company_id",
+            "references": "companies",
+            "migration": "2026_01_09_152030_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152030",
+            "is_modification": false
+        },
+        {
             "table": "photos",
             "column": "project_id",
             "references": "projects",
@@ -31139,58 +30919,10 @@
             "is_modification": false
         },
         {
-            "table": "photo_albums",
-            "column": "project_id",
-            "references": "projects",
-            "migration": "2026_01_09_152032_create_photo_albums_table.php",
-            "timestamp": "2026_01_09_152032",
-            "is_modification": false
-        },
-        {
-            "table": "photo_albums",
-            "column": "cover_photo_id",
-            "references": "photos",
-            "migration": "2026_01_09_152032_create_photo_albums_table.php",
-            "timestamp": "2026_01_09_152032",
-            "is_modification": false
-        },
-        {
-            "table": "photo_albums",
-            "column": "created_by_id",
-            "references": "users",
-            "migration": "2026_01_09_152032_create_photo_albums_table.php",
-            "timestamp": "2026_01_09_152032",
-            "is_modification": false
-        },
-        {
-            "table": "photo_albums",
-            "column": "company_id",
-            "references": "companies",
-            "migration": "2026_01_09_152032_create_photo_albums_table.php",
-            "timestamp": "2026_01_09_152032",
-            "is_modification": false
-        },
-        {
             "table": "photo_locations",
             "column": "project_id",
             "references": "projects",
             "migration": "2026_01_09_152032_create_photo_locations_table.php",
-            "timestamp": "2026_01_09_152032",
-            "is_modification": false
-        },
-        {
-            "table": "photo_report_items",
-            "column": "photo_report_id",
-            "references": "photo_reports",
-            "migration": "2026_01_09_152032_create_photo_report_items_table.php",
-            "timestamp": "2026_01_09_152032",
-            "is_modification": false
-        },
-        {
-            "table": "photo_report_items",
-            "column": "photo_id",
-            "references": "photos",
-            "migration": "2026_01_09_152032_create_photo_report_items_table.php",
             "timestamp": "2026_01_09_152032",
             "is_modification": false
         },
@@ -31272,6 +31004,22 @@
             "references": "companies",
             "migration": "2026_01_09_152035_create_photo_reports_table.php",
             "timestamp": "2026_01_09_152035",
+            "is_modification": false
+        },
+        {
+            "table": "photo_report_items",
+            "column": "photo_report_id",
+            "references": "photo_reports",
+            "migration": "2026_01_09_152036_create_photo_report_items_table.php",
+            "timestamp": "2026_01_09_152036",
+            "is_modification": false
+        },
+        {
+            "table": "photo_report_items",
+            "column": "photo_id",
+            "references": "photos",
+            "migration": "2026_01_09_152036_create_photo_report_items_table.php",
+            "timestamp": "2026_01_09_152036",
             "is_modification": false
         },
         {

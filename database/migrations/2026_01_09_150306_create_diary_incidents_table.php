@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_incidents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->enum('incident_type', ['accident', 'near_miss', 'property_damage', 'environmental', 'security']);
             $table->enum('severity', ['minor', 'moderate', 'major', 'critical'])->default('minor');
             $table->time('time_occurred')->nullable();

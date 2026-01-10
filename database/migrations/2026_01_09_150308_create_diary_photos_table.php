@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->string('photo_path');
             $table->string('thumbnail_path')->nullable();
             $table->string('caption')->nullable();

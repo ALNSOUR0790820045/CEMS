@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_instructions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->enum('instruction_type', ['client', 'consultant', 'internal', 'safety'])->default('internal');
             $table->string('issued_by');
             $table->foreignId('received_by_id')->nullable()->constrained('users')->onDelete('set null');

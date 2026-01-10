@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipment_fuel_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('equipment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('equipment_id')->constrained('equipment')->cascadeOnDelete();
             $table->foreignId('project_id')->nullable()->constrained()->nullOnDelete();
             $table->date('fill_date');
             $table->decimal('quantity', 10, 2); // لترات

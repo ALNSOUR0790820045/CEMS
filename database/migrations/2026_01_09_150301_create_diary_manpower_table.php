@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_manpower', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->enum('trade', ['carpenter', 'mason', 'electrician', 'plumber', 'steel_fixer', 'painter', 'laborer', 'foreman', 'engineer', 'supervisor', 'driver', 'operator', 'welder', 'other']);
             $table->integer('own_count')->default(0);
             $table->integer('subcontractor_count')->default(0);
