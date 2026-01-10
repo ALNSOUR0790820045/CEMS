@@ -13,18 +13,30 @@ class Guarantee extends Model
     protected $fillable = [
         'guarantee_number',
         'type',
+        'guarantee_type',
         'project_id',
         'tender_id',
         'contract_id',
+        'contract_number',
         'bank_id',
         'bank_name',
         'beneficiary',
+        'beneficiary_name',
         'beneficiary_address',
         'amount',
         'currency',
+        'currency_id',
+        'exchange_rate',
         'amount_in_base_currency',
+        'amount_words',
+        'amount_words_en',
+        'contractor_name',
+        'contractor_cr',
+        'contractor_address',
         'issue_date',
+        'start_date',
         'expiry_date',
+        'end_date',
         'expected_release_date',
         'status',
         'bank_charges',
@@ -32,27 +44,37 @@ class Guarantee extends Model
         'cash_margin',
         'margin_percentage',
         'bank_reference_number',
+        'lg_number',
         'purpose',
+        'description',
         'notes',
         'auto_renewal',
         'renewal_period_days',
         'alert_days_before_expiry',
+        'branch_id',
+        'template_id',
         'created_by',
         'approved_by',
         'approved_at',
+        'released_at',
+        'released_by',
     ];
 
     protected $casts = [
-        'amount' => 'decimal: 2',
-        'amount_in_base_currency' => 'decimal:2',
-        'bank_charges' => 'decimal: 2',
-        'bank_commission_rate' => 'decimal: 2',
+        'amount' => 'decimal:3',
+        'amount_in_base_currency' => 'decimal:3',
+        'exchange_rate' => 'decimal:6',
+        'bank_charges' => 'decimal:2',
+        'bank_commission_rate' => 'decimal:2',
         'cash_margin' => 'decimal:2',
         'margin_percentage' => 'decimal:2',
         'issue_date' => 'date',
+        'start_date' => 'date',
         'expiry_date' => 'date',
+        'end_date' => 'date',
         'expected_release_date' => 'date',
         'approved_at' => 'datetime',
+        'released_at' => 'datetime',
         'auto_renewal' => 'boolean',
     ];
 
@@ -60,6 +82,21 @@ class Guarantee extends Model
     public function bank()
     {
         return $this->belongsTo(Bank::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function template()
+    {
+        return $this->belongsTo(PaymentTemplate::class, 'template_id');
     }
 
     public function project()
@@ -85,6 +122,11 @@ class Guarantee extends Model
     public function approver()
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function releaser()
+    {
+        return $this->belongsTo(User::class, 'released_by');
     }
 
     public function renewals()

@@ -15,10 +15,13 @@ class Branch extends Model
         'address',
         'city_id',
         'is_active',
+        'primary_currency_id',
+        'secondary_currencies',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'secondary_currencies' => 'array',
     ];
 
     // Relationships
@@ -32,9 +35,29 @@ class Branch extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function primaryCurrency()
+    {
+        return $this->belongsTo(Currency::class, 'primary_currency_id');
+    }
+
     public function warehouses()
     {
         return $this->hasMany(Warehouse::class);
+    }
+
+    public function checks()
+    {
+        return $this->hasMany(Check::class);
+    }
+
+    public function promissoryNotes()
+    {
+        return $this->hasMany(PromissoryNote::class);
+    }
+
+    public function guarantees()
+    {
+        return $this->hasMany(Guarantee::class);
     }
 
     // Scopes
