@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
+<<<<<<< HEAD
+    protected $fillable = [
+        'name',
+        'name_en',
+        'symbol',
+        'symbol_en',
+        'company_id',
+    ];
+
+    // Relationships
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class);
+=======
     // Type constants
     const TYPE_WEIGHT = 'weight';
     const TYPE_LENGTH = 'length';
@@ -30,5 +49,6 @@ class Unit extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+>>>>>>> origin/main
     }
 }

@@ -4,14 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+<<<<<<< HEAD
+=======
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+>>>>>>> origin/main
 
 class Vendor extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
+<<<<<<< HEAD
+        'name',
+        'name_en',
+        'email',
+        'phone',
+        'address',
+        'contact_person',
+        'tax_number',
+        'is_active',
+=======
         'vendor_code',
         'name',
         'name_en',
@@ -47,11 +60,18 @@ class Vendor extends Model
         'is_approved',
         'approved_by_id',
         'approved_at',
+>>>>>>> origin/main
         'company_id',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+<<<<<<< HEAD
+    ];
+
+    // Relationships
+    public function company()
+=======
         'is_approved' => 'boolean',
         'approved_at' => 'datetime',
         'credit_limit' => 'decimal:2',
@@ -92,10 +112,23 @@ class Vendor extends Model
     }
 
     public function company(): BelongsTo
+>>>>>>> origin/main
     {
         return $this->belongsTo(Company::class);
     }
 
+<<<<<<< HEAD
+    public function materialVendors()
+    {
+        return $this->hasMany(MaterialVendor::class);
+    }
+
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class, 'material_vendors')
+            ->withPivot('vendor_material_code', 'unit_price', 'currency_id', 'lead_time_days', 'min_order_quantity', 'is_preferred')
+            ->withTimestamps();
+=======
     // Scopes
     public function scopeActive($query)
     {
@@ -150,5 +183,6 @@ class Vendor extends Model
         }
 
         return sprintf('VND-%s-%04d', $year, $newNumber);
+>>>>>>> origin/main
     }
 }
