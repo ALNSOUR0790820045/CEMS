@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
@@ -11,19 +12,53 @@ class Project extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'company_id',
         'name',
+        'name_en',
         'code',
         'description',
+        'location',
+        'latitude',
+        'longitude',
+        'start_date',
+        'end_date',
         'status',
+        'budget',
+        'manager_id',
+        'is_active',
     ];
 
-    public function equipment(): HasMany
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'budget' => 'decimal:2',
+        'latitude' => 'decimal:8',
+        'longitude' => 'decimal:8',
+        'is_active' => 'boolean',
+    ];
+
+    public function company(): BelongsTo
     {
-        return $this->hasMany(Equipment::class, 'current_project_id');
+        return $this->belongsTo(Company::class);
     }
 
-    public function equipmentAssignments(): HasMany
+    public function manager(): BelongsTo
     {
-        return $this->hasMany(EquipmentAssignment::class);
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    public function siteReceipts(): HasMany
+    {
+        return $this->hasMany(SiteReceipt::class);
+    }
+
+    public function purchaseOrders(): HasMany
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
+
+    public function siteDiaries(): HasMany
+    {
+        return $this->hasMany(SiteDiary::class);
     }
 }
