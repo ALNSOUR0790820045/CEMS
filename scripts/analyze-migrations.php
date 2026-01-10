@@ -191,20 +191,39 @@ class MigrationAnalyzer
                 continue;
             }
 
-            // Check creation order
+            // Skip self-referencing tables (parent_id, etc.) - these are valid
+            if ($fk['table'] === $referencedTable) {
+                continue;
+            }
+
+            // Check creation order (only for different tables)
             if (!$fk['is_modification']) {
                 $tableTimestamp = $this->tables[$fk['table']]['timestamp'];
                 $referencedTimestamp = $this->tables[$referencedTable]['timestamp'];
 
-                if ($tableTimestamp <= $referencedTimestamp) {
+                // Only flag if created at exactly the same time (same migration file)
+                // This is an issue when tables are in the same file and reference each other
+                if ($tableTimestamp === $referencedTimestamp) {
                     $this->addIssue('critical', [
                         'type' => 'foreign_key_order',
                         'file' => $fk['migration'],
                         'table' => $fk['table'],
                         'column' => $fk['column'],
                         'references' => $referencedTable,
-                        'issue' => "Table '{$fk['table']}' references '{$referencedTable}' but may be created at the same time or before it",
-                        'fix' => "Ensure '{$referencedTable}' is created before '{$fk['table']}'",
+                        'issue' => "Table '{$fk['table']}' references '{$referencedTable}' but they are created in the same migration file",
+                        'fix' => "Split into separate migration files or ensure '{$referencedTable}' is created first in the file",
+                        'table_timestamp' => $tableTimestamp,
+                        'referenced_timestamp' => $referencedTimestamp,
+                    ]);
+                } elseif ($tableTimestamp < $referencedTimestamp) {
+                    $this->addIssue('critical', [
+                        'type' => 'foreign_key_order',
+                        'file' => $fk['migration'],
+                        'table' => $fk['table'],
+                        'column' => $fk['column'],
+                        'references' => $referencedTable,
+                        'issue' => "Table '{$fk['table']}' is created before '{$referencedTable}' but references it",
+                        'fix' => "Rename migration file to run after '{$this->tables[$referencedTable]['migration']}'",
                         'table_timestamp' => $tableTimestamp,
                         'referenced_timestamp' => $referencedTimestamp,
                     ]);
@@ -408,6 +427,33 @@ class MigrationAnalyzer
     {
         // Remove _id suffix
         $tableName = preg_replace('/_id$/', '', $columnName);
+
+        // Handle irregular plurals
+        $irregularPlurals = [
+            'company' => 'companies',
+            'country' => 'countries',
+            'city' => 'cities',
+            'category' => 'categories',
+            'currency' => 'currencies',
+            'activity' => 'activities',
+            'entry' => 'entries',
+            'diary' => 'diaries',
+            'liability' => 'liabilities',
+        ];
+
+        if (isset($irregularPlurals[$tableName])) {
+            return $irregularPlurals[$tableName];
+        }
+
+        // Handle words ending in 'ch', 'sh', 'ss', 'x', 'z' -> add 'es'
+        if (preg_match('/(ch|sh|ss|x|z)$/', $tableName)) {
+            return $tableName . 'es';
+        }
+
+        // Handle words ending in 'y' preceded by consonant -> 'ies'
+        if (preg_match('/[^aeiou]y$/', $tableName)) {
+            return preg_replace('/y$/', 'ies', $tableName);
+        }
 
         // Pluralize (simple approach)
         if (!str_ends_with($tableName, 's')) {
