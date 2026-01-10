@@ -73,6 +73,9 @@ foreach ($files as $file) {
             $inferredTable = rtrim($column, '_id');
             
             // Laravel's pluralization rules (simplified)
+            // NOTE: This uses simplified rules that work for this codebase.
+            // For a more robust solution, consider using Laravel's Str::plural()
+            // or Doctrine Inflector in a Laravel-aware context.
             if (substr($inferredTable, -1) === 'y') {
                 $inferredTable = substr($inferredTable, 0, -1) . 'ies'; // company -> companies
             } elseif (substr($inferredTable, -2) === 'ch') {
