@@ -93,7 +93,7 @@
             -webkit-backdrop-filter: blur(30px);
             
             display: grid;
-            grid-template-columns: repeat(3, 1fr); 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
             gap: 40px;
             
             opacity: 0;
@@ -367,6 +367,14 @@
                             <a href="#" class="sub-link"><i data-lucide="landmark"></i> الكفالات</a>
                             <a href="#" class="sub-link"><i data-lucide="piggy-bank"></i> المحبوسات</a>
                             <a href="{{ route('payment-terms.index') }}" class="sub-link"><i data-lucide="calendar-clock"></i> شروط الدفع</a>
+                        </div>
+                        <div class="menu-col">
+                            <h4>فروقات الأسعار</h4>
+                            <a href="{{ route('price-escalation.dashboard') }}" class="sub-link"><i data-lucide="trending-up"></i> لوحة التحكم</a>
+                            <a href="{{ route('price-escalation.index') }}" class="sub-link"><i data-lucide="file-contract"></i> العقود</a>
+                            <a href="{{ route('price-escalation.calculate') }}" class="sub-link"><i data-lucide="calculator"></i> حساب فروقات</a>
+                            <a href="{{ route('price-escalation.calculations') }}" class="sub-link"><i data-lucide="list"></i> الحسابات</a>
+                            <a href="{{ route('price-escalation.dsi-indices') }}" class="sub-link"><i data-lucide="bar-chart"></i> مؤشرات DSI</a>
                         </div>
                     </div>
                 </div>

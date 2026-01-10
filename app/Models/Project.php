@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
@@ -18,47 +19,33 @@ class Project extends Model
         'code',
         'description',
         'location',
-        'latitude',
-        'longitude',
+        'contract_value',
         'start_date',
         'end_date',
         'status',
-        'budget',
-        'manager_id',
         'is_active',
     ];
 
     protected $casts = [
+        'is_active' => 'boolean',
+        'contract_value' => 'decimal:2',
         'start_date' => 'date',
         'end_date' => 'date',
-        'budget' => 'decimal:2',
-        'latitude' => 'decimal:8',
-        'longitude' => 'decimal:8',
-        'is_active' => 'boolean',
     ];
 
+    // Relationships
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function manager(): BelongsTo
+    public function ipcs(): HasMany
     {
-        return $this->belongsTo(User::class, 'manager_id');
+        return $this->hasMany(MainIpc::class);
     }
 
-    public function siteReceipts(): HasMany
+    public function priceEscalationContract(): HasOne
     {
-        return $this->hasMany(SiteReceipt::class);
-    }
-
-    public function purchaseOrders(): HasMany
-    {
-        return $this->hasMany(PurchaseOrder::class);
-    }
-
-    public function siteDiaries(): HasMany
-    {
-        return $this->hasMany(SiteDiary::class);
+        return $this->hasOne(PriceEscalationContract::class);
     }
 }
