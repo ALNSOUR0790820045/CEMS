@@ -12,6 +12,10 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+<<<<<<< HEAD
+/database/database.sqlite
+=======
 .env.backup
 database/*.sqlite
 storage/framework/views/*.php
+>>>>>>> origin/main
