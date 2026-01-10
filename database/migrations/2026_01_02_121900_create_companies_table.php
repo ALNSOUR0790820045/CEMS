@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->string('city')->nullable();
-            $table->string('country');
+            $table->string('country')->nullable();
             $table->string('commercial_registration')->nullable();
             $table->string('tax_number')->nullable();
             $table->string('logo')->nullable();
