@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApInvoice;
+use App\Models\ARInvoice;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -125,7 +127,7 @@ class AgedReportController extends Controller
         $companyId = auth()->user()->company_id ?? null;
         
         if ($type === 'payable') {
-            $query = \App\Models\ApInvoice::with('vendor')
+            $query = ApInvoice::with('vendor')
                 ->where('status', '!=', 'paid');
             
             if ($companyId) {
@@ -135,7 +137,7 @@ class AgedReportController extends Controller
             $invoices = $query->get();
             $entityKey = 'vendor';
         } else {
-            $query = \App\Models\ARInvoice::with('client')
+            $query = ARInvoice::with('client')
                 ->where('status', '!=', 'paid');
             
             if ($companyId) {

@@ -103,10 +103,9 @@ class MainIpc extends Model
         parent::boot();
         
         static::creating(function ($model) {
-            // Set default retention_percent from project contract or system default
+            // Set default retention_percent from config
             if (is_null($model->retention_percent)) {
-                $model->retention_percent = $model->project->contract->retention_percentage 
-                    ?? config('ipc.default_retention_percent', 10);
+                $model->retention_percent = config('ipc.default_retention_percent', 10);
             }
             
             // Set default tax_rate from system settings
