@@ -3,76 +3,107 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
-    use SoftDeletes;
-
-    // Account Type Constants
-    const TYPE_ASSET = 'asset';
-
-    const TYPE_LIABILITY = 'liability';
-
-    const TYPE_EQUITY = 'equity';
-
-    const TYPE_REVENUE = 'revenue';
-
-    const TYPE_EXPENSE = 'expense';
-
-    // Account Category Constants
-    const CATEGORY_CURRENT = 'current';
-
-    const CATEGORY_NON_CURRENT = 'non_current';
-
-    const CATEGORY_OPERATING = 'operating';
-
-    const CATEGORY_NON_OPERATING = 'non_operating';
-
     protected $fillable = [
-        'company_id',
         'code',
         'name',
         'name_en',
-        'type',
-        'category',
         'parent_id',
-        'balance',
-        'currency',
-        'department_id',
+        'type',
+        'nature',
+        'level',
+        'is_parent',
         'is_active',
+        'opening_balance',
+        'current_balance',
         'description',
     ];
 
     protected $casts = [
-        'balance' => 'decimal:2',
+        'is_parent' => 'boolean',
         'is_active' => 'boolean',
+        'opening_balance' => 'decimal:2',
+        'current_balance' => 'decimal:2',
     ];
 
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function parent(): BelongsTo
+    // Self-referential relationship - Parent
+    public function parent()
     {
         return $this->belongsTo(Account::class, 'parent_id');
     }
 
-    public function children(): HasMany
+    // Self-referential relationship - Children
+    public function children()
     {
         return $this->hasMany(Account::class, 'parent_id');
     }
 
-    public function department(): BelongsTo
+    // Get all descendants (children, grandchildren, etc.)
+    public function descendants()
     {
-        return $this->belongsTo(Department::class);
+        return $this->children()->with('descendants');
     }
 
-    public function transactions(): HasMany
+    // Get full code with hierarchy (e.g., 1-1-001)
+    public function getFullCode()
     {
-        return $this->hasMany(Transaction::class);
+        if ($this->parent) {
+            return $this->parent->getFullCode() . '-' . $this->code;
+        }
+        return $this->code;
+    }
+
+    // Get hierarchy level
+    public function getHierarchyLevel()
+    {
+        $level = 0;
+        $parent = $this->parent;
+        
+        while ($parent) {
+            $level++;
+            $parent = $parent->parent;
+        }
+        
+        return $level;
+    }
+
+    // Get breadcrumb path
+    public function getBreadcrumb()
+    {
+        $breadcrumb = [];
+        $current = $this;
+        
+        while ($current) {
+            array_unshift($breadcrumb, $current);
+            $current = $current->parent;
+        }
+        
+        return $breadcrumb;
+    }
+
+    // Scope for root accounts (no parent)
+    public function scopeRoots($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
+    // Scope for active accounts
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    // Scope for parent accounts
+    public function scopeParents($query)
+    {
+        return $query->where('is_parent', true);
+    }
+
+    // Scope by type
+    public function scopeByType($query, $type)
+    {
+        return $query->where('type', $type);
     }
 }

@@ -28,6 +28,11 @@ Route::middleware('auth')->group(function () {
 
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+<<<<<<< HEAD
+    
+    // Accounts Management
+    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+=======
 
     // Currencies Management
     Route::resource('currencies', \App\Http\Controllers\CurrencyController::class);

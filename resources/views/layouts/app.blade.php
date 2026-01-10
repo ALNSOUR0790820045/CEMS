@@ -348,6 +348,7 @@
                         </div>
                         <div class="menu-col">
                             <h4>المحاسبة</h4>
+                            <a href="{{ route('accounts.index') }}" class="sub-link"><i data-lucide="book-open"></i> دليل الحسابات</a>
                             <a href="#" class="sub-link"><i data-lucide="calculator"></i> المحاسبة</a>
                             <a href="{{ route('main-ipcs.index') }}" class="sub-link"><i data-lucide="receipt"></i> المستخلصات الرئيسية</a>
                             <a href="{{ route('main-ipcs.report') }}" class="sub-link"><i data-lucide="bar-chart"></i> تقرير المستخلصات</a>
