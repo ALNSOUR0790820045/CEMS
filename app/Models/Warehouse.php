@@ -12,6 +12,8 @@ class Warehouse extends Model
         'code',
         'name',
         'name_en',
+        'location',
+        'manager',
         'manager_id',
         'phone',
         'address',
@@ -44,6 +46,11 @@ class Warehouse extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function purchaseOrders()
+    {
+        return $this->hasMany(PurchaseOrder::class);
     }
 
     public function stockMovements()

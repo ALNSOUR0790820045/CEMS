@@ -3,34 +3,53 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PaymentTerm extends Model
+class Product extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'name',
         'name_en',
-        'days',
+        'code',
+        'sku',
         'description',
+        'type',
+        'category',
+        'unit',
+        'unit_price',
+        'cost_price',
+        'selling_price',
+        'tax_rate',
+        'barcode',
+        'reorder_level',
+        'min_stock',
+        'max_stock',
+        'track_inventory',
+        'has_expiry',
         'is_active',
+        'notes',
     ];
 
     protected $casts = [
+        'unit_price' => 'decimal:2',
+        'cost_price' => 'decimal: 2',
+        'selling_price' => 'decimal:2',
+        'tax_rate' => 'decimal:2',
+        'track_inventory' => 'boolean',
+        'has_expiry' => 'boolean',
         'is_active' => 'boolean',
-        'days' => 'integer',
     ];
 
-    // Scope for active payment terms
-    public function scopeActive($query)
+    public function purchaseOrderItems(): HasMany
     {
-        return $query->where('is_active', true);
+        return $this->hasMany(PurchaseOrderItem::class);
     }
 
-    // Display name accessor
-    public function getDisplayNameAttribute()
+    public function siteReceiptItems(): HasMany
     {
-        if ($this->days == 0) {
-            return 'نقدي';
-        }
-        return "آجل {$this->days} يوم";
+        return $this->hasMany(SiteReceiptItem::class);
     }
 }

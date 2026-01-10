@@ -16,6 +16,15 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+<<<<<<< HEAD
+    
+    // Companies Management
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    
+    // Purchase Orders Management
+    Route::resource('purchase-orders', \App\Http\Controllers\PurchaseOrderController::class);
+    Route::post('purchase-orders/{purchaseOrder}/status', [\App\Http\Controllers\PurchaseOrderController::class, 'updateStatus'])->name('purchase-orders.status');
+=======
 
     // Companies Management
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);

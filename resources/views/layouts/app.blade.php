@@ -372,9 +372,10 @@
                     <a class="nav-link">اللوجستيات</a>
                     <div class="mega-menu">
                         <div class="menu-col">
-                            <h4>المشتريات</h4>
-                            <a href="#" class="sub-link"><i data-lucide="shopping-cart"></i> المشتريات</a>
-                            <a href="{{ route('warehouses.index') }}" class="sub-link"><i data-lucide="package"></i> المستودعات</a>
+    <h4>المشتريات</h4>
+    <a href="{{ route('purchase-orders.index') }}" class="sub-link"><i data-lucide="shopping-cart"></i> أوامر الشراء</a>
+    <a href="{{ route('warehouses.index') }}" class="sub-link"><i data-lucide="package"></i> المستودعات</a>
+</div>
                         </div>
                         <div class="menu-col">
                             <h4>الموارد البشرية</h4>
