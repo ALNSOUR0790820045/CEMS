@@ -97,23 +97,67 @@ class ContractTemplateController extends Controller
 
     public function exportWord($id)
     {
-        $contract = ContractGenerated::with(['template'])->findOrFail($id);
+        $contract = ContractGenerated::with(['template.clauses', 'template.specialConditions'])->findOrFail($id);
         
-        // TODO: Implement Word export using PHPWord
-        return response()->json([
-            'message' => 'Word export functionality to be implemented',
-            'contract_id' => $id
-        ]);
+        // Check if PHPWord is available
+        if (!class_exists('\PhpOffice\PhpWord\PhpWord')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'PHPWord package is not installed. Please run: composer require phpoffice/phpword'
+            ], 500);
+        }
+        
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+        
+        // Add title
+        $section->addTitle($contract->contract_title, 1);
+        
+        // Add parties
+        if ($contract->parties && is_array($contract->parties)) {
+            $section->addTitle('Parties', 2);
+            foreach ($contract->parties as $party) {
+                $partyName = $party['name'] ?? '';
+                $partyDetails = $party['details'] ?? '';
+                $section->addText($partyName . ': ' . $partyDetails);
+            }
+        }
+        
+        // Add clauses from template
+        if ($contract->template && $contract->template->clauses) {
+            $section->addTitle('Contract Clauses', 2);
+            foreach ($contract->template->clauses as $clause) {
+                $section->addTitle($clause->title, 3);
+                $section->addText(strip_tags($clause->content));
+            }
+        }
+        
+        // Save to temporary location
+        $filename = 'contract_' . $contract->id . '_' . time() . '.docx';
+        $path = storage_path('app/temp/' . $filename);
+        
+        // Ensure temp directory exists
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+        
+        $writer = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save($path);
+        
+        return response()->download($path)->deleteFileAfterSend();
     }
 
     public function exportPdf($id)
     {
-        $contract = ContractGenerated::with(['template'])->findOrFail($id);
+        $contract = ContractGenerated::with(['template.clauses', 'template.specialConditions'])->findOrFail($id);
         
-        // TODO: Implement PDF export using DomPDF
-        return response()->json([
-            'message' => 'PDF export functionality to be implemented',
-            'contract_id' => $id
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('contract-templates.pdf', [
+            'contract' => $contract,
+            'template' => $contract->template,
         ]);
+        
+        $filename = 'contract_' . $contract->id . '_' . time() . '.pdf';
+        
+        return $pdf->download($filename);
     }
 }
