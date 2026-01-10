@@ -2,33 +2,24 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\MaterialCategoryController;
+use App\Http\Controllers\TimeBarController;
+use App\Http\Controllers\Api\EmployeeDocumentController;
+use App\Http\Controllers\Api\EmployeeDependentController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::prefix('v1')->group(function () {
+    // Material Categories
+    Route::prefix('material-categories')->group(function () {
+        Route::get('/', [MaterialCategoryController::class, 'index']);
+        Route::post('/', [MaterialCategoryController:: class, 'store']);
+        Route::get('/{id}', [MaterialCategoryController::class, 'show']);
+        Route::put('/{id}', [MaterialCategoryController::class, 'update']);
+        Route::delete('/{id}', [MaterialCategoryController::class, 'destroy']);
+    });
 
-// Materials API Routes
-// Note: Add ->middleware('auth:sanctum') to protect these routes in production
-Route::prefix('materials')->group(function () {
-    Route::get('/', [MaterialController::class, 'index']);
-    Route::post('/', [MaterialController::class, 'store']);
-    Route::get('/{id}', [MaterialController::class, 'show']);
-    Route::put('/{id}', [MaterialController::class, 'update']);
-    Route::delete('/{id}', [MaterialController::class, 'destroy']);
-    
-    // Material vendors
-    Route::get('/{id}/vendors', [MaterialController::class, 'vendors']);
-    Route::post('/{id}/vendors', [MaterialController::class, 'addVendor']);
-});
+    // Clauses
+    Route::get('/clauses', [TimeBarController::class, 'clauses'])->name('clauses');
 
-// Material Categories API Routes
-// Note: Add ->middleware('auth:sanctum') to protect these routes in production
-Route::prefix('material-categories')->group(function () {
-    Route::get('/', [MaterialCategoryController::class, 'index']);
-    Route::post('/', [MaterialCategoryController::class, 'store']);
-    Route::get('/{id}', [MaterialCategoryController::class, 'show']);
-    Route::put('/{id}', [MaterialCategoryController::class, 'update']);
-    Route::delete('/{id}', [MaterialCategoryController::class, 'destroy']);
+    // Reports
+    Route::get('reports/incident-log/{projectId}', [DiaryReportController::class, 'incidentLog']);
+    Route::get('reports/progress-photos/{projectId}', [DiaryReportController:: class, 'progressPhotos']);
 });

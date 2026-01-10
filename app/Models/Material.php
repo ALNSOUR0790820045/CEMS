@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Material extends Model
@@ -117,5 +118,26 @@ class Material extends Model
     public function specifications()
     {
         return $this->hasMany(MaterialSpecification::class);
+=======
+
+class Material extends Model
+{
+    protected $fillable = [
+        'code',
+        'name',
+        'name_en',
+        'description',
+        'unit',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function priceListItems()
+    {
+        return $this->hasMany(PriceListItem::class);
+>>>>>>> origin/main
     }
 }
