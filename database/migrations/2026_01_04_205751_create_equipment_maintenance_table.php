@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipment_maintenance', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('equipment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('equipment_id')->constrained('equipment')->cascadeOnDelete();
             $table->string('maintenance_number'); // MNT-EQP001-001
             $table->enum('type', [
                 'preventive',    // وقائية

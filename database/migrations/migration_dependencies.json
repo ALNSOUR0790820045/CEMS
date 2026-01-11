@@ -1,0 +1,5237 @@
+{
+    "version": "1.0",
+    "generated_at": "2026-01-10 21:13:28",
+    "total_migrations": 403,
+    "total_tables": 350,
+    "summary": {
+        "core_tables": 44,
+        "leaf_tables": 232,
+        "total_foreign_keys": 573,
+        "missing_parent_tables": 12,
+        "timestamp_conflicts": 57,
+        "circular_dependencies": 0
+    },
+    "core_tables": [
+        "users",
+        "password_reset_tokens",
+        "sessions",
+        "cache",
+        "cache_locks",
+        "jobs",
+        "job_batches",
+        "failed_jobs",
+        "tenants",
+        "companies",
+        "tenders",
+        "currencies",
+        "units",
+        "payment_terms",
+        "countries",
+        "products",
+        "suppliers",
+        "customers",
+        "accounts",
+        "dsi_indices",
+        "time_bar_protection_settings",
+        "vendor_bank_accounts",
+        "vendor_contacts",
+        "vendor_documents",
+        "vendor_materials",
+        "vendors",
+        "vendor_evaluations",
+        "banks",
+        "financial_report_configs",
+        "report_history",
+        "report_schedules",
+        "personal_access_tokens",
+        "material_categories",
+        "labor_categories",
+        "labor_camps",
+        "equipment_categories",
+        "time_bar_settings",
+        "contract_templates",
+        "eot_requests",
+        "regions",
+        "backups",
+        "punch_templates",
+        "punch_categories",
+        "payment_templates"
+    ],
+    "leaf_tables": [
+        "password_reset_tokens",
+        "sessions",
+        "cache",
+        "cache_locks",
+        "jobs",
+        "job_batches",
+        "failed_jobs",
+        "domains",
+        "tenant_user_impersonation_tokens",
+        "main_ipc_items",
+        "change_order_items",
+        "cities",
+        "stock_movements",
+        "sales_quotation_items",
+        "activity_dependencies",
+        "project_milestones",
+        "daily_report_photos",
+        "project_baselines",
+        "project_progress_snapshots",
+        "project_timesheets",
+        "time_bar_claims",
+        "eot_affected_activities",
+        "prolongation_cost_items",
+        "tender_site_visits",
+        "tender_clarifications",
+        "tender_competitors",
+        "tender_committee_decisions",
+        "tender_wbs_boq_mapping",
+        "tender_procurement_suppliers",
+        "tender_long_lead_items",
+        "dsi_indices",
+        "price_escalation_calculations",
+        "dsi_import_logs",
+        "goods_receipt_notes",
+        "site_receipt_items",
+        "site_receipt_photos",
+        "tender_risk_events",
+        "tender_contingency_reserves",
+        "tender_activity_dependencies",
+        "tender_milestones",
+        "tender_resource_assignments",
+        "tender_resource_histogram",
+        "time_bar_protection_settings",
+        "gl_journal_entry_lines",
+        "gl_periods",
+        "client_bank_accounts",
+        "client_contacts",
+        "client_documents",
+        "g_l_accounts",
+        "contract_amendments",
+        "contract_change_orders",
+        "contract_clauses",
+        "contract_milestones",
+        "vendor_bank_accounts",
+        "vendor_contacts",
+        "vendor_documents",
+        "vendor_materials",
+        "vendor_evaluations",
+        "employee_dependents",
+        "employee_documents",
+        "employee_qualifications",
+        "employee_skills",
+        "employee_work_history",
+        "positions",
+        "financial_report_configs",
+        "report_history",
+        "report_schedules",
+        "subcontractor_contacts",
+        "subcontractor_evaluations",
+        "subcontractor_ipc_items",
+        "subcontractor_work_orders",
+        "personal_access_tokens",
+        "payroll_allowances",
+        "payroll_deductions",
+        "employee_loans",
+        "inventory_transactions",
+        "inventory_balances",
+        "stock_transfer_items",
+        "ap_invoice_items",
+        "ap_payment_allocations",
+        "i_p_c_s",
+        "a_r_invoice_items",
+        "a_r_receipt_allocations",
+        "material_categories",
+        "material_specifications",
+        "material_vendors",
+        "grn_items",
+        "transactions",
+        "regret_index_scenarios",
+        "labor_assignments",
+        "labor_daily_attendance",
+        "labor_productivity",
+        "labor_timesheet_entries",
+        "labor_camps",
+        "document_access",
+        "document_versions",
+        "warehouse_locations",
+        "warehouse_stock",
+        "shift_schedules",
+        "attendance_records",
+        "leave_requests",
+        "claim_events",
+        "claim_documents",
+        "claim_timeline",
+        "claim_correspondence",
+        "guarantee_claims",
+        "guarantee_releases",
+        "guarantee_renewals",
+        "tender_documents",
+        "tender_questions",
+        "tender_timeline",
+        "boq_item_resources",
+        "boq_revisions",
+        "boq_sections",
+        "project_issues",
+        "project_phases",
+        "project_progress_reports",
+        "project_team",
+        "equipment_assignments",
+        "equipment_fuel_logs",
+        "equipment_maintenance",
+        "equipment_transfers",
+        "equipment_usage",
+        "time_bar_alerts",
+        "time_bar_settings",
+        "time_bar_contractual_clauses",
+        "cost_plus_invoice_items",
+        "cost_plus_overhead_allocations",
+        "variation_order_attachments",
+        "variation_order_items",
+        "variation_order_timeline",
+        "correspondence_attachments",
+        "correspondence_distribution",
+        "correspondence_actions",
+        "correspondence_templates",
+        "correspondence_registers",
+        "contract_template_clauses",
+        "contract_template_special_conditions",
+        "contract_template_variables",
+        "contract_generated",
+        "eot_requests",
+        "unforeseeable_conditions_evidence",
+        "regions",
+        "price_history",
+        "price_comparisons",
+        "price_quotation_items",
+        "backups",
+        "notification_preferences",
+        "alert_rules",
+        "notification_logs",
+        "scheduled_notifications",
+        "material_request_items",
+        "budget_items",
+        "cost_allocations",
+        "expense_categories",
+        "petty_cash_replenishments",
+        "petty_cash_transactions",
+        "bank_statement_lines",
+        "reconciliation_items",
+        "compliance_checks",
+        "certification_renewals",
+        "dashboard_widgets",
+        "kpi_values",
+        "pr_approval_workflows",
+        "pr_quote_items",
+        "asset_depreciations",
+        "asset_disposals",
+        "asset_maintenances",
+        "asset_transfers",
+        "asset_revaluations",
+        "cash_forecasts",
+        "cash_transactions",
+        "cash_transfers",
+        "daily_cash_positions",
+        "po_amendments",
+        "po_receipt_items",
+        "calendar_exceptions",
+        "schedule_resources",
+        "baseline_activities",
+        "schedule_updates",
+        "progress_bill_items",
+        "retention_accumulations",
+        "progress_bill_variations",
+        "retention_releases",
+        "progress_bill_deductions",
+        "retention_guarantees",
+        "progress_bill_attachments",
+        "advance_recoveries",
+        "measurement_sheets",
+        "bill_approval_workflow",
+        "defect_notifications",
+        "project_budget_items",
+        "actual_costs",
+        "diary_manpower",
+        "diary_equipment",
+        "diary_activities",
+        "diary_materials",
+        "diary_visitors",
+        "diary_incidents",
+        "diary_instructions",
+        "diary_photos",
+        "committed_costs",
+        "cost_forecasts",
+        "variance_analysis",
+        "cost_reports",
+        "template_items",
+        "inspection_requests",
+        "inspection_items",
+        "inspection_actions",
+        "inspection_photos",
+        "photo_albums",
+        "photo_annotations",
+        "photo_comparisons",
+        "photo_locations",
+        "photo_report_items",
+        "photo_tags",
+        "punch_item_comments",
+        "punch_item_history",
+        "punch_templates",
+        "punch_categories",
+        "punch_reports",
+        "punch_statistics",
+        "risk_assessments",
+        "risk_categories",
+        "risk_incidents",
+        "risk_matrix_settings",
+        "risk_monitoring",
+        "risk_responses",
+        "exchange_rates",
+        "checks",
+        "promissory_notes",
+        "payment_templates"
+    ],
+    "dependency_graph": {
+        "users": {
+            "file": "0001_01_01_000000_create_users_table.php",
+            "timestamp": "0001_01_01_000000",
+            "depends_on": [],
+            "depended_by": [
+                "a_r_invoices",
+                "a_r_receipts",
+                "actual_costs",
+                "ap_invoices",
+                "asset_transfers",
+                "bank_accounts",
+                "bill_approval_workflow",
+                "boq_headers",
+                "boq_revisions",
+                "change_orders",
+                "claim_documents",
+                "claim_timeline",
+                "claims",
+                "contract_change_orders",
+                "contract_generated",
+                "correspondence",
+                "correspondence_actions",
+                "correspondence_attachments",
+                "correspondence_distribution",
+                "correspondence_registers",
+                "correspondence_templates",
+                "cost_forecasts",
+                "cost_plus_invoices",
+                "cost_plus_overhead_allocations",
+                "cost_plus_transactions",
+                "cost_reports",
+                "daily_report_photos",
+                "daily_reports",
+                "document_access",
+                "document_versions",
+                "documents",
+                "dsi_import_logs",
+                "employee_documents",
+                "employee_loans",
+                "eot_claims",
+                "equipment_assignments",
+                "equipment_fuel_logs",
+                "equipment_transfers",
+                "equipment_usage",
+                "financial_regret_analyses",
+                "gl_journal_entries",
+                "goods_receipt_notes",
+                "grns",
+                "guarantee_releases",
+                "guarantee_renewals",
+                "guarantees",
+                "inspection_actions",
+                "inspection_photos",
+                "inspection_requests",
+                "inspections",
+                "inventory_transactions",
+                "journal_entries",
+                "labor_assignments",
+                "labor_daily_attendance",
+                "labor_productivity",
+                "labor_timesheets",
+                "material_requests",
+                "notification_preferences",
+                "payroll_entries",
+                "petty_cash_accounts",
+                "petty_cash_replenishments",
+                "petty_cash_transactions",
+                "photo_albums",
+                "photo_annotations",
+                "photo_comparisons",
+                "photo_reports",
+                "photos",
+                "po_amendments",
+                "po_receipts",
+                "pr_approval_workflows",
+                "price_comparisons",
+                "price_history",
+                "price_lists",
+                "price_requests",
+                "progress_bill_attachments",
+                "project_baselines",
+                "project_budgets",
+                "project_issues",
+                "project_progress_reports",
+                "project_progress_snapshots",
+                "project_schedules",
+                "project_team",
+                "punch_item_comments",
+                "punch_item_history",
+                "punch_reports",
+                "purchase_orders",
+                "purchase_requisitions",
+                "risk_assessments",
+                "risk_incidents",
+                "risk_monitoring",
+                "risk_registers",
+                "risks",
+                "sales_quotations",
+                "schedule_baselines",
+                "schedule_updates",
+                "scheduled_notifications",
+                "site_receipt_photos",
+                "stock_transfers",
+                "subcontractor_evaluations",
+                "tender_clarifications",
+                "tender_committee_decisions",
+                "tender_competitors",
+                "tender_documents",
+                "tender_risk_events",
+                "tender_site_visits",
+                "tender_timeline",
+                "time_bar_events",
+                "unforeseeable_conditions",
+                "unforeseeable_conditions_evidence",
+                "variation_order_attachments",
+                "variation_order_timeline"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "password_reset_tokens": {
+            "file": "0001_01_01_000000_create_users_table.php",
+            "timestamp": "0001_01_01_000000",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "sessions": {
+            "file": "0001_01_01_000000_create_users_table.php",
+            "timestamp": "0001_01_01_000000",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cache": {
+            "file": "0001_01_01_000001_create_cache_table.php",
+            "timestamp": "0001_01_01_000001",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cache_locks": {
+            "file": "0001_01_01_000001_create_cache_table.php",
+            "timestamp": "0001_01_01_000001",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "jobs": {
+            "file": "0001_01_01_000002_create_jobs_table.php",
+            "timestamp": "0001_01_01_000002",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "job_batches": {
+            "file": "0001_01_01_000002_create_jobs_table.php",
+            "timestamp": "0001_01_01_000002",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "failed_jobs": {
+            "file": "0001_01_01_000002_create_jobs_table.php",
+            "timestamp": "0001_01_01_000002",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tenants": {
+            "file": "2019_09_15_000010_create_tenants_table.php",
+            "timestamp": "2019_09_15_000010",
+            "depends_on": [],
+            "depended_by": [
+                "domains",
+                "tenant_user_impersonation_tokens"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "domains": {
+            "file": "2019_09_15_000020_create_domains_table.php",
+            "timestamp": "2019_09_15_000020",
+            "depends_on": [
+                "tenants"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tenant_user_impersonation_tokens": {
+            "file": "2020_05_15_000010_create_tenant_user_impersonation_tokens_table.php",
+            "timestamp": "2020_05_15_000010",
+            "depends_on": [
+                "tenants"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "companies": {
+            "file": "2026_01_02_121900_create_companies_table.php",
+            "timestamp": "2026_01_02_121900",
+            "depends_on": [],
+            "depended_by": [
+                "a_r_invoices",
+                "a_r_receipts",
+                "actual_costs",
+                "advance_payments",
+                "alert_rules",
+                "ap_invoices",
+                "ap_payments",
+                "asset_categories",
+                "asset_depreciations",
+                "asset_disposals",
+                "asset_maintenances",
+                "asset_revaluations",
+                "asset_transfers",
+                "attendance_records",
+                "bank_accounts",
+                "bank_reconciliations",
+                "bank_statements",
+                "branches",
+                "budgets",
+                "cash_accounts",
+                "cash_forecasts",
+                "cash_transactions",
+                "cash_transfers",
+                "certifications",
+                "clients",
+                "committed_costs",
+                "compliance_checks",
+                "compliance_requirements",
+                "contract_amendments",
+                "contract_change_orders",
+                "contract_clauses",
+                "contract_milestones",
+                "cost_allocations",
+                "cost_categories",
+                "cost_centers",
+                "cost_codes",
+                "cost_reports",
+                "daily_cash_positions",
+                "dashboards",
+                "defects_liability",
+                "documents",
+                "employee_dependents",
+                "employee_documents",
+                "employee_loans",
+                "employee_qualifications",
+                "employee_skills",
+                "employee_work_history",
+                "employees",
+                "expense_categories",
+                "fixed_assets",
+                "g_l_accounts",
+                "gl_accounts",
+                "gl_fiscal_years",
+                "gl_journal_entries",
+                "gl_journal_entry_lines",
+                "gl_periods",
+                "grns",
+                "i_p_c_s",
+                "inspection_requests",
+                "inspection_templates",
+                "inspection_types",
+                "inspections",
+                "inventory_balances",
+                "inventory_transactions",
+                "journal_entries",
+                "kpi_definitions",
+                "kpi_values",
+                "leave_requests",
+                "material_requests",
+                "materials",
+                "notifications",
+                "payroll_entries",
+                "payroll_periods",
+                "petty_cash_accounts",
+                "petty_cash_replenishments",
+                "petty_cash_transactions",
+                "photo_albums",
+                "photo_reports",
+                "photo_tags",
+                "photos",
+                "po_receipts",
+                "positions",
+                "pr_quotes",
+                "progress_bills",
+                "project_budgets",
+                "project_schedules",
+                "projects",
+                "purchase_requisitions",
+                "retention_releases",
+                "retentions",
+                "risk_categories",
+                "risk_incidents",
+                "risk_matrix_settings",
+                "risk_registers",
+                "risks",
+                "schedule_calendars",
+                "scheduled_notifications",
+                "shift_schedules",
+                "site_diaries",
+                "stock_transfers",
+                "subcontractor_agreements",
+                "subcontractor_contacts",
+                "subcontractor_evaluations",
+                "subcontractor_ipc_items",
+                "subcontractor_ipcs",
+                "subcontractor_work_orders",
+                "subcontractors",
+                "warehouses"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "projects": {
+            "file": "2026_01_02_122000_create_projects_table.php",
+            "timestamp": "2026_01_02_122000",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "actual_costs",
+                "advance_payments",
+                "boq_items",
+                "change_orders",
+                "claims",
+                "committed_costs",
+                "contracts",
+                "cost_forecasts",
+                "cost_plus_contracts",
+                "cost_plus_invoices",
+                "cost_plus_overhead_allocations",
+                "cost_plus_transactions",
+                "cost_reports",
+                "daily_reports",
+                "defects_liability",
+                "eot_claims",
+                "equipment_assignments",
+                "financial_regret_analyses",
+                "goods_receipt_notes",
+                "inspection_requests",
+                "inspections",
+                "labor_assignments",
+                "labor_daily_attendance",
+                "labor_productivity",
+                "labor_timesheets",
+                "main_ipcs",
+                "material_requests",
+                "photo_albums",
+                "photo_comparisons",
+                "photo_locations",
+                "photo_reports",
+                "photos",
+                "price_escalation_contracts",
+                "progress_bills",
+                "project_activities",
+                "project_baselines",
+                "project_budgets",
+                "project_issues",
+                "project_milestones",
+                "project_phases",
+                "project_progress_reports",
+                "project_progress_snapshots",
+                "project_schedules",
+                "project_team",
+                "project_timesheets",
+                "project_wbs",
+                "punch_lists",
+                "punch_reports",
+                "punch_statistics",
+                "retentions",
+                "risk_incidents",
+                "risk_registers",
+                "risks",
+                "site_diaries",
+                "site_receipts",
+                "subcontractor_agreements",
+                "subcontractor_ipcs",
+                "subcontractor_work_orders",
+                "time_bar_claims",
+                "time_bar_events",
+                "unforeseeable_conditions",
+                "variance_analysis",
+                "variation_orders"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_wbs": {
+            "file": "2026_01_02_122100_create_project_wbs_table.php",
+            "timestamp": "2026_01_02_122100",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "project_activities"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "boq_items": {
+            "file": "2026_01_02_122200_create_boq_items_table.php",
+            "timestamp": "2026_01_02_122200",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "boq_item_resources",
+                "main_ipc_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "main_ipcs": {
+            "file": "2026_01_02_122400_create_main_ipcs_table.php",
+            "timestamp": "2026_01_02_122400",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "main_ipc_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "main_ipc_items": {
+            "file": "2026_01_02_122500_create_main_ipc_items_table.php",
+            "timestamp": "2026_01_02_122500",
+            "depends_on": [
+                "main_ipcs",
+                "boq_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tenders": {
+            "file": "2026_01_02_140100_create_tenders_table.php",
+            "timestamp": "2026_01_02_140100",
+            "depends_on": [],
+            "depended_by": [
+                "tender_activities",
+                "tender_boq_items",
+                "tender_clarifications",
+                "tender_committee_decisions",
+                "tender_competitors",
+                "tender_contingency_reserves",
+                "tender_documents",
+                "tender_long_lead_items",
+                "tender_milestones",
+                "tender_procurement_packages",
+                "tender_procurement_suppliers",
+                "tender_questions",
+                "tender_resource_histogram",
+                "tender_resources",
+                "tender_risks",
+                "tender_site_visits",
+                "tender_timeline",
+                "tender_wbs"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contracts": {
+            "file": "2026_01_02_140200_create_contracts_table.php",
+            "timestamp": "2026_01_02_140200",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "advance_payments",
+                "contract_amendments",
+                "contract_change_orders",
+                "contract_clauses",
+                "contract_milestones",
+                "cost_plus_contracts",
+                "defects_liability",
+                "financial_regret_analyses",
+                "i_p_c_s",
+                "progress_bills",
+                "retentions",
+                "time_bar_contractual_clauses"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "change_orders": {
+            "file": "2026_01_02_140400_create_change_orders_table.php",
+            "timestamp": "2026_01_02_140400",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "change_order_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "change_order_items": {
+            "file": "2026_01_02_140500_create_change_order_items_table.php",
+            "timestamp": "2026_01_02_140500",
+            "depends_on": [
+                "change_orders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "currencies": {
+            "file": "2026_01_02_143849_create_currencies_table.php",
+            "timestamp": "2026_01_02_143849",
+            "depends_on": [],
+            "depended_by": [
+                "a_r_invoices",
+                "a_r_receipts",
+                "actual_costs",
+                "advance_payments",
+                "ap_invoices",
+                "ap_payments",
+                "cash_accounts",
+                "cash_transactions",
+                "cash_transfers",
+                "checks",
+                "committed_costs",
+                "cost_allocations",
+                "exchange_rates",
+                "fixed_assets",
+                "gl_journal_entries",
+                "gl_journal_entry_lines",
+                "pr_quotes",
+                "progress_bills",
+                "project_budgets",
+                "promissory_notes",
+                "purchase_requisitions",
+                "retention_guarantees",
+                "retentions",
+                "subcontractor_agreements",
+                "subcontractor_ipcs",
+                "subcontractor_work_orders"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "units": {
+            "file": "2026_01_02_144005_create_units_table.php",
+            "timestamp": "2026_01_02_144005",
+            "depends_on": [],
+            "depended_by": [
+                "purchase_requisition_items"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "branches": {
+            "file": "2026_01_02_145000_create_branches_table.php",
+            "timestamp": "2026_01_02_145000",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "departments"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "departments": {
+            "file": "2026_01_02_145100_create_departments_table.php",
+            "timestamp": "2026_01_02_145100",
+            "depends_on": [
+                "branches"
+            ],
+            "depended_by": [
+                "material_requests"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "payment_terms": {
+            "file": "2026_01_02_145149_create_payment_terms_table.php",
+            "timestamp": "2026_01_02_145149",
+            "depends_on": [],
+            "depended_by": [
+                "purchase_orders"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "countries": {
+            "file": "2026_01_02_151035_create_countries_table.php",
+            "timestamp": "2026_01_02_151035",
+            "depends_on": [],
+            "depended_by": [
+                "cities"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cities": {
+            "file": "2026_01_02_151224_create_cities_table.php",
+            "timestamp": "2026_01_02_151224",
+            "depends_on": [
+                "countries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "warehouses": {
+            "file": "2026_01_02_194432_create_warehouses_table.php",
+            "timestamp": "2026_01_02_194432",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "grns",
+                "inventory_balances",
+                "inventory_transactions",
+                "po_receipts",
+                "purchase_orders",
+                "stock_movements",
+                "stock_transfers",
+                "warehouse_locations",
+                "warehouse_stock"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "stock_movements": {
+            "file": "2026_01_02_194433_create_stock_movements_table.php",
+            "timestamp": "2026_01_02_194433",
+            "depends_on": [
+                "warehouses"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "products": {
+            "file": "2026_01_02_204719_create_products_table.php",
+            "timestamp": "2026_01_02_204719",
+            "depends_on": [],
+            "depended_by": [
+                "purchase_order_items",
+                "sales_quotation_items",
+                "site_receipt_items"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "suppliers": {
+            "file": "2026_01_02_204719_create_suppliers_table.php",
+            "timestamp": "2026_01_02_204719",
+            "depends_on": [],
+            "depended_by": [
+                "goods_receipt_notes",
+                "purchase_orders",
+                "site_receipts",
+                "tender_long_lead_items",
+                "tender_procurement_packages",
+                "tender_procurement_suppliers"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "purchase_orders": {
+            "file": "2026_01_02_204728_create_purchase_orders_table.php",
+            "timestamp": "2026_01_02_204728",
+            "depends_on": [
+                "users",
+                "suppliers",
+                "warehouses",
+                "payment_terms"
+            ],
+            "depended_by": [
+                "po_amendments",
+                "po_receipts",
+                "purchase_order_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "purchase_order_items": {
+            "file": "2026_01_02_204729_create_purchase_order_items_table.php",
+            "timestamp": "2026_01_02_204729",
+            "depends_on": [
+                "purchase_orders",
+                "products"
+            ],
+            "depended_by": [
+                "po_receipt_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "customers": {
+            "file": "2026_01_02_204833_create_customers_table.php",
+            "timestamp": "2026_01_02_204833",
+            "depends_on": [],
+            "depended_by": [
+                "sales_quotations"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "sales_quotations": {
+            "file": "2026_01_02_204839_create_sales_quotations_table.php",
+            "timestamp": "2026_01_02_204839",
+            "depends_on": [
+                "users",
+                "customers"
+            ],
+            "depended_by": [
+                "sales_quotation_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "sales_quotation_items": {
+            "file": "2026_01_02_204840_create_sales_quotation_items_table.php",
+            "timestamp": "2026_01_02_204840",
+            "depends_on": [
+                "sales_quotations",
+                "products"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "accounts": {
+            "file": "2026_01_02_204943_create_accounts_table.php",
+            "timestamp": "2026_01_02_204943",
+            "depends_on": [],
+            "depended_by": [
+                "transactions"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "activity_dependencies": {
+            "file": "2026_01_02_211654_create_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_211654",
+            "depends_on": [
+                "project_activities"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_activities": {
+            "file": "2026_01_02_211654_create_project_activities_table.php",
+            "timestamp": "2026_01_02_211654",
+            "depends_on": [
+                "project_wbs",
+                "projects"
+            ],
+            "depended_by": [
+                "activity_dependencies",
+                "eot_affected_activities"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_milestones": {
+            "file": "2026_01_02_211654_create_project_milestones_table.php",
+            "timestamp": "2026_01_02_211654",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "daily_report_photos": {
+            "file": "2026_01_02_211857_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211857",
+            "depends_on": [
+                "users",
+                "daily_reports"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "daily_reports": {
+            "file": "2026_01_02_211857_create_daily_reports_table.php",
+            "timestamp": "2026_01_02_211857",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "daily_report_photos"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employees": {
+            "file": "2026_01_02_212443_create_employees_table.php",
+            "timestamp": "2026_01_02_212443",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "attendance_records",
+                "employee_dependents",
+                "employee_documents",
+                "employee_qualifications",
+                "employee_skills",
+                "employee_work_history",
+                "leave_requests",
+                "project_timesheets"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_baselines": {
+            "file": "2026_01_02_212443_create_project_baselines_table.php",
+            "timestamp": "2026_01_02_212443",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_progress_snapshots": {
+            "file": "2026_01_02_212443_create_project_progress_snapshots_table.php",
+            "timestamp": "2026_01_02_212443",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_timesheets": {
+            "file": "2026_01_02_212443_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212443",
+            "depends_on": [
+                "employees",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "time_bar_claims": {
+            "file": "2026_01_02_214119_create_time_bar_claims_table.php",
+            "timestamp": "2026_01_02_214119",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "eot_affected_activities": {
+            "file": "2026_01_02_214129_create_eot_affected_activities_table.php",
+            "timestamp": "2026_01_02_214129",
+            "depends_on": [
+                "project_activities",
+                "eot_claims"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "eot_claims": {
+            "file": "2026_01_02_214129_create_eot_claims_table.php",
+            "timestamp": "2026_01_02_214129",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "eot_affected_activities",
+                "prolongation_cost_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "prolongation_cost_items": {
+            "file": "2026_01_02_214129_create_prolongation_cost_items_table.php",
+            "timestamp": "2026_01_02_214129",
+            "depends_on": [
+                "eot_claims"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_site_visits": {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "depends_on": {
+                "0": "users",
+                "3": "tenders"
+            },
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_clarifications": {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "depends_on": {
+                "0": "users",
+                "3": "tenders"
+            },
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_competitors": {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "depends_on": {
+                "0": "users",
+                "3": "tenders"
+            },
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_committee_decisions": {
+            "file": "2026_01_02_214204_create_tender_related_tables.php",
+            "timestamp": "2026_01_02_214204",
+            "depends_on": {
+                "0": "users",
+                "3": "tenders"
+            },
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_boq_items": {
+            "file": "2026_01_02_214414_create_tender_boq_items_table.php",
+            "timestamp": "2026_01_02_214414",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [
+                "tender_wbs_boq_mapping"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_wbs_boq_mapping": {
+            "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214414",
+            "depends_on": [
+                "tender_wbs",
+                "tender_boq_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_wbs": {
+            "file": "2026_01_02_214414_create_tender_wbs_table.php",
+            "timestamp": "2026_01_02_214414",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [
+                "tender_wbs_boq_mapping"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_procurement_packages": {
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "depends_on": [
+                "tenders",
+                "suppliers"
+            ],
+            "depended_by": [
+                "tender_long_lead_items",
+                "tender_procurement_suppliers"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_procurement_suppliers": {
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "depends_on": [
+                "tenders",
+                "tender_procurement_packages",
+                "suppliers"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_long_lead_items": {
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "depends_on": [
+                "tenders",
+                "tender_procurement_packages",
+                "suppliers"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "dsi_indices": {
+            "file": "2026_01_02_220302_create_dsi_indices_table.php",
+            "timestamp": "2026_01_02_220302",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_escalation_contracts": {
+            "file": "2026_01_02_220303_create_price_escalation_contracts_table.php",
+            "timestamp": "2026_01_02_220303",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "price_escalation_calculations"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_escalation_calculations": {
+            "file": "2026_01_02_220304_create_price_escalation_calculations_table.php",
+            "timestamp": "2026_01_02_220304",
+            "depends_on": [
+                "price_escalation_contracts"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "dsi_import_logs": {
+            "file": "2026_01_02_220305_create_dsi_import_logs_table.php",
+            "timestamp": "2026_01_02_220305",
+            "depends_on": [
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "goods_receipt_notes": {
+            "file": "2026_01_02_221007_create_goods_receipt_notes_table.php",
+            "timestamp": "2026_01_02_221007",
+            "depends_on": [
+                "users",
+                "projects",
+                "suppliers"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "site_receipts": {
+            "file": "2026_01_02_221014_create_site_receipts_table.php",
+            "timestamp": "2026_01_02_221014",
+            "depends_on": [
+                "projects",
+                "suppliers"
+            ],
+            "depended_by": [
+                "site_receipt_items",
+                "site_receipt_photos"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "site_receipt_items": {
+            "file": "2026_01_02_221015_create_site_receipt_items_table.php",
+            "timestamp": "2026_01_02_221015",
+            "depends_on": [
+                "site_receipts",
+                "products"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "site_receipt_photos": {
+            "file": "2026_01_02_221015_create_site_receipt_photos_table.php",
+            "timestamp": "2026_01_02_221015",
+            "depends_on": [
+                "users",
+                "site_receipts"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_risks": {
+            "file": "2026_01_02_221401_create_tender_risks_table.php",
+            "timestamp": "2026_01_02_221401",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [
+                "tender_risk_events"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_risk_events": {
+            "file": "2026_01_02_221402_create_tender_risk_events_table.php",
+            "timestamp": "2026_01_02_221402",
+            "depends_on": [
+                "users",
+                "tender_risks"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_contingency_reserves": {
+            "file": "2026_01_02_221403_create_tender_contingency_reserves_table.php",
+            "timestamp": "2026_01_02_221403",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_activities": {
+            "file": "2026_01_02_222220_create_tender_activities_table.php",
+            "timestamp": "2026_01_02_222220",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [
+                "tender_activity_dependencies",
+                "tender_resource_assignments"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_activity_dependencies": {
+            "file": "2026_01_02_222220_create_tender_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_222220",
+            "depends_on": [
+                "tender_activities"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_milestones": {
+            "file": "2026_01_02_222220_create_tender_milestones_table.php",
+            "timestamp": "2026_01_02_222220",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_resources": {
+            "file": "2026_01_02_222740_create_tender_resources_table.php",
+            "timestamp": "2026_01_02_222740",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [
+                "tender_resource_assignments",
+                "tender_resource_histogram"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_resource_assignments": {
+            "file": "2026_01_02_222749_create_tender_resource_assignments_table.php",
+            "timestamp": "2026_01_02_222749",
+            "depends_on": [
+                "tender_resources",
+                "tender_activities"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_resource_histogram": {
+            "file": "2026_01_02_222749_create_tender_resource_histogram_table.php",
+            "timestamp": "2026_01_02_222749",
+            "depends_on": [
+                "tenders",
+                "tender_resources"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "time_bar_protection_settings": {
+            "file": "2026_01_02_223544_create_time_bar_protection_settings_table.php",
+            "timestamp": "2026_01_02_223544",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "clients": {
+            "file": "2026_01_03_114219_create_clients_table.php",
+            "timestamp": "2026_01_03_114219",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "a_r_invoices",
+                "a_r_receipts",
+                "client_bank_accounts",
+                "client_contacts",
+                "client_documents"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_centers": {
+            "file": "2026_01_03_114911_create_cost_centers_table.php",
+            "timestamp": "2026_01_03_114911",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "cost_allocations"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "gl_accounts": {
+            "file": "2026_01_03_114925_create_gl_accounts_table.php",
+            "timestamp": "2026_01_03_114925",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "ap_invoices",
+                "cost_allocations",
+                "gl_journal_entry_lines"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "gl_fiscal_years": {
+            "file": "2026_01_03_114925_create_gl_fiscal_years_table.php",
+            "timestamp": "2026_01_03_114925",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "gl_periods"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "gl_journal_entries": {
+            "file": "2026_01_03_114925_create_gl_journal_entries_table.php",
+            "timestamp": "2026_01_03_114925",
+            "depends_on": [
+                "currencies",
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "gl_journal_entry_lines"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "gl_journal_entry_lines": {
+            "file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php",
+            "timestamp": "2026_01_03_114925",
+            "depends_on": [
+                "gl_journal_entries",
+                "gl_accounts",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "gl_periods": {
+            "file": "2026_01_03_114925_create_gl_periods_table.php",
+            "timestamp": "2026_01_03_114925",
+            "depends_on": [
+                "gl_fiscal_years",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "client_bank_accounts": {
+            "file": "2026_01_03_115015_create_client_bank_accounts_table.php",
+            "timestamp": "2026_01_03_115015",
+            "depends_on": [
+                "clients"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "client_contacts": {
+            "file": "2026_01_03_115015_create_client_contacts_table.php",
+            "timestamp": "2026_01_03_115015",
+            "depends_on": [
+                "clients"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "client_documents": {
+            "file": "2026_01_03_115015_create_client_documents_table.php",
+            "timestamp": "2026_01_03_115015",
+            "depends_on": [
+                "clients"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "g_l_accounts": {
+            "file": "2026_01_03_115030_create_g_l_accounts_table.php",
+            "timestamp": "2026_01_03_115030",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_amendments": {
+            "file": "2026_01_03_115038_create_contract_amendments_table.php",
+            "timestamp": "2026_01_03_115038",
+            "depends_on": [
+                "contracts",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_change_orders": {
+            "file": "2026_01_03_115038_create_contract_change_orders_table.php",
+            "timestamp": "2026_01_03_115038",
+            "depends_on": [
+                "users",
+                "contracts",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_clauses": {
+            "file": "2026_01_03_115038_create_contract_clauses_table.php",
+            "timestamp": "2026_01_03_115038",
+            "depends_on": [
+                "contracts",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_milestones": {
+            "file": "2026_01_03_115039_create_contract_milestones_table.php",
+            "timestamp": "2026_01_03_115039",
+            "depends_on": [
+                "contracts",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "vendor_bank_accounts": {
+            "file": "2026_01_03_120934_create_vendor_bank_accounts_table.php",
+            "timestamp": "2026_01_03_120934",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "vendor_contacts": {
+            "file": "2026_01_03_120934_create_vendor_contacts_table.php",
+            "timestamp": "2026_01_03_120934",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "vendor_documents": {
+            "file": "2026_01_03_120934_create_vendor_documents_table.php",
+            "timestamp": "2026_01_03_120934",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "vendor_materials": {
+            "file": "2026_01_03_120934_create_vendor_materials_table.php",
+            "timestamp": "2026_01_03_120934",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "vendors": {
+            "file": "2026_01_03_120934_create_vendors_table.php",
+            "timestamp": "2026_01_03_120934",
+            "depends_on": [],
+            "depended_by": [
+                "ap_invoices",
+                "committed_costs",
+                "grns",
+                "material_vendors",
+                "pr_quotes",
+                "price_quotations"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "vendor_evaluations": {
+            "file": "2026_01_03_120935_create_vendor_evaluations_table.php",
+            "timestamp": "2026_01_03_120935",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employee_dependents": {
+            "file": "2026_01_03_121337_create_employee_dependents_table.php",
+            "timestamp": "2026_01_03_121337",
+            "depends_on": [
+                "employees",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employee_documents": {
+            "file": "2026_01_03_121337_create_employee_documents_table.php",
+            "timestamp": "2026_01_03_121337",
+            "depends_on": [
+                "employees",
+                "users",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employee_qualifications": {
+            "file": "2026_01_03_121337_create_employee_qualifications_table.php",
+            "timestamp": "2026_01_03_121337",
+            "depends_on": [
+                "employees",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employee_skills": {
+            "file": "2026_01_03_121337_create_employee_skills_table.php",
+            "timestamp": "2026_01_03_121337",
+            "depends_on": [
+                "employees",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employee_work_history": {
+            "file": "2026_01_03_121337_create_employee_work_history_table.php",
+            "timestamp": "2026_01_03_121337",
+            "depends_on": [
+                "employees",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "banks": {
+            "file": "2026_01_03_121536_create_banks_table.php",
+            "timestamp": "2026_01_03_121536",
+            "depends_on": [],
+            "depended_by": [
+                "guarantees"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "positions": {
+            "file": "2026_01_03_121536_create_positions_table.php",
+            "timestamp": "2026_01_03_121536",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "financial_report_configs": {
+            "file": "2026_01_03_182250_create_financial_report_configs_table.php",
+            "timestamp": "2026_01_03_182250",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "report_history": {
+            "file": "2026_01_03_182250_create_report_history_table.php",
+            "timestamp": "2026_01_03_182250",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "report_schedules": {
+            "file": "2026_01_03_182250_create_report_schedules_table.php",
+            "timestamp": "2026_01_03_182250",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "ap_payments": {
+            "file": "2026_01_03_182426_create_ap_payments_table.php",
+            "timestamp": "2026_01_03_182426",
+            "depends_on": [
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "ap_payment_allocations"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractor_contacts": {
+            "file": "2026_01_03_182434_create_subcontractor_contacts_table.php",
+            "timestamp": "2026_01_03_182434",
+            "depends_on": [
+                "subcontractors",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractors": {
+            "file": "2026_01_03_182434_create_subcontractors_table.php",
+            "timestamp": "2026_01_03_182434",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "subcontractor_agreements",
+                "subcontractor_contacts",
+                "subcontractor_evaluations",
+                "subcontractor_ipcs",
+                "subcontractor_work_orders"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractor_agreements": {
+            "file": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "timestamp": "2026_01_03_182435",
+            "depends_on": [
+                "subcontractors",
+                "projects",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "subcontractor_ipcs",
+                "subcontractor_work_orders"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractor_evaluations": {
+            "file": "2026_01_03_182435_create_subcontractor_evaluations_table.php",
+            "timestamp": "2026_01_03_182435",
+            "depends_on": [
+                "users",
+                "subcontractors",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractor_ipc_items": {
+            "file": "2026_01_03_182435_create_subcontractor_ipc_items_table.php",
+            "timestamp": "2026_01_03_182435",
+            "depends_on": [
+                "subcontractor_ipcs",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractor_ipcs": {
+            "file": "2026_01_03_182435_create_subcontractor_ipcs_table.php",
+            "timestamp": "2026_01_03_182435",
+            "depends_on": [
+                "subcontractor_agreements",
+                "subcontractors",
+                "projects",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "subcontractor_ipc_items"
+            ],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "subcontractor_work_orders": {
+            "file": "2026_01_03_182435_create_subcontractor_work_orders_table.php",
+            "timestamp": "2026_01_03_182435",
+            "depends_on": [
+                "subcontractor_agreements",
+                "subcontractors",
+                "projects",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "personal_access_tokens": {
+            "file": "2026_01_03_182710_create_personal_access_tokens_table.php",
+            "timestamp": "2026_01_03_182710",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "bank_accounts": {
+            "file": "2026_01_03_200000_create_bank_accounts_table.php",
+            "timestamp": "2026_01_03_200000",
+            "depends_on": [
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "bank_reconciliations",
+                "bank_statements",
+                "checks"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "materials": {
+            "file": "2026_01_03_200000_create_materials_table.php",
+            "timestamp": "2026_01_03_200000",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "grn_items",
+                "inventory_balances",
+                "inventory_transactions",
+                "material_request_items",
+                "material_specifications",
+                "material_vendors",
+                "stock_transfer_items",
+                "warehouse_stock"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "payroll_periods": {
+            "file": "2026_01_03_200001_create_payroll_periods_table.php",
+            "timestamp": "2026_01_03_200001",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "payroll_entries"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "payroll_entries": {
+            "file": "2026_01_03_200002_create_payroll_entries_table.php",
+            "timestamp": "2026_01_03_200002",
+            "depends_on": [
+                "payroll_periods",
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "payroll_allowances",
+                "payroll_deductions"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "payroll_allowances": {
+            "file": "2026_01_03_200003_create_payroll_allowances_table.php",
+            "timestamp": "2026_01_03_200003",
+            "depends_on": [
+                "payroll_entries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "payroll_deductions": {
+            "file": "2026_01_03_200004_create_payroll_deductions_table.php",
+            "timestamp": "2026_01_03_200004",
+            "depends_on": [
+                "payroll_entries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "employee_loans": {
+            "file": "2026_01_03_200005_create_employee_loans_table.php",
+            "timestamp": "2026_01_03_200005",
+            "depends_on": [
+                "users",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inventory_transactions": {
+            "file": "2026_01_03_200030_create_inventory_transactions_table.php",
+            "timestamp": "2026_01_03_200030",
+            "depends_on": [
+                "users",
+                "materials",
+                "warehouses",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inventory_balances": {
+            "file": "2026_01_03_200040_create_inventory_balances_table.php",
+            "timestamp": "2026_01_03_200040",
+            "depends_on": [
+                "materials",
+                "warehouses",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "stock_transfers": {
+            "file": "2026_01_03_200050_create_stock_transfers_table.php",
+            "timestamp": "2026_01_03_200050",
+            "depends_on": {
+                "0": "warehouses",
+                "2": "users",
+                "3": "companies"
+            },
+            "depended_by": [
+                "stock_transfer_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "stock_transfer_items": {
+            "file": "2026_01_03_200060_create_stock_transfer_items_table.php",
+            "timestamp": "2026_01_03_200060",
+            "depends_on": [
+                "stock_transfers",
+                "materials"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "ap_invoice_items": {
+            "file": "2026_01_03_200814_create_ap_invoice_items_table.php",
+            "timestamp": "2026_01_03_200814",
+            "depends_on": [
+                "ap_invoices"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "ap_invoices": {
+            "file": "2026_01_03_200814_create_ap_invoices_table.php",
+            "timestamp": "2026_01_03_200814",
+            "depends_on": [
+                "users",
+                "vendors",
+                "currencies",
+                "gl_accounts",
+                "companies"
+            ],
+            "depended_by": [
+                "ap_invoice_items",
+                "ap_payment_allocations"
+            ],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "ap_payment_allocations": {
+            "file": "2026_01_03_200814_create_ap_payment_allocations_table.php",
+            "timestamp": "2026_01_03_200814",
+            "depends_on": [
+                "ap_payments",
+                "ap_invoices"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "i_p_c_s": {
+            "file": "2026_01_03_200910_create_i_p_c_s_table.php",
+            "timestamp": "2026_01_03_200910",
+            "depends_on": [
+                "contracts",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "a_r_invoice_items": {
+            "file": "2026_01_03_200917_create_a_r_invoice_items_table.php",
+            "timestamp": "2026_01_03_200917",
+            "depends_on": [
+                "a_r_invoices"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "a_r_invoices": {
+            "file": "2026_01_03_200917_create_a_r_invoices_table.php",
+            "timestamp": "2026_01_03_200917",
+            "depends_on": [
+                "users",
+                "clients",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "a_r_invoice_items",
+                "a_r_receipt_allocations"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "a_r_receipt_allocations": {
+            "file": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+            "timestamp": "2026_01_03_200918",
+            "depends_on": [
+                "a_r_receipts",
+                "a_r_invoices"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "a_r_receipts": {
+            "file": "2026_01_03_200918_create_a_r_receipts_table.php",
+            "timestamp": "2026_01_03_200918",
+            "depends_on": [
+                "users",
+                "clients",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "a_r_receipt_allocations"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "material_categories": {
+            "file": "2026_01_03_201050_create_material_categories_table.php",
+            "timestamp": "2026_01_03_201050",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "material_specifications": {
+            "file": "2026_01_03_201050_create_material_specifications_table.php",
+            "timestamp": "2026_01_03_201050",
+            "depends_on": [
+                "materials"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "material_vendors": {
+            "file": "2026_01_03_201050_create_material_vendors_table.php",
+            "timestamp": "2026_01_03_201050",
+            "depends_on": [
+                "materials",
+                "vendors"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "grn_items": {
+            "file": "2026_01_03_202710_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202710",
+            "depends_on": [
+                "grns",
+                "materials"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "grns": {
+            "file": "2026_01_03_202710_create_g_r_n_s_table.php",
+            "timestamp": "2026_01_03_202710",
+            "depends_on": [
+                "users",
+                "vendors",
+                "warehouses",
+                "companies"
+            ],
+            "depended_by": [
+                "grn_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "journal_entries": {
+            "file": "2026_01_03_203714_create_journal_entries_table.php",
+            "timestamp": "2026_01_03_203714",
+            "depends_on": [
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "transactions"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "transactions": {
+            "file": "2026_01_03_203715_create_transactions_table.php",
+            "timestamp": "2026_01_03_203715",
+            "depends_on": [
+                "journal_entries",
+                "accounts"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "financial_regret_analyses": {
+            "file": "2026_01_04_000003_create_financial_regret_analyses_table.php",
+            "timestamp": "2026_01_04_000003",
+            "depends_on": [
+                "users",
+                "projects",
+                "contracts"
+            ],
+            "depended_by": [
+                "regret_index_scenarios"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "regret_index_scenarios": {
+            "file": "2026_01_04_000004_create_regret_index_scenarios_table.php",
+            "timestamp": "2026_01_04_000004",
+            "depends_on": [
+                "financial_regret_analyses"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_categories": {
+            "file": "2026_01_04_000010_create_labor_categories_table.php",
+            "timestamp": "2026_01_04_000010",
+            "depends_on": [],
+            "depended_by": [
+                "laborers"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "laborers": {
+            "file": "2026_01_04_000011_create_laborers_table.php",
+            "timestamp": "2026_01_04_000011",
+            "depends_on": [
+                "labor_categories"
+            ],
+            "depended_by": [
+                "labor_assignments",
+                "labor_daily_attendance",
+                "labor_timesheet_entries"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_assignments": {
+            "file": "2026_01_04_000012_create_labor_assignments_table.php",
+            "timestamp": "2026_01_04_000012",
+            "depends_on": [
+                "users",
+                "laborers",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_daily_attendance": {
+            "file": "2026_01_04_000013_create_labor_daily_attendance_table.php",
+            "timestamp": "2026_01_04_000013",
+            "depends_on": [
+                "users",
+                "laborers",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_productivity": {
+            "file": "2026_01_04_000014_create_labor_productivity_table.php",
+            "timestamp": "2026_01_04_000014",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_timesheets": {
+            "file": "2026_01_04_000015_create_labor_timesheets_table.php",
+            "timestamp": "2026_01_04_000015",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "labor_timesheet_entries"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_timesheet_entries": {
+            "file": "2026_01_04_000016_create_labor_timesheet_entries_table.php",
+            "timestamp": "2026_01_04_000016",
+            "depends_on": [
+                "labor_timesheets",
+                "laborers"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "labor_camps": {
+            "file": "2026_01_04_000017_create_labor_camps_table.php",
+            "timestamp": "2026_01_04_000017",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "documents": {
+            "file": "2026_01_04_075218_create_documents_table.php",
+            "timestamp": "2026_01_04_075218",
+            "depends_on": [
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "document_access",
+                "document_versions"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "document_access": {
+            "file": "2026_01_04_075224_create_document_access_table.php",
+            "timestamp": "2026_01_04_075224",
+            "depends_on": [
+                "documents",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "document_versions": {
+            "file": "2026_01_04_075224_create_document_versions_table.php",
+            "timestamp": "2026_01_04_075224",
+            "depends_on": [
+                "documents",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "warehouse_locations": {
+            "file": "2026_01_04_075917_create_warehouse_locations_table.php",
+            "timestamp": "2026_01_04_075917",
+            "depends_on": [
+                "warehouses"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "warehouse_stock": {
+            "file": "2026_01_04_075917_create_warehouse_stock_table.php",
+            "timestamp": "2026_01_04_075917",
+            "depends_on": [
+                "warehouses",
+                "materials"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "shift_schedules": {
+            "file": "2026_01_04_103300_create_shift_schedules_table.php",
+            "timestamp": "2026_01_04_103300",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "attendance_records": {
+            "file": "2026_01_04_103400_create_attendance_records_table.php",
+            "timestamp": "2026_01_04_103400",
+            "depends_on": [
+                "employees",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "leave_requests": {
+            "file": "2026_01_04_103500_create_leave_requests_table.php",
+            "timestamp": "2026_01_04_103500",
+            "depends_on": [
+                "employees",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "claims": {
+            "file": "2026_01_04_200200_create_claims_table.php",
+            "timestamp": "2026_01_04_200200",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "claim_correspondence",
+                "claim_documents",
+                "claim_events",
+                "claim_timeline"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "claim_events": {
+            "file": "2026_01_04_200300_create_claim_events_table.php",
+            "timestamp": "2026_01_04_200300",
+            "depends_on": [
+                "claims"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "claim_documents": {
+            "file": "2026_01_04_200400_create_claim_documents_table.php",
+            "timestamp": "2026_01_04_200400",
+            "depends_on": [
+                "users",
+                "claims"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "claim_timeline": {
+            "file": "2026_01_04_200500_create_claim_timeline_table.php",
+            "timestamp": "2026_01_04_200500",
+            "depends_on": [
+                "users",
+                "claims"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "claim_correspondence": {
+            "file": "2026_01_04_200600_create_claim_correspondence_table.php",
+            "timestamp": "2026_01_04_200600",
+            "depends_on": [
+                "claims"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "guarantee_claims": {
+            "file": "2026_01_04_202928_create_guarantee_claims_table.php",
+            "timestamp": "2026_01_04_202928",
+            "depends_on": [
+                "guarantees"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "guarantee_releases": {
+            "file": "2026_01_04_202928_create_guarantee_releases_table.php",
+            "timestamp": "2026_01_04_202928",
+            "depends_on": [
+                "users",
+                "guarantees"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "guarantee_renewals": {
+            "file": "2026_01_04_202928_create_guarantee_renewals_table.php",
+            "timestamp": "2026_01_04_202928",
+            "depends_on": [
+                "users",
+                "guarantees"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "guarantees": {
+            "file": "2026_01_04_202928_create_guarantees_table.php",
+            "timestamp": "2026_01_04_202928",
+            "depends_on": [
+                "users",
+                "banks"
+            ],
+            "depended_by": [
+                "guarantee_claims",
+                "guarantee_releases",
+                "guarantee_renewals"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_documents": {
+            "file": "2026_01_04_203002_create_tender_documents_table.php",
+            "timestamp": "2026_01_04_203002",
+            "depends_on": [
+                "users",
+                "tenders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_questions": {
+            "file": "2026_01_04_203003_create_tender_questions_table.php",
+            "timestamp": "2026_01_04_203003",
+            "depends_on": [
+                "tenders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "tender_timeline": {
+            "file": "2026_01_04_203003_create_tender_timeline_table.php",
+            "timestamp": "2026_01_04_203003",
+            "depends_on": [
+                "users",
+                "tenders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "boq_headers": {
+            "file": "2026_01_04_203018_create_boq_headers_table.php",
+            "timestamp": "2026_01_04_203018",
+            "depends_on": [
+                "users"
+            ],
+            "depended_by": [
+                "boq_revisions",
+                "boq_sections"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "boq_item_resources": {
+            "file": "2026_01_04_203018_create_boq_item_resources_table.php",
+            "timestamp": "2026_01_04_203018",
+            "depends_on": [
+                "boq_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "boq_revisions": {
+            "file": "2026_01_04_203018_create_boq_revisions_table.php",
+            "timestamp": "2026_01_04_203018",
+            "depends_on": [
+                "users",
+                "boq_headers"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "boq_sections": {
+            "file": "2026_01_04_203018_create_boq_sections_table.php",
+            "timestamp": "2026_01_04_203018",
+            "depends_on": [
+                "boq_headers"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_issues": {
+            "file": "2026_01_04_203117_create_project_issues_table.php",
+            "timestamp": "2026_01_04_203117",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_phases": {
+            "file": "2026_01_04_203117_create_project_phases_table.php",
+            "timestamp": "2026_01_04_203117",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_progress_reports": {
+            "file": "2026_01_04_203117_create_project_progress_reports_table.php",
+            "timestamp": "2026_01_04_203117",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_team": {
+            "file": "2026_01_04_203117_create_project_team_table.php",
+            "timestamp": "2026_01_04_203117",
+            "depends_on": [
+                "projects",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment_assignments": {
+            "file": "2026_01_04_205740_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205740",
+            "depends_on": [
+                "equipment",
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment_categories": {
+            "file": "2026_01_04_205740_create_equipment_categories_table.php",
+            "timestamp": "2026_01_04_205740",
+            "depends_on": [],
+            "depended_by": [
+                "equipment"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment": {
+            "file": "2026_01_04_205740_create_equipment_table.php",
+            "timestamp": "2026_01_04_205740",
+            "depends_on": [
+                "equipment_categories"
+            ],
+            "depended_by": [
+                "equipment_assignments",
+                "equipment_fuel_logs",
+                "equipment_maintenance",
+                "equipment_transfers",
+                "equipment_usage"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment_fuel_logs": {
+            "file": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
+            "timestamp": "2026_01_04_205751",
+            "depends_on": [
+                "equipment",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment_maintenance": {
+            "file": "2026_01_04_205751_create_equipment_maintenance_table.php",
+            "timestamp": "2026_01_04_205751",
+            "depends_on": [
+                "equipment"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment_transfers": {
+            "file": "2026_01_04_205751_create_equipment_transfers_table.php",
+            "timestamp": "2026_01_04_205751",
+            "depends_on": [
+                "equipment",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "equipment_usage": {
+            "file": "2026_01_04_205751_create_equipment_usage_table.php",
+            "timestamp": "2026_01_04_205751",
+            "depends_on": [
+                "equipment",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "variation_orders": {
+            "file": "2026_01_04_210004_create_variation_orders_table.php",
+            "timestamp": "2026_01_04_210004",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "variation_order_attachments",
+                "variation_order_items",
+                "variation_order_timeline"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "time_bar_events": {
+            "file": "2026_01_04_210005_create_time_bar_events_table.php",
+            "timestamp": "2026_01_04_210005",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "time_bar_alerts"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "time_bar_alerts": {
+            "file": "2026_01_04_210006_create_time_bar_alerts_table.php",
+            "timestamp": "2026_01_04_210006",
+            "depends_on": [
+                "time_bar_events"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "time_bar_settings": {
+            "file": "2026_01_04_210007_create_time_bar_settings_table.php",
+            "timestamp": "2026_01_04_210007",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "time_bar_contractual_clauses": {
+            "file": "2026_01_04_210008_create_time_bar_contractual_clauses_table.php",
+            "timestamp": "2026_01_04_210008",
+            "depends_on": [
+                "contracts"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_plus_contracts": {
+            "file": "2026_01_04_211131_create_cost_plus_contracts_table.php",
+            "timestamp": "2026_01_04_211131",
+            "depends_on": [
+                "contracts",
+                "projects"
+            ],
+            "depended_by": [
+                "cost_plus_invoices",
+                "cost_plus_overhead_allocations",
+                "cost_plus_transactions"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_plus_invoice_items": {
+            "file": "2026_01_04_211131_create_cost_plus_invoice_items_table.php",
+            "timestamp": "2026_01_04_211131",
+            "depends_on": [
+                "cost_plus_invoices",
+                "cost_plus_transactions"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_plus_invoices": {
+            "file": "2026_01_04_211131_create_cost_plus_invoices_table.php",
+            "timestamp": "2026_01_04_211131",
+            "depends_on": [
+                "users",
+                "cost_plus_contracts",
+                "projects"
+            ],
+            "depended_by": [
+                "cost_plus_invoice_items"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_plus_overhead_allocations": {
+            "file": "2026_01_04_211131_create_cost_plus_overhead_allocations_table.php",
+            "timestamp": "2026_01_04_211131",
+            "depends_on": [
+                "users",
+                "cost_plus_contracts",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_plus_transactions": {
+            "file": "2026_01_04_211131_create_cost_plus_transactions_table.php",
+            "timestamp": "2026_01_04_211131",
+            "depends_on": [
+                "users",
+                "cost_plus_contracts",
+                "projects"
+            ],
+            "depended_by": [
+                "cost_plus_invoice_items"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "variation_order_attachments": {
+            "file": "2026_01_04_211225_create_variation_order_attachments_table.php",
+            "timestamp": "2026_01_04_211225",
+            "depends_on": [
+                "users",
+                "variation_orders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "variation_order_items": {
+            "file": "2026_01_04_211225_create_variation_order_items_table.php",
+            "timestamp": "2026_01_04_211225",
+            "depends_on": [
+                "variation_orders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "variation_order_timeline": {
+            "file": "2026_01_04_211225_create_variation_order_timeline_table.php",
+            "timestamp": "2026_01_04_211225",
+            "depends_on": [
+                "users",
+                "variation_orders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "correspondence": {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "depends_on": [
+                "users"
+            ],
+            "depended_by": [
+                "correspondence_actions",
+                "correspondence_attachments",
+                "correspondence_distribution",
+                "correspondence_registers",
+                "correspondence_templates"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "correspondence_attachments": {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "depends_on": [
+                "users",
+                "correspondence"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "correspondence_distribution": {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "depends_on": [
+                "users",
+                "correspondence"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "correspondence_actions": {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "depends_on": [
+                "users",
+                "correspondence"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "correspondence_templates": {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "depends_on": [
+                "users",
+                "correspondence"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "correspondence_registers": {
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "depends_on": [
+                "users",
+                "correspondence"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_templates": {
+            "file": "2026_01_04_211920_create_contract_templates_table.php",
+            "timestamp": "2026_01_04_211920",
+            "depends_on": [],
+            "depended_by": [
+                "contract_generated",
+                "contract_template_clauses",
+                "contract_template_special_conditions",
+                "contract_template_variables"
+            ],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_template_clauses": {
+            "file": "2026_01_04_211921_create_contract_template_clauses_table.php",
+            "timestamp": "2026_01_04_211921",
+            "depends_on": [
+                "contract_templates"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_template_special_conditions": {
+            "file": "2026_01_04_211922_create_contract_template_special_conditions_table.php",
+            "timestamp": "2026_01_04_211922",
+            "depends_on": [
+                "contract_templates"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_template_variables": {
+            "file": "2026_01_04_211923_create_contract_template_variables_table.php",
+            "timestamp": "2026_01_04_211923",
+            "depends_on": [
+                "contract_templates"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "contract_generated": {
+            "file": "2026_01_04_211924_create_contract_generated_table.php",
+            "timestamp": "2026_01_04_211924",
+            "depends_on": [
+                "contract_templates",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "eot_requests": {
+            "file": "2026_01_04_213658_create_eot_requests_table.php",
+            "timestamp": "2026_01_04_213658",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "unforeseeable_conditions_evidence": {
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
+            "timestamp": "2026_01_04_213708",
+            "depends_on": [
+                "unforeseeable_conditions",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "unforeseeable_conditions": {
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_table.php",
+            "timestamp": "2026_01_04_213708",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [
+                "unforeseeable_conditions_evidence"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "regions": {
+            "file": "2026_01_04_214201_create_regions_table.php",
+            "timestamp": "2026_01_04_214201",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_list_items": {
+            "file": "2026_01_04_214214_create_price_list_items_table.php",
+            "timestamp": "2026_01_04_214214",
+            "depends_on": [
+                "price_lists"
+            ],
+            "depended_by": [
+                "price_history"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_lists": {
+            "file": "2026_01_04_214214_create_price_lists_table.php",
+            "timestamp": "2026_01_04_214214",
+            "depends_on": [
+                "users"
+            ],
+            "depended_by": [
+                "price_list_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_history": {
+            "file": "2026_01_04_214215_create_price_history_table.php",
+            "timestamp": "2026_01_04_214215",
+            "depends_on": [
+                "users",
+                "price_list_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_request_items": {
+            "file": "2026_01_04_214215_create_price_request_items_table.php",
+            "timestamp": "2026_01_04_214215",
+            "depends_on": [
+                "price_requests"
+            ],
+            "depended_by": [
+                "price_quotation_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_requests": {
+            "file": "2026_01_04_214215_create_price_requests_table.php",
+            "timestamp": "2026_01_04_214215",
+            "depends_on": [
+                "users"
+            ],
+            "depended_by": [
+                "price_comparisons",
+                "price_quotations",
+                "price_request_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_quotations": {
+            "file": "2026_01_04_214221_create_price_quotations_table.php",
+            "timestamp": "2026_01_04_214221",
+            "depends_on": [
+                "vendors",
+                "price_requests"
+            ],
+            "depended_by": [
+                "price_quotation_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_comparisons": {
+            "file": "2026_01_04_214222_create_price_comparisons_table.php",
+            "timestamp": "2026_01_04_214222",
+            "depends_on": [
+                "users",
+                "price_requests"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "price_quotation_items": {
+            "file": "2026_01_04_214222_create_price_quotation_items_table.php",
+            "timestamp": "2026_01_04_214222",
+            "depends_on": [
+                "price_quotations",
+                "price_request_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "backups": {
+            "file": "2026_01_05_000001_create_backups_table.php",
+            "timestamp": "2026_01_05_000001",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "notifications": {
+            "file": "2026_01_07_000001_create_notifications_table.php",
+            "timestamp": "2026_01_07_000001",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "notification_logs"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "notification_preferences": {
+            "file": "2026_01_07_000002_create_notification_preferences_table.php",
+            "timestamp": "2026_01_07_000002",
+            "depends_on": [
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "alert_rules": {
+            "file": "2026_01_07_000003_create_alert_rules_table.php",
+            "timestamp": "2026_01_07_000003",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "notification_logs": {
+            "file": "2026_01_07_000004_create_notification_logs_table.php",
+            "timestamp": "2026_01_07_000004",
+            "depends_on": [
+                "notifications"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "scheduled_notifications": {
+            "file": "2026_01_07_000005_create_scheduled_notifications_table.php",
+            "timestamp": "2026_01_07_000005",
+            "depends_on": [
+                "users",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "material_request_items": {
+            "file": "2026_01_07_183818_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183818",
+            "depends_on": [
+                "material_requests",
+                "materials"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "material_requests": {
+            "file": "2026_01_07_183818_create_material_requests_table.php",
+            "timestamp": "2026_01_07_183818",
+            "depends_on": [
+                "users",
+                "projects",
+                "departments",
+                "companies"
+            ],
+            "depended_by": [
+                "material_request_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "budget_items": {
+            "file": "2026_01_07_184855_create_budget_items_table.php",
+            "timestamp": "2026_01_07_184855",
+            "depends_on": [
+                "budgets",
+                "cost_categories"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "budgets": {
+            "file": "2026_01_07_184855_create_budgets_table.php",
+            "timestamp": "2026_01_07_184855",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "budget_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_allocations": {
+            "file": "2026_01_07_184855_create_cost_allocations_table.php",
+            "timestamp": "2026_01_07_184855",
+            "depends_on": [
+                "cost_centers",
+                "cost_categories",
+                "gl_accounts",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_categories": {
+            "file": "2026_01_07_184855_create_cost_categories_table.php",
+            "timestamp": "2026_01_07_184855",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "budget_items",
+                "cost_allocations"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "expense_categories": {
+            "file": "2026_01_07_185045_create_expense_categories_table.php",
+            "timestamp": "2026_01_07_185045",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "petty_cash_accounts": {
+            "file": "2026_01_07_185054_create_petty_cash_accounts_table.php",
+            "timestamp": "2026_01_07_185054",
+            "depends_on": [
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "petty_cash_replenishments",
+                "petty_cash_transactions"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "petty_cash_replenishments": {
+            "file": "2026_01_07_185055_create_petty_cash_replenishments_table.php",
+            "timestamp": "2026_01_07_185055",
+            "depends_on": [
+                "petty_cash_accounts",
+                "users",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "petty_cash_transactions": {
+            "file": "2026_01_07_185055_create_petty_cash_transactions_table.php",
+            "timestamp": "2026_01_07_185055",
+            "depends_on": [
+                "petty_cash_accounts",
+                "users",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "bank_reconciliations": {
+            "file": "2026_01_07_185447_create_bank_reconciliations_table.php",
+            "timestamp": "2026_01_07_185447",
+            "depends_on": [
+                "bank_accounts",
+                "companies"
+            ],
+            "depended_by": [
+                "reconciliation_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "bank_statement_lines": {
+            "file": "2026_01_07_185447_create_bank_statement_lines_table.php",
+            "timestamp": "2026_01_07_185447",
+            "depends_on": [
+                "bank_statements"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "bank_statements": {
+            "file": "2026_01_07_185447_create_bank_statements_table.php",
+            "timestamp": "2026_01_07_185447",
+            "depends_on": [
+                "bank_accounts",
+                "companies"
+            ],
+            "depended_by": [
+                "bank_statement_lines"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "reconciliation_items": {
+            "file": "2026_01_07_185447_create_reconciliation_items_table.php",
+            "timestamp": "2026_01_07_185447",
+            "depends_on": [
+                "bank_reconciliations"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "certifications": {
+            "file": "2026_01_07_190600_create_certifications_table.php",
+            "timestamp": "2026_01_07_190600",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "certification_renewals"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "compliance_requirements": {
+            "file": "2026_01_07_190601_create_compliance_requirements_table.php",
+            "timestamp": "2026_01_07_190601",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "compliance_checks"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "compliance_checks": {
+            "file": "2026_01_07_190602_create_compliance_checks_table.php",
+            "timestamp": "2026_01_07_190602",
+            "depends_on": [
+                "compliance_requirements",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "certification_renewals": {
+            "file": "2026_01_07_190603_create_certification_renewals_table.php",
+            "timestamp": "2026_01_07_190603",
+            "depends_on": [
+                "certifications"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "dashboards": {
+            "file": "2026_01_07_190641_create_dashboards_table.php",
+            "timestamp": "2026_01_07_190641",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "dashboard_widgets"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "dashboard_widgets": {
+            "file": "2026_01_07_190647_create_dashboard_widgets_table.php",
+            "timestamp": "2026_01_07_190647",
+            "depends_on": [
+                "dashboards"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "kpi_definitions": {
+            "file": "2026_01_07_190647_create_kpi_definitions_table.php",
+            "timestamp": "2026_01_07_190647",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "kpi_values"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "kpi_values": {
+            "file": "2026_01_07_190647_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190647",
+            "depends_on": [
+                "kpi_definitions",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "purchase_requisitions": {
+            "file": "2026_01_07_191107_create_purchase_requisitions_table.php",
+            "timestamp": "2026_01_07_191107",
+            "depends_on": [
+                "users",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "pr_approval_workflows",
+                "pr_quotes",
+                "purchase_requisition_items"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "pr_approval_workflows": {
+            "file": "2026_01_07_191114_create_pr_approval_workflows_table.php",
+            "timestamp": "2026_01_07_191114",
+            "depends_on": [
+                "users",
+                "purchase_requisitions"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "pr_quotes": {
+            "file": "2026_01_07_191114_create_pr_quotes_table.php",
+            "timestamp": "2026_01_07_191114",
+            "depends_on": [
+                "purchase_requisitions",
+                "vendors",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "pr_quote_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "purchase_requisition_items": {
+            "file": "2026_01_07_191114_create_purchase_requisition_items_table.php",
+            "timestamp": "2026_01_07_191114",
+            "depends_on": [
+                "purchase_requisitions",
+                "units"
+            ],
+            "depended_by": [
+                "pr_quote_items"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "pr_quote_items": {
+            "file": "2026_01_07_191115_create_pr_quote_items_table.php",
+            "timestamp": "2026_01_07_191115",
+            "depends_on": [
+                "purchase_requisition_items",
+                "pr_quotes"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "asset_categories": {
+            "file": "2026_01_07_192300_create_asset_categories_table.php",
+            "timestamp": "2026_01_07_192300",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "fixed_assets"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "fixed_assets": {
+            "file": "2026_01_07_192301_create_fixed_assets_table.php",
+            "timestamp": "2026_01_07_192301",
+            "depends_on": [
+                "asset_categories",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "asset_depreciations",
+                "asset_disposals",
+                "asset_maintenances",
+                "asset_revaluations",
+                "asset_transfers"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "asset_depreciations": {
+            "file": "2026_01_07_192302_create_asset_depreciations_table.php",
+            "timestamp": "2026_01_07_192302",
+            "depends_on": [
+                "fixed_assets",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "asset_disposals": {
+            "file": "2026_01_07_192303_create_asset_disposals_table.php",
+            "timestamp": "2026_01_07_192303",
+            "depends_on": [
+                "fixed_assets",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "asset_maintenances": {
+            "file": "2026_01_07_192304_create_asset_maintenances_table.php",
+            "timestamp": "2026_01_07_192304",
+            "depends_on": [
+                "fixed_assets",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "asset_transfers": {
+            "file": "2026_01_07_192305_create_asset_transfers_table.php",
+            "timestamp": "2026_01_07_192305",
+            "depends_on": [
+                "users",
+                "fixed_assets",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "asset_revaluations": {
+            "file": "2026_01_07_192306_create_asset_revaluations_table.php",
+            "timestamp": "2026_01_07_192306",
+            "depends_on": [
+                "fixed_assets",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cash_accounts": {
+            "file": "2026_01_07_192808_create_cash_accounts_table.php",
+            "timestamp": "2026_01_07_192808",
+            "depends_on": [
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "cash_transactions",
+                "cash_transfers",
+                "daily_cash_positions"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cash_forecasts": {
+            "file": "2026_01_07_192808_create_cash_forecasts_table.php",
+            "timestamp": "2026_01_07_192808",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cash_transactions": {
+            "file": "2026_01_07_192808_create_cash_transactions_table.php",
+            "timestamp": "2026_01_07_192808",
+            "depends_on": [
+                "cash_accounts",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cash_transfers": {
+            "file": "2026_01_07_192808_create_cash_transfers_table.php",
+            "timestamp": "2026_01_07_192808",
+            "depends_on": {
+                "0": "cash_accounts",
+                "2": "currencies",
+                "4": "companies"
+            },
+            "depended_by": [],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "daily_cash_positions": {
+            "file": "2026_01_07_192808_create_daily_cash_positions_table.php",
+            "timestamp": "2026_01_07_192808",
+            "depends_on": [
+                "cash_accounts",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "po_amendments": {
+            "file": "2026_01_07_193207_create_po_amendments_table.php",
+            "timestamp": "2026_01_07_193207",
+            "depends_on": [
+                "users",
+                "purchase_orders"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "po_receipt_items": {
+            "file": "2026_01_07_193207_create_po_receipt_items_table.php",
+            "timestamp": "2026_01_07_193207",
+            "depends_on": [
+                "purchase_order_items",
+                "po_receipts"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "po_receipts": {
+            "file": "2026_01_07_193207_create_po_receipts_table.php",
+            "timestamp": "2026_01_07_193207",
+            "depends_on": [
+                "users",
+                "purchase_orders",
+                "warehouses",
+                "companies"
+            ],
+            "depended_by": [
+                "po_receipt_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "schedule_calendars": {
+            "file": "2026_01_09_000001_create_schedule_calendars_table.php",
+            "timestamp": "2026_01_09_000001",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "calendar_exceptions"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "calendar_exceptions": {
+            "file": "2026_01_09_000002_create_calendar_exceptions_table.php",
+            "timestamp": "2026_01_09_000002",
+            "depends_on": [
+                "schedule_calendars"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_schedules": {
+            "file": "2026_01_09_000003_create_project_schedules_table.php",
+            "timestamp": "2026_01_09_000003",
+            "depends_on": [
+                "projects",
+                "users",
+                "companies"
+            ],
+            "depended_by": [
+                "schedule_activities",
+                "schedule_baselines",
+                "schedule_updates"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "schedule_activities": {
+            "file": "2026_01_09_000004_create_schedule_activities_table.php",
+            "timestamp": "2026_01_09_000004",
+            "depends_on": [
+                "project_schedules"
+            ],
+            "depended_by": [
+                "baseline_activities",
+                "schedule_resources"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "schedule_resources": {
+            "file": "2026_01_09_000006_create_schedule_resources_table.php",
+            "timestamp": "2026_01_09_000006",
+            "depends_on": [
+                "schedule_activities"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "schedule_baselines": {
+            "file": "2026_01_09_000007_create_schedule_baselines_table.php",
+            "timestamp": "2026_01_09_000007",
+            "depends_on": [
+                "project_schedules",
+                "users"
+            ],
+            "depended_by": [
+                "baseline_activities"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "baseline_activities": {
+            "file": "2026_01_09_000008_create_baseline_activities_table.php",
+            "timestamp": "2026_01_09_000008",
+            "depends_on": [
+                "schedule_baselines",
+                "schedule_activities"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "schedule_updates": {
+            "file": "2026_01_09_000009_create_schedule_updates_table.php",
+            "timestamp": "2026_01_09_000009",
+            "depends_on": [
+                "project_schedules",
+                "users"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "progress_bills": {
+            "file": "2026_01_09_150000_create_progress_bills_table.php",
+            "timestamp": "2026_01_09_150000",
+            "depends_on": [
+                "projects",
+                "contracts",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "bill_approval_workflow",
+                "measurement_sheets",
+                "progress_bill_attachments",
+                "progress_bill_deductions",
+                "progress_bill_items",
+                "progress_bill_variations"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_budgets": {
+            "file": "2026_01_09_150000_create_project_budgets_table.php",
+            "timestamp": "2026_01_09_150000",
+            "depends_on": [
+                "users",
+                "projects",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "project_budget_items"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "retentions": {
+            "file": "2026_01_09_150000_create_retentions_table.php",
+            "timestamp": "2026_01_09_150000",
+            "depends_on": [
+                "projects",
+                "contracts",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "retention_accumulations",
+                "retention_guarantees",
+                "retention_releases"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "progress_bill_items": {
+            "file": "2026_01_09_150001_create_progress_bill_items_table.php",
+            "timestamp": "2026_01_09_150001",
+            "depends_on": [
+                "progress_bills"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "retention_accumulations": {
+            "file": "2026_01_09_150001_create_retention_accumulations_table.php",
+            "timestamp": "2026_01_09_150001",
+            "depends_on": [
+                "retentions"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "progress_bill_variations": {
+            "file": "2026_01_09_150002_create_progress_bill_variations_table.php",
+            "timestamp": "2026_01_09_150002",
+            "depends_on": [
+                "progress_bills"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "retention_releases": {
+            "file": "2026_01_09_150002_create_retention_releases_table.php",
+            "timestamp": "2026_01_09_150002",
+            "depends_on": [
+                "retentions",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "progress_bill_deductions": {
+            "file": "2026_01_09_150003_create_progress_bill_deductions_table.php",
+            "timestamp": "2026_01_09_150003",
+            "depends_on": [
+                "progress_bills"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "retention_guarantees": {
+            "file": "2026_01_09_150003_create_retention_guarantees_table.php",
+            "timestamp": "2026_01_09_150003",
+            "depends_on": [
+                "retentions",
+                "currencies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "advance_payments": {
+            "file": "2026_01_09_150004_create_advance_payments_table.php",
+            "timestamp": "2026_01_09_150004",
+            "depends_on": [
+                "projects",
+                "contracts",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [
+                "advance_recoveries"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "progress_bill_attachments": {
+            "file": "2026_01_09_150004_create_progress_bill_attachments_table.php",
+            "timestamp": "2026_01_09_150004",
+            "depends_on": [
+                "users",
+                "progress_bills"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "advance_recoveries": {
+            "file": "2026_01_09_150005_create_advance_recoveries_table.php",
+            "timestamp": "2026_01_09_150005",
+            "depends_on": [
+                "advance_payments"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "measurement_sheets": {
+            "file": "2026_01_09_150005_create_measurement_sheets_table.php",
+            "timestamp": "2026_01_09_150005",
+            "depends_on": [
+                "progress_bills"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "bill_approval_workflow": {
+            "file": "2026_01_09_150006_create_bill_approval_workflow_table.php",
+            "timestamp": "2026_01_09_150006",
+            "depends_on": [
+                "users",
+                "progress_bills"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "defects_liability": {
+            "file": "2026_01_09_150006_create_defects_liability_table.php",
+            "timestamp": "2026_01_09_150006",
+            "depends_on": [
+                "projects",
+                "contracts",
+                "companies"
+            ],
+            "depended_by": [
+                "defect_notifications"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "defect_notifications": {
+            "file": "2026_01_09_150007_create_defect_notifications_table.php",
+            "timestamp": "2026_01_09_150007",
+            "depends_on": [
+                "defects_liability"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_codes": {
+            "file": "2026_01_09_150100_create_cost_codes_table.php",
+            "timestamp": "2026_01_09_150100",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "actual_costs",
+                "committed_costs",
+                "cost_forecasts",
+                "project_budget_items",
+                "variance_analysis"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "project_budget_items": {
+            "file": "2026_01_09_150200_create_project_budget_items_table.php",
+            "timestamp": "2026_01_09_150200",
+            "depends_on": [
+                "project_budgets",
+                "cost_codes"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "actual_costs": {
+            "file": "2026_01_09_150300_create_actual_costs_table.php",
+            "timestamp": "2026_01_09_150300",
+            "depends_on": [
+                "users",
+                "projects",
+                "cost_codes",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "site_diaries": {
+            "file": "2026_01_09_150300_create_site_diaries_table.php",
+            "timestamp": "2026_01_09_150300",
+            "depends_on": [
+                "projects",
+                "companies"
+            ],
+            "depended_by": [
+                "diary_activities",
+                "diary_equipment",
+                "diary_incidents",
+                "diary_instructions",
+                "diary_manpower",
+                "diary_materials",
+                "diary_photos",
+                "diary_visitors"
+            ],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_manpower": {
+            "file": "2026_01_09_150301_create_diary_manpower_table.php",
+            "timestamp": "2026_01_09_150301",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_equipment": {
+            "file": "2026_01_09_150302_create_diary_equipment_table.php",
+            "timestamp": "2026_01_09_150302",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_activities": {
+            "file": "2026_01_09_150303_create_diary_activities_table.php",
+            "timestamp": "2026_01_09_150303",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_materials": {
+            "file": "2026_01_09_150304_create_diary_materials_table.php",
+            "timestamp": "2026_01_09_150304",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_visitors": {
+            "file": "2026_01_09_150305_create_diary_visitors_table.php",
+            "timestamp": "2026_01_09_150305",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_incidents": {
+            "file": "2026_01_09_150306_create_diary_incidents_table.php",
+            "timestamp": "2026_01_09_150306",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_instructions": {
+            "file": "2026_01_09_150307_create_diary_instructions_table.php",
+            "timestamp": "2026_01_09_150307",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "diary_photos": {
+            "file": "2026_01_09_150308_create_diary_photos_table.php",
+            "timestamp": "2026_01_09_150308",
+            "depends_on": [
+                "site_diaries"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "committed_costs": {
+            "file": "2026_01_09_150400_create_committed_costs_table.php",
+            "timestamp": "2026_01_09_150400",
+            "depends_on": [
+                "projects",
+                "cost_codes",
+                "vendors",
+                "currencies",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 5,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_forecasts": {
+            "file": "2026_01_09_150500_create_cost_forecasts_table.php",
+            "timestamp": "2026_01_09_150500",
+            "depends_on": [
+                "users",
+                "projects",
+                "cost_codes"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "variance_analysis": {
+            "file": "2026_01_09_150600_create_variance_analysis_table.php",
+            "timestamp": "2026_01_09_150600",
+            "depends_on": [
+                "projects",
+                "cost_codes"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "cost_reports": {
+            "file": "2026_01_09_150700_create_cost_reports_table.php",
+            "timestamp": "2026_01_09_150700",
+            "depends_on": [
+                "users",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspection_types": {
+            "file": "2026_01_09_151800_create_inspection_types_table.php",
+            "timestamp": "2026_01_09_151800",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "inspection_requests",
+                "inspections"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspection_templates": {
+            "file": "2026_01_09_151801_create_inspection_templates_table.php",
+            "timestamp": "2026_01_09_151801",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [
+                "template_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "template_items": {
+            "file": "2026_01_09_151802_create_template_items_table.php",
+            "timestamp": "2026_01_09_151802",
+            "depends_on": [
+                "inspection_templates"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspection_requests": {
+            "file": "2026_01_09_151803_create_inspection_requests_table.php",
+            "timestamp": "2026_01_09_151803",
+            "depends_on": [
+                "users",
+                "projects",
+                "inspection_types",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspections": {
+            "file": "2026_01_09_151804_create_inspections_table.php",
+            "timestamp": "2026_01_09_151804",
+            "depends_on": [
+                "users",
+                "projects",
+                "inspection_types",
+                "companies"
+            ],
+            "depended_by": [
+                "inspection_actions",
+                "inspection_items",
+                "inspection_photos"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspection_items": {
+            "file": "2026_01_09_151805_create_inspection_items_table.php",
+            "timestamp": "2026_01_09_151805",
+            "depends_on": [
+                "inspections"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspection_actions": {
+            "file": "2026_01_09_151806_create_inspection_actions_table.php",
+            "timestamp": "2026_01_09_151806",
+            "depends_on": [
+                "users",
+                "inspections"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "inspection_photos": {
+            "file": "2026_01_09_151807_create_inspection_photos_table.php",
+            "timestamp": "2026_01_09_151807",
+            "depends_on": [
+                "users",
+                "inspections"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_albums": {
+            "file": "2026_01_09_152024_create_photo_albums_table.php",
+            "timestamp": "2026_01_09_152024",
+            "depends_on": [
+                "users",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_annotations": {
+            "file": "2026_01_09_152031_create_photo_annotations_table.php",
+            "timestamp": "2026_01_09_152031",
+            "depends_on": [
+                "users",
+                "photos"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_comparisons": {
+            "file": "2026_01_09_152031_create_photo_comparisons_table.php",
+            "timestamp": "2026_01_09_152031",
+            "depends_on": {
+                "0": "photos",
+                "2": "users",
+                "3": "projects"
+            },
+            "depended_by": [],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_reports": {
+            "file": "2026_01_09_152031_create_photo_reports_table.php",
+            "timestamp": "2026_01_09_152031",
+            "depends_on": [
+                "users",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [
+                "photo_report_items"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photos": {
+            "file": "2026_01_09_152031_create_photos_table.php",
+            "timestamp": "2026_01_09_152031",
+            "depends_on": [
+                "users",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [
+                "photo_annotations",
+                "photo_comparisons",
+                "photo_report_items"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_locations": {
+            "file": "2026_01_09_152032_create_photo_locations_table.php",
+            "timestamp": "2026_01_09_152032",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_report_items": {
+            "file": "2026_01_09_152032_create_photo_report_items_table.php",
+            "timestamp": "2026_01_09_152032",
+            "depends_on": [
+                "photo_reports",
+                "photos"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "photo_tags": {
+            "file": "2026_01_09_152032_create_photo_tags_table.php",
+            "timestamp": "2026_01_09_152032",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_lists": {
+            "file": "2026_01_09_152700_create_punch_lists_table.php",
+            "timestamp": "2026_01_09_152700",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [
+                "punch_items"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_items": {
+            "file": "2026_01_09_152701_create_punch_items_table.php",
+            "timestamp": "2026_01_09_152701",
+            "depends_on": [
+                "punch_lists"
+            ],
+            "depended_by": [
+                "punch_item_comments",
+                "punch_item_history"
+            ],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_item_comments": {
+            "file": "2026_01_09_152702_create_punch_item_comments_table.php",
+            "timestamp": "2026_01_09_152702",
+            "depends_on": [
+                "users",
+                "punch_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_item_history": {
+            "file": "2026_01_09_152703_create_punch_item_history_table.php",
+            "timestamp": "2026_01_09_152703",
+            "depends_on": [
+                "users",
+                "punch_items"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_templates": {
+            "file": "2026_01_09_152704_create_punch_templates_table.php",
+            "timestamp": "2026_01_09_152704",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_categories": {
+            "file": "2026_01_09_152705_create_punch_categories_table.php",
+            "timestamp": "2026_01_09_152705",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_reports": {
+            "file": "2026_01_09_152706_create_punch_reports_table.php",
+            "timestamp": "2026_01_09_152706",
+            "depends_on": [
+                "users",
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "punch_statistics": {
+            "file": "2026_01_09_152707_create_punch_statistics_table.php",
+            "timestamp": "2026_01_09_152707",
+            "depends_on": [
+                "projects"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_assessments": {
+            "file": "2026_01_09_152841_create_risk_assessments_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "users",
+                "risks"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_categories": {
+            "file": "2026_01_09_152841_create_risk_categories_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_incidents": {
+            "file": "2026_01_09_152841_create_risk_incidents_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "users",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_matrix_settings": {
+            "file": "2026_01_09_152841_create_risk_matrix_settings_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "companies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_monitoring": {
+            "file": "2026_01_09_152841_create_risk_monitoring_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "users",
+                "risks"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_registers": {
+            "file": "2026_01_09_152841_create_risk_registers_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "users",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [
+                "risks"
+            ],
+            "foreign_keys": 3,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risk_responses": {
+            "file": "2026_01_09_152841_create_risk_responses_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "risks"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "risks": {
+            "file": "2026_01_09_152841_create_risks_table.php",
+            "timestamp": "2026_01_09_152841",
+            "depends_on": [
+                "users",
+                "risk_registers",
+                "projects",
+                "companies"
+            ],
+            "depended_by": [
+                "risk_assessments",
+                "risk_monitoring",
+                "risk_responses"
+            ],
+            "foreign_keys": 4,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "exchange_rates": {
+            "file": "2026_01_10_170001_create_exchange_rates_table.php",
+            "timestamp": "2026_01_10_170001",
+            "depends_on": [
+                "currencies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "checks": {
+            "file": "2026_01_10_170002_create_checks_table.php",
+            "timestamp": "2026_01_10_170002",
+            "depends_on": [
+                "currencies",
+                "bank_accounts"
+            ],
+            "depended_by": [],
+            "foreign_keys": 2,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "promissory_notes": {
+            "file": "2026_01_10_170003_create_promissory_notes_table.php",
+            "timestamp": "2026_01_10_170003",
+            "depends_on": [
+                "currencies"
+            ],
+            "depended_by": [],
+            "foreign_keys": 1,
+            "indexes": 0,
+            "has_issues": false
+        },
+        "payment_templates": {
+            "file": "2026_01_10_170004_create_payment_templates_table.php",
+            "timestamp": "2026_01_10_170004",
+            "depends_on": [],
+            "depended_by": [],
+            "foreign_keys": 0,
+            "indexes": 0,
+            "has_issues": false
+        }
+    },
+    "circular_dependencies": [],
+    "missing_parent_tables": [
+        {
+            "table": "equipment_assignments",
+            "file": "2026_01_04_205740_create_equipment_assignments_table.php",
+            "missing_parent": "equipments",
+            "column": "equipment_id"
+        },
+        {
+            "table": "equipment_fuel_logs",
+            "file": "2026_01_04_205751_create_equipment_fuel_logs_table.php",
+            "missing_parent": "equipments",
+            "column": "equipment_id"
+        },
+        {
+            "table": "equipment_maintenance",
+            "file": "2026_01_04_205751_create_equipment_maintenance_table.php",
+            "missing_parent": "equipments",
+            "column": "equipment_id"
+        },
+        {
+            "table": "equipment_transfers",
+            "file": "2026_01_04_205751_create_equipment_transfers_table.php",
+            "missing_parent": "equipments",
+            "column": "equipment_id"
+        },
+        {
+            "table": "equipment_usage",
+            "file": "2026_01_04_205751_create_equipment_usage_table.php",
+            "missing_parent": "equipments",
+            "column": "equipment_id"
+        },
+        {
+            "table": "correspondence",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "missing_parent": "correspondences",
+            "column": "correspondence_id"
+        },
+        {
+            "table": "correspondence_attachments",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "missing_parent": "correspondences",
+            "column": "correspondence_id"
+        },
+        {
+            "table": "correspondence_distribution",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "missing_parent": "correspondences",
+            "column": "correspondence_id"
+        },
+        {
+            "table": "correspondence_actions",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "missing_parent": "correspondences",
+            "column": "correspondence_id"
+        },
+        {
+            "table": "correspondence_templates",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "missing_parent": "correspondences",
+            "column": "correspondence_id"
+        },
+        {
+            "table": "correspondence_registers",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "missing_parent": "correspondences",
+            "column": "correspondence_id"
+        },
+        {
+            "table": "defect_notifications",
+            "file": "2026_01_09_150007_create_defect_notifications_table.php",
+            "missing_parent": "defects_liabilities",
+            "column": "defects_liability_id"
+        }
+    ],
+    "timestamp_conflicts": [
+        {
+            "child": "activity_dependencies",
+            "child_file": "2026_01_02_211654_create_activity_dependencies_table.php",
+            "parent": "project_activities",
+            "parent_file": "2026_01_02_211654_create_project_activities_table.php",
+            "timestamp": "2026_01_02_211654"
+        },
+        {
+            "child": "activity_dependencies",
+            "child_file": "2026_01_02_211654_create_activity_dependencies_table.php",
+            "parent": "project_activities",
+            "parent_file": "2026_01_02_211654_create_project_activities_table.php",
+            "timestamp": "2026_01_02_211654"
+        },
+        {
+            "child": "daily_report_photos",
+            "child_file": "2026_01_02_211857_create_daily_report_photos_table.php",
+            "parent": "daily_reports",
+            "parent_file": "2026_01_02_211857_create_daily_reports_table.php",
+            "timestamp": "2026_01_02_211857"
+        },
+        {
+            "child": "project_timesheets",
+            "child_file": "2026_01_02_212443_create_project_timesheets_table.php",
+            "parent": "employees",
+            "parent_file": "2026_01_02_212443_create_employees_table.php",
+            "timestamp": "2026_01_02_212443"
+        },
+        {
+            "child": "eot_affected_activities",
+            "child_file": "2026_01_02_214129_create_eot_affected_activities_table.php",
+            "parent": "eot_claims",
+            "parent_file": "2026_01_02_214129_create_eot_claims_table.php",
+            "timestamp": "2026_01_02_214129"
+        },
+        {
+            "child": "prolongation_cost_items",
+            "child_file": "2026_01_02_214129_create_prolongation_cost_items_table.php",
+            "parent": "eot_claims",
+            "parent_file": "2026_01_02_214129_create_eot_claims_table.php",
+            "timestamp": "2026_01_02_214129"
+        },
+        {
+            "child": "tender_wbs_boq_mapping",
+            "child_file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+            "parent": "tender_wbs",
+            "parent_file": "2026_01_02_214414_create_tender_wbs_table.php",
+            "timestamp": "2026_01_02_214414"
+        },
+        {
+            "child": "tender_wbs_boq_mapping",
+            "child_file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+            "parent": "tender_boq_items",
+            "parent_file": "2026_01_02_214414_create_tender_boq_items_table.php",
+            "timestamp": "2026_01_02_214414"
+        },
+        {
+            "child": "tender_procurement_suppliers",
+            "child_file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "parent": "tender_procurement_packages",
+            "parent_file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200"
+        },
+        {
+            "child": "tender_long_lead_items",
+            "child_file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "parent": "tender_procurement_packages",
+            "parent_file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200"
+        },
+        {
+            "child": "tender_activity_dependencies",
+            "child_file": "2026_01_02_222220_create_tender_activity_dependencies_table.php",
+            "parent": "tender_activities",
+            "parent_file": "2026_01_02_222220_create_tender_activities_table.php",
+            "timestamp": "2026_01_02_222220"
+        },
+        {
+            "child": "tender_activity_dependencies",
+            "child_file": "2026_01_02_222220_create_tender_activity_dependencies_table.php",
+            "parent": "tender_activities",
+            "parent_file": "2026_01_02_222220_create_tender_activities_table.php",
+            "timestamp": "2026_01_02_222220"
+        },
+        {
+            "child": "gl_journal_entry_lines",
+            "child_file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php",
+            "parent": "gl_journal_entries",
+            "parent_file": "2026_01_03_114925_create_gl_journal_entries_table.php",
+            "timestamp": "2026_01_03_114925"
+        },
+        {
+            "child": "gl_journal_entry_lines",
+            "child_file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php",
+            "parent": "gl_accounts",
+            "parent_file": "2026_01_03_114925_create_gl_accounts_table.php",
+            "timestamp": "2026_01_03_114925"
+        },
+        {
+            "child": "gl_periods",
+            "child_file": "2026_01_03_114925_create_gl_periods_table.php",
+            "parent": "gl_fiscal_years",
+            "parent_file": "2026_01_03_114925_create_gl_fiscal_years_table.php",
+            "timestamp": "2026_01_03_114925"
+        },
+        {
+            "child": "subcontractor_contacts",
+            "child_file": "2026_01_03_182434_create_subcontractor_contacts_table.php",
+            "parent": "subcontractors",
+            "parent_file": "2026_01_03_182434_create_subcontractors_table.php",
+            "timestamp": "2026_01_03_182434"
+        },
+        {
+            "child": "subcontractor_ipc_items",
+            "child_file": "2026_01_03_182435_create_subcontractor_ipc_items_table.php",
+            "parent": "subcontractor_ipcs",
+            "parent_file": "2026_01_03_182435_create_subcontractor_ipcs_table.php",
+            "timestamp": "2026_01_03_182435"
+        },
+        {
+            "child": "subcontractor_ipcs",
+            "child_file": "2026_01_03_182435_create_subcontractor_ipcs_table.php",
+            "parent": "subcontractor_agreements",
+            "parent_file": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "timestamp": "2026_01_03_182435"
+        },
+        {
+            "child": "subcontractor_work_orders",
+            "child_file": "2026_01_03_182435_create_subcontractor_work_orders_table.php",
+            "parent": "subcontractor_agreements",
+            "parent_file": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "timestamp": "2026_01_03_182435"
+        },
+        {
+            "child": "ap_invoice_items",
+            "child_file": "2026_01_03_200814_create_ap_invoice_items_table.php",
+            "parent": "ap_invoices",
+            "parent_file": "2026_01_03_200814_create_ap_invoices_table.php",
+            "timestamp": "2026_01_03_200814"
+        }
+    ]
+}
