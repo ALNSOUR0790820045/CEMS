@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('defect_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('defects_liability_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('defects_liability_id')->constrained('defects_liability')->cascadeOnDelete();
             $table->string('notification_number')->unique();
             $table->date('notification_date');
             $table->string('notified_by');

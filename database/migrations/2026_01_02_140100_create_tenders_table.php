@@ -22,6 +22,12 @@ return new class extends Migration
             $table->decimal('estimated_value', 15, 2)->default(0);
             $table->enum('status', ['draft', 'published', 'closed', 'awarded', 'cancelled'])->default('draft');
             $table->timestamps();
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('issue_date');
+            $table->index('closing_date');
+            $table->index('created_at');
         });
     }
 

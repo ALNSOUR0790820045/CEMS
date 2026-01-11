@@ -92,6 +92,14 @@ return new class extends Migration
             
             $table->timestamps();
             $table->softDeletes();
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('type');
+            $table->index(['project_id', 'status']);
+            $table->index(['project_id', 'type']);
+            $table->index('event_start_date');
+            $table->index('submission_date');
         });
     }
 

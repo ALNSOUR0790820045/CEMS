@@ -23,6 +23,10 @@ return new class extends Migration
             $table->decimal('total_price', 15, 2)->default(0);
             $table->integer('sort_order')->default(0);
             $table->timestamps();
+            
+            // Indexes for performance
+            $table->index('project_id');
+            $table->index(['project_id', 'wbs_id']);
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_equipment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->string('equipment_type');
             $table->integer('quantity')->default(1);
             $table->decimal('hours_worked', 5, 2)->default(0.00);

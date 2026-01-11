@@ -101,7 +101,7 @@ return new class extends Migration
         // correspondence_attachments table
         Schema::create('correspondence_attachments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('correspondence_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('correspondence_id')->constrained('correspondence')->cascadeOnDelete();
             $table->string('name');
             $table->string('file_path');
             $table->string('file_name');
@@ -115,7 +115,7 @@ return new class extends Migration
         // correspondence_distribution table (التوزيع)
         Schema::create('correspondence_distribution', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('correspondence_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('correspondence_id')->constrained('correspondence')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained();
             $table->enum('action_type', ['to', 'cc', 'bcc', 'for_action', 'for_info', 'for_approval']);
             $table->boolean('is_read')->default(false);
@@ -127,7 +127,7 @@ return new class extends Migration
         // correspondence_actions table (الإجراءات)
         Schema::create('correspondence_actions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('correspondence_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('correspondence_id')->constrained('correspondence')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained();
             $table->string('action'); // approved, rejected, forwarded, replied, noted
             $table->text('comments')->nullable();

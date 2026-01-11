@@ -23,6 +23,13 @@ return new class extends Migration
             $table->decimal('contract_value', 15, 2)->default(0);
             $table->enum('status', ['draft', 'active', 'completed', 'terminated'])->default('draft');
             $table->timestamps();
+            
+            // Indexes for performance
+            $table->index('status');
+            $table->index('start_date');
+            $table->index('end_date');
+            $table->index(['project_id', 'status']);
+            $table->index('created_at');
         });
     }
 

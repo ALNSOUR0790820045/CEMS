@@ -34,6 +34,12 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
+            
+            // Indexes for performance
+            $table->index('is_active');
+            $table->index('hire_date');
+            $table->index(['company_id', 'is_active']);
+            $table->index('department');
         });
     }
 

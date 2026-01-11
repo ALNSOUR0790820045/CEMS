@@ -1,0 +1,3325 @@
+{
+    "version": "1.0",
+    "generated_at": "2026-01-10 21:20:03",
+    "summary": {
+        "total_errors": 0,
+        "total_warnings": 63,
+        "circular_dependencies": 0,
+        "tables_analyzed": 350
+    },
+    "critical_errors": [],
+    "warnings": [
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_211654_create_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_211654",
+            "table": "activity_dependencies",
+            "column": "predecessor_id",
+            "references": "project_activities",
+            "parent_file": "2026_01_02_211654_create_project_activities_table.php",
+            "message": "Table 'activity_dependencies' and its parent 'project_activities' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_211654_create_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_211654",
+            "table": "activity_dependencies",
+            "column": "successor_id",
+            "references": "project_activities",
+            "parent_file": "2026_01_02_211654_create_project_activities_table.php",
+            "message": "Table 'activity_dependencies' and its parent 'project_activities' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_211857_create_daily_report_photos_table.php",
+            "timestamp": "2026_01_02_211857",
+            "table": "daily_report_photos",
+            "column": "daily_report_id",
+            "references": "daily_reports",
+            "parent_file": "2026_01_02_211857_create_daily_reports_table.php",
+            "message": "Table 'daily_report_photos' and its parent 'daily_reports' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_212443_create_project_timesheets_table.php",
+            "timestamp": "2026_01_02_212443",
+            "table": "project_timesheets",
+            "column": "employee_id",
+            "references": "employees",
+            "parent_file": "2026_01_02_212443_create_employees_table.php",
+            "message": "Table 'project_timesheets' and its parent 'employees' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_214129_create_eot_affected_activities_table.php",
+            "timestamp": "2026_01_02_214129",
+            "table": "eot_affected_activities",
+            "column": "eot_claim_id",
+            "references": "eot_claims",
+            "parent_file": "2026_01_02_214129_create_eot_claims_table.php",
+            "message": "Table 'eot_affected_activities' and its parent 'eot_claims' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_214129_create_prolongation_cost_items_table.php",
+            "timestamp": "2026_01_02_214129",
+            "table": "prolongation_cost_items",
+            "column": "eot_claim_id",
+            "references": "eot_claims",
+            "parent_file": "2026_01_02_214129_create_eot_claims_table.php",
+            "message": "Table 'prolongation_cost_items' and its parent 'eot_claims' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214414",
+            "table": "tender_wbs_boq_mapping",
+            "column": "tender_wbs_id",
+            "references": "tender_wbs",
+            "parent_file": "2026_01_02_214414_create_tender_wbs_table.php",
+            "message": "Table 'tender_wbs_boq_mapping' and its parent 'tender_wbs' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php",
+            "timestamp": "2026_01_02_214414",
+            "table": "tender_wbs_boq_mapping",
+            "column": "tender_boq_item_id",
+            "references": "tender_boq_items",
+            "parent_file": "2026_01_02_214414_create_tender_boq_items_table.php",
+            "message": "Table 'tender_wbs_boq_mapping' and its parent 'tender_boq_items' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "table": "tender_procurement_suppliers",
+            "column": "tender_procurement_package_id",
+            "references": "tender_procurement_packages",
+            "parent_file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "message": "Table 'tender_procurement_suppliers' and its parent 'tender_procurement_packages' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "timestamp": "2026_01_02_220200",
+            "table": "tender_long_lead_items",
+            "column": "tender_procurement_package_id",
+            "references": "tender_procurement_packages",
+            "parent_file": "2026_01_02_220200_create_tender_procurement_tables.php",
+            "message": "Table 'tender_long_lead_items' and its parent 'tender_procurement_packages' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_222220_create_tender_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_222220",
+            "table": "tender_activity_dependencies",
+            "column": "predecessor_id",
+            "references": "tender_activities",
+            "parent_file": "2026_01_02_222220_create_tender_activities_table.php",
+            "message": "Table 'tender_activity_dependencies' and its parent 'tender_activities' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_02_222220_create_tender_activity_dependencies_table.php",
+            "timestamp": "2026_01_02_222220",
+            "table": "tender_activity_dependencies",
+            "column": "successor_id",
+            "references": "tender_activities",
+            "parent_file": "2026_01_02_222220_create_tender_activities_table.php",
+            "message": "Table 'tender_activity_dependencies' and its parent 'tender_activities' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_journal_entry_lines",
+            "column": "journal_entry_id",
+            "references": "gl_journal_entries",
+            "parent_file": "2026_01_03_114925_create_gl_journal_entries_table.php",
+            "message": "Table 'gl_journal_entry_lines' and its parent 'gl_journal_entries' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_journal_entry_lines",
+            "column": "gl_account_id",
+            "references": "gl_accounts",
+            "parent_file": "2026_01_03_114925_create_gl_accounts_table.php",
+            "message": "Table 'gl_journal_entry_lines' and its parent 'gl_accounts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_114925_create_gl_periods_table.php",
+            "timestamp": "2026_01_03_114925",
+            "table": "gl_periods",
+            "column": "fiscal_year_id",
+            "references": "gl_fiscal_years",
+            "parent_file": "2026_01_03_114925_create_gl_fiscal_years_table.php",
+            "message": "Table 'gl_periods' and its parent 'gl_fiscal_years' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_182434_create_subcontractor_contacts_table.php",
+            "timestamp": "2026_01_03_182434",
+            "table": "subcontractor_contacts",
+            "column": "subcontractor_id",
+            "references": "subcontractors",
+            "parent_file": "2026_01_03_182434_create_subcontractors_table.php",
+            "message": "Table 'subcontractor_contacts' and its parent 'subcontractors' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_182435_create_subcontractor_ipc_items_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_ipc_items",
+            "column": "subcontractor_ipc_id",
+            "references": "subcontractor_ipcs",
+            "parent_file": "2026_01_03_182435_create_subcontractor_ipcs_table.php",
+            "message": "Table 'subcontractor_ipc_items' and its parent 'subcontractor_ipcs' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_182435_create_subcontractor_ipcs_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_ipcs",
+            "column": "subcontractor_agreement_id",
+            "references": "subcontractor_agreements",
+            "parent_file": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "message": "Table 'subcontractor_ipcs' and its parent 'subcontractor_agreements' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_182435_create_subcontractor_work_orders_table.php",
+            "timestamp": "2026_01_03_182435",
+            "table": "subcontractor_work_orders",
+            "column": "subcontractor_agreement_id",
+            "references": "subcontractor_agreements",
+            "parent_file": "2026_01_03_182435_create_subcontractor_agreements_table.php",
+            "message": "Table 'subcontractor_work_orders' and its parent 'subcontractor_agreements' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_200814_create_ap_invoice_items_table.php",
+            "timestamp": "2026_01_03_200814",
+            "table": "ap_invoice_items",
+            "column": "ap_invoice_id",
+            "references": "ap_invoices",
+            "parent_file": "2026_01_03_200814_create_ap_invoices_table.php",
+            "message": "Table 'ap_invoice_items' and its parent 'ap_invoices' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_200814_create_ap_payment_allocations_table.php",
+            "timestamp": "2026_01_03_200814",
+            "table": "ap_payment_allocations",
+            "column": "ap_invoice_id",
+            "references": "ap_invoices",
+            "parent_file": "2026_01_03_200814_create_ap_invoices_table.php",
+            "message": "Table 'ap_payment_allocations' and its parent 'ap_invoices' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_200917_create_a_r_invoice_items_table.php",
+            "timestamp": "2026_01_03_200917",
+            "table": "a_r_invoice_items",
+            "column": "a_r_invoice_id",
+            "references": "a_r_invoices",
+            "parent_file": "2026_01_03_200917_create_a_r_invoices_table.php",
+            "message": "Table 'a_r_invoice_items' and its parent 'a_r_invoices' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_200918_create_a_r_receipt_allocations_table.php",
+            "timestamp": "2026_01_03_200918",
+            "table": "a_r_receipt_allocations",
+            "column": "a_r_receipt_id",
+            "references": "a_r_receipts",
+            "parent_file": "2026_01_03_200918_create_a_r_receipts_table.php",
+            "message": "Table 'a_r_receipt_allocations' and its parent 'a_r_receipts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_03_202710_create_g_r_n_items_table.php",
+            "timestamp": "2026_01_03_202710",
+            "table": "grn_items",
+            "column": "grn_id",
+            "references": "grns",
+            "parent_file": "2026_01_03_202710_create_g_r_n_s_table.php",
+            "message": "Table 'grn_items' and its parent 'grns' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_202928_create_guarantee_claims_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantee_claims",
+            "column": "guarantee_id",
+            "references": "guarantees",
+            "parent_file": "2026_01_04_202928_create_guarantees_table.php",
+            "message": "Table 'guarantee_claims' and its parent 'guarantees' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_202928_create_guarantee_releases_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantee_releases",
+            "column": "guarantee_id",
+            "references": "guarantees",
+            "parent_file": "2026_01_04_202928_create_guarantees_table.php",
+            "message": "Table 'guarantee_releases' and its parent 'guarantees' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_202928_create_guarantee_renewals_table.php",
+            "timestamp": "2026_01_04_202928",
+            "table": "guarantee_renewals",
+            "column": "guarantee_id",
+            "references": "guarantees",
+            "parent_file": "2026_01_04_202928_create_guarantees_table.php",
+            "message": "Table 'guarantee_renewals' and its parent 'guarantees' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_203018_create_boq_revisions_table.php",
+            "timestamp": "2026_01_04_203018",
+            "table": "boq_revisions",
+            "column": "boq_header_id",
+            "references": "boq_headers",
+            "parent_file": "2026_01_04_203018_create_boq_headers_table.php",
+            "message": "Table 'boq_revisions' and its parent 'boq_headers' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_203018_create_boq_sections_table.php",
+            "timestamp": "2026_01_04_203018",
+            "table": "boq_sections",
+            "column": "boq_header_id",
+            "references": "boq_headers",
+            "parent_file": "2026_01_04_203018_create_boq_headers_table.php",
+            "message": "Table 'boq_sections' and its parent 'boq_headers' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_205740_create_equipment_assignments_table.php",
+            "timestamp": "2026_01_04_205740",
+            "table": "equipment_assignments",
+            "column": "equipment_id",
+            "references": "equipment",
+            "parent_file": "2026_01_04_205740_create_equipment_table.php",
+            "message": "Table 'equipment_assignments' and its parent 'equipment' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_205740_create_equipment_table.php",
+            "timestamp": "2026_01_04_205740",
+            "table": "equipment",
+            "column": "category_id",
+            "references": "equipment_categories",
+            "parent_file": "2026_01_04_205740_create_equipment_categories_table.php",
+            "message": "Table 'equipment' and its parent 'equipment_categories' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211131_create_cost_plus_invoice_items_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_invoice_items",
+            "column": "invoice_id",
+            "references": "cost_plus_invoices",
+            "parent_file": "2026_01_04_211131_create_cost_plus_invoices_table.php",
+            "message": "Table 'cost_plus_invoice_items' and its parent 'cost_plus_invoices' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211131_create_cost_plus_invoice_items_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_invoice_items",
+            "column": "transaction_id",
+            "references": "cost_plus_transactions",
+            "parent_file": "2026_01_04_211131_create_cost_plus_transactions_table.php",
+            "message": "Table 'cost_plus_invoice_items' and its parent 'cost_plus_transactions' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211131_create_cost_plus_invoices_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_invoices",
+            "column": "cost_plus_contract_id",
+            "references": "cost_plus_contracts",
+            "parent_file": "2026_01_04_211131_create_cost_plus_contracts_table.php",
+            "message": "Table 'cost_plus_invoices' and its parent 'cost_plus_contracts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211131_create_cost_plus_overhead_allocations_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_overhead_allocations",
+            "column": "cost_plus_contract_id",
+            "references": "cost_plus_contracts",
+            "parent_file": "2026_01_04_211131_create_cost_plus_contracts_table.php",
+            "message": "Table 'cost_plus_overhead_allocations' and its parent 'cost_plus_contracts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211131_create_cost_plus_transactions_table.php",
+            "timestamp": "2026_01_04_211131",
+            "table": "cost_plus_transactions",
+            "column": "cost_plus_contract_id",
+            "references": "cost_plus_contracts",
+            "parent_file": "2026_01_04_211131_create_cost_plus_contracts_table.php",
+            "message": "Table 'cost_plus_transactions' and its parent 'cost_plus_contracts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_attachments",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_attachments' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_distribution",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_distribution' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_actions",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_actions' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_templates",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_templates' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_211830_create_correspondence_tables.php",
+            "timestamp": "2026_01_04_211830",
+            "table": "correspondence_registers",
+            "column": "correspondence_id",
+            "references": "correspondence",
+            "parent_file": "2026_01_04_211830_create_correspondence_tables.php",
+            "message": "Table 'correspondence_registers' and its parent 'correspondence' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php",
+            "timestamp": "2026_01_04_213708",
+            "table": "unforeseeable_conditions_evidence",
+            "column": "condition_id",
+            "references": "unforeseeable_conditions",
+            "parent_file": "2026_01_04_213708_create_unforeseeable_conditions_table.php",
+            "message": "Table 'unforeseeable_conditions_evidence' and its parent 'unforeseeable_conditions' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_214214_create_price_list_items_table.php",
+            "timestamp": "2026_01_04_214214",
+            "table": "price_list_items",
+            "column": "price_list_id",
+            "references": "price_lists",
+            "parent_file": "2026_01_04_214214_create_price_lists_table.php",
+            "message": "Table 'price_list_items' and its parent 'price_lists' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_04_214215_create_price_request_items_table.php",
+            "timestamp": "2026_01_04_214215",
+            "table": "price_request_items",
+            "column": "price_request_id",
+            "references": "price_requests",
+            "parent_file": "2026_01_04_214215_create_price_requests_table.php",
+            "message": "Table 'price_request_items' and its parent 'price_requests' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_183818_create_material_request_items_table.php",
+            "timestamp": "2026_01_07_183818",
+            "table": "material_request_items",
+            "column": "material_request_id",
+            "references": "material_requests",
+            "parent_file": "2026_01_07_183818_create_material_requests_table.php",
+            "message": "Table 'material_request_items' and its parent 'material_requests' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_184855_create_budget_items_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "budget_items",
+            "column": "budget_id",
+            "references": "budgets",
+            "parent_file": "2026_01_07_184855_create_budgets_table.php",
+            "message": "Table 'budget_items' and its parent 'budgets' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_184855_create_budget_items_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "budget_items",
+            "column": "cost_category_id",
+            "references": "cost_categories",
+            "parent_file": "2026_01_07_184855_create_cost_categories_table.php",
+            "message": "Table 'budget_items' and its parent 'cost_categories' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_184855_create_cost_allocations_table.php",
+            "timestamp": "2026_01_07_184855",
+            "table": "cost_allocations",
+            "column": "cost_category_id",
+            "references": "cost_categories",
+            "parent_file": "2026_01_07_184855_create_cost_categories_table.php",
+            "message": "Table 'cost_allocations' and its parent 'cost_categories' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_185447_create_bank_statement_lines_table.php",
+            "timestamp": "2026_01_07_185447",
+            "table": "bank_statement_lines",
+            "column": "bank_statement_id",
+            "references": "bank_statements",
+            "parent_file": "2026_01_07_185447_create_bank_statements_table.php",
+            "message": "Table 'bank_statement_lines' and its parent 'bank_statements' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_185447_create_reconciliation_items_table.php",
+            "timestamp": "2026_01_07_185447",
+            "table": "reconciliation_items",
+            "column": "bank_reconciliation_id",
+            "references": "bank_reconciliations",
+            "parent_file": "2026_01_07_185447_create_bank_reconciliations_table.php",
+            "message": "Table 'reconciliation_items' and its parent 'bank_reconciliations' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_190647_create_kpi_values_table.php",
+            "timestamp": "2026_01_07_190647",
+            "table": "kpi_values",
+            "column": "kpi_definition_id",
+            "references": "kpi_definitions",
+            "parent_file": "2026_01_07_190647_create_kpi_definitions_table.php",
+            "message": "Table 'kpi_values' and its parent 'kpi_definitions' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_192808_create_cash_transactions_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_transactions",
+            "column": "cash_account_id",
+            "references": "cash_accounts",
+            "parent_file": "2026_01_07_192808_create_cash_accounts_table.php",
+            "message": "Table 'cash_transactions' and its parent 'cash_accounts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_192808_create_cash_transfers_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_transfers",
+            "column": "from_account_id",
+            "references": "cash_accounts",
+            "parent_file": "2026_01_07_192808_create_cash_accounts_table.php",
+            "message": "Table 'cash_transfers' and its parent 'cash_accounts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_192808_create_cash_transfers_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "cash_transfers",
+            "column": "to_account_id",
+            "references": "cash_accounts",
+            "parent_file": "2026_01_07_192808_create_cash_accounts_table.php",
+            "message": "Table 'cash_transfers' and its parent 'cash_accounts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_192808_create_daily_cash_positions_table.php",
+            "timestamp": "2026_01_07_192808",
+            "table": "daily_cash_positions",
+            "column": "cash_account_id",
+            "references": "cash_accounts",
+            "parent_file": "2026_01_07_192808_create_cash_accounts_table.php",
+            "message": "Table 'daily_cash_positions' and its parent 'cash_accounts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_07_193207_create_po_receipt_items_table.php",
+            "timestamp": "2026_01_07_193207",
+            "table": "po_receipt_items",
+            "column": "po_receipt_id",
+            "references": "po_receipts",
+            "parent_file": "2026_01_07_193207_create_po_receipts_table.php",
+            "message": "Table 'po_receipt_items' and its parent 'po_receipts' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152031_create_photo_annotations_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photo_annotations",
+            "column": "photo_id",
+            "references": "photos",
+            "parent_file": "2026_01_09_152031_create_photos_table.php",
+            "message": "Table 'photo_annotations' and its parent 'photos' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152031_create_photo_comparisons_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photo_comparisons",
+            "column": "before_photo_id",
+            "references": "photos",
+            "parent_file": "2026_01_09_152031_create_photos_table.php",
+            "message": "Table 'photo_comparisons' and its parent 'photos' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152031_create_photo_comparisons_table.php",
+            "timestamp": "2026_01_09_152031",
+            "table": "photo_comparisons",
+            "column": "after_photo_id",
+            "references": "photos",
+            "parent_file": "2026_01_09_152031_create_photos_table.php",
+            "message": "Table 'photo_comparisons' and its parent 'photos' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152841_create_risk_assessments_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_assessments",
+            "column": "risk_id",
+            "references": "risks",
+            "parent_file": "2026_01_09_152841_create_risks_table.php",
+            "message": "Table 'risk_assessments' and its parent 'risks' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152841_create_risk_monitoring_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_monitoring",
+            "column": "risk_id",
+            "references": "risks",
+            "parent_file": "2026_01_09_152841_create_risks_table.php",
+            "message": "Table 'risk_monitoring' and its parent 'risks' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152841_create_risk_responses_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risk_responses",
+            "column": "risk_id",
+            "references": "risks",
+            "parent_file": "2026_01_09_152841_create_risks_table.php",
+            "message": "Table 'risk_responses' and its parent 'risks' have the same timestamp. Execution order is not guaranteed."
+        },
+        {
+            "severity": "warning",
+            "type": "same_timestamp",
+            "file": "2026_01_09_152841_create_risks_table.php",
+            "timestamp": "2026_01_09_152841",
+            "table": "risks",
+            "column": "risk_register_id",
+            "references": "risk_registers",
+            "parent_file": "2026_01_09_152841_create_risk_registers_table.php",
+            "message": "Table 'risks' and its parent 'risk_registers' have the same timestamp. Execution order is not guaranteed."
+        }
+    ],
+    "circular_dependencies": [],
+    "tables_created": {
+        "users": {
+            "timestamp": "0001_01_01_000000",
+            "file": "0001_01_01_000000_create_users_table.php"
+        },
+        "password_reset_tokens": {
+            "timestamp": "0001_01_01_000000",
+            "file": "0001_01_01_000000_create_users_table.php"
+        },
+        "sessions": {
+            "timestamp": "0001_01_01_000000",
+            "file": "0001_01_01_000000_create_users_table.php"
+        },
+        "cache": {
+            "timestamp": "0001_01_01_000001",
+            "file": "0001_01_01_000001_create_cache_table.php"
+        },
+        "cache_locks": {
+            "timestamp": "0001_01_01_000001",
+            "file": "0001_01_01_000001_create_cache_table.php"
+        },
+        "jobs": {
+            "timestamp": "0001_01_01_000002",
+            "file": "0001_01_01_000002_create_jobs_table.php"
+        },
+        "job_batches": {
+            "timestamp": "0001_01_01_000002",
+            "file": "0001_01_01_000002_create_jobs_table.php"
+        },
+        "failed_jobs": {
+            "timestamp": "0001_01_01_000002",
+            "file": "0001_01_01_000002_create_jobs_table.php"
+        },
+        "tenants": {
+            "timestamp": "2019_09_15_000010",
+            "file": "2019_09_15_000010_create_tenants_table.php"
+        },
+        "domains": {
+            "timestamp": "2019_09_15_000020",
+            "file": "2019_09_15_000020_create_domains_table.php"
+        },
+        "tenant_user_impersonation_tokens": {
+            "timestamp": "2020_05_15_000010",
+            "file": "2020_05_15_000010_create_tenant_user_impersonation_tokens_table.php"
+        },
+        "companies": {
+            "timestamp": "2026_01_02_121900",
+            "file": "2026_01_02_121900_create_companies_table.php"
+        },
+        "projects": {
+            "timestamp": "2026_01_02_122000",
+            "file": "2026_01_02_122000_create_projects_table.php"
+        },
+        "project_wbs": {
+            "timestamp": "2026_01_02_122100",
+            "file": "2026_01_02_122100_create_project_wbs_table.php"
+        },
+        "boq_items": {
+            "timestamp": "2026_01_02_122200",
+            "file": "2026_01_02_122200_create_boq_items_table.php"
+        },
+        "main_ipcs": {
+            "timestamp": "2026_01_02_122400",
+            "file": "2026_01_02_122400_create_main_ipcs_table.php"
+        },
+        "main_ipc_items": {
+            "timestamp": "2026_01_02_122500",
+            "file": "2026_01_02_122500_create_main_ipc_items_table.php"
+        },
+        "tenders": {
+            "timestamp": "2026_01_02_140100",
+            "file": "2026_01_02_140100_create_tenders_table.php"
+        },
+        "contracts": {
+            "timestamp": "2026_01_02_140200",
+            "file": "2026_01_02_140200_create_contracts_table.php"
+        },
+        "change_orders": {
+            "timestamp": "2026_01_02_140400",
+            "file": "2026_01_02_140400_create_change_orders_table.php"
+        },
+        "change_order_items": {
+            "timestamp": "2026_01_02_140500",
+            "file": "2026_01_02_140500_create_change_order_items_table.php"
+        },
+        "currencies": {
+            "timestamp": "2026_01_02_143849",
+            "file": "2026_01_02_143849_create_currencies_table.php"
+        },
+        "units": {
+            "timestamp": "2026_01_02_144005",
+            "file": "2026_01_02_144005_create_units_table.php"
+        },
+        "branches": {
+            "timestamp": "2026_01_02_145000",
+            "file": "2026_01_02_145000_create_branches_table.php"
+        },
+        "departments": {
+            "timestamp": "2026_01_02_145100",
+            "file": "2026_01_02_145100_create_departments_table.php"
+        },
+        "payment_terms": {
+            "timestamp": "2026_01_02_145149",
+            "file": "2026_01_02_145149_create_payment_terms_table.php"
+        },
+        "countries": {
+            "timestamp": "2026_01_02_151035",
+            "file": "2026_01_02_151035_create_countries_table.php"
+        },
+        "cities": {
+            "timestamp": "2026_01_02_151224",
+            "file": "2026_01_02_151224_create_cities_table.php"
+        },
+        "warehouses": {
+            "timestamp": "2026_01_02_194432",
+            "file": "2026_01_02_194432_create_warehouses_table.php"
+        },
+        "stock_movements": {
+            "timestamp": "2026_01_02_194433",
+            "file": "2026_01_02_194433_create_stock_movements_table.php"
+        },
+        "products": {
+            "timestamp": "2026_01_02_204719",
+            "file": "2026_01_02_204719_create_products_table.php"
+        },
+        "suppliers": {
+            "timestamp": "2026_01_02_204719",
+            "file": "2026_01_02_204719_create_suppliers_table.php"
+        },
+        "purchase_orders": {
+            "timestamp": "2026_01_02_204728",
+            "file": "2026_01_02_204728_create_purchase_orders_table.php"
+        },
+        "purchase_order_items": {
+            "timestamp": "2026_01_02_204729",
+            "file": "2026_01_02_204729_create_purchase_order_items_table.php"
+        },
+        "customers": {
+            "timestamp": "2026_01_02_204833",
+            "file": "2026_01_02_204833_create_customers_table.php"
+        },
+        "sales_quotations": {
+            "timestamp": "2026_01_02_204839",
+            "file": "2026_01_02_204839_create_sales_quotations_table.php"
+        },
+        "sales_quotation_items": {
+            "timestamp": "2026_01_02_204840",
+            "file": "2026_01_02_204840_create_sales_quotation_items_table.php"
+        },
+        "accounts": {
+            "timestamp": "2026_01_02_204943",
+            "file": "2026_01_02_204943_create_accounts_table.php"
+        },
+        "activity_dependencies": {
+            "timestamp": "2026_01_02_211654",
+            "file": "2026_01_02_211654_create_activity_dependencies_table.php"
+        },
+        "project_activities": {
+            "timestamp": "2026_01_02_211654",
+            "file": "2026_01_02_211654_create_project_activities_table.php"
+        },
+        "project_milestones": {
+            "timestamp": "2026_01_02_211654",
+            "file": "2026_01_02_211654_create_project_milestones_table.php"
+        },
+        "daily_report_photos": {
+            "timestamp": "2026_01_02_211857",
+            "file": "2026_01_02_211857_create_daily_report_photos_table.php"
+        },
+        "daily_reports": {
+            "timestamp": "2026_01_02_211857",
+            "file": "2026_01_02_211857_create_daily_reports_table.php"
+        },
+        "employees": {
+            "timestamp": "2026_01_02_212443",
+            "file": "2026_01_02_212443_create_employees_table.php"
+        },
+        "project_baselines": {
+            "timestamp": "2026_01_02_212443",
+            "file": "2026_01_02_212443_create_project_baselines_table.php"
+        },
+        "project_progress_snapshots": {
+            "timestamp": "2026_01_02_212443",
+            "file": "2026_01_02_212443_create_project_progress_snapshots_table.php"
+        },
+        "project_timesheets": {
+            "timestamp": "2026_01_02_212443",
+            "file": "2026_01_02_212443_create_project_timesheets_table.php"
+        },
+        "time_bar_claims": {
+            "timestamp": "2026_01_02_214119",
+            "file": "2026_01_02_214119_create_time_bar_claims_table.php"
+        },
+        "eot_affected_activities": {
+            "timestamp": "2026_01_02_214129",
+            "file": "2026_01_02_214129_create_eot_affected_activities_table.php"
+        },
+        "eot_claims": {
+            "timestamp": "2026_01_02_214129",
+            "file": "2026_01_02_214129_create_eot_claims_table.php"
+        },
+        "prolongation_cost_items": {
+            "timestamp": "2026_01_02_214129",
+            "file": "2026_01_02_214129_create_prolongation_cost_items_table.php"
+        },
+        "tender_site_visits": {
+            "timestamp": "2026_01_02_214204",
+            "file": "2026_01_02_214204_create_tender_related_tables.php"
+        },
+        "tender_clarifications": {
+            "timestamp": "2026_01_02_214204",
+            "file": "2026_01_02_214204_create_tender_related_tables.php"
+        },
+        "tender_competitors": {
+            "timestamp": "2026_01_02_214204",
+            "file": "2026_01_02_214204_create_tender_related_tables.php"
+        },
+        "tender_committee_decisions": {
+            "timestamp": "2026_01_02_214204",
+            "file": "2026_01_02_214204_create_tender_related_tables.php"
+        },
+        "tender_boq_items": {
+            "timestamp": "2026_01_02_214414",
+            "file": "2026_01_02_214414_create_tender_boq_items_table.php"
+        },
+        "tender_wbs_boq_mapping": {
+            "timestamp": "2026_01_02_214414",
+            "file": "2026_01_02_214414_create_tender_wbs_boq_mapping_table.php"
+        },
+        "tender_wbs": {
+            "timestamp": "2026_01_02_214414",
+            "file": "2026_01_02_214414_create_tender_wbs_table.php"
+        },
+        "tender_procurement_packages": {
+            "timestamp": "2026_01_02_220200",
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php"
+        },
+        "tender_procurement_suppliers": {
+            "timestamp": "2026_01_02_220200",
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php"
+        },
+        "tender_long_lead_items": {
+            "timestamp": "2026_01_02_220200",
+            "file": "2026_01_02_220200_create_tender_procurement_tables.php"
+        },
+        "dsi_indices": {
+            "timestamp": "2026_01_02_220302",
+            "file": "2026_01_02_220302_create_dsi_indices_table.php"
+        },
+        "price_escalation_contracts": {
+            "timestamp": "2026_01_02_220303",
+            "file": "2026_01_02_220303_create_price_escalation_contracts_table.php"
+        },
+        "price_escalation_calculations": {
+            "timestamp": "2026_01_02_220304",
+            "file": "2026_01_02_220304_create_price_escalation_calculations_table.php"
+        },
+        "dsi_import_logs": {
+            "timestamp": "2026_01_02_220305",
+            "file": "2026_01_02_220305_create_dsi_import_logs_table.php"
+        },
+        "goods_receipt_notes": {
+            "timestamp": "2026_01_02_221007",
+            "file": "2026_01_02_221007_create_goods_receipt_notes_table.php"
+        },
+        "site_receipts": {
+            "timestamp": "2026_01_02_221014",
+            "file": "2026_01_02_221014_create_site_receipts_table.php"
+        },
+        "site_receipt_items": {
+            "timestamp": "2026_01_02_221015",
+            "file": "2026_01_02_221015_create_site_receipt_items_table.php"
+        },
+        "site_receipt_photos": {
+            "timestamp": "2026_01_02_221015",
+            "file": "2026_01_02_221015_create_site_receipt_photos_table.php"
+        },
+        "tender_risks": {
+            "timestamp": "2026_01_02_221401",
+            "file": "2026_01_02_221401_create_tender_risks_table.php"
+        },
+        "tender_risk_events": {
+            "timestamp": "2026_01_02_221402",
+            "file": "2026_01_02_221402_create_tender_risk_events_table.php"
+        },
+        "tender_contingency_reserves": {
+            "timestamp": "2026_01_02_221403",
+            "file": "2026_01_02_221403_create_tender_contingency_reserves_table.php"
+        },
+        "tender_activities": {
+            "timestamp": "2026_01_02_222220",
+            "file": "2026_01_02_222220_create_tender_activities_table.php"
+        },
+        "tender_activity_dependencies": {
+            "timestamp": "2026_01_02_222220",
+            "file": "2026_01_02_222220_create_tender_activity_dependencies_table.php"
+        },
+        "tender_milestones": {
+            "timestamp": "2026_01_02_222220",
+            "file": "2026_01_02_222220_create_tender_milestones_table.php"
+        },
+        "tender_resources": {
+            "timestamp": "2026_01_02_222740",
+            "file": "2026_01_02_222740_create_tender_resources_table.php"
+        },
+        "tender_resource_assignments": {
+            "timestamp": "2026_01_02_222749",
+            "file": "2026_01_02_222749_create_tender_resource_assignments_table.php"
+        },
+        "tender_resource_histogram": {
+            "timestamp": "2026_01_02_222749",
+            "file": "2026_01_02_222749_create_tender_resource_histogram_table.php"
+        },
+        "time_bar_protection_settings": {
+            "timestamp": "2026_01_02_223544",
+            "file": "2026_01_02_223544_create_time_bar_protection_settings_table.php"
+        },
+        "clients": {
+            "timestamp": "2026_01_03_114219",
+            "file": "2026_01_03_114219_create_clients_table.php"
+        },
+        "cost_centers": {
+            "timestamp": "2026_01_03_114911",
+            "file": "2026_01_03_114911_create_cost_centers_table.php"
+        },
+        "gl_accounts": {
+            "timestamp": "2026_01_03_114925",
+            "file": "2026_01_03_114925_create_gl_accounts_table.php"
+        },
+        "gl_fiscal_years": {
+            "timestamp": "2026_01_03_114925",
+            "file": "2026_01_03_114925_create_gl_fiscal_years_table.php"
+        },
+        "gl_journal_entries": {
+            "timestamp": "2026_01_03_114925",
+            "file": "2026_01_03_114925_create_gl_journal_entries_table.php"
+        },
+        "gl_journal_entry_lines": {
+            "timestamp": "2026_01_03_114925",
+            "file": "2026_01_03_114925_create_gl_journal_entry_lines_table.php"
+        },
+        "gl_periods": {
+            "timestamp": "2026_01_03_114925",
+            "file": "2026_01_03_114925_create_gl_periods_table.php"
+        },
+        "client_bank_accounts": {
+            "timestamp": "2026_01_03_115015",
+            "file": "2026_01_03_115015_create_client_bank_accounts_table.php"
+        },
+        "client_contacts": {
+            "timestamp": "2026_01_03_115015",
+            "file": "2026_01_03_115015_create_client_contacts_table.php"
+        },
+        "client_documents": {
+            "timestamp": "2026_01_03_115015",
+            "file": "2026_01_03_115015_create_client_documents_table.php"
+        },
+        "g_l_accounts": {
+            "timestamp": "2026_01_03_115030",
+            "file": "2026_01_03_115030_create_g_l_accounts_table.php"
+        },
+        "contract_amendments": {
+            "timestamp": "2026_01_03_115038",
+            "file": "2026_01_03_115038_create_contract_amendments_table.php"
+        },
+        "contract_change_orders": {
+            "timestamp": "2026_01_03_115038",
+            "file": "2026_01_03_115038_create_contract_change_orders_table.php"
+        },
+        "contract_clauses": {
+            "timestamp": "2026_01_03_115038",
+            "file": "2026_01_03_115038_create_contract_clauses_table.php"
+        },
+        "contract_milestones": {
+            "timestamp": "2026_01_03_115039",
+            "file": "2026_01_03_115039_create_contract_milestones_table.php"
+        },
+        "vendor_bank_accounts": {
+            "timestamp": "2026_01_03_120934",
+            "file": "2026_01_03_120934_create_vendor_bank_accounts_table.php"
+        },
+        "vendor_contacts": {
+            "timestamp": "2026_01_03_120934",
+            "file": "2026_01_03_120934_create_vendor_contacts_table.php"
+        },
+        "vendor_documents": {
+            "timestamp": "2026_01_03_120934",
+            "file": "2026_01_03_120934_create_vendor_documents_table.php"
+        },
+        "vendor_materials": {
+            "timestamp": "2026_01_03_120934",
+            "file": "2026_01_03_120934_create_vendor_materials_table.php"
+        },
+        "vendors": {
+            "timestamp": "2026_01_03_120934",
+            "file": "2026_01_03_120934_create_vendors_table.php"
+        },
+        "vendor_evaluations": {
+            "timestamp": "2026_01_03_120935",
+            "file": "2026_01_03_120935_create_vendor_evaluations_table.php"
+        },
+        "employee_dependents": {
+            "timestamp": "2026_01_03_121337",
+            "file": "2026_01_03_121337_create_employee_dependents_table.php"
+        },
+        "employee_documents": {
+            "timestamp": "2026_01_03_121337",
+            "file": "2026_01_03_121337_create_employee_documents_table.php"
+        },
+        "employee_qualifications": {
+            "timestamp": "2026_01_03_121337",
+            "file": "2026_01_03_121337_create_employee_qualifications_table.php"
+        },
+        "employee_skills": {
+            "timestamp": "2026_01_03_121337",
+            "file": "2026_01_03_121337_create_employee_skills_table.php"
+        },
+        "employee_work_history": {
+            "timestamp": "2026_01_03_121337",
+            "file": "2026_01_03_121337_create_employee_work_history_table.php"
+        },
+        "banks": {
+            "timestamp": "2026_01_03_121536",
+            "file": "2026_01_03_121536_create_banks_table.php"
+        },
+        "positions": {
+            "timestamp": "2026_01_03_121536",
+            "file": "2026_01_03_121536_create_positions_table.php"
+        },
+        "financial_report_configs": {
+            "timestamp": "2026_01_03_182250",
+            "file": "2026_01_03_182250_create_financial_report_configs_table.php"
+        },
+        "report_history": {
+            "timestamp": "2026_01_03_182250",
+            "file": "2026_01_03_182250_create_report_history_table.php"
+        },
+        "report_schedules": {
+            "timestamp": "2026_01_03_182250",
+            "file": "2026_01_03_182250_create_report_schedules_table.php"
+        },
+        "ap_payments": {
+            "timestamp": "2026_01_03_182426",
+            "file": "2026_01_03_182426_create_ap_payments_table.php"
+        },
+        "subcontractor_contacts": {
+            "timestamp": "2026_01_03_182434",
+            "file": "2026_01_03_182434_create_subcontractor_contacts_table.php"
+        },
+        "subcontractors": {
+            "timestamp": "2026_01_03_182434",
+            "file": "2026_01_03_182434_create_subcontractors_table.php"
+        },
+        "subcontractor_agreements": {
+            "timestamp": "2026_01_03_182435",
+            "file": "2026_01_03_182435_create_subcontractor_agreements_table.php"
+        },
+        "subcontractor_evaluations": {
+            "timestamp": "2026_01_03_182435",
+            "file": "2026_01_03_182435_create_subcontractor_evaluations_table.php"
+        },
+        "subcontractor_ipc_items": {
+            "timestamp": "2026_01_03_182435",
+            "file": "2026_01_03_182435_create_subcontractor_ipc_items_table.php"
+        },
+        "subcontractor_ipcs": {
+            "timestamp": "2026_01_03_182435",
+            "file": "2026_01_03_182435_create_subcontractor_ipcs_table.php"
+        },
+        "subcontractor_work_orders": {
+            "timestamp": "2026_01_03_182435",
+            "file": "2026_01_03_182435_create_subcontractor_work_orders_table.php"
+        },
+        "personal_access_tokens": {
+            "timestamp": "2026_01_03_182710",
+            "file": "2026_01_03_182710_create_personal_access_tokens_table.php"
+        },
+        "bank_accounts": {
+            "timestamp": "2026_01_03_200000",
+            "file": "2026_01_03_200000_create_bank_accounts_table.php"
+        },
+        "materials": {
+            "timestamp": "2026_01_03_200000",
+            "file": "2026_01_03_200000_create_materials_table.php"
+        },
+        "payroll_periods": {
+            "timestamp": "2026_01_03_200001",
+            "file": "2026_01_03_200001_create_payroll_periods_table.php"
+        },
+        "payroll_entries": {
+            "timestamp": "2026_01_03_200002",
+            "file": "2026_01_03_200002_create_payroll_entries_table.php"
+        },
+        "payroll_allowances": {
+            "timestamp": "2026_01_03_200003",
+            "file": "2026_01_03_200003_create_payroll_allowances_table.php"
+        },
+        "payroll_deductions": {
+            "timestamp": "2026_01_03_200004",
+            "file": "2026_01_03_200004_create_payroll_deductions_table.php"
+        },
+        "employee_loans": {
+            "timestamp": "2026_01_03_200005",
+            "file": "2026_01_03_200005_create_employee_loans_table.php"
+        },
+        "inventory_transactions": {
+            "timestamp": "2026_01_03_200030",
+            "file": "2026_01_03_200030_create_inventory_transactions_table.php"
+        },
+        "inventory_balances": {
+            "timestamp": "2026_01_03_200040",
+            "file": "2026_01_03_200040_create_inventory_balances_table.php"
+        },
+        "stock_transfers": {
+            "timestamp": "2026_01_03_200050",
+            "file": "2026_01_03_200050_create_stock_transfers_table.php"
+        },
+        "stock_transfer_items": {
+            "timestamp": "2026_01_03_200060",
+            "file": "2026_01_03_200060_create_stock_transfer_items_table.php"
+        },
+        "ap_invoice_items": {
+            "timestamp": "2026_01_03_200814",
+            "file": "2026_01_03_200814_create_ap_invoice_items_table.php"
+        },
+        "ap_invoices": {
+            "timestamp": "2026_01_03_200814",
+            "file": "2026_01_03_200814_create_ap_invoices_table.php"
+        },
+        "ap_payment_allocations": {
+            "timestamp": "2026_01_03_200814",
+            "file": "2026_01_03_200814_create_ap_payment_allocations_table.php"
+        },
+        "i_p_c_s": {
+            "timestamp": "2026_01_03_200910",
+            "file": "2026_01_03_200910_create_i_p_c_s_table.php"
+        },
+        "a_r_invoice_items": {
+            "timestamp": "2026_01_03_200917",
+            "file": "2026_01_03_200917_create_a_r_invoice_items_table.php"
+        },
+        "a_r_invoices": {
+            "timestamp": "2026_01_03_200917",
+            "file": "2026_01_03_200917_create_a_r_invoices_table.php"
+        },
+        "a_r_receipt_allocations": {
+            "timestamp": "2026_01_03_200918",
+            "file": "2026_01_03_200918_create_a_r_receipt_allocations_table.php"
+        },
+        "a_r_receipts": {
+            "timestamp": "2026_01_03_200918",
+            "file": "2026_01_03_200918_create_a_r_receipts_table.php"
+        },
+        "material_categories": {
+            "timestamp": "2026_01_03_201050",
+            "file": "2026_01_03_201050_create_material_categories_table.php"
+        },
+        "material_specifications": {
+            "timestamp": "2026_01_03_201050",
+            "file": "2026_01_03_201050_create_material_specifications_table.php"
+        },
+        "material_vendors": {
+            "timestamp": "2026_01_03_201050",
+            "file": "2026_01_03_201050_create_material_vendors_table.php"
+        },
+        "grn_items": {
+            "timestamp": "2026_01_03_202710",
+            "file": "2026_01_03_202710_create_g_r_n_items_table.php"
+        },
+        "grns": {
+            "timestamp": "2026_01_03_202710",
+            "file": "2026_01_03_202710_create_g_r_n_s_table.php"
+        },
+        "journal_entries": {
+            "timestamp": "2026_01_03_203714",
+            "file": "2026_01_03_203714_create_journal_entries_table.php"
+        },
+        "transactions": {
+            "timestamp": "2026_01_03_203715",
+            "file": "2026_01_03_203715_create_transactions_table.php"
+        },
+        "financial_regret_analyses": {
+            "timestamp": "2026_01_04_000003",
+            "file": "2026_01_04_000003_create_financial_regret_analyses_table.php"
+        },
+        "regret_index_scenarios": {
+            "timestamp": "2026_01_04_000004",
+            "file": "2026_01_04_000004_create_regret_index_scenarios_table.php"
+        },
+        "labor_categories": {
+            "timestamp": "2026_01_04_000010",
+            "file": "2026_01_04_000010_create_labor_categories_table.php"
+        },
+        "laborers": {
+            "timestamp": "2026_01_04_000011",
+            "file": "2026_01_04_000011_create_laborers_table.php"
+        },
+        "labor_assignments": {
+            "timestamp": "2026_01_04_000012",
+            "file": "2026_01_04_000012_create_labor_assignments_table.php"
+        },
+        "labor_daily_attendance": {
+            "timestamp": "2026_01_04_000013",
+            "file": "2026_01_04_000013_create_labor_daily_attendance_table.php"
+        },
+        "labor_productivity": {
+            "timestamp": "2026_01_04_000014",
+            "file": "2026_01_04_000014_create_labor_productivity_table.php"
+        },
+        "labor_timesheets": {
+            "timestamp": "2026_01_04_000015",
+            "file": "2026_01_04_000015_create_labor_timesheets_table.php"
+        },
+        "labor_timesheet_entries": {
+            "timestamp": "2026_01_04_000016",
+            "file": "2026_01_04_000016_create_labor_timesheet_entries_table.php"
+        },
+        "labor_camps": {
+            "timestamp": "2026_01_04_000017",
+            "file": "2026_01_04_000017_create_labor_camps_table.php"
+        },
+        "documents": {
+            "timestamp": "2026_01_04_075218",
+            "file": "2026_01_04_075218_create_documents_table.php"
+        },
+        "document_access": {
+            "timestamp": "2026_01_04_075224",
+            "file": "2026_01_04_075224_create_document_access_table.php"
+        },
+        "document_versions": {
+            "timestamp": "2026_01_04_075224",
+            "file": "2026_01_04_075224_create_document_versions_table.php"
+        },
+        "warehouse_locations": {
+            "timestamp": "2026_01_04_075917",
+            "file": "2026_01_04_075917_create_warehouse_locations_table.php"
+        },
+        "warehouse_stock": {
+            "timestamp": "2026_01_04_075917",
+            "file": "2026_01_04_075917_create_warehouse_stock_table.php"
+        },
+        "shift_schedules": {
+            "timestamp": "2026_01_04_103300",
+            "file": "2026_01_04_103300_create_shift_schedules_table.php"
+        },
+        "attendance_records": {
+            "timestamp": "2026_01_04_103400",
+            "file": "2026_01_04_103400_create_attendance_records_table.php"
+        },
+        "leave_requests": {
+            "timestamp": "2026_01_04_103500",
+            "file": "2026_01_04_103500_create_leave_requests_table.php"
+        },
+        "claims": {
+            "timestamp": "2026_01_04_200200",
+            "file": "2026_01_04_200200_create_claims_table.php"
+        },
+        "claim_events": {
+            "timestamp": "2026_01_04_200300",
+            "file": "2026_01_04_200300_create_claim_events_table.php"
+        },
+        "claim_documents": {
+            "timestamp": "2026_01_04_200400",
+            "file": "2026_01_04_200400_create_claim_documents_table.php"
+        },
+        "claim_timeline": {
+            "timestamp": "2026_01_04_200500",
+            "file": "2026_01_04_200500_create_claim_timeline_table.php"
+        },
+        "claim_correspondence": {
+            "timestamp": "2026_01_04_200600",
+            "file": "2026_01_04_200600_create_claim_correspondence_table.php"
+        },
+        "guarantee_claims": {
+            "timestamp": "2026_01_04_202928",
+            "file": "2026_01_04_202928_create_guarantee_claims_table.php"
+        },
+        "guarantee_releases": {
+            "timestamp": "2026_01_04_202928",
+            "file": "2026_01_04_202928_create_guarantee_releases_table.php"
+        },
+        "guarantee_renewals": {
+            "timestamp": "2026_01_04_202928",
+            "file": "2026_01_04_202928_create_guarantee_renewals_table.php"
+        },
+        "guarantees": {
+            "timestamp": "2026_01_04_202928",
+            "file": "2026_01_04_202928_create_guarantees_table.php"
+        },
+        "tender_documents": {
+            "timestamp": "2026_01_04_203002",
+            "file": "2026_01_04_203002_create_tender_documents_table.php"
+        },
+        "tender_questions": {
+            "timestamp": "2026_01_04_203003",
+            "file": "2026_01_04_203003_create_tender_questions_table.php"
+        },
+        "tender_timeline": {
+            "timestamp": "2026_01_04_203003",
+            "file": "2026_01_04_203003_create_tender_timeline_table.php"
+        },
+        "boq_headers": {
+            "timestamp": "2026_01_04_203018",
+            "file": "2026_01_04_203018_create_boq_headers_table.php"
+        },
+        "boq_item_resources": {
+            "timestamp": "2026_01_04_203018",
+            "file": "2026_01_04_203018_create_boq_item_resources_table.php"
+        },
+        "boq_revisions": {
+            "timestamp": "2026_01_04_203018",
+            "file": "2026_01_04_203018_create_boq_revisions_table.php"
+        },
+        "boq_sections": {
+            "timestamp": "2026_01_04_203018",
+            "file": "2026_01_04_203018_create_boq_sections_table.php"
+        },
+        "project_issues": {
+            "timestamp": "2026_01_04_203117",
+            "file": "2026_01_04_203117_create_project_issues_table.php"
+        },
+        "project_phases": {
+            "timestamp": "2026_01_04_203117",
+            "file": "2026_01_04_203117_create_project_phases_table.php"
+        },
+        "project_progress_reports": {
+            "timestamp": "2026_01_04_203117",
+            "file": "2026_01_04_203117_create_project_progress_reports_table.php"
+        },
+        "project_team": {
+            "timestamp": "2026_01_04_203117",
+            "file": "2026_01_04_203117_create_project_team_table.php"
+        },
+        "equipment_assignments": {
+            "timestamp": "2026_01_04_205740",
+            "file": "2026_01_04_205740_create_equipment_assignments_table.php"
+        },
+        "equipment_categories": {
+            "timestamp": "2026_01_04_205740",
+            "file": "2026_01_04_205740_create_equipment_categories_table.php"
+        },
+        "equipment": {
+            "timestamp": "2026_01_04_205740",
+            "file": "2026_01_04_205740_create_equipment_table.php"
+        },
+        "equipment_fuel_logs": {
+            "timestamp": "2026_01_04_205751",
+            "file": "2026_01_04_205751_create_equipment_fuel_logs_table.php"
+        },
+        "equipment_maintenance": {
+            "timestamp": "2026_01_04_205751",
+            "file": "2026_01_04_205751_create_equipment_maintenance_table.php"
+        },
+        "equipment_transfers": {
+            "timestamp": "2026_01_04_205751",
+            "file": "2026_01_04_205751_create_equipment_transfers_table.php"
+        },
+        "equipment_usage": {
+            "timestamp": "2026_01_04_205751",
+            "file": "2026_01_04_205751_create_equipment_usage_table.php"
+        },
+        "variation_orders": {
+            "timestamp": "2026_01_04_210004",
+            "file": "2026_01_04_210004_create_variation_orders_table.php"
+        },
+        "time_bar_events": {
+            "timestamp": "2026_01_04_210005",
+            "file": "2026_01_04_210005_create_time_bar_events_table.php"
+        },
+        "time_bar_alerts": {
+            "timestamp": "2026_01_04_210006",
+            "file": "2026_01_04_210006_create_time_bar_alerts_table.php"
+        },
+        "time_bar_settings": {
+            "timestamp": "2026_01_04_210007",
+            "file": "2026_01_04_210007_create_time_bar_settings_table.php"
+        },
+        "time_bar_contractual_clauses": {
+            "timestamp": "2026_01_04_210008",
+            "file": "2026_01_04_210008_create_time_bar_contractual_clauses_table.php"
+        },
+        "cost_plus_contracts": {
+            "timestamp": "2026_01_04_211131",
+            "file": "2026_01_04_211131_create_cost_plus_contracts_table.php"
+        },
+        "cost_plus_invoice_items": {
+            "timestamp": "2026_01_04_211131",
+            "file": "2026_01_04_211131_create_cost_plus_invoice_items_table.php"
+        },
+        "cost_plus_invoices": {
+            "timestamp": "2026_01_04_211131",
+            "file": "2026_01_04_211131_create_cost_plus_invoices_table.php"
+        },
+        "cost_plus_overhead_allocations": {
+            "timestamp": "2026_01_04_211131",
+            "file": "2026_01_04_211131_create_cost_plus_overhead_allocations_table.php"
+        },
+        "cost_plus_transactions": {
+            "timestamp": "2026_01_04_211131",
+            "file": "2026_01_04_211131_create_cost_plus_transactions_table.php"
+        },
+        "variation_order_attachments": {
+            "timestamp": "2026_01_04_211225",
+            "file": "2026_01_04_211225_create_variation_order_attachments_table.php"
+        },
+        "variation_order_items": {
+            "timestamp": "2026_01_04_211225",
+            "file": "2026_01_04_211225_create_variation_order_items_table.php"
+        },
+        "variation_order_timeline": {
+            "timestamp": "2026_01_04_211225",
+            "file": "2026_01_04_211225_create_variation_order_timeline_table.php"
+        },
+        "correspondence": {
+            "timestamp": "2026_01_04_211830",
+            "file": "2026_01_04_211830_create_correspondence_tables.php"
+        },
+        "correspondence_attachments": {
+            "timestamp": "2026_01_04_211830",
+            "file": "2026_01_04_211830_create_correspondence_tables.php"
+        },
+        "correspondence_distribution": {
+            "timestamp": "2026_01_04_211830",
+            "file": "2026_01_04_211830_create_correspondence_tables.php"
+        },
+        "correspondence_actions": {
+            "timestamp": "2026_01_04_211830",
+            "file": "2026_01_04_211830_create_correspondence_tables.php"
+        },
+        "correspondence_templates": {
+            "timestamp": "2026_01_04_211830",
+            "file": "2026_01_04_211830_create_correspondence_tables.php"
+        },
+        "correspondence_registers": {
+            "timestamp": "2026_01_04_211830",
+            "file": "2026_01_04_211830_create_correspondence_tables.php"
+        },
+        "contract_templates": {
+            "timestamp": "2026_01_04_211920",
+            "file": "2026_01_04_211920_create_contract_templates_table.php"
+        },
+        "contract_template_clauses": {
+            "timestamp": "2026_01_04_211921",
+            "file": "2026_01_04_211921_create_contract_template_clauses_table.php"
+        },
+        "contract_template_special_conditions": {
+            "timestamp": "2026_01_04_211922",
+            "file": "2026_01_04_211922_create_contract_template_special_conditions_table.php"
+        },
+        "contract_template_variables": {
+            "timestamp": "2026_01_04_211923",
+            "file": "2026_01_04_211923_create_contract_template_variables_table.php"
+        },
+        "contract_generated": {
+            "timestamp": "2026_01_04_211924",
+            "file": "2026_01_04_211924_create_contract_generated_table.php"
+        },
+        "eot_requests": {
+            "timestamp": "2026_01_04_213658",
+            "file": "2026_01_04_213658_create_eot_requests_table.php"
+        },
+        "unforeseeable_conditions_evidence": {
+            "timestamp": "2026_01_04_213708",
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_evidence_table.php"
+        },
+        "unforeseeable_conditions": {
+            "timestamp": "2026_01_04_213708",
+            "file": "2026_01_04_213708_create_unforeseeable_conditions_table.php"
+        },
+        "regions": {
+            "timestamp": "2026_01_04_214201",
+            "file": "2026_01_04_214201_create_regions_table.php"
+        },
+        "price_list_items": {
+            "timestamp": "2026_01_04_214214",
+            "file": "2026_01_04_214214_create_price_list_items_table.php"
+        },
+        "price_lists": {
+            "timestamp": "2026_01_04_214214",
+            "file": "2026_01_04_214214_create_price_lists_table.php"
+        },
+        "price_history": {
+            "timestamp": "2026_01_04_214215",
+            "file": "2026_01_04_214215_create_price_history_table.php"
+        },
+        "price_request_items": {
+            "timestamp": "2026_01_04_214215",
+            "file": "2026_01_04_214215_create_price_request_items_table.php"
+        },
+        "price_requests": {
+            "timestamp": "2026_01_04_214215",
+            "file": "2026_01_04_214215_create_price_requests_table.php"
+        },
+        "price_quotations": {
+            "timestamp": "2026_01_04_214221",
+            "file": "2026_01_04_214221_create_price_quotations_table.php"
+        },
+        "price_comparisons": {
+            "timestamp": "2026_01_04_214222",
+            "file": "2026_01_04_214222_create_price_comparisons_table.php"
+        },
+        "price_quotation_items": {
+            "timestamp": "2026_01_04_214222",
+            "file": "2026_01_04_214222_create_price_quotation_items_table.php"
+        },
+        "backups": {
+            "timestamp": "2026_01_05_000001",
+            "file": "2026_01_05_000001_create_backups_table.php"
+        },
+        "notifications": {
+            "timestamp": "2026_01_07_000001",
+            "file": "2026_01_07_000001_create_notifications_table.php"
+        },
+        "notification_preferences": {
+            "timestamp": "2026_01_07_000002",
+            "file": "2026_01_07_000002_create_notification_preferences_table.php"
+        },
+        "alert_rules": {
+            "timestamp": "2026_01_07_000003",
+            "file": "2026_01_07_000003_create_alert_rules_table.php"
+        },
+        "notification_logs": {
+            "timestamp": "2026_01_07_000004",
+            "file": "2026_01_07_000004_create_notification_logs_table.php"
+        },
+        "scheduled_notifications": {
+            "timestamp": "2026_01_07_000005",
+            "file": "2026_01_07_000005_create_scheduled_notifications_table.php"
+        },
+        "material_request_items": {
+            "timestamp": "2026_01_07_183818",
+            "file": "2026_01_07_183818_create_material_request_items_table.php"
+        },
+        "material_requests": {
+            "timestamp": "2026_01_07_183818",
+            "file": "2026_01_07_183818_create_material_requests_table.php"
+        },
+        "budget_items": {
+            "timestamp": "2026_01_07_184855",
+            "file": "2026_01_07_184855_create_budget_items_table.php"
+        },
+        "budgets": {
+            "timestamp": "2026_01_07_184855",
+            "file": "2026_01_07_184855_create_budgets_table.php"
+        },
+        "cost_allocations": {
+            "timestamp": "2026_01_07_184855",
+            "file": "2026_01_07_184855_create_cost_allocations_table.php"
+        },
+        "cost_categories": {
+            "timestamp": "2026_01_07_184855",
+            "file": "2026_01_07_184855_create_cost_categories_table.php"
+        },
+        "expense_categories": {
+            "timestamp": "2026_01_07_185045",
+            "file": "2026_01_07_185045_create_expense_categories_table.php"
+        },
+        "petty_cash_accounts": {
+            "timestamp": "2026_01_07_185054",
+            "file": "2026_01_07_185054_create_petty_cash_accounts_table.php"
+        },
+        "petty_cash_replenishments": {
+            "timestamp": "2026_01_07_185055",
+            "file": "2026_01_07_185055_create_petty_cash_replenishments_table.php"
+        },
+        "petty_cash_transactions": {
+            "timestamp": "2026_01_07_185055",
+            "file": "2026_01_07_185055_create_petty_cash_transactions_table.php"
+        },
+        "bank_reconciliations": {
+            "timestamp": "2026_01_07_185447",
+            "file": "2026_01_07_185447_create_bank_reconciliations_table.php"
+        },
+        "bank_statement_lines": {
+            "timestamp": "2026_01_07_185447",
+            "file": "2026_01_07_185447_create_bank_statement_lines_table.php"
+        },
+        "bank_statements": {
+            "timestamp": "2026_01_07_185447",
+            "file": "2026_01_07_185447_create_bank_statements_table.php"
+        },
+        "reconciliation_items": {
+            "timestamp": "2026_01_07_185447",
+            "file": "2026_01_07_185447_create_reconciliation_items_table.php"
+        },
+        "certifications": {
+            "timestamp": "2026_01_07_190600",
+            "file": "2026_01_07_190600_create_certifications_table.php"
+        },
+        "compliance_requirements": {
+            "timestamp": "2026_01_07_190601",
+            "file": "2026_01_07_190601_create_compliance_requirements_table.php"
+        },
+        "compliance_checks": {
+            "timestamp": "2026_01_07_190602",
+            "file": "2026_01_07_190602_create_compliance_checks_table.php"
+        },
+        "certification_renewals": {
+            "timestamp": "2026_01_07_190603",
+            "file": "2026_01_07_190603_create_certification_renewals_table.php"
+        },
+        "dashboards": {
+            "timestamp": "2026_01_07_190641",
+            "file": "2026_01_07_190641_create_dashboards_table.php"
+        },
+        "dashboard_widgets": {
+            "timestamp": "2026_01_07_190647",
+            "file": "2026_01_07_190647_create_dashboard_widgets_table.php"
+        },
+        "kpi_definitions": {
+            "timestamp": "2026_01_07_190647",
+            "file": "2026_01_07_190647_create_kpi_definitions_table.php"
+        },
+        "kpi_values": {
+            "timestamp": "2026_01_07_190647",
+            "file": "2026_01_07_190647_create_kpi_values_table.php"
+        },
+        "purchase_requisitions": {
+            "timestamp": "2026_01_07_191107",
+            "file": "2026_01_07_191107_create_purchase_requisitions_table.php"
+        },
+        "pr_approval_workflows": {
+            "timestamp": "2026_01_07_191114",
+            "file": "2026_01_07_191114_create_pr_approval_workflows_table.php"
+        },
+        "pr_quotes": {
+            "timestamp": "2026_01_07_191114",
+            "file": "2026_01_07_191114_create_pr_quotes_table.php"
+        },
+        "purchase_requisition_items": {
+            "timestamp": "2026_01_07_191114",
+            "file": "2026_01_07_191114_create_purchase_requisition_items_table.php"
+        },
+        "pr_quote_items": {
+            "timestamp": "2026_01_07_191115",
+            "file": "2026_01_07_191115_create_pr_quote_items_table.php"
+        },
+        "asset_categories": {
+            "timestamp": "2026_01_07_192300",
+            "file": "2026_01_07_192300_create_asset_categories_table.php"
+        },
+        "fixed_assets": {
+            "timestamp": "2026_01_07_192301",
+            "file": "2026_01_07_192301_create_fixed_assets_table.php"
+        },
+        "asset_depreciations": {
+            "timestamp": "2026_01_07_192302",
+            "file": "2026_01_07_192302_create_asset_depreciations_table.php"
+        },
+        "asset_disposals": {
+            "timestamp": "2026_01_07_192303",
+            "file": "2026_01_07_192303_create_asset_disposals_table.php"
+        },
+        "asset_maintenances": {
+            "timestamp": "2026_01_07_192304",
+            "file": "2026_01_07_192304_create_asset_maintenances_table.php"
+        },
+        "asset_transfers": {
+            "timestamp": "2026_01_07_192305",
+            "file": "2026_01_07_192305_create_asset_transfers_table.php"
+        },
+        "asset_revaluations": {
+            "timestamp": "2026_01_07_192306",
+            "file": "2026_01_07_192306_create_asset_revaluations_table.php"
+        },
+        "cash_accounts": {
+            "timestamp": "2026_01_07_192808",
+            "file": "2026_01_07_192808_create_cash_accounts_table.php"
+        },
+        "cash_forecasts": {
+            "timestamp": "2026_01_07_192808",
+            "file": "2026_01_07_192808_create_cash_forecasts_table.php"
+        },
+        "cash_transactions": {
+            "timestamp": "2026_01_07_192808",
+            "file": "2026_01_07_192808_create_cash_transactions_table.php"
+        },
+        "cash_transfers": {
+            "timestamp": "2026_01_07_192808",
+            "file": "2026_01_07_192808_create_cash_transfers_table.php"
+        },
+        "daily_cash_positions": {
+            "timestamp": "2026_01_07_192808",
+            "file": "2026_01_07_192808_create_daily_cash_positions_table.php"
+        },
+        "po_amendments": {
+            "timestamp": "2026_01_07_193207",
+            "file": "2026_01_07_193207_create_po_amendments_table.php"
+        },
+        "po_receipt_items": {
+            "timestamp": "2026_01_07_193207",
+            "file": "2026_01_07_193207_create_po_receipt_items_table.php"
+        },
+        "po_receipts": {
+            "timestamp": "2026_01_07_193207",
+            "file": "2026_01_07_193207_create_po_receipts_table.php"
+        },
+        "schedule_calendars": {
+            "timestamp": "2026_01_09_000001",
+            "file": "2026_01_09_000001_create_schedule_calendars_table.php"
+        },
+        "calendar_exceptions": {
+            "timestamp": "2026_01_09_000002",
+            "file": "2026_01_09_000002_create_calendar_exceptions_table.php"
+        },
+        "project_schedules": {
+            "timestamp": "2026_01_09_000003",
+            "file": "2026_01_09_000003_create_project_schedules_table.php"
+        },
+        "schedule_activities": {
+            "timestamp": "2026_01_09_000004",
+            "file": "2026_01_09_000004_create_schedule_activities_table.php"
+        },
+        "schedule_resources": {
+            "timestamp": "2026_01_09_000006",
+            "file": "2026_01_09_000006_create_schedule_resources_table.php"
+        },
+        "schedule_baselines": {
+            "timestamp": "2026_01_09_000007",
+            "file": "2026_01_09_000007_create_schedule_baselines_table.php"
+        },
+        "baseline_activities": {
+            "timestamp": "2026_01_09_000008",
+            "file": "2026_01_09_000008_create_baseline_activities_table.php"
+        },
+        "schedule_updates": {
+            "timestamp": "2026_01_09_000009",
+            "file": "2026_01_09_000009_create_schedule_updates_table.php"
+        },
+        "progress_bills": {
+            "timestamp": "2026_01_09_150000",
+            "file": "2026_01_09_150000_create_progress_bills_table.php"
+        },
+        "project_budgets": {
+            "timestamp": "2026_01_09_150000",
+            "file": "2026_01_09_150000_create_project_budgets_table.php"
+        },
+        "retentions": {
+            "timestamp": "2026_01_09_150000",
+            "file": "2026_01_09_150000_create_retentions_table.php"
+        },
+        "progress_bill_items": {
+            "timestamp": "2026_01_09_150001",
+            "file": "2026_01_09_150001_create_progress_bill_items_table.php"
+        },
+        "retention_accumulations": {
+            "timestamp": "2026_01_09_150001",
+            "file": "2026_01_09_150001_create_retention_accumulations_table.php"
+        },
+        "progress_bill_variations": {
+            "timestamp": "2026_01_09_150002",
+            "file": "2026_01_09_150002_create_progress_bill_variations_table.php"
+        },
+        "retention_releases": {
+            "timestamp": "2026_01_09_150002",
+            "file": "2026_01_09_150002_create_retention_releases_table.php"
+        },
+        "progress_bill_deductions": {
+            "timestamp": "2026_01_09_150003",
+            "file": "2026_01_09_150003_create_progress_bill_deductions_table.php"
+        },
+        "retention_guarantees": {
+            "timestamp": "2026_01_09_150003",
+            "file": "2026_01_09_150003_create_retention_guarantees_table.php"
+        },
+        "advance_payments": {
+            "timestamp": "2026_01_09_150004",
+            "file": "2026_01_09_150004_create_advance_payments_table.php"
+        },
+        "progress_bill_attachments": {
+            "timestamp": "2026_01_09_150004",
+            "file": "2026_01_09_150004_create_progress_bill_attachments_table.php"
+        },
+        "advance_recoveries": {
+            "timestamp": "2026_01_09_150005",
+            "file": "2026_01_09_150005_create_advance_recoveries_table.php"
+        },
+        "measurement_sheets": {
+            "timestamp": "2026_01_09_150005",
+            "file": "2026_01_09_150005_create_measurement_sheets_table.php"
+        },
+        "bill_approval_workflow": {
+            "timestamp": "2026_01_09_150006",
+            "file": "2026_01_09_150006_create_bill_approval_workflow_table.php"
+        },
+        "defects_liability": {
+            "timestamp": "2026_01_09_150006",
+            "file": "2026_01_09_150006_create_defects_liability_table.php"
+        },
+        "defect_notifications": {
+            "timestamp": "2026_01_09_150007",
+            "file": "2026_01_09_150007_create_defect_notifications_table.php"
+        },
+        "cost_codes": {
+            "timestamp": "2026_01_09_150100",
+            "file": "2026_01_09_150100_create_cost_codes_table.php"
+        },
+        "project_budget_items": {
+            "timestamp": "2026_01_09_150200",
+            "file": "2026_01_09_150200_create_project_budget_items_table.php"
+        },
+        "actual_costs": {
+            "timestamp": "2026_01_09_150300",
+            "file": "2026_01_09_150300_create_actual_costs_table.php"
+        },
+        "site_diaries": {
+            "timestamp": "2026_01_09_150300",
+            "file": "2026_01_09_150300_create_site_diaries_table.php"
+        },
+        "diary_manpower": {
+            "timestamp": "2026_01_09_150301",
+            "file": "2026_01_09_150301_create_diary_manpower_table.php"
+        },
+        "diary_equipment": {
+            "timestamp": "2026_01_09_150302",
+            "file": "2026_01_09_150302_create_diary_equipment_table.php"
+        },
+        "diary_activities": {
+            "timestamp": "2026_01_09_150303",
+            "file": "2026_01_09_150303_create_diary_activities_table.php"
+        },
+        "diary_materials": {
+            "timestamp": "2026_01_09_150304",
+            "file": "2026_01_09_150304_create_diary_materials_table.php"
+        },
+        "diary_visitors": {
+            "timestamp": "2026_01_09_150305",
+            "file": "2026_01_09_150305_create_diary_visitors_table.php"
+        },
+        "diary_incidents": {
+            "timestamp": "2026_01_09_150306",
+            "file": "2026_01_09_150306_create_diary_incidents_table.php"
+        },
+        "diary_instructions": {
+            "timestamp": "2026_01_09_150307",
+            "file": "2026_01_09_150307_create_diary_instructions_table.php"
+        },
+        "diary_photos": {
+            "timestamp": "2026_01_09_150308",
+            "file": "2026_01_09_150308_create_diary_photos_table.php"
+        },
+        "committed_costs": {
+            "timestamp": "2026_01_09_150400",
+            "file": "2026_01_09_150400_create_committed_costs_table.php"
+        },
+        "cost_forecasts": {
+            "timestamp": "2026_01_09_150500",
+            "file": "2026_01_09_150500_create_cost_forecasts_table.php"
+        },
+        "variance_analysis": {
+            "timestamp": "2026_01_09_150600",
+            "file": "2026_01_09_150600_create_variance_analysis_table.php"
+        },
+        "cost_reports": {
+            "timestamp": "2026_01_09_150700",
+            "file": "2026_01_09_150700_create_cost_reports_table.php"
+        },
+        "inspection_types": {
+            "timestamp": "2026_01_09_151800",
+            "file": "2026_01_09_151800_create_inspection_types_table.php"
+        },
+        "inspection_templates": {
+            "timestamp": "2026_01_09_151801",
+            "file": "2026_01_09_151801_create_inspection_templates_table.php"
+        },
+        "template_items": {
+            "timestamp": "2026_01_09_151802",
+            "file": "2026_01_09_151802_create_template_items_table.php"
+        },
+        "inspection_requests": {
+            "timestamp": "2026_01_09_151803",
+            "file": "2026_01_09_151803_create_inspection_requests_table.php"
+        },
+        "inspections": {
+            "timestamp": "2026_01_09_151804",
+            "file": "2026_01_09_151804_create_inspections_table.php"
+        },
+        "inspection_items": {
+            "timestamp": "2026_01_09_151805",
+            "file": "2026_01_09_151805_create_inspection_items_table.php"
+        },
+        "inspection_actions": {
+            "timestamp": "2026_01_09_151806",
+            "file": "2026_01_09_151806_create_inspection_actions_table.php"
+        },
+        "inspection_photos": {
+            "timestamp": "2026_01_09_151807",
+            "file": "2026_01_09_151807_create_inspection_photos_table.php"
+        },
+        "photo_albums": {
+            "timestamp": "2026_01_09_152024",
+            "file": "2026_01_09_152024_create_photo_albums_table.php"
+        },
+        "photo_annotations": {
+            "timestamp": "2026_01_09_152031",
+            "file": "2026_01_09_152031_create_photo_annotations_table.php"
+        },
+        "photo_comparisons": {
+            "timestamp": "2026_01_09_152031",
+            "file": "2026_01_09_152031_create_photo_comparisons_table.php"
+        },
+        "photo_reports": {
+            "timestamp": "2026_01_09_152031",
+            "file": "2026_01_09_152031_create_photo_reports_table.php"
+        },
+        "photos": {
+            "timestamp": "2026_01_09_152031",
+            "file": "2026_01_09_152031_create_photos_table.php"
+        },
+        "photo_locations": {
+            "timestamp": "2026_01_09_152032",
+            "file": "2026_01_09_152032_create_photo_locations_table.php"
+        },
+        "photo_report_items": {
+            "timestamp": "2026_01_09_152032",
+            "file": "2026_01_09_152032_create_photo_report_items_table.php"
+        },
+        "photo_tags": {
+            "timestamp": "2026_01_09_152032",
+            "file": "2026_01_09_152032_create_photo_tags_table.php"
+        },
+        "punch_lists": {
+            "timestamp": "2026_01_09_152700",
+            "file": "2026_01_09_152700_create_punch_lists_table.php"
+        },
+        "punch_items": {
+            "timestamp": "2026_01_09_152701",
+            "file": "2026_01_09_152701_create_punch_items_table.php"
+        },
+        "punch_item_comments": {
+            "timestamp": "2026_01_09_152702",
+            "file": "2026_01_09_152702_create_punch_item_comments_table.php"
+        },
+        "punch_item_history": {
+            "timestamp": "2026_01_09_152703",
+            "file": "2026_01_09_152703_create_punch_item_history_table.php"
+        },
+        "punch_templates": {
+            "timestamp": "2026_01_09_152704",
+            "file": "2026_01_09_152704_create_punch_templates_table.php"
+        },
+        "punch_categories": {
+            "timestamp": "2026_01_09_152705",
+            "file": "2026_01_09_152705_create_punch_categories_table.php"
+        },
+        "punch_reports": {
+            "timestamp": "2026_01_09_152706",
+            "file": "2026_01_09_152706_create_punch_reports_table.php"
+        },
+        "punch_statistics": {
+            "timestamp": "2026_01_09_152707",
+            "file": "2026_01_09_152707_create_punch_statistics_table.php"
+        },
+        "risk_assessments": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_assessments_table.php"
+        },
+        "risk_categories": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_categories_table.php"
+        },
+        "risk_incidents": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_incidents_table.php"
+        },
+        "risk_matrix_settings": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_matrix_settings_table.php"
+        },
+        "risk_monitoring": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_monitoring_table.php"
+        },
+        "risk_registers": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_registers_table.php"
+        },
+        "risk_responses": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risk_responses_table.php"
+        },
+        "risks": {
+            "timestamp": "2026_01_09_152841",
+            "file": "2026_01_09_152841_create_risks_table.php"
+        },
+        "exchange_rates": {
+            "timestamp": "2026_01_10_170001",
+            "file": "2026_01_10_170001_create_exchange_rates_table.php"
+        },
+        "checks": {
+            "timestamp": "2026_01_10_170002",
+            "file": "2026_01_10_170002_create_checks_table.php"
+        },
+        "promissory_notes": {
+            "timestamp": "2026_01_10_170003",
+            "file": "2026_01_10_170003_create_promissory_notes_table.php"
+        },
+        "payment_templates": {
+            "timestamp": "2026_01_10_170004",
+            "file": "2026_01_10_170004_create_payment_templates_table.php"
+        }
+    },
+    "dependency_graph": {
+        "domains": [
+            "tenants"
+        ],
+        "tenant_user_impersonation_tokens": [
+            "tenants"
+        ],
+        "projects": [
+            "companies"
+        ],
+        "project_wbs": [
+            "projects"
+        ],
+        "boq_items": [
+            "projects"
+        ],
+        "main_ipcs": [
+            "projects"
+        ],
+        "main_ipc_items": [
+            "main_ipcs",
+            "boq_items"
+        ],
+        "contracts": [
+            "projects"
+        ],
+        "change_orders": [
+            "users",
+            "projects"
+        ],
+        "change_order_items": [
+            "change_orders"
+        ],
+        "branches": [
+            "companies"
+        ],
+        "departments": [
+            "branches"
+        ],
+        "cities": [
+            "countries"
+        ],
+        "warehouses": [
+            "companies"
+        ],
+        "stock_movements": [
+            "warehouses"
+        ],
+        "purchase_orders": [
+            "users",
+            "suppliers",
+            "warehouses",
+            "payment_terms"
+        ],
+        "purchase_order_items": [
+            "purchase_orders",
+            "products"
+        ],
+        "sales_quotations": [
+            "users",
+            "customers"
+        ],
+        "sales_quotation_items": [
+            "sales_quotations",
+            "products"
+        ],
+        "activity_dependencies": [
+            "project_activities",
+            "project_activities"
+        ],
+        "project_activities": [
+            "project_wbs",
+            "projects"
+        ],
+        "project_milestones": [
+            "projects"
+        ],
+        "daily_report_photos": [
+            "users",
+            "daily_reports"
+        ],
+        "daily_reports": [
+            "users",
+            "projects"
+        ],
+        "employees": [
+            "companies"
+        ],
+        "project_baselines": [
+            "users",
+            "projects"
+        ],
+        "project_progress_snapshots": [
+            "users",
+            "projects"
+        ],
+        "project_timesheets": [
+            "employees",
+            "projects"
+        ],
+        "time_bar_claims": [
+            "projects"
+        ],
+        "eot_affected_activities": [
+            "project_activities",
+            "eot_claims"
+        ],
+        "eot_claims": [
+            "users",
+            "projects"
+        ],
+        "prolongation_cost_items": [
+            "eot_claims"
+        ],
+        "tender_site_visits": [
+            "users",
+            "users",
+            "users",
+            "tenders"
+        ],
+        "tender_clarifications": [
+            "users",
+            "users",
+            "users",
+            "tenders"
+        ],
+        "tender_competitors": [
+            "users",
+            "users",
+            "users",
+            "tenders"
+        ],
+        "tender_committee_decisions": [
+            "users",
+            "users",
+            "users",
+            "tenders"
+        ],
+        "tender_boq_items": [
+            "tenders"
+        ],
+        "tender_wbs_boq_mapping": [
+            "tender_wbs",
+            "tender_boq_items"
+        ],
+        "tender_wbs": [
+            "tenders"
+        ],
+        "tender_procurement_packages": [
+            "tenders",
+            "suppliers"
+        ],
+        "tender_procurement_suppliers": [
+            "tenders",
+            "tender_procurement_packages",
+            "suppliers"
+        ],
+        "tender_long_lead_items": [
+            "tenders",
+            "tender_procurement_packages",
+            "suppliers"
+        ],
+        "price_escalation_contracts": [
+            "projects"
+        ],
+        "price_escalation_calculations": [
+            "price_escalation_contracts"
+        ],
+        "dsi_import_logs": [
+            "users"
+        ],
+        "goods_receipt_notes": [
+            "users",
+            "projects",
+            "suppliers"
+        ],
+        "site_receipts": [
+            "projects",
+            "suppliers"
+        ],
+        "site_receipt_items": [
+            "site_receipts",
+            "products"
+        ],
+        "site_receipt_photos": [
+            "users",
+            "site_receipts"
+        ],
+        "tender_risks": [
+            "tenders"
+        ],
+        "tender_risk_events": [
+            "users",
+            "tender_risks"
+        ],
+        "tender_contingency_reserves": [
+            "tenders"
+        ],
+        "tender_activities": [
+            "tenders"
+        ],
+        "tender_activity_dependencies": [
+            "tender_activities",
+            "tender_activities"
+        ],
+        "tender_milestones": [
+            "tenders"
+        ],
+        "tender_resources": [
+            "tenders"
+        ],
+        "tender_resource_assignments": [
+            "tender_resources",
+            "tender_activities"
+        ],
+        "tender_resource_histogram": [
+            "tenders",
+            "tender_resources"
+        ],
+        "clients": [
+            "companies"
+        ],
+        "cost_centers": [
+            "companies"
+        ],
+        "gl_accounts": [
+            "companies"
+        ],
+        "gl_fiscal_years": [
+            "companies"
+        ],
+        "gl_journal_entries": [
+            "currencies",
+            "users",
+            "companies"
+        ],
+        "gl_journal_entry_lines": [
+            "gl_journal_entries",
+            "gl_accounts",
+            "currencies",
+            "companies"
+        ],
+        "gl_periods": [
+            "gl_fiscal_years",
+            "companies"
+        ],
+        "client_bank_accounts": [
+            "clients"
+        ],
+        "client_contacts": [
+            "clients"
+        ],
+        "client_documents": [
+            "clients"
+        ],
+        "g_l_accounts": [
+            "companies"
+        ],
+        "contract_amendments": [
+            "contracts",
+            "companies"
+        ],
+        "contract_change_orders": [
+            "users",
+            "contracts",
+            "companies"
+        ],
+        "contract_clauses": [
+            "contracts",
+            "companies"
+        ],
+        "contract_milestones": [
+            "contracts",
+            "companies"
+        ],
+        "employee_dependents": [
+            "employees",
+            "companies"
+        ],
+        "employee_documents": [
+            "employees",
+            "users",
+            "companies"
+        ],
+        "employee_qualifications": [
+            "employees",
+            "companies"
+        ],
+        "employee_skills": [
+            "employees",
+            "companies"
+        ],
+        "employee_work_history": [
+            "employees",
+            "companies"
+        ],
+        "positions": [
+            "companies"
+        ],
+        "ap_payments": [
+            "currencies",
+            "companies"
+        ],
+        "subcontractor_contacts": [
+            "subcontractors",
+            "companies"
+        ],
+        "subcontractors": [
+            "companies"
+        ],
+        "subcontractor_agreements": [
+            "subcontractors",
+            "projects",
+            "currencies",
+            "companies"
+        ],
+        "subcontractor_evaluations": [
+            "users",
+            "subcontractors",
+            "companies"
+        ],
+        "subcontractor_ipc_items": [
+            "subcontractor_ipcs",
+            "companies"
+        ],
+        "subcontractor_ipcs": [
+            "subcontractor_agreements",
+            "subcontractors",
+            "projects",
+            "currencies",
+            "companies"
+        ],
+        "subcontractor_work_orders": [
+            "subcontractor_agreements",
+            "subcontractors",
+            "projects",
+            "currencies",
+            "companies"
+        ],
+        "bank_accounts": [
+            "users",
+            "companies"
+        ],
+        "materials": [
+            "companies"
+        ],
+        "payroll_periods": [
+            "companies"
+        ],
+        "payroll_entries": [
+            "payroll_periods",
+            "users",
+            "companies"
+        ],
+        "payroll_allowances": [
+            "payroll_entries"
+        ],
+        "payroll_deductions": [
+            "payroll_entries"
+        ],
+        "employee_loans": [
+            "users",
+            "companies"
+        ],
+        "inventory_transactions": [
+            "users",
+            "materials",
+            "warehouses",
+            "companies"
+        ],
+        "inventory_balances": [
+            "materials",
+            "warehouses",
+            "companies"
+        ],
+        "stock_transfers": [
+            "warehouses",
+            "warehouses",
+            "users",
+            "companies"
+        ],
+        "stock_transfer_items": [
+            "stock_transfers",
+            "materials"
+        ],
+        "ap_invoice_items": [
+            "ap_invoices"
+        ],
+        "ap_invoices": [
+            "users",
+            "vendors",
+            "currencies",
+            "gl_accounts",
+            "companies"
+        ],
+        "ap_payment_allocations": [
+            "ap_payments",
+            "ap_invoices"
+        ],
+        "i_p_c_s": [
+            "contracts",
+            "companies"
+        ],
+        "a_r_invoice_items": [
+            "a_r_invoices"
+        ],
+        "a_r_invoices": [
+            "users",
+            "clients",
+            "currencies",
+            "companies"
+        ],
+        "a_r_receipt_allocations": [
+            "a_r_receipts",
+            "a_r_invoices"
+        ],
+        "a_r_receipts": [
+            "users",
+            "clients",
+            "currencies",
+            "companies"
+        ],
+        "material_specifications": [
+            "materials"
+        ],
+        "material_vendors": [
+            "materials",
+            "vendors"
+        ],
+        "grn_items": [
+            "grns",
+            "materials"
+        ],
+        "grns": [
+            "users",
+            "vendors",
+            "warehouses",
+            "companies"
+        ],
+        "journal_entries": [
+            "users",
+            "companies"
+        ],
+        "transactions": [
+            "journal_entries",
+            "accounts"
+        ],
+        "financial_regret_analyses": [
+            "users",
+            "projects",
+            "contracts"
+        ],
+        "regret_index_scenarios": [
+            "financial_regret_analyses"
+        ],
+        "laborers": [
+            "labor_categories"
+        ],
+        "labor_assignments": [
+            "users",
+            "laborers",
+            "projects"
+        ],
+        "labor_daily_attendance": [
+            "users",
+            "laborers",
+            "projects"
+        ],
+        "labor_productivity": [
+            "users",
+            "projects"
+        ],
+        "labor_timesheets": [
+            "users",
+            "projects"
+        ],
+        "labor_timesheet_entries": [
+            "labor_timesheets",
+            "laborers"
+        ],
+        "documents": [
+            "users",
+            "companies"
+        ],
+        "document_access": [
+            "documents",
+            "users"
+        ],
+        "document_versions": [
+            "documents",
+            "users"
+        ],
+        "warehouse_locations": [
+            "warehouses"
+        ],
+        "warehouse_stock": [
+            "warehouses",
+            "materials"
+        ],
+        "shift_schedules": [
+            "companies"
+        ],
+        "attendance_records": [
+            "employees",
+            "companies"
+        ],
+        "leave_requests": [
+            "employees",
+            "companies"
+        ],
+        "claims": [
+            "users",
+            "projects"
+        ],
+        "claim_events": [
+            "claims"
+        ],
+        "claim_documents": [
+            "users",
+            "claims"
+        ],
+        "claim_timeline": [
+            "users",
+            "claims"
+        ],
+        "claim_correspondence": [
+            "claims"
+        ],
+        "guarantee_claims": [
+            "guarantees"
+        ],
+        "guarantee_releases": [
+            "users",
+            "guarantees"
+        ],
+        "guarantee_renewals": [
+            "users",
+            "guarantees"
+        ],
+        "guarantees": [
+            "users",
+            "banks"
+        ],
+        "tender_documents": [
+            "users",
+            "tenders"
+        ],
+        "tender_questions": [
+            "tenders"
+        ],
+        "tender_timeline": [
+            "users",
+            "tenders"
+        ],
+        "boq_headers": [
+            "users"
+        ],
+        "boq_item_resources": [
+            "boq_items"
+        ],
+        "boq_revisions": [
+            "users",
+            "boq_headers"
+        ],
+        "boq_sections": [
+            "boq_headers"
+        ],
+        "project_issues": [
+            "users",
+            "projects"
+        ],
+        "project_phases": [
+            "projects"
+        ],
+        "project_progress_reports": [
+            "users",
+            "projects"
+        ],
+        "project_team": [
+            "projects",
+            "users"
+        ],
+        "equipment_assignments": [
+            "equipment",
+            "users",
+            "projects"
+        ],
+        "equipment": [
+            "equipment_categories"
+        ],
+        "equipment_fuel_logs": [
+            "equipment",
+            "users"
+        ],
+        "equipment_maintenance": [
+            "equipment"
+        ],
+        "equipment_transfers": [
+            "equipment",
+            "users"
+        ],
+        "equipment_usage": [
+            "equipment",
+            "users"
+        ],
+        "variation_orders": [
+            "projects"
+        ],
+        "time_bar_events": [
+            "users",
+            "projects"
+        ],
+        "time_bar_alerts": [
+            "time_bar_events"
+        ],
+        "time_bar_contractual_clauses": [
+            "contracts"
+        ],
+        "cost_plus_contracts": [
+            "contracts",
+            "projects"
+        ],
+        "cost_plus_invoice_items": [
+            "cost_plus_invoices",
+            "cost_plus_transactions"
+        ],
+        "cost_plus_invoices": [
+            "users",
+            "cost_plus_contracts",
+            "projects"
+        ],
+        "cost_plus_overhead_allocations": [
+            "users",
+            "cost_plus_contracts",
+            "projects"
+        ],
+        "cost_plus_transactions": [
+            "users",
+            "cost_plus_contracts",
+            "projects"
+        ],
+        "variation_order_attachments": [
+            "users",
+            "variation_orders"
+        ],
+        "variation_order_items": [
+            "variation_orders"
+        ],
+        "variation_order_timeline": [
+            "users",
+            "variation_orders"
+        ],
+        "correspondence": [
+            "users",
+            "users",
+            "users"
+        ],
+        "correspondence_attachments": [
+            "users",
+            "correspondence",
+            "users",
+            "users"
+        ],
+        "correspondence_distribution": [
+            "users",
+            "correspondence",
+            "users",
+            "users"
+        ],
+        "correspondence_actions": [
+            "users",
+            "correspondence",
+            "users",
+            "users"
+        ],
+        "correspondence_templates": [
+            "users",
+            "correspondence",
+            "users",
+            "users"
+        ],
+        "correspondence_registers": [
+            "users",
+            "correspondence",
+            "users",
+            "users"
+        ],
+        "contract_template_clauses": [
+            "contract_templates"
+        ],
+        "contract_template_special_conditions": [
+            "contract_templates"
+        ],
+        "contract_template_variables": [
+            "contract_templates"
+        ],
+        "contract_generated": [
+            "contract_templates",
+            "users"
+        ],
+        "unforeseeable_conditions_evidence": [
+            "unforeseeable_conditions",
+            "users"
+        ],
+        "unforeseeable_conditions": [
+            "users",
+            "projects"
+        ],
+        "price_list_items": [
+            "price_lists"
+        ],
+        "price_lists": [
+            "users"
+        ],
+        "price_history": [
+            "users",
+            "price_list_items"
+        ],
+        "price_request_items": [
+            "price_requests"
+        ],
+        "price_requests": [
+            "users"
+        ],
+        "price_quotations": [
+            "vendors",
+            "price_requests"
+        ],
+        "price_comparisons": [
+            "users",
+            "price_requests"
+        ],
+        "price_quotation_items": [
+            "price_quotations",
+            "price_request_items"
+        ],
+        "notifications": [
+            "companies"
+        ],
+        "notification_preferences": [
+            "users"
+        ],
+        "alert_rules": [
+            "companies"
+        ],
+        "notification_logs": [
+            "notifications"
+        ],
+        "scheduled_notifications": [
+            "users",
+            "companies"
+        ],
+        "material_request_items": [
+            "material_requests",
+            "materials"
+        ],
+        "material_requests": [
+            "users",
+            "projects",
+            "departments",
+            "companies"
+        ],
+        "budget_items": [
+            "budgets",
+            "cost_categories"
+        ],
+        "budgets": [
+            "companies"
+        ],
+        "cost_allocations": [
+            "cost_centers",
+            "cost_categories",
+            "gl_accounts",
+            "currencies",
+            "companies"
+        ],
+        "cost_categories": [
+            "companies"
+        ],
+        "expense_categories": [
+            "companies"
+        ],
+        "petty_cash_accounts": [
+            "users",
+            "companies"
+        ],
+        "petty_cash_replenishments": [
+            "petty_cash_accounts",
+            "users",
+            "companies"
+        ],
+        "petty_cash_transactions": [
+            "petty_cash_accounts",
+            "users",
+            "companies"
+        ],
+        "bank_reconciliations": [
+            "bank_accounts",
+            "companies"
+        ],
+        "bank_statement_lines": [
+            "bank_statements"
+        ],
+        "bank_statements": [
+            "bank_accounts",
+            "companies"
+        ],
+        "reconciliation_items": [
+            "bank_reconciliations"
+        ],
+        "certifications": [
+            "companies"
+        ],
+        "compliance_requirements": [
+            "companies"
+        ],
+        "compliance_checks": [
+            "compliance_requirements",
+            "companies"
+        ],
+        "certification_renewals": [
+            "certifications"
+        ],
+        "dashboards": [
+            "companies"
+        ],
+        "dashboard_widgets": [
+            "dashboards"
+        ],
+        "kpi_definitions": [
+            "companies"
+        ],
+        "kpi_values": [
+            "kpi_definitions",
+            "companies"
+        ],
+        "purchase_requisitions": [
+            "users",
+            "currencies",
+            "companies"
+        ],
+        "pr_approval_workflows": [
+            "users",
+            "purchase_requisitions"
+        ],
+        "pr_quotes": [
+            "purchase_requisitions",
+            "vendors",
+            "currencies",
+            "companies"
+        ],
+        "purchase_requisition_items": [
+            "purchase_requisitions",
+            "units"
+        ],
+        "pr_quote_items": [
+            "purchase_requisition_items",
+            "pr_quotes"
+        ],
+        "asset_categories": [
+            "companies"
+        ],
+        "fixed_assets": [
+            "asset_categories",
+            "currencies",
+            "companies"
+        ],
+        "asset_depreciations": [
+            "fixed_assets",
+            "companies"
+        ],
+        "asset_disposals": [
+            "fixed_assets",
+            "companies"
+        ],
+        "asset_maintenances": [
+            "fixed_assets",
+            "companies"
+        ],
+        "asset_transfers": [
+            "users",
+            "fixed_assets",
+            "companies"
+        ],
+        "asset_revaluations": [
+            "fixed_assets",
+            "companies"
+        ],
+        "cash_accounts": [
+            "currencies",
+            "companies"
+        ],
+        "cash_forecasts": [
+            "companies"
+        ],
+        "cash_transactions": [
+            "cash_accounts",
+            "currencies",
+            "companies"
+        ],
+        "cash_transfers": [
+            "cash_accounts",
+            "cash_accounts",
+            "currencies",
+            "currencies",
+            "companies"
+        ],
+        "daily_cash_positions": [
+            "cash_accounts",
+            "companies"
+        ],
+        "po_amendments": [
+            "users",
+            "purchase_orders"
+        ],
+        "po_receipt_items": [
+            "purchase_order_items",
+            "po_receipts"
+        ],
+        "po_receipts": [
+            "users",
+            "purchase_orders",
+            "warehouses",
+            "companies"
+        ],
+        "schedule_calendars": [
+            "companies"
+        ],
+        "calendar_exceptions": [
+            "schedule_calendars"
+        ],
+        "project_schedules": [
+            "projects",
+            "users",
+            "companies"
+        ],
+        "schedule_activities": [
+            "project_schedules"
+        ],
+        "schedule_resources": [
+            "schedule_activities"
+        ],
+        "schedule_baselines": [
+            "project_schedules",
+            "users"
+        ],
+        "baseline_activities": [
+            "schedule_baselines",
+            "schedule_activities"
+        ],
+        "schedule_updates": [
+            "project_schedules",
+            "users"
+        ],
+        "progress_bills": [
+            "projects",
+            "contracts",
+            "currencies",
+            "companies"
+        ],
+        "project_budgets": [
+            "users",
+            "projects",
+            "currencies",
+            "companies"
+        ],
+        "retentions": [
+            "projects",
+            "contracts",
+            "currencies",
+            "companies"
+        ],
+        "progress_bill_items": [
+            "progress_bills"
+        ],
+        "retention_accumulations": [
+            "retentions"
+        ],
+        "progress_bill_variations": [
+            "progress_bills"
+        ],
+        "retention_releases": [
+            "retentions",
+            "companies"
+        ],
+        "progress_bill_deductions": [
+            "progress_bills"
+        ],
+        "retention_guarantees": [
+            "retentions",
+            "currencies"
+        ],
+        "advance_payments": [
+            "projects",
+            "contracts",
+            "currencies",
+            "companies"
+        ],
+        "progress_bill_attachments": [
+            "users",
+            "progress_bills"
+        ],
+        "advance_recoveries": [
+            "advance_payments"
+        ],
+        "measurement_sheets": [
+            "progress_bills"
+        ],
+        "bill_approval_workflow": [
+            "users",
+            "progress_bills"
+        ],
+        "defects_liability": [
+            "projects",
+            "contracts",
+            "companies"
+        ],
+        "defect_notifications": [
+            "defects_liability"
+        ],
+        "cost_codes": [
+            "companies"
+        ],
+        "project_budget_items": [
+            "project_budgets",
+            "cost_codes"
+        ],
+        "actual_costs": [
+            "users",
+            "projects",
+            "cost_codes",
+            "currencies",
+            "companies"
+        ],
+        "site_diaries": [
+            "projects",
+            "companies"
+        ],
+        "diary_manpower": [
+            "site_diaries"
+        ],
+        "diary_equipment": [
+            "site_diaries"
+        ],
+        "diary_activities": [
+            "site_diaries"
+        ],
+        "diary_materials": [
+            "site_diaries"
+        ],
+        "diary_visitors": [
+            "site_diaries"
+        ],
+        "diary_incidents": [
+            "site_diaries"
+        ],
+        "diary_instructions": [
+            "site_diaries"
+        ],
+        "diary_photos": [
+            "site_diaries"
+        ],
+        "committed_costs": [
+            "projects",
+            "cost_codes",
+            "vendors",
+            "currencies",
+            "companies"
+        ],
+        "cost_forecasts": [
+            "users",
+            "projects",
+            "cost_codes"
+        ],
+        "variance_analysis": [
+            "projects",
+            "cost_codes"
+        ],
+        "cost_reports": [
+            "users",
+            "projects",
+            "companies"
+        ],
+        "inspection_types": [
+            "companies"
+        ],
+        "inspection_templates": [
+            "companies"
+        ],
+        "template_items": [
+            "inspection_templates"
+        ],
+        "inspection_requests": [
+            "users",
+            "projects",
+            "inspection_types",
+            "companies"
+        ],
+        "inspections": [
+            "users",
+            "projects",
+            "inspection_types",
+            "companies"
+        ],
+        "inspection_items": [
+            "inspections"
+        ],
+        "inspection_actions": [
+            "users",
+            "inspections"
+        ],
+        "inspection_photos": [
+            "users",
+            "inspections"
+        ],
+        "photo_albums": [
+            "users",
+            "projects",
+            "companies"
+        ],
+        "photo_annotations": [
+            "users",
+            "photos"
+        ],
+        "photo_comparisons": [
+            "photos",
+            "photos",
+            "users",
+            "projects"
+        ],
+        "photo_reports": [
+            "users",
+            "projects",
+            "companies"
+        ],
+        "photos": [
+            "users",
+            "projects",
+            "companies"
+        ],
+        "photo_locations": [
+            "projects"
+        ],
+        "photo_report_items": [
+            "photo_reports",
+            "photos"
+        ],
+        "photo_tags": [
+            "companies"
+        ],
+        "punch_lists": [
+            "projects"
+        ],
+        "punch_items": [
+            "punch_lists"
+        ],
+        "punch_item_comments": [
+            "users",
+            "punch_items"
+        ],
+        "punch_item_history": [
+            "users",
+            "punch_items"
+        ],
+        "punch_reports": [
+            "users",
+            "projects"
+        ],
+        "punch_statistics": [
+            "projects"
+        ],
+        "risk_assessments": [
+            "users",
+            "risks"
+        ],
+        "risk_categories": [
+            "companies"
+        ],
+        "risk_incidents": [
+            "users",
+            "projects",
+            "companies"
+        ],
+        "risk_matrix_settings": [
+            "companies"
+        ],
+        "risk_monitoring": [
+            "users",
+            "risks"
+        ],
+        "risk_registers": [
+            "users",
+            "projects",
+            "companies"
+        ],
+        "risk_responses": [
+            "risks"
+        ],
+        "risks": [
+            "users",
+            "risk_registers",
+            "projects",
+            "companies"
+        ],
+        "exchange_rates": [
+            "currencies",
+            "currencies"
+        ],
+        "checks": [
+            "currencies",
+            "bank_accounts"
+        ],
+        "promissory_notes": [
+            "currencies"
+        ]
+    }
+}

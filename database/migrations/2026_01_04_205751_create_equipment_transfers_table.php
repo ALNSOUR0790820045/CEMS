@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipment_transfers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('equipment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('equipment_id')->constrained('equipment')->cascadeOnDelete();
             $table->foreignId('from_project_id')->nullable()->constrained('projects')->nullOnDelete();
             $table->foreignId('to_project_id')->nullable()->constrained('projects')->nullOnDelete();
             $table->date('transfer_date');

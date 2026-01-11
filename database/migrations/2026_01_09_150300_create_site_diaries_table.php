@@ -38,6 +38,10 @@ return new class extends Migration
             $table->softDeletes();
             
             $table->unique(['project_id', 'diary_date']);
+            
+            // Indexes for performance
+            $table->index('diary_date');
+            $table->index('status');
         });
     }
 
