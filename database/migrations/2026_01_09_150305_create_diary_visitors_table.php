@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_visitors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->string('visitor_name');
             $table->string('organization')->nullable();
             $table->string('designation')->nullable();

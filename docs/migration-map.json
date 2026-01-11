@@ -1,0 +1,531 @@
+{
+  "project": "CEMS - Construction Enterprise Management System",
+  "generated": "2026-01-10",
+  "total_migrations": 349,
+  "total_tables": 335,
+  "modules": {
+    "core": {
+      "description": "Core system tables",
+      "tables": ["users", "companies", "tenants", "domains", "permissions", "roles", "model_has_permissions", "model_has_roles", "role_has_permissions"],
+      "migrations": [
+        "0001_01_01_000000_create_users_table.php",
+        "0001_01_01_000001_create_cache_table.php",
+        "0001_01_01_000002_create_jobs_table.php",
+        "2019_09_15_000010_create_tenants_table.php",
+        "2019_09_15_000020_create_domains_table.php",
+        "2020_05_15_000010_create_tenant_user_impersonation_tokens_table.php",
+        "2026_01_02_114921_create_permission_tables.php",
+        "2026_01_02_121900_create_companies_table.php",
+        "2026_01_02_121950_add_fields_to_users_table.php"
+      ],
+      "dependencies": []
+    },
+    "reference_data": {
+      "description": "Reference and lookup tables",
+      "tables": ["currencies", "countries", "cities", "units", "payment_terms", "branches", "departments"],
+      "migrations": [
+        "2026_01_02_143849_create_currencies_table.php",
+        "2026_01_02_144005_create_units_table.php",
+        "2026_01_02_145000_create_branches_table.php",
+        "2026_01_02_145100_create_departments_table.php",
+        "2026_01_02_145149_create_payment_terms_table.php",
+        "2026_01_02_151035_create_countries_table.php",
+        "2026_01_02_151224_create_cities_table.php",
+        "2026_01_10_170000_enhance_currencies_table.php",
+        "2026_01_10_170005_add_currency_to_branches_table.php"
+      ],
+      "dependencies": ["core"]
+    },
+    "projects": {
+      "description": "Project management core",
+      "tables": ["projects", "project_wbs", "boq_items", "project_baselines", "project_progress_snapshots"],
+      "migrations": [
+        "2026_01_02_122000_create_projects_table.php",
+        "2026_01_02_122100_create_project_wbs_table.php",
+        "2026_01_02_122200_create_boq_items_table.php",
+        "2026_01_02_212443_create_project_baselines_table.php",
+        "2026_01_02_212443_create_project_progress_snapshots_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "tenders": {
+      "description": "Tender and bidding management",
+      "tables": ["tenders", "tender_site_visits", "tender_clarifications", "tender_competitors", "tender_committee_decisions", "tender_risks", "tender_wbs", "tender_boq_items", "tender_activities", "tender_milestones", "tender_activity_dependencies", "tender_resource_assignments", "tender_procurement_packages"],
+      "migrations": [
+        "2026_01_02_140100_create_tenders_table.php",
+        "2026_01_02_214204_create_tender_related_tables.php",
+        "2026_01_02_214414_create_tender_boq_items_table.php",
+        "2026_01_02_214414_create_tender_wbs_table.php",
+        "2026_01_02_214415_create_tender_wbs_boq_mapping_table.php",
+        "2026_01_02_220200_create_tender_procurement_tables.php",
+        "2026_01_02_221401_create_tender_risks_table.php",
+        "2026_01_02_221402_create_tender_risk_events_table.php",
+        "2026_01_02_222220_create_tender_activities_table.php",
+        "2026_01_02_222221_create_tender_activity_dependencies_table.php",
+        "2026_01_02_222222_create_tender_milestones_table.php",
+        "2026_01_02_222749_create_tender_resource_assignments_table.php"
+      ],
+      "dependencies": ["core", "projects", "reference_data"]
+    },
+    "contracts": {
+      "description": "Contract management",
+      "tables": ["contracts", "contract_amendments", "contract_change_orders", "contract_clauses", "contract_milestones", "contract_templates", "contract_template_clauses", "change_orders", "change_order_items"],
+      "migrations": [
+        "2026_01_02_140200_create_contracts_table.php",
+        "2026_01_02_140400_create_change_orders_table.php",
+        "2026_01_02_140500_create_change_order_items_table.php",
+        "2026_01_03_115038_create_contract_amendments_table.php",
+        "2026_01_03_115038_create_contract_change_orders_table.php",
+        "2026_01_03_115038_create_contract_clauses_table.php",
+        "2026_01_03_115039_create_contract_milestones_table.php",
+        "2026_01_04_211921_create_contract_template_clauses_table.php"
+      ],
+      "dependencies": ["core", "projects", "tenders"]
+    },
+    "boq": {
+      "description": "Bill of Quantities management",
+      "tables": ["boq_headers", "boq_sections", "boq_revisions", "boq_item_resources"],
+      "migrations": [
+        "2026_01_04_203018_create_boq_headers_table.php",
+        "2026_01_04_203019_create_boq_sections_table.php",
+        "2026_01_04_203020_create_boq_revisions_table.php",
+        "2026_01_04_203021_create_boq_item_resources_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "ipcs": {
+      "description": "Interim Payment Certificates",
+      "tables": ["main_ipcs", "main_ipc_items", "i_p_c_s", "progress_bills"],
+      "migrations": [
+        "2026_01_02_122400_create_main_ipcs_table.php",
+        "2026_01_02_122500_create_main_ipc_items_table.php",
+        "2026_01_03_200910_create_i_p_c_s_table.php",
+        "2026_01_09_150000_create_progress_bills_table.php"
+      ],
+      "dependencies": ["projects", "contracts"]
+    },
+    "clients": {
+      "description": "Client management",
+      "tables": ["clients", "client_contacts", "client_bank_accounts", "client_documents"],
+      "migrations": [
+        "2026_01_03_114219_create_clients_table.php",
+        "2026_01_03_115015_create_client_bank_accounts_table.php",
+        "2026_01_03_115015_create_client_contacts_table.php",
+        "2026_01_03_115015_create_client_documents_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "accounts_receivable": {
+      "description": "Accounts Receivable management",
+      "tables": ["a_r_invoices", "a_r_invoice_items", "a_r_receipts", "a_r_receipt_allocations"],
+      "migrations": [
+        "2026_01_03_200917_create_a_r_invoices_table.php",
+        "2026_01_03_200918_create_a_r_invoice_items_table.php",
+        "2026_01_03_200918_create_a_r_receipts_table.php",
+        "2026_01_03_200919_create_a_r_receipt_allocations_table.php"
+      ],
+      "dependencies": ["clients", "reference_data", "gl"]
+    },
+    "accounts_payable": {
+      "description": "Accounts Payable management",
+      "tables": ["ap_invoices", "ap_invoice_items", "ap_payments", "ap_payment_allocations"],
+      "migrations": [
+        "2026_01_03_182426_create_ap_payments_table.php",
+        "2026_01_03_200814_create_ap_invoices_table.php",
+        "2026_01_03_200815_create_ap_invoice_items_table.php",
+        "2026_01_03_200816_create_ap_payment_allocations_table.php"
+      ],
+      "dependencies": ["suppliers", "reference_data", "gl"]
+    },
+    "general_ledger": {
+      "description": "General Ledger and financial accounting",
+      "tables": ["gl_accounts", "g_l_accounts", "gl_fiscal_years", "gl_periods", "gl_journal_entries", "gl_journal_entry_lines", "cost_centers", "accounts", "journal_entries", "transactions"],
+      "migrations": [
+        "2026_01_02_204943_create_accounts_table.php",
+        "2026_01_03_114911_create_cost_centers_table.php",
+        "2026_01_03_114925_create_gl_accounts_table.php",
+        "2026_01_03_114925_create_gl_fiscal_years_table.php",
+        "2026_01_03_114925_create_gl_journal_entries_table.php",
+        "2026_01_03_114926_create_gl_journal_entry_lines_table.php",
+        "2026_01_03_114927_create_gl_periods_table.php",
+        "2026_01_03_115030_create_g_l_accounts_table.php",
+        "2026_01_03_203714_create_journal_entries_table.php",
+        "2026_01_03_203715_create_transactions_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "payroll": {
+      "description": "Payroll management",
+      "tables": ["employees", "payroll_periods", "payroll_entries", "payroll_allowances", "payroll_deductions", "employee_loans"],
+      "migrations": [
+        "2026_01_02_212443_create_employees_table.php",
+        "2026_01_03_200001_create_payroll_periods_table.php",
+        "2026_01_03_200002_create_payroll_entries_table.php",
+        "2026_01_03_200003_create_payroll_allowances_table.php",
+        "2026_01_03_200004_create_payroll_deductions_table.php",
+        "2026_01_03_200005_create_employee_loans_table.php"
+      ],
+      "dependencies": ["core", "bank_accounts"]
+    },
+    "risk_management": {
+      "description": "Project risk management",
+      "tables": ["risk_categories", "risk_matrix_settings", "risk_registers", "risks", "risk_assessments", "risk_incidents", "risk_monitoring", "risk_responses"],
+      "migrations": [
+        "2026_01_09_152841_create_risk_categories_table.php",
+        "2026_01_09_152842_create_risk_matrix_settings_table.php",
+        "2026_01_09_152843_create_risk_registers_table.php",
+        "2026_01_09_152844_create_risks_table.php",
+        "2026_01_09_152845_create_risk_assessments_table.php",
+        "2026_01_09_152846_create_risk_incidents_table.php",
+        "2026_01_09_152847_create_risk_monitoring_table.php",
+        "2026_01_09_152848_create_risk_responses_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "scheduling": {
+      "description": "Project scheduling and activities",
+      "tables": ["project_activities", "activity_dependencies", "project_milestones", "schedule_calendars", "project_schedules", "schedule_activities"],
+      "migrations": [
+        "2026_01_02_211654_create_project_activities_table.php",
+        "2026_01_02_211655_create_activity_dependencies_table.php",
+        "2026_01_02_211656_create_project_milestones_table.php",
+        "2026_01_09_000001_create_schedule_calendars_table.php",
+        "2026_01_09_000003_create_project_schedules_table.php",
+        "2026_01_09_000004_create_schedule_activities_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "subcontractors": {
+      "description": "Subcontractor management",
+      "tables": ["subcontractors", "subcontractor_contacts", "subcontractor_agreements", "subcontractor_evaluations", "subcontractor_ipcs", "subcontractor_work_orders", "subcontractor_ipc_items"],
+      "migrations": [
+        "2026_01_03_182434_create_subcontractors_table.php",
+        "2026_01_03_182435_create_subcontractor_contacts_table.php",
+        "2026_01_03_182435_create_subcontractor_agreements_table.php",
+        "2026_01_03_182436_create_subcontractor_evaluations_table.php",
+        "2026_01_03_182437_create_subcontractor_ipcs_table.php",
+        "2026_01_03_182438_create_subcontractor_work_orders_table.php",
+        "2026_01_03_182439_create_subcontractor_ipc_items_table.php"
+      ],
+      "dependencies": ["projects", "reference_data"]
+    },
+    "procurement": {
+      "description": "Procurement and purchasing",
+      "tables": ["suppliers", "products", "purchase_orders", "purchase_order_items", "purchase_requisitions", "pr_quotes", "grns", "grn_items", "po_receipts", "po_receipt_items"],
+      "migrations": [
+        "2026_01_02_204719_create_products_table.php",
+        "2026_01_02_204719_create_suppliers_table.php",
+        "2026_01_02_204728_create_purchase_orders_table.php",
+        "2026_01_02_204729_create_purchase_order_items_table.php",
+        "2026_01_03_202710_create_g_r_n_s_table.php",
+        "2026_01_03_202711_create_g_r_n_items_table.php",
+        "2026_01_07_191107_create_purchase_requisitions_table.php",
+        "2026_01_07_191114_create_pr_quotes_table.php",
+        "2026_01_07_193207_create_po_receipts_table.php",
+        "2026_01_07_193208_create_po_receipt_items_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "inventory": {
+      "description": "Inventory and warehouse management",
+      "tables": ["warehouses", "warehouse_locations", "warehouse_stock", "stock_movements", "materials", "material_categories", "material_vendors", "material_requests", "material_request_items", "inventory_transactions", "inventory_balances", "stock_transfers"],
+      "migrations": [
+        "2026_01_02_194432_create_warehouses_table.php",
+        "2026_01_02_194433_create_stock_movements_table.php",
+        "2026_01_03_200000_create_materials_table.php",
+        "2026_01_03_200030_create_inventory_transactions_table.php",
+        "2026_01_03_200040_create_inventory_balances_table.php",
+        "2026_01_03_200050_create_stock_transfers_table.php",
+        "2026_01_03_201050_create_material_categories_table.php",
+        "2026_01_03_201050_create_material_vendors_table.php",
+        "2026_01_04_075917_create_warehouse_locations_table.php",
+        "2026_01_04_075918_create_warehouse_stock_table.php",
+        "2026_01_07_183818_create_material_requests_table.php",
+        "2026_01_07_183819_create_material_request_items_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "equipment": {
+      "description": "Equipment and asset management",
+      "tables": ["equipment_categories", "equipment", "equipment_assignments", "equipment_fuel_logs", "equipment_maintenance", "equipment_transfers", "equipment_usage"],
+      "migrations": [
+        "2026_01_04_205740_create_equipment_categories_table.php",
+        "2026_01_04_205741_create_equipment_table.php",
+        "2026_01_04_205742_create_equipment_assignments_table.php",
+        "2026_01_04_205751_create_equipment_fuel_logs_table.php",
+        "2026_01_04_205751_create_equipment_maintenance_table.php",
+        "2026_01_04_205751_create_equipment_transfers_table.php",
+        "2026_01_04_205751_create_equipment_usage_table.php"
+      ],
+      "dependencies": ["projects", "employees"]
+    },
+    "site_operations": {
+      "description": "Site operations and daily reports",
+      "tables": ["daily_reports", "daily_report_photos", "site_diaries", "diary_manpower", "diary_equipment", "diary_activities", "diary_materials", "diary_visitors", "diary_incidents", "diary_instructions", "diary_photos", "site_receipts", "site_receipt_items", "site_receipt_photos"],
+      "migrations": [
+        "2026_01_02_211857_create_daily_reports_table.php",
+        "2026_01_02_211858_create_daily_report_photos_table.php",
+        "2026_01_02_221014_create_site_receipts_table.php",
+        "2026_01_02_221015_create_site_receipt_items_table.php",
+        "2026_01_02_221015_create_site_receipt_photos_table.php",
+        "2026_01_09_150300_create_site_diaries_table.php",
+        "2026_01_09_150301_create_diary_manpower_table.php",
+        "2026_01_09_150302_create_diary_equipment_table.php",
+        "2026_01_09_150303_create_diary_activities_table.php",
+        "2026_01_09_150304_create_diary_materials_table.php",
+        "2026_01_09_150305_create_diary_visitors_table.php",
+        "2026_01_09_150306_create_diary_incidents_table.php",
+        "2026_01_09_150307_create_diary_instructions_table.php",
+        "2026_01_09_150308_create_diary_photos_table.php"
+      ],
+      "dependencies": ["projects", "employees"]
+    },
+    "cost_management": {
+      "description": "Cost management and budgeting",
+      "tables": ["cost_categories", "cost_codes", "cost_allocations", "budgets", "budget_items", "actual_costs", "committed_costs", "cost_reports", "project_budgets", "cost_plus_contracts", "cost_plus_transactions", "cost_plus_overhead_allocations", "cost_plus_invoices", "cost_plus_invoice_items"],
+      "migrations": [
+        "2026_01_04_211131_create_cost_plus_contracts_table.php",
+        "2026_01_04_211132_create_cost_plus_transactions_table.php",
+        "2026_01_04_211133_create_cost_plus_overhead_allocations_table.php",
+        "2026_01_04_211134_create_cost_plus_invoices_table.php",
+        "2026_01_04_211135_create_cost_plus_invoice_items_table.php",
+        "2026_01_07_184855_create_budgets_table.php",
+        "2026_01_07_184855_create_cost_categories_table.php",
+        "2026_01_07_184856_create_budget_items_table.php",
+        "2026_01_07_184857_create_cost_allocations_table.php",
+        "2026_01_09_150100_create_cost_codes_table.php",
+        "2026_01_09_150300_create_actual_costs_table.php",
+        "2026_01_09_150400_create_committed_costs_table.php",
+        "2026_01_09_150700_create_cost_reports_table.php",
+        "2026_01_09_150000_create_project_budgets_table.php"
+      ],
+      "dependencies": ["projects", "gl"]
+    },
+    "claims": {
+      "description": "Claims and variations",
+      "tables": ["time_bar_claims", "eot_claims", "eot_affected_activities", "prolongation_cost_items", "time_bar_protection_settings", "time_bar_events", "time_bar_alerts", "time_bar_settings", "time_bar_contractual_clauses", "unforeseeable_conditions", "unforeseeable_conditions_evidence"],
+      "migrations": [
+        "2026_01_02_214119_create_time_bar_claims_table.php",
+        "2026_01_02_214129_create_eot_claims_table.php",
+        "2026_01_02_214130_create_eot_affected_activities_table.php",
+        "2026_01_02_214131_create_prolongation_cost_items_table.php",
+        "2026_01_02_223544_create_time_bar_protection_settings_table.php",
+        "2026_01_04_210007_create_time_bar_settings_table.php",
+        "2026_01_04_210008_create_time_bar_contractual_clauses_table.php",
+        "2026_01_04_211831_create_time_bar_events_table.php",
+        "2026_01_04_211832_create_time_bar_alerts_table.php",
+        "2026_01_04_213708_create_unforeseeable_conditions_table.php",
+        "2026_01_04_213709_create_unforeseeable_conditions_evidence_table.php"
+      ],
+      "dependencies": ["projects", "contracts"]
+    },
+    "quality": {
+      "description": "Quality management and inspections",
+      "tables": ["inspection_types", "inspection_templates", "inspection_requests", "inspections", "punch_lists", "punch_templates", "punch_categories"],
+      "migrations": [
+        "2026_01_09_151800_create_inspection_types_table.php",
+        "2026_01_09_151801_create_inspection_templates_table.php",
+        "2026_01_09_151803_create_inspection_requests_table.php",
+        "2026_01_09_151804_create_inspections_table.php",
+        "2026_01_09_152700_create_punch_lists_table.php",
+        "2026_01_09_152704_create_punch_templates_table.php",
+        "2026_01_09_152705_create_punch_categories_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "photos": {
+      "description": "Photo documentation management",
+      "tables": ["photo_albums", "photos", "photo_locations", "photo_tags", "photo_annotations", "photo_comparisons", "photo_reports", "photo_report_items"],
+      "migrations": [
+        "2026_01_09_152030_create_photo_albums_table.php",
+        "2026_01_09_152031_create_photos_table.php",
+        "2026_01_09_152032_create_photo_locations_table.php",
+        "2026_01_09_152032_create_photo_tags_table.php",
+        "2026_01_09_152033_create_photo_annotations_table.php",
+        "2026_01_09_152034_create_photo_comparisons_table.php",
+        "2026_01_09_152035_create_photo_reports_table.php",
+        "2026_01_09_152036_create_photo_report_items_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "guarantees": {
+      "description": "Guarantee and bond management",
+      "tables": ["guarantees", "guarantee_claims", "guarantee_releases", "guarantee_renewals"],
+      "migrations": [
+        "2026_01_04_202928_create_guarantees_table.php",
+        "2026_01_04_202929_create_guarantee_claims_table.php",
+        "2026_01_04_202930_create_guarantee_releases_table.php",
+        "2026_01_04_202931_create_guarantee_renewals_table.php"
+      ],
+      "dependencies": ["projects", "contracts"]
+    },
+    "correspondence": {
+      "description": "Correspondence and document management",
+      "tables": ["correspondence", "documents", "document_access"],
+      "migrations": [
+        "2026_01_04_075224_create_document_access_table.php",
+        "2026_01_04_211830_create_correspondence_tables.php"
+      ],
+      "dependencies": ["projects", "contracts"]
+    },
+    "financial_instruments": {
+      "description": "Payment instruments and banking",
+      "tables": ["bank_accounts", "payment_templates", "checks", "promissory_notes"],
+      "migrations": [
+        "2026_01_03_200000_create_bank_accounts_table.php",
+        "2026_01_07_185437_add_bank_reconciliation_fields_to_bank_accounts_table.php",
+        "2026_01_10_170001_create_payment_templates_table.php",
+        "2026_01_10_170002_create_checks_table.php",
+        "2026_01_10_170003_create_promissory_notes_table.php",
+        "2026_01_10_170006_add_template_to_bank_accounts_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "banking": {
+      "description": "Bank reconciliation and cash management",
+      "tables": ["bank_statements", "bank_statement_lines", "bank_reconciliations", "reconciliation_items", "cash_accounts", "cash_forecasts", "cash_transactions", "cash_transfers", "daily_cash_positions"],
+      "migrations": [
+        "2026_01_07_185447_create_bank_reconciliations_table.php",
+        "2026_01_07_185447_create_bank_statements_table.php",
+        "2026_01_07_185448_create_bank_statement_lines_table.php",
+        "2026_01_07_185449_create_reconciliation_items_table.php",
+        "2026_01_07_192808_create_cash_accounts_table.php",
+        "2026_01_07_192808_create_cash_forecasts_table.php",
+        "2026_01_07_192809_create_cash_transactions_table.php",
+        "2026_01_07_192810_create_cash_transfers_table.php",
+        "2026_01_07_192811_create_daily_cash_positions_table.php"
+      ],
+      "dependencies": ["financial_instruments"]
+    },
+    "pricing": {
+      "description": "Pricing and quotes management",
+      "tables": ["price_lists", "price_list_items", "price_requests", "price_request_items", "price_history"],
+      "migrations": [
+        "2026_01_04_214214_create_price_lists_table.php",
+        "2026_01_04_214215_create_price_list_items_table.php",
+        "2026_01_04_214215_create_price_requests_table.php",
+        "2026_01_04_214216_create_price_request_items_table.php",
+        "2026_01_04_214217_create_price_history_table.php"
+      ],
+      "dependencies": ["products", "suppliers"]
+    },
+    "retention": {
+      "description": "Retention and warranty management",
+      "tables": ["retentions", "retention_releases", "retention_guarantees", "advance_payments", "defects_liability", "defect_notifications"],
+      "migrations": [
+        "2026_01_09_150000_create_retentions_table.php",
+        "2026_01_09_150002_create_retention_releases_table.php",
+        "2026_01_09_150003_create_retention_guarantees_table.php",
+        "2026_01_09_150004_create_advance_payments_table.php",
+        "2026_01_09_150006_create_defects_liability_table.php",
+        "2026_01_09_150007_create_defect_notifications_table.php"
+      ],
+      "dependencies": ["projects", "contracts"]
+    },
+    "fixed_assets": {
+      "description": "Fixed assets management",
+      "tables": ["asset_categories", "fixed_assets", "asset_depreciations", "asset_disposals", "asset_maintenances", "asset_transfers", "asset_revaluations"],
+      "migrations": [
+        "2026_01_07_192300_create_asset_categories_table.php",
+        "2026_01_07_192301_create_fixed_assets_table.php",
+        "2026_01_07_192302_create_asset_depreciations_table.php",
+        "2026_01_07_192303_create_asset_disposals_table.php",
+        "2026_01_07_192304_create_asset_maintenances_table.php",
+        "2026_01_07_192305_create_asset_transfers_table.php",
+        "2026_01_07_192306_create_asset_revaluations_table.php"
+      ],
+      "dependencies": ["gl", "reference_data"]
+    },
+    "hr": {
+      "description": "Human resources management",
+      "tables": ["shift_schedules", "attendance_records", "leave_requests", "project_timesheets"],
+      "migrations": [
+        "2026_01_02_212444_create_project_timesheets_table.php",
+        "2026_01_04_103300_create_shift_schedules_table.php",
+        "2026_01_04_103400_create_attendance_records_table.php",
+        "2026_01_04_103500_create_leave_requests_table.php"
+      ],
+      "dependencies": ["employees"]
+    },
+    "notifications": {
+      "description": "Notification and alert system",
+      "tables": ["notifications", "alert_rules", "scheduled_notifications"],
+      "migrations": [
+        "2026_01_07_000001_create_notifications_table.php",
+        "2026_01_07_000003_create_alert_rules_table.php",
+        "2026_01_07_000005_create_scheduled_notifications_table.php"
+      ],
+      "dependencies": ["core"]
+    },
+    "kpi": {
+      "description": "KPI and performance tracking",
+      "tables": ["kpi_definitions", "kpi_values"],
+      "migrations": [
+        "2026_01_07_190647_create_kpi_definitions_table.php",
+        "2026_01_07_190648_create_kpi_values_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "compliance": {
+      "description": "Compliance and certification",
+      "tables": ["certifications", "compliance_requirements", "compliance_checks"],
+      "migrations": [
+        "2026_01_07_190600_create_certifications_table.php",
+        "2026_01_07_190601_create_compliance_requirements_table.php",
+        "2026_01_07_190602_create_compliance_checks_table.php"
+      ],
+      "dependencies": ["projects"]
+    },
+    "reporting": {
+      "description": "Financial reporting and analytics",
+      "tables": ["financial_report_configs", "report_history", "report_schedules"],
+      "migrations": [
+        "2026_01_03_182250_create_financial_report_configs_table.php",
+        "2026_01_03_182250_create_report_history_table.php",
+        "2026_01_03_182250_create_report_schedules_table.php"
+      ],
+      "dependencies": ["gl"]
+    },
+    "sales": {
+      "description": "Sales and quotations",
+      "tables": ["customers", "sales_quotations", "sales_quotation_items"],
+      "migrations": [
+        "2026_01_02_204833_create_customers_table.php",
+        "2026_01_02_204839_create_sales_quotations_table.php",
+        "2026_01_02_204840_create_sales_quotation_items_table.php"
+      ],
+      "dependencies": ["core", "reference_data"]
+    },
+    "goods_receipt": {
+      "description": "Goods receipt notes",
+      "tables": ["goods_receipt_notes"],
+      "migrations": [
+        "2026_01_02_221007_create_goods_receipt_notes_table.php"
+      ],
+      "dependencies": ["procurement", "warehouses"]
+    }
+  },
+  "migration_order_notes": {
+    "core_first": "Core tables (users, companies, permissions) must be created first",
+    "reference_data": "Reference data (currencies, countries, units) created early",
+    "dependencies": "Child tables created after parent tables",
+    "same_timestamp_fixed": "All same-timestamp dependency issues have been resolved by renaming migrations with sequential timestamps"
+  },
+  "known_issues": {
+    "circular_dependencies": [
+      {
+        "tables": ["photos", "photo_albums"],
+        "description": "photos.album_id references photo_albums, photo_albums.cover_photo_id references photos",
+        "status": "OK - Both foreign keys are nullable"
+      }
+    ],
+    "external_references": [
+      {
+        "table": "document_access",
+        "references": "roles",
+        "description": "References spatie/laravel-permission 'roles' table",
+        "status": "OK - External package table"
+      }
+    ]
+  }
+}

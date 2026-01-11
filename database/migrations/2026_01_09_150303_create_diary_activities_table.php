@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diary_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_diary_id')->constrained()->onDelete('cascade');
+            $table->foreignId('site_diary_id')->constrained('site_diaries')->onDelete('cascade');
             $table->string('location')->nullable();
             $table->text('description');
             $table->text('description_en')->nullable();
